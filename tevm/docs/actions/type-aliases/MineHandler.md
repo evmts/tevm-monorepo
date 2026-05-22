@@ -8,17 +8,13 @@
 
 > **MineHandler** = (`params?`) => `Promise`\<[`MineResult`](MineResult.md)\>
 
-Defined in: tevm-monorepo/packages/actions/types/Mine/MineHandlerType.d.ts:18
-
 Mines a block including all transactions in the mempool.
 
 ## Parameters
 
-### params?
-
-[`MineParams`](MineParams.md)
-
-The parameters for the mine action.
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `params?` | [`MineParams`](MineParams.md) | The parameters for the mine action. |
 
 ## Returns
 

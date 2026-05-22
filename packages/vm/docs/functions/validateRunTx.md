@@ -12,9 +12,9 @@ Defined in: [packages/vm/src/actions/validateRunTx.js:10](https://github.com/evm
 
 ## Parameters
 
-### vm
-
-`BaseVm`
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `vm` | `BaseVm` | - |
 
 ## Returns
 

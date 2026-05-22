@@ -15,9 +15,9 @@ Returns historical gas information, including base fees and priority fees for a 
 
 ## Parameters
 
-### client
-
-`TevmNode`\<`"fork"` \| `"normal"`, \{ \}\>
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `client` | `TevmNode`\<`"fork"` \| `"normal"`, \{ \}\> | - |
 
 ## Returns
 

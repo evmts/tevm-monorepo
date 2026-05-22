@@ -8,13 +8,11 @@
 
 > **ethSignProcedure**(`accounts`): [`EthSignJsonRpcProcedure`](../type-aliases/EthSignJsonRpcProcedure.md)
 
-Defined in: tevm-monorepo/packages/actions/types/eth/ethSignProcedure.d.ts:1
-
 ## Parameters
 
-### accounts
-
-readonly `object`[]
+| Parameter | Type |
+| ------ | ------ |
+| `accounts` | readonly `object`[] |
 
 ## Returns
 

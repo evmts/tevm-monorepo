@@ -14,9 +14,9 @@ JSON-RPC procedure for `anvil_setRpcUrl`
 
 ## Parameters
 
-### request
-
-[`AnvilSetRpcUrlJsonRpcRequest`](AnvilSetRpcUrlJsonRpcRequest.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`AnvilSetRpcUrlJsonRpcRequest`](AnvilSetRpcUrlJsonRpcRequest.md) |
 
 ## Returns
 

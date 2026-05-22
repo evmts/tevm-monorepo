@@ -14,72 +14,14 @@ Result from `debug_*` with `callTracer`
 
 ## Properties
 
-### calls?
-
-> `optional` **calls?**: [`TraceCall`](TraceCall.md)[]
-
-Defined in: [packages/actions/src/common/CallTraceResult.ts:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/CallTraceResult.ts#L16)
-
-***
-
-### from
-
-> **from**: [`Address`](Address.md)
-
-Defined in: [packages/actions/src/common/CallTraceResult.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/CallTraceResult.ts#L9)
-
-***
-
-### gas
-
-> **gas**: `bigint`
-
-Defined in: [packages/actions/src/common/CallTraceResult.ts:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/CallTraceResult.ts#L12)
-
-***
-
-### gasUsed
-
-> **gasUsed**: `bigint`
-
-Defined in: [packages/actions/src/common/CallTraceResult.ts:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/CallTraceResult.ts#L13)
-
-***
-
-### input
-
-> **input**: [`Hex`](Hex.md)
-
-Defined in: [packages/actions/src/common/CallTraceResult.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/CallTraceResult.ts#L14)
-
-***
-
-### output
-
-> **output**: [`Hex`](Hex.md)
-
-Defined in: [packages/actions/src/common/CallTraceResult.ts:15](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/CallTraceResult.ts#L15)
-
-***
-
-### to
-
-> **to**: [`Address`](Address.md)
-
-Defined in: [packages/actions/src/common/CallTraceResult.ts:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/CallTraceResult.ts#L10)
-
-***
-
-### type
-
-> **type**: [`TraceType`](TraceType.md)
-
-Defined in: [packages/actions/src/common/CallTraceResult.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/CallTraceResult.ts#L8)
-
-***
-
-### value
-
-> **value**: `bigint`
-
-Defined in: [packages/actions/src/common/CallTraceResult.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/CallTraceResult.ts#L11)
+| Property | Type | Defined in |
+| ------ | ------ | ------ |
+| <a id="calls"></a> `calls?` | [`TraceCall`](TraceCall.md)[] | [packages/actions/src/common/CallTraceResult.ts:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/CallTraceResult.ts#L16) |
+| <a id="from"></a> `from` | [`Address`](Address.md) | [packages/actions/src/common/CallTraceResult.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/CallTraceResult.ts#L9) |
+| <a id="gas"></a> `gas` | `bigint` | [packages/actions/src/common/CallTraceResult.ts:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/CallTraceResult.ts#L12) |
+| <a id="gasused"></a> `gasUsed` | `bigint` | [packages/actions/src/common/CallTraceResult.ts:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/CallTraceResult.ts#L13) |
+| <a id="input"></a> `input` | [`Hex`](Hex.md) | [packages/actions/src/common/CallTraceResult.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/CallTraceResult.ts#L14) |
+| <a id="output"></a> `output` | [`Hex`](Hex.md) | [packages/actions/src/common/CallTraceResult.ts:15](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/CallTraceResult.ts#L15) |
+| <a id="to"></a> `to` | [`Address`](Address.md) | [packages/actions/src/common/CallTraceResult.ts:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/CallTraceResult.ts#L10) |
+| <a id="type"></a> `type` | [`TraceType`](TraceType.md) | [packages/actions/src/common/CallTraceResult.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/CallTraceResult.ts#L8) |
+| <a id="value"></a> `value` | `bigint` | [packages/actions/src/common/CallTraceResult.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/CallTraceResult.ts#L11) |

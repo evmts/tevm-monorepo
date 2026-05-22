@@ -6,8 +6,6 @@
 
 # Interface: BaseTxReceipt
 
-Defined in: tevm-monorepo/packages/receipt-manager/types/ReceiptManager.d.ts:10
-
 Abstract interface with common transaction receipt fields that all receipt types share
 This serves as the base for both pre and post-Byzantium transaction receipts
 
@@ -18,33 +16,8 @@ This serves as the base for both pre and post-Byzantium transaction receipts
 
 ## Properties
 
-### bitvector
-
-> **bitvector**: `Uint8Array`
-
-Defined in: tevm-monorepo/packages/receipt-manager/types/ReceiptManager.d.ts:20
-
-Bloom filter bitvector containing indexed log data
-Used for efficient searching of logs in the blockchain
-
-***
-
-### cumulativeBlockGasUsed
-
-> **cumulativeBlockGasUsed**: `bigint`
-
-Defined in: tevm-monorepo/packages/receipt-manager/types/ReceiptManager.d.ts:15
-
-Cumulative gas used in the block including this transaction
-Represented as a bigint to handle large gas values accurately
-
-***
-
-### logs
-
-> **logs**: [`EthjsLog`](../../utils/type-aliases/EthjsLog.md)[]
-
-Defined in: tevm-monorepo/packages/receipt-manager/types/ReceiptManager.d.ts:25
-
-Array of logs emitted during transaction execution
-Each log contains address, topics, and data fields
+| Property | Type | Description |
+| ------ | ------ | ------ |
+| <a id="bitvector"></a> `bitvector` | `Uint8Array` | Bloom filter bitvector containing indexed log data Used for efficient searching of logs in the blockchain |
+| <a id="cumulativeblockgasused"></a> `cumulativeBlockGasUsed` | `bigint` | Cumulative gas used in the block including this transaction Represented as a bigint to handle large gas values accurately |
+| <a id="logs"></a> `logs` | [`EthjsLog`](../../utils/type-aliases/EthjsLog.md)[] | Array of logs emitted during transaction execution Each log contains address, topics, and data fields |

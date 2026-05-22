@@ -12,9 +12,9 @@ Defined in: [packages/vm/src/createVm.js:11](https://github.com/evmts/tevm-monor
 
 ## Parameters
 
-### opts
-
-`VmOpts`
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `opts` | `VmOpts` | - |
 
 ## Returns
 

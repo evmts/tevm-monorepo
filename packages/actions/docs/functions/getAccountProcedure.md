@@ -10,13 +10,13 @@
 
 Defined in: [packages/actions/src/GetAccount/getAccountProcedure.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/GetAccount/getAccountProcedure.js#L9)
 
-Creates a GetAccount JSON-RPC Procedure for handling account requests with the Tevm VM
+Creates a GetAccount JSON-RPC Procedure for handling account requests with the Tevm VM.
 
 ## Parameters
 
-### client
-
-`TevmNode`\<`"fork"` \| `"normal"`, \{ \}\>
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `client` | `TevmNode`\<`"fork"` \| `"normal"`, \{ \}\> | - |
 
 ## Returns
 

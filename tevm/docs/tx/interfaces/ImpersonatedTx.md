@@ -6,8 +6,6 @@
 
 # Interface: ImpersonatedTx
 
-Defined in: zevm/npm/zevm/dist/tx.d.ts:5
-
 Typed transaction with a new gas fee market mechanism
 
 - TransactionType: 2
@@ -19,185 +17,26 @@ Typed transaction with a new gas fee market mechanism
 
 ## Properties
 
-### accessList
-
-> `readonly` **accessList**: `AccessListBytes`
-
-#### Inherited from
-
-[`FeeMarketEIP1559Transaction`](../classes/FeeMarketEIP1559Transaction.md).[`accessList`](../classes/FeeMarketEIP1559Transaction.md#accesslist)
-
-***
-
-### activeCapabilities
-
-> `protected` **activeCapabilities**: `number`[]
-
-List of tx type defining EIPs,
-e.g. 1559 (fee market) and 2930 (access lists)
-for FeeMarket1559Tx objects
-
-#### Inherited from
-
-[`FeeMarketEIP1559Transaction`](../classes/FeeMarketEIP1559Transaction.md).[`activeCapabilities`](../classes/FeeMarketEIP1559Transaction.md#activecapabilities)
-
-***
-
-### cache
-
-> `readonly` **cache**: `TransactionCache`
-
-#### Inherited from
-
-[`FeeMarketEIP1559Transaction`](../classes/FeeMarketEIP1559Transaction.md).[`cache`](../classes/FeeMarketEIP1559Transaction.md#cache)
-
-***
-
-### chainId
-
-> `readonly` **chainId**: `bigint`
-
-#### Inherited from
-
-[`FeeMarketEIP1559Transaction`](../classes/FeeMarketEIP1559Transaction.md).[`chainId`](../classes/FeeMarketEIP1559Transaction.md#chainid)
-
-***
-
-### common
-
-> `readonly` **common**: `Common`
-
-#### Inherited from
-
-[`FeeMarketEIP1559Transaction`](../classes/FeeMarketEIP1559Transaction.md).[`common`](../classes/FeeMarketEIP1559Transaction.md#common)
-
-***
-
-### data
-
-> `readonly` **data**: `Uint8Array`
-
-#### Inherited from
-
-[`FeeMarketEIP1559Transaction`](../classes/FeeMarketEIP1559Transaction.md).[`data`](../classes/FeeMarketEIP1559Transaction.md#data)
-
-***
-
-### gasLimit
-
-> `readonly` **gasLimit**: `bigint`
-
-#### Inherited from
-
-[`FeeMarketEIP1559Transaction`](../classes/FeeMarketEIP1559Transaction.md).[`gasLimit`](../classes/FeeMarketEIP1559Transaction.md#gaslimit)
-
-***
-
-### isImpersonated
-
-> **isImpersonated**: `true`
-
-Defined in: zevm/npm/zevm/dist/tx.d.ts:6
-
-***
-
-### maxFeePerGas
-
-> `readonly` **maxFeePerGas**: `bigint`
-
-#### Inherited from
-
-[`FeeMarketEIP1559Transaction`](../classes/FeeMarketEIP1559Transaction.md).[`maxFeePerGas`](../classes/FeeMarketEIP1559Transaction.md#maxfeepergas)
-
-***
-
-### maxPriorityFeePerGas
-
-> `readonly` **maxPriorityFeePerGas**: `bigint`
-
-#### Inherited from
-
-[`FeeMarketEIP1559Transaction`](../classes/FeeMarketEIP1559Transaction.md).[`maxPriorityFeePerGas`](../classes/FeeMarketEIP1559Transaction.md#maxpriorityfeepergas)
-
-***
-
-### nonce
-
-> `readonly` **nonce**: `bigint`
-
-#### Inherited from
-
-[`FeeMarketEIP1559Transaction`](../classes/FeeMarketEIP1559Transaction.md).[`nonce`](../classes/FeeMarketEIP1559Transaction.md#nonce)
-
-***
-
-### r?
-
-> `readonly` `optional` **r?**: `bigint`
-
-#### Inherited from
-
-[`FeeMarketEIP1559Transaction`](../classes/FeeMarketEIP1559Transaction.md).[`r`](../classes/FeeMarketEIP1559Transaction.md#r)
-
-***
-
-### s?
-
-> `readonly` `optional` **s?**: `bigint`
-
-#### Inherited from
-
-[`FeeMarketEIP1559Transaction`](../classes/FeeMarketEIP1559Transaction.md).[`s`](../classes/FeeMarketEIP1559Transaction.md#s)
-
-***
-
-### to?
-
-> `readonly` `optional` **to?**: `Address`
-
-#### Inherited from
-
-[`FeeMarketEIP1559Transaction`](../classes/FeeMarketEIP1559Transaction.md).[`to`](../classes/FeeMarketEIP1559Transaction.md#to)
-
-***
-
-### txOptions
-
-> `readonly` **txOptions**: [`TxOptions`](TxOptions.md)
-
-#### Inherited from
-
-[`FeeMarketEIP1559Transaction`](../classes/FeeMarketEIP1559Transaction.md).[`txOptions`](../classes/FeeMarketEIP1559Transaction.md#txoptions)
-
-***
-
-### type
-
-> **type**: `2`
-
-#### Inherited from
-
-[`FeeMarketEIP1559Transaction`](../classes/FeeMarketEIP1559Transaction.md).[`type`](../classes/FeeMarketEIP1559Transaction.md#type)
-
-***
-
-### v?
-
-> `readonly` `optional` **v?**: `bigint`
-
-#### Inherited from
-
-[`FeeMarketEIP1559Transaction`](../classes/FeeMarketEIP1559Transaction.md).[`v`](../classes/FeeMarketEIP1559Transaction.md#v)
-
-***
-
-### value
-
-> `readonly` **value**: `bigint`
-
-#### Inherited from
-
-[`FeeMarketEIP1559Transaction`](../classes/FeeMarketEIP1559Transaction.md).[`value`](../classes/FeeMarketEIP1559Transaction.md#value)
+| Property | Modifier | Type | Description | Inherited from |
+| ------ | ------ | ------ | ------ | ------ |
+| <a id="accesslist"></a> `accessList` | `readonly` | `AccessListBytes` | - | [`FeeMarketEIP1559Transaction`](../classes/FeeMarketEIP1559Transaction.md).[`accessList`](../classes/FeeMarketEIP1559Transaction.md#accesslist) |
+| <a id="activecapabilities"></a> `activeCapabilities` | `protected` | `number`[] | List of tx type defining EIPs, e.g. 1559 (fee market) and 2930 (access lists) for FeeMarket1559Tx objects | [`FeeMarketEIP1559Transaction`](../classes/FeeMarketEIP1559Transaction.md).[`activeCapabilities`](../classes/FeeMarketEIP1559Transaction.md#activecapabilities) |
+| <a id="cache"></a> `cache` | `readonly` | `TransactionCache` | - | [`FeeMarketEIP1559Transaction`](../classes/FeeMarketEIP1559Transaction.md).[`cache`](../classes/FeeMarketEIP1559Transaction.md#cache) |
+| <a id="chainid"></a> `chainId` | `readonly` | `bigint` | - | [`FeeMarketEIP1559Transaction`](../classes/FeeMarketEIP1559Transaction.md).[`chainId`](../classes/FeeMarketEIP1559Transaction.md#chainid) |
+| <a id="common"></a> `common` | `readonly` | `Common` | - | [`FeeMarketEIP1559Transaction`](../classes/FeeMarketEIP1559Transaction.md).[`common`](../classes/FeeMarketEIP1559Transaction.md#common) |
+| <a id="data"></a> `data` | `readonly` | `Uint8Array` | - | [`FeeMarketEIP1559Transaction`](../classes/FeeMarketEIP1559Transaction.md).[`data`](../classes/FeeMarketEIP1559Transaction.md#data) |
+| <a id="gaslimit"></a> `gasLimit` | `readonly` | `bigint` | - | [`FeeMarketEIP1559Transaction`](../classes/FeeMarketEIP1559Transaction.md).[`gasLimit`](../classes/FeeMarketEIP1559Transaction.md#gaslimit) |
+| <a id="isimpersonated"></a> `isImpersonated` | `public` | `true` | - | - |
+| <a id="maxfeepergas"></a> `maxFeePerGas` | `readonly` | `bigint` | - | [`FeeMarketEIP1559Transaction`](../classes/FeeMarketEIP1559Transaction.md).[`maxFeePerGas`](../classes/FeeMarketEIP1559Transaction.md#maxfeepergas) |
+| <a id="maxpriorityfeepergas"></a> `maxPriorityFeePerGas` | `readonly` | `bigint` | - | [`FeeMarketEIP1559Transaction`](../classes/FeeMarketEIP1559Transaction.md).[`maxPriorityFeePerGas`](../classes/FeeMarketEIP1559Transaction.md#maxpriorityfeepergas) |
+| <a id="nonce"></a> `nonce` | `readonly` | `bigint` | - | [`FeeMarketEIP1559Transaction`](../classes/FeeMarketEIP1559Transaction.md).[`nonce`](../classes/FeeMarketEIP1559Transaction.md#nonce) |
+| <a id="r"></a> `r?` | `readonly` | `bigint` | - | [`FeeMarketEIP1559Transaction`](../classes/FeeMarketEIP1559Transaction.md).[`r`](../classes/FeeMarketEIP1559Transaction.md#r) |
+| <a id="s"></a> `s?` | `readonly` | `bigint` | - | [`FeeMarketEIP1559Transaction`](../classes/FeeMarketEIP1559Transaction.md).[`s`](../classes/FeeMarketEIP1559Transaction.md#s) |
+| <a id="to"></a> `to?` | `readonly` | `Address` | - | [`FeeMarketEIP1559Transaction`](../classes/FeeMarketEIP1559Transaction.md).[`to`](../classes/FeeMarketEIP1559Transaction.md#to) |
+| <a id="txoptions"></a> `txOptions` | `readonly` | [`TxOptions`](TxOptions.md) | - | [`FeeMarketEIP1559Transaction`](../classes/FeeMarketEIP1559Transaction.md).[`txOptions`](../classes/FeeMarketEIP1559Transaction.md#txoptions) |
+| <a id="type"></a> `type` | `public` | `2` | - | [`FeeMarketEIP1559Transaction`](../classes/FeeMarketEIP1559Transaction.md).[`type`](../classes/FeeMarketEIP1559Transaction.md#type) |
+| <a id="v"></a> `v?` | `readonly` | `bigint` | - | [`FeeMarketEIP1559Transaction`](../classes/FeeMarketEIP1559Transaction.md).[`v`](../classes/FeeMarketEIP1559Transaction.md#v) |
+| <a id="value"></a> `value` | `readonly` | `bigint` | - | [`FeeMarketEIP1559Transaction`](../classes/FeeMarketEIP1559Transaction.md).[`value`](../classes/FeeMarketEIP1559Transaction.md#value) |
 
 ## Methods
 
@@ -209,23 +48,11 @@ Adds signature values and returns a new EIP-1559 transaction instance.
 
 #### Parameters
 
-##### v
-
-`bigint`
-
-Recovery parameter (y-parity)
-
-##### r
-
-`bigint` \| `Uint8Array`\<`ArrayBufferLike`\>
-
-Signature `r` value
-
-##### s
-
-`bigint` \| `Uint8Array`\<`ArrayBufferLike`\>
-
-Signature `s` value
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `v` | `bigint` | Recovery parameter (y-parity) |
+| `r` | `bigint` \| `Uint8Array`\<`ArrayBufferLike`\> | Signature `r` value |
+| `s` | `bigint` \| `Uint8Array`\<`ArrayBufferLike`\> | Signature `s` value |
 
 #### Returns
 
@@ -281,11 +108,9 @@ Returns the minimum of calculated priority fee (from maxFeePerGas and baseFee) a
 
 #### Parameters
 
-##### baseFee
-
-`bigint`
-
-Base fee retrieved from block
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `baseFee` | `bigint` | Base fee retrieved from block |
 
 #### Returns
 
@@ -426,11 +251,9 @@ The up front amount that an account must have for this transaction to be valid
 
 #### Parameters
 
-##### baseFee?
-
-`bigint`
-
-The base fee of the block (will be set to 0 if not provided)
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `baseFee?` | `bigint` | The base fee of the block (will be set to 0 if not provided) |
 
 #### Returns
 
@@ -572,17 +395,10 @@ Signs the transaction with the provided private key and returns the signed insta
 
 #### Parameters
 
-##### privateKey
-
-`Uint8Array`
-
-32-byte private key
-
-##### extraEntropy?
-
-`boolean` \| `Uint8Array`\<`ArrayBufferLike`\>
-
-Optional entropy passed to the signing routine
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `privateKey` | `Uint8Array` | 32-byte private key |
+| `extraEntropy?` | `boolean` \| `Uint8Array`\<`ArrayBufferLike`\> | Optional entropy passed to the signing routine |
 
 #### Returns
 
@@ -617,9 +433,9 @@ on all supported capabilities.
 
 #### Parameters
 
-##### capability
-
-`number`
+| Parameter | Type |
+| ------ | ------ |
+| `capability` | `number` |
 
 #### Returns
 

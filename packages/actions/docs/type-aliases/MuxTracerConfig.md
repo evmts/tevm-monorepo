@@ -14,6 +14,6 @@ Configuration for a single tracer in muxTracer
 
 ## Type Parameters
 
-### TDiffMode
-
-`TDiffMode` *extends* `boolean` = `boolean`
+| Type Parameter | Default type |
+| ------ | ------ |
+| `TDiffMode` *extends* `boolean` | `boolean` |

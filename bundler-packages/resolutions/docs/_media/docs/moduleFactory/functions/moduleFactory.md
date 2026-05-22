@@ -22,31 +22,14 @@ Doing it this way for now is easier but for sure a leaky abstraction
 
 ## Parameters
 
-### absolutePath
-
-`string`
-
-### rawCode
-
-`string`
-
-### remappings
-
-`Record`\<`string`, `string`\>
-
-### libs
-
-readonly `string`[]
-
-### fao
-
-[`FileAccessObject`](../../types/type-aliases/FileAccessObject.md)
-
-### sync
-
-`boolean`
-
-Whether to run this synchronously or not
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `absolutePath` | `string` | - |
+| `rawCode` | `string` | - |
+| `remappings` | `Record`\<`string`, `string`\> | - |
+| `libs` | readonly `string`[] | - |
+| `fao` | [`FileAccessObject`](../../types/type-aliases/FileAccessObject.md) | - |
+| `sync` | `boolean` | Whether to run this synchronously or not |
 
 ## Returns
 

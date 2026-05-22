@@ -8,15 +8,13 @@
 
 > **isTevmBlockTag**(`blockTag`): `blockTag is TevmBlockTag`
 
-Defined in: tevm-monorepo/packages/blockchain/types/utils/isTevmBlockTag.d.ts:6
-
 Determines if an unknown type is a valid block tag
 
 ## Parameters
 
-### blockTag
-
-`unknown`
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `blockTag` | `unknown` | - |
 
 ## Returns
 

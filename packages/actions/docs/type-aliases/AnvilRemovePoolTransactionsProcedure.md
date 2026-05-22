@@ -14,9 +14,9 @@ JSON-RPC procedure for `anvil_removePoolTransactions`
 
 ## Parameters
 
-### request
-
-[`AnvilRemovePoolTransactionsJsonRpcRequest`](AnvilRemovePoolTransactionsJsonRpcRequest.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`AnvilRemovePoolTransactionsJsonRpcRequest`](AnvilRemovePoolTransactionsJsonRpcRequest.md) |
 
 ## Returns
 

@@ -8,13 +8,11 @@
 
 > **EthMaxPriorityFeePerGasHandler** = (`request?`) => `Promise`\<[`EthMaxPriorityFeePerGasResult`](EthMaxPriorityFeePerGasResult.md)\>
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthHandler.d.ts:11
-
 ## Parameters
 
-### request?
-
-[`EthMaxPriorityFeePerGasParams`](EthMaxPriorityFeePerGasParams.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request?` | [`EthMaxPriorityFeePerGasParams`](EthMaxPriorityFeePerGasParams.md) |
 
 ## Returns
 

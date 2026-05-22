@@ -19,11 +19,10 @@ bytecode, and type information, allowing you to interact with them in a type-saf
 
 ## Parameters
 
-### options?
-
-#### solc?
-
-`SolcVersions`
+| Parameter | Type |
+| ------ | ------ |
+| `options?` | \{ `solc?`: `SolcVersions`; \} |
+| `options.solc?` | `SolcVersions` |
 
 ## Returns
 

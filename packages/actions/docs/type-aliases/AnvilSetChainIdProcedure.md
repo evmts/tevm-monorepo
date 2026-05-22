@@ -14,9 +14,9 @@ JSON-RPC procedure for `anvil_setChainId`
 
 ## Parameters
 
-### request
-
-[`AnvilSetChainIdJsonRpcRequest`](AnvilSetChainIdJsonRpcRequest.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`AnvilSetChainIdJsonRpcRequest`](AnvilSetChainIdJsonRpcRequest.md) |
 
 ## Returns
 

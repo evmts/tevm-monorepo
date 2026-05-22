@@ -29,13 +29,10 @@ varying data types.
 
 #### Parameters
 
-##### txData
-
-[`EOACodeEIP7702TxData`](../interfaces/EOACodeEIP7702TxData.md)
-
-##### opts?
-
-[`TxOptions`](../interfaces/TxOptions.md)
+| Parameter | Type |
+| ------ | ------ |
+| `txData` | [`EOACodeEIP7702TxData`](../interfaces/EOACodeEIP7702TxData.md) |
+| `opts?` | [`TxOptions`](../interfaces/TxOptions.md) |
 
 #### Returns
 
@@ -43,163 +40,26 @@ varying data types.
 
 ## Properties
 
-### accessList
-
-> `readonly` **accessList**: `AccessListBytes`
-
-***
-
-### activeCapabilities
-
-> `protected` **activeCapabilities**: `number`[]
-
-List of tx type defining EIPs,
-e.g. 1559 (fee market) and 2930 (access lists)
-for FeeMarket1559Tx objects
-
-***
-
-### authorizationList
-
-> `readonly` **authorizationList**: `EOACode7702AuthorizationListBytes`
-
-***
-
-### cache
-
-> `readonly` **cache**: `TransactionCache`
-
-#### Implementation of
-
-`TransactionInterface.cache`
-
-***
-
-### chainId
-
-> `readonly` **chainId**: `bigint`
-
-***
-
-### common
-
-> `readonly` **common**: `Common`
-
-#### Implementation of
-
-`TransactionInterface.common`
-
-***
-
-### data
-
-> `readonly` **data**: `Uint8Array`
-
-#### Implementation of
-
-`TransactionInterface.data`
-
-***
-
-### gasLimit
-
-> `readonly` **gasLimit**: `bigint`
-
-#### Implementation of
-
-`TransactionInterface.gasLimit`
-
-***
-
-### maxFeePerGas
-
-> `readonly` **maxFeePerGas**: `bigint`
-
-***
-
-### maxPriorityFeePerGas
-
-> `readonly` **maxPriorityFeePerGas**: `bigint`
-
-***
-
-### nonce
-
-> `readonly` **nonce**: `bigint`
-
-#### Implementation of
-
-`TransactionInterface.nonce`
-
-***
-
-### r?
-
-> `readonly` `optional` **r?**: `bigint`
-
-#### Implementation of
-
-`TransactionInterface.r`
-
-***
-
-### s?
-
-> `readonly` `optional` **s?**: `bigint`
-
-#### Implementation of
-
-`TransactionInterface.s`
-
-***
-
-### to?
-
-> `readonly` `optional` **to?**: `Address`
-
-#### Implementation of
-
-`TransactionInterface.to`
-
-***
-
-### txOptions
-
-> `readonly` **txOptions**: [`TxOptions`](../interfaces/TxOptions.md)
-
-#### Implementation of
-
-`TransactionInterface.txOptions`
-
-***
-
-### type
-
-> **type**: `4`
-
-#### Implementation of
-
-`TransactionInterface.type`
-
-***
-
-### v?
-
-> `readonly` `optional` **v?**: `bigint`
-
-#### Implementation of
-
-`TransactionInterface.v`
-
-***
-
-### value
-
-> `readonly` **value**: `bigint`
-
-#### Implementation of
-
-`TransactionInterface.value`
+| Property | Modifier | Type | Description |
+| ------ | ------ | ------ | ------ |
+| <a id="accesslist"></a> `accessList` | `readonly` | `AccessListBytes` | - |
+| <a id="activecapabilities"></a> `activeCapabilities` | `protected` | `number`[] | List of tx type defining EIPs, e.g. 1559 (fee market) and 2930 (access lists) for FeeMarket1559Tx objects |
+| <a id="authorizationlist"></a> `authorizationList` | `readonly` | `EOACode7702AuthorizationListBytes` | - |
+| <a id="cache"></a> `cache` | `readonly` | `TransactionCache` | - |
+| <a id="chainid"></a> `chainId` | `readonly` | `bigint` | - |
+| <a id="common"></a> `common` | `readonly` | `Common` | - |
+| <a id="data"></a> `data` | `readonly` | `Uint8Array` | - |
+| <a id="gaslimit"></a> `gasLimit` | `readonly` | `bigint` | - |
+| <a id="maxfeepergas"></a> `maxFeePerGas` | `readonly` | `bigint` | - |
+| <a id="maxpriorityfeepergas"></a> `maxPriorityFeePerGas` | `readonly` | `bigint` | - |
+| <a id="nonce"></a> `nonce` | `readonly` | `bigint` | - |
+| <a id="r"></a> `r?` | `readonly` | `bigint` | - |
+| <a id="s"></a> `s?` | `readonly` | `bigint` | - |
+| <a id="to"></a> `to?` | `readonly` | `Address` | - |
+| <a id="txoptions"></a> `txOptions` | `readonly` | [`TxOptions`](../interfaces/TxOptions.md) | - |
+| <a id="type"></a> `type` | `public` | `4` | - |
+| <a id="v"></a> `v?` | `readonly` | `bigint` | - |
+| <a id="value"></a> `value` | `readonly` | `bigint` | - |
 
 ## Methods
 
@@ -211,23 +71,11 @@ Adds the provided signature values and returns a new transaction instance.
 
 #### Parameters
 
-##### v
-
-`bigint`
-
-Recovery parameter
-
-##### r
-
-`bigint` \| `Uint8Array`\<`ArrayBufferLike`\>
-
-Signature `r` value
-
-##### s
-
-`bigint` \| `Uint8Array`\<`ArrayBufferLike`\>
-
-Signature `s` value
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `v` | `bigint` | Recovery parameter |
+| `r` | `bigint` \| `Uint8Array`\<`ArrayBufferLike`\> | Signature `r` value |
+| `s` | `bigint` \| `Uint8Array`\<`ArrayBufferLike`\> | Signature `s` value |
 
 #### Returns
 
@@ -281,11 +129,9 @@ Returns the minimum of calculated priority fee (from maxFeePerGas and baseFee) a
 
 #### Parameters
 
-##### baseFee
-
-`bigint`
-
-Base fee retrieved from block
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `baseFee` | `bigint` | Base fee retrieved from block |
 
 #### Returns
 
@@ -422,11 +268,9 @@ The up front amount that an account must have for this transaction to be valid
 
 #### Parameters
 
-##### baseFee?
-
-`bigint`
-
-The base fee of the block (will be set to 0 if not provided)
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `baseFee?` | `bigint` | The base fee of the block (will be set to 0 if not provided) |
 
 #### Returns
 
@@ -568,17 +412,10 @@ Signs the transaction and returns the signed instance.
 
 #### Parameters
 
-##### privateKey
-
-`Uint8Array`
-
-32-byte private key
-
-##### extraEntropy?
-
-`boolean` \| `Uint8Array`\<`ArrayBufferLike`\>
-
-Optional entropy supplied to the signing routine
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `privateKey` | `Uint8Array` | 32-byte private key |
+| `extraEntropy?` | `boolean` \| `Uint8Array`\<`ArrayBufferLike`\> | Optional entropy supplied to the signing routine |
 
 #### Returns
 
@@ -613,9 +450,9 @@ on all supported capabilities.
 
 #### Parameters
 
-##### capability
-
-`number`
+| Parameter | Type |
+| ------ | ------ |
+| `capability` | `number` |
 
 #### Returns
 

@@ -6,279 +6,43 @@
 
 # Interface: VMOpts
 
-Defined in: tevm-monorepo/packages/vm/types/utils/VMOpts.d.ts:10
-
 Options for instantiating a VM.
 
 ## Properties
 
-### activatePrecompiles?
-
-> `optional` **activatePrecompiles?**: `boolean`
-
-Defined in: tevm-monorepo/packages/vm/types/utils/VMOpts.d.ts:54
-
-If true, create entries in the state tree for the precompiled contracts, saving some gas the
-first time each of them is called.
-
-If this parameter is false, each call to each of them has to pay an extra 25000 gas
-for creating the account. If the account is still empty after this call, it will be deleted,
-such that this extra cost has to be paid again.
-
-Setting this to true has the effect of precompiled contracts' gas costs matching mainnet's from
-the very first call, which is intended for testing networks.
-
-Default: `false`
-
-***
-
-### blockchain?
-
-> `optional` **blockchain?**: [`Chain`](../../blockchain/type-aliases/Chain.md)
-
-Defined in: tevm-monorepo/packages/vm/types/utils/VMOpts.d.ts:40
-
-A Blockchain object for storing/retrieving blocks
-
-***
-
-### common?
-
-> `optional` **common?**: `object`
-
-Defined in: tevm-monorepo/packages/vm/types/utils/VMOpts.d.ts:32
-
-Use a [Common](../../common/type-aliases/Common.md) instance
-if you want to change the chain setup.
-
-### Possible Values
-
-- `chain`: all chains supported by `Common` or a custom chain
-- `hardfork`: `mainnet` hardforks up to the `Paris` hardfork
-- `eips`: `2537` (usage e.g. `eips: [ 2537, ]`)
-
-Note: check the associated EVM instance options
-documentation for supported EIPs.
-
-### Default Setup
-
-Default setup if no `Common` instance is provided:
-
-- `chain`: `mainnet`
-- `hardfork`: `paris`
-- `eips`: `[]`
-
-#### blockExplorers?
-
-> `optional` **blockExplorers?**: `object`
-
-Collection of block explorers
-
-##### Index Signature
-
-\[`key`: `string`\]: `ChainBlockExplorer`
-
-##### blockExplorers.default
-
-> **default**: `ChainBlockExplorer`
-
-#### blockTime?
-
-> `optional` **blockTime?**: `number`
-
-Block time in milliseconds.
-
-#### contracts?
-
-> `optional` **contracts?**: `object`
-
-Collection of contracts
-
-##### Index Signature
-
-\[`key`: `string`\]: `ChainContract` \| \{\[`sourceId`: `number`\]: `ChainContract` \| `undefined`; \} \| `undefined`
-
-##### contracts.ensRegistry?
-
-> `optional` **ensRegistry?**: `ChainContract`
-
-##### contracts.ensUniversalResolver?
-
-> `optional` **ensUniversalResolver?**: `ChainContract`
-
-##### contracts.erc6492Verifier?
-
-> `optional` **erc6492Verifier?**: `ChainContract`
-
-##### contracts.multicall3?
-
-> `optional` **multicall3?**: `ChainContract`
-
-#### copy
-
-> **copy**: () => \{ blockExplorers?: \{ \[key: string\]: ChainBlockExplorer; default: ChainBlockExplorer; \} \| undefined; blockTime?: number \| undefined; contracts?: \{ ...; \} \| undefined; ... 16 more ...; copy: () =\> ...; \}
-
-##### Returns
-
-\{ blockExplorers?: \{ \[key: string\]: ChainBlockExplorer; default: ChainBlockExplorer; \} \| undefined; blockTime?: number \| undefined; contracts?: \{ ...; \} \| undefined; ... 16 more ...; copy: () =\> ...; \}
-
-#### ~~custom?~~
-
-> `optional` **custom?**: `Record`\<`string`, `unknown`\>
-
-Custom chain data.
-
-##### Deprecated
-
-use `.extend` instead.
-
-#### ensTlds?
-
-> `optional` **ensTlds?**: readonly `string`[]
-
-Collection of ENS TLDs for the chain.
-
-#### ethjsCommon
-
-> **ethjsCommon**: `Common`
-
-#### experimental\_preconfirmationTime?
-
-> `optional` **experimental\_preconfirmationTime?**: `number`
-
-Preconfirmation time in milliseconds.
-
-#### extendSchema?
-
-> `optional` **extendSchema?**: `Record`\<`string`, `unknown`\>
-
-Extend schema.
-
-#### fees?
-
-> `optional` **fees?**: `ChainFees`\<`ChainFormatters` \| `undefined`\>
-
-Modifies how fees are derived.
-
-#### formatters?
-
-> `optional` **formatters?**: `ChainFormatters`
-
-Modifies how data is formatted and typed (e.g. blocks and transactions)
-
-#### id
-
-> **id**: `number`
-
-ID in number form
-
-#### name
-
-> **name**: `string`
-
-Human-readable name
-
-#### nativeCurrency
-
-> **nativeCurrency**: `ChainNativeCurrency`
-
-Currency used by chain
-
-#### prepareTransactionRequest?
-
-> `optional` **prepareTransactionRequest?**: `PrepareTransactionRequestFn` \| \[`PrepareTransactionRequestFn`, `object`\]
-
-Function to prepare a transaction request. Runs before the transaction is filled.
-
-#### rpcUrls
-
-> **rpcUrls**: `object`
-
-Collection of RPC endpoints
-
-##### Index Signature
-
-\[`key`: `string`\]: `ChainRpcUrls`
-
-##### rpcUrls.default
-
-> **default**: `ChainRpcUrls`
-
-#### serializers?
-
-> `optional` **serializers?**: `ChainSerializers`\<`ChainFormatters` \| `undefined`, `TransactionSerializable`\>
-
-Modifies how data is serialized (e.g. transactions).
-
-#### sourceId?
-
-> `optional` **sourceId?**: `number`
-
-Source Chain ID (ie. the L1 chain)
-
-#### testnet?
-
-> `optional` **testnet?**: `boolean`
-
-Flag for test networks
-
-#### verifyHash?
-
-> `optional` **verifyHash?**: `ChainVerifyHashFn`
-
-Chain-specific signature verification.
-
-***
-
-### evm?
-
-> `optional` **evm?**: [`Evm`](../../evm/classes/Evm.md)
-
-Defined in: tevm-monorepo/packages/vm/types/utils/VMOpts.d.ts:73
-
-Use a custom EVM to run Messages on. If this is not present, use the default EVM.
-
-***
-
-### genesisState?
-
-> `optional` **genesisState?**: [`GenesisState`](../../utils/type-aliases/GenesisState.md)
-
-Defined in: tevm-monorepo/packages/vm/types/utils/VMOpts.d.ts:59
-
-A genesisState to generate canonical genesis for the "in-house" created stateManager if external
-stateManager not provided for the VM, defaults to an empty state
-
-***
-
-### profilerOpts?
-
-> `optional` **profilerOpts?**: [`VMProfilerOpts`](../type-aliases/VMProfilerOpts.md)
-
-Defined in: tevm-monorepo/packages/vm/types/utils/VMOpts.d.ts:74
-
-***
-
-### setHardfork?
-
-> `optional` **setHardfork?**: `boolean` \| [`BigIntLike`](../../utils/type-aliases/BigIntLike.md)
-
-Defined in: tevm-monorepo/packages/vm/types/utils/VMOpts.d.ts:69
-
-Set the hardfork either by timestamp (for HFs from Shanghai onwards) or by block number
-for older Hfs.
-
-Additionally it is possible to pass in a specific TD value to support live-Merge-HF
-transitions. Note that this should only be needed in very rare and specific scenarios.
-
-Default: `false` (HF is set to whatever default HF is set by the [Common](../../common/type-aliases/Common.md) instance)
-
-***
-
-### stateManager?
-
-> `optional` **stateManager?**: [`StateManager`](../../state/interfaces/StateManager.md)
-
-Defined in: tevm-monorepo/packages/vm/types/utils/VMOpts.d.ts:36
-
-A [StateManager](../../state/interfaces/StateManager.md) instance to use as the state store
+| Property | Type | Description |
+| ------ | ------ | ------ |
+| <a id="activateprecompiles"></a> `activatePrecompiles?` | `boolean` | If true, create entries in the state tree for the precompiled contracts, saving some gas the first time each of them is called. If this parameter is false, each call to each of them has to pay an extra 25000 gas for creating the account. If the account is still empty after this call, it will be deleted, such that this extra cost has to be paid again. Setting this to true has the effect of precompiled contracts' gas costs matching mainnet's from the very first call, which is intended for testing networks. Default: `false` |
+| <a id="blockchain"></a> `blockchain?` | [`Chain`](../../blockchain/type-aliases/Chain.md) | A Blockchain object for storing/retrieving blocks |
+| <a id="common"></a> `common?` | `object` | Use a [Common](../../common/type-aliases/Common.md) instance if you want to change the chain setup. ### Possible Values - `chain`: all chains supported by `Common` or a custom chain - `hardfork`: `mainnet` hardforks from `chainstart` (Frontier) through `osaka` - `eips`: `2537` (usage e.g. `eips: [ 2537, ]`) Note: check the associated EVM instance options documentation for supported EIPs. ### Default Setup Default setup if no `Common` instance is provided: - `chain`: `mainnet` - `hardfork`: `prague` - `eips`: `[]` |
+| `common.blockExplorers?` | `object` | Collection of block explorers |
+| `common.blockExplorers.default` | `ChainBlockExplorer` | - |
+| `common.blockTime?` | `number` | Block time in milliseconds. |
+| `common.contracts?` | `object` | Collection of contracts |
+| `common.contracts.ensRegistry?` | `ChainContract` | - |
+| `common.contracts.ensUniversalResolver?` | `ChainContract` | - |
+| `common.contracts.erc6492Verifier?` | `ChainContract` | - |
+| `common.contracts.multicall3?` | `ChainContract` | - |
+| `common.copy` | () => \{ blockExplorers?: \{ \[key: string\]: ChainBlockExplorer; default: ChainBlockExplorer; \} \| undefined; blockTime?: number \| undefined; contracts?: \{ ...; \} \| undefined; ... 16 more ...; copy: () =\> ...; \} | - |
+| `common.custom?` | `Record`\<`string`, `unknown`\> | Custom chain data. **Deprecated** use `.extend` instead. |
+| `common.ensTlds?` | readonly `string`[] | Collection of ENS TLDs for the chain. |
+| `common.ethjsCommon` | `Common` | - |
+| `common.experimental_preconfirmationTime?` | `number` | Preconfirmation time in milliseconds. |
+| `common.extendSchema?` | `Record`\<`string`, `unknown`\> | Extend schema. |
+| `common.fees?` | `ChainFees`\<`ChainFormatters` \| `undefined`\> | Modifies how fees are derived. |
+| `common.formatters?` | `ChainFormatters` | Modifies how data is formatted and typed (e.g. blocks and transactions) |
+| `common.id` | `number` | ID in number form |
+| `common.name` | `string` | Human-readable name |
+| `common.nativeCurrency` | `ChainNativeCurrency` | Currency used by chain |
+| `common.prepareTransactionRequest?` | `PrepareTransactionRequestFn` \| \[`PrepareTransactionRequestFn`, `object`\] | Function to prepare a transaction request. Runs before the transaction is filled. |
+| `common.rpcUrls` | `object` | Collection of RPC endpoints |
+| `common.rpcUrls.default` | `ChainRpcUrls` | - |
+| `common.serializers?` | `ChainSerializers`\<`ChainFormatters` \| `undefined`, `TransactionSerializable`\> | Modifies how data is serialized (e.g. transactions). |
+| `common.sourceId?` | `number` | Source Chain ID (ie. the L1 chain) |
+| `common.testnet?` | `boolean` | Flag for test networks |
+| `common.verifyHash?` | `ChainVerifyHashFn` | Chain-specific signature verification. |
+| <a id="evm"></a> `evm?` | [`Evm`](../../evm/classes/Evm.md) | Use a custom EVM to run Messages on. If this is not present, use the default EVM. |
+| <a id="genesisstate"></a> `genesisState?` | [`GenesisState`](../../utils/type-aliases/GenesisState.md) | A genesisState to generate canonical genesis for the "in-house" created stateManager if external stateManager not provided for the VM, defaults to an empty state |
+| <a id="profileropts"></a> `profilerOpts?` | [`VMProfilerOpts`](../type-aliases/VMProfilerOpts.md) | - |
+| <a id="sethardfork"></a> `setHardfork?` | `boolean` \| [`BigIntLike`](../../utils/type-aliases/BigIntLike.md) | Set the hardfork either by timestamp (for HFs from Shanghai onwards) or by block number for older Hfs. Additionally it is possible to pass in a specific TD value to support live-Merge-HF transitions. Note that this should only be needed in very rare and specific scenarios. Default: `false` (HF is set to whatever default HF is set by the [Common](../../common/type-aliases/Common.md) instance) |
+| <a id="statemanager"></a> `stateManager?` | [`StateManager`](../../state/interfaces/StateManager.md) | A [StateManager](../../state/interfaces/StateManager.md) instance to use as the state store |

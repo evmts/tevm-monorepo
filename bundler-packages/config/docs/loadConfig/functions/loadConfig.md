@@ -14,9 +14,9 @@ Loads an Tevm config from the given path
 
 ## Parameters
 
-### configFilePath
-
-`string`
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `configFilePath` | `string` | - |
 
 ## Returns
 

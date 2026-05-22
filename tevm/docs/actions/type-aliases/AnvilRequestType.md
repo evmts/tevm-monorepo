@@ -8,118 +8,23 @@
 
 > **AnvilRequestType** = `object`
 
-Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/AnvilRequestType.d.ts:5
-
 A mapping of `anvil_*` method names to their request type
 
 ## Properties
 
-### anvil\_deal
-
-> **anvil\_deal**: [`AnvilDealJsonRpcRequest`](AnvilDealJsonRpcRequest.md)
-
-Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/AnvilRequestType.d.ts:19
-
-***
-
-### anvil\_dropTransaction
-
-> **anvil\_dropTransaction**: [`AnvilDropTransactionJsonRpcRequest`](AnvilDropTransactionJsonRpcRequest.md)
-
-Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/AnvilRequestType.d.ts:11
-
-***
-
-### anvil\_dumpState
-
-> **anvil\_dumpState**: [`AnvilDumpStateJsonRpcRequest`](AnvilDumpStateJsonRpcRequest.md)
-
-Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/AnvilRequestType.d.ts:17
-
-***
-
-### anvil\_getAutomine
-
-> **anvil\_getAutomine**: [`AnvilGetAutomineJsonRpcRequest`](AnvilGetAutomineJsonRpcRequest.md)
-
-Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/AnvilRequestType.d.ts:8
-
-***
-
-### anvil\_impersonateAccount
-
-> **anvil\_impersonateAccount**: [`AnvilImpersonateAccountJsonRpcRequest`](AnvilImpersonateAccountJsonRpcRequest.md)
-
-Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/AnvilRequestType.d.ts:6
-
-***
-
-### anvil\_loadState
-
-> **anvil\_loadState**: [`AnvilLoadStateJsonRpcRequest`](AnvilLoadStateJsonRpcRequest.md)
-
-Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/AnvilRequestType.d.ts:18
-
-***
-
-### anvil\_mine
-
-> **anvil\_mine**: [`AnvilMineJsonRpcRequest`](AnvilMineJsonRpcRequest.md)
-
-Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/AnvilRequestType.d.ts:9
-
-***
-
-### anvil\_reset
-
-> **anvil\_reset**: [`AnvilResetJsonRpcRequest`](AnvilResetJsonRpcRequest.md)
-
-Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/AnvilRequestType.d.ts:10
-
-***
-
-### anvil\_setBalance
-
-> **anvil\_setBalance**: [`AnvilSetBalanceJsonRpcRequest`](AnvilSetBalanceJsonRpcRequest.md)
-
-Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/AnvilRequestType.d.ts:12
-
-***
-
-### anvil\_setChainId
-
-> **anvil\_setChainId**: [`AnvilSetChainIdJsonRpcRequest`](AnvilSetChainIdJsonRpcRequest.md)
-
-Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/AnvilRequestType.d.ts:16
-
-***
-
-### anvil\_setCode
-
-> **anvil\_setCode**: [`AnvilSetCodeJsonRpcRequest`](AnvilSetCodeJsonRpcRequest.md)
-
-Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/AnvilRequestType.d.ts:13
-
-***
-
-### anvil\_setNonce
-
-> **anvil\_setNonce**: [`AnvilSetNonceJsonRpcRequest`](AnvilSetNonceJsonRpcRequest.md)
-
-Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/AnvilRequestType.d.ts:14
-
-***
-
-### anvil\_setStorageAt
-
-> **anvil\_setStorageAt**: [`AnvilSetStorageAtJsonRpcRequest`](AnvilSetStorageAtJsonRpcRequest.md)
-
-Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/AnvilRequestType.d.ts:15
-
-***
-
-### anvil\_stopImpersonatingAccount
-
-> **anvil\_stopImpersonatingAccount**: [`AnvilStopImpersonatingAccountJsonRpcRequest`](AnvilStopImpersonatingAccountJsonRpcRequest.md)
-
-Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/AnvilRequestType.d.ts:7
+| Property | Type |
+| ------ | ------ |
+| <a id="anvil_deal"></a> `anvil_deal` | [`AnvilDealJsonRpcRequest`](AnvilDealJsonRpcRequest.md) |
+| <a id="anvil_droptransaction"></a> `anvil_dropTransaction` | [`AnvilDropTransactionJsonRpcRequest`](AnvilDropTransactionJsonRpcRequest.md) |
+| <a id="anvil_dumpstate"></a> `anvil_dumpState` | [`AnvilDumpStateJsonRpcRequest`](AnvilDumpStateJsonRpcRequest.md) |
+| <a id="anvil_getautomine"></a> `anvil_getAutomine` | [`AnvilGetAutomineJsonRpcRequest`](AnvilGetAutomineJsonRpcRequest.md) |
+| <a id="anvil_impersonateaccount"></a> `anvil_impersonateAccount` | [`AnvilImpersonateAccountJsonRpcRequest`](AnvilImpersonateAccountJsonRpcRequest.md) |
+| <a id="anvil_loadstate"></a> `anvil_loadState` | [`AnvilLoadStateJsonRpcRequest`](AnvilLoadStateJsonRpcRequest.md) |
+| <a id="anvil_mine"></a> `anvil_mine` | [`AnvilMineJsonRpcRequest`](AnvilMineJsonRpcRequest.md) |
+| <a id="anvil_reset"></a> `anvil_reset` | [`AnvilResetJsonRpcRequest`](AnvilResetJsonRpcRequest.md) |
+| <a id="anvil_setbalance"></a> `anvil_setBalance` | [`AnvilSetBalanceJsonRpcRequest`](AnvilSetBalanceJsonRpcRequest.md) |
+| <a id="anvil_setchainid"></a> `anvil_setChainId` | [`AnvilSetChainIdJsonRpcRequest`](AnvilSetChainIdJsonRpcRequest.md) |
+| <a id="anvil_setcode"></a> `anvil_setCode` | [`AnvilSetCodeJsonRpcRequest`](AnvilSetCodeJsonRpcRequest.md) |
+| <a id="anvil_setnonce"></a> `anvil_setNonce` | [`AnvilSetNonceJsonRpcRequest`](AnvilSetNonceJsonRpcRequest.md) |
+| <a id="anvil_setstorageat"></a> `anvil_setStorageAt` | [`AnvilSetStorageAtJsonRpcRequest`](AnvilSetStorageAtJsonRpcRequest.md) |
+| <a id="anvil_stopimpersonatingaccount"></a> `anvil_stopImpersonatingAccount` | [`AnvilStopImpersonatingAccountJsonRpcRequest`](AnvilStopImpersonatingAccountJsonRpcRequest.md) |

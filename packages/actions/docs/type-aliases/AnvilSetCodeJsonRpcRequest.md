@@ -8,6 +8,6 @@
 
 > **AnvilSetCodeJsonRpcRequest** = `JsonRpcRequest`\<`"anvil_setCode"`, readonly \[`Address`, `Hex`\]\>
 
-Defined in: [packages/actions/src/anvil/AnvilJsonRpcRequest.ts:96](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilJsonRpcRequest.ts#L96)
+Defined in: [packages/actions/src/anvil/AnvilJsonRpcRequest.ts:100](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilJsonRpcRequest.ts#L100)
 
 JSON-RPC request for `anvil_setCode` method

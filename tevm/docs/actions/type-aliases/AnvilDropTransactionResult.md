@@ -7,5 +7,3 @@
 # Type Alias: AnvilDropTransactionResult
 
 > **AnvilDropTransactionResult** = `null`
-
-Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilResult.d.ts:11

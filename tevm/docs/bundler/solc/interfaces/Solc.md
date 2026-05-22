@@ -6,102 +6,15 @@
 
 # Interface: Solc
 
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:442
-
 ## Properties
 
-### compile
-
-> **compile**: (`input`) => [`SolcOutput`](../type-aliases/SolcOutput.md)
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:448
-
-#### Parameters
-
-##### input
-
-[`SolcInputDescription`](../type-aliases/SolcInputDescription.md)
-
-#### Returns
-
-[`SolcOutput`](../type-aliases/SolcOutput.md)
-
-***
-
-### features
-
-> **features**: `FeaturesConfig`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:447
-
-***
-
-### license
-
-> **license**: `string`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:445
-
-***
-
-### loadRemoteVersion
-
-> **loadRemoteVersion**: (`versionString`, `callback`) => `void`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:449
-
-#### Parameters
-
-##### versionString
-
-`string`
-
-##### callback
-
-(`err`, `solc?`) => `void`
-
-#### Returns
-
-`void`
-
-***
-
-### lowlevel
-
-> **lowlevel**: `LowLevelConfig`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:446
-
-***
-
-### semver
-
-> **semver**: `string`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:444
-
-***
-
-### setupMethods
-
-> **setupMethods**: (`soljson`) => `void`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:450
-
-#### Parameters
-
-##### soljson
-
-`any`
-
-#### Returns
-
-`void`
-
-***
-
-### version
-
-> **version**: `string`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:443
+| Property | Type |
+| ------ | ------ |
+| <a id="compile"></a> `compile` | \<`T`\>(`input`) => [`SolcOutput`](../type-aliases/SolcOutput.md) |
+| <a id="features"></a> `features` | `FeaturesConfig` |
+| <a id="license"></a> `license` | `string` |
+| <a id="loadremoteversion"></a> `loadRemoteVersion` | (`versionString`, `callback`) => `void` |
+| <a id="lowlevel"></a> `lowlevel` | `LowLevelConfig` |
+| <a id="semver"></a> `semver` | `string` |
+| <a id="setupmethods"></a> `setupMethods` | (`soljson`) => `void` |
+| <a id="version"></a> `version` | `string` |

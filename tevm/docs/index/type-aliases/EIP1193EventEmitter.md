@@ -8,8 +8,6 @@
 
 > **EIP1193EventEmitter** = [`EIP1193Events`](EIP1193Events.md) & `object`
 
-Defined in: tevm-monorepo/packages/node/dist/index.d.ts:254
-
 A very minimal EventEmitter interface
 
 ## Type Declaration
@@ -22,17 +20,10 @@ Emit an event.
 
 #### Parameters
 
-##### eventName
-
-keyof [`EIP1193EventMap`](EIP1193EventMap.md)
-
-The event name.
-
-##### args
-
-...`any`[]
-
-Arguments to pass to the event listeners.
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `eventName` | keyof [`EIP1193EventMap`](EIP1193EventMap.md) | The event name. |
+| ...`args` | `any`[] | Arguments to pass to the event listeners. |
 
 #### Returns
 

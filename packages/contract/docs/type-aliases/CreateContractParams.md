@@ -16,41 +16,14 @@ either as a human-readable ABI or as a JSON ABI.
 
 ## Type Parameters
 
-### TName
-
-`TName` *extends* `string` \| `undefined` \| `never`
-
-The name of the contract (optional)
-
-### TAbi
-
-`TAbi` *extends* readonly `string`[] \| `Abi`
-
-The ABI type (either string[] for human readable or Abi for JSON)
-
-### TAddress
-
-`TAddress` *extends* `undefined` \| `Address` \| `never`
-
-The contract address type (optional)
-
-### TBytecode
-
-`TBytecode` *extends* `undefined` \| `Hex` \| `never`
-
-The contract creation bytecode type (optional)
-
-### TDeployedBytecode
-
-`TDeployedBytecode` *extends* `undefined` \| `Hex` \| `never`
-
-The deployed bytecode type (optional)
-
-### TCode
-
-`TCode` *extends* `undefined` \| `Hex` \| `never`
-
-The runtime bytecode type (optional)
+| Type Parameter | Description |
+| ------ | ------ |
+| `TName` *extends* `string` \| `undefined` \| `never` | The name of the contract (optional) |
+| `TAbi` *extends* readonly `string`[] \| `Abi` | The ABI type (either string[] for human readable or Abi for JSON) |
+| `TAddress` *extends* `undefined` \| `Address` \| `never` | The contract address type (optional) |
+| `TBytecode` *extends* `undefined` \| `Hex` \| `never` | The contract creation bytecode type (optional) |
+| `TDeployedBytecode` *extends* `undefined` \| `Hex` \| `never` | The deployed bytecode type (optional) |
+| `TCode` *extends* `undefined` \| `Hex` \| `never` | The runtime bytecode type (optional) |
 
 ## Union Members
 

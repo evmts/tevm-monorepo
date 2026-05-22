@@ -8,6 +8,4 @@
 
 > **SolidityResolver** = `SolidityResolver`
 
-Defined in: tevm-monorepo/bundler-packages/base-bundler/types/src/index.d.ts:26
-
 ./types.ts

@@ -12,16 +12,7 @@ Defined in: zevm/npm/zevm/dist/util.d.ts:26
 
 ## Properties
 
-### keyEncoding?
-
-> `optional` **keyEncoding?**: [`KeyEncoding`](KeyEncoding.md)
-
-Defined in: zevm/npm/zevm/dist/util.d.ts:27
-
-***
-
-### valueEncoding?
-
-> `optional` **valueEncoding?**: [`ValueEncoding`](ValueEncoding.md)
-
-Defined in: zevm/npm/zevm/dist/util.d.ts:28
+| Property | Type | Defined in |
+| ------ | ------ | ------ |
+| <a id="keyencoding"></a> `keyEncoding?` | [`KeyEncoding`](KeyEncoding.md) | zevm/npm/zevm/dist/util.d.ts:27 |
+| <a id="valueencoding"></a> `valueEncoding?` | [`ValueEncoding`](ValueEncoding.md) | zevm/npm/zevm/dist/util.d.ts:28 |

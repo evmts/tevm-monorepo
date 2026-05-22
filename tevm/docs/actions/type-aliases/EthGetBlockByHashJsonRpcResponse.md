@@ -8,6 +8,4 @@
 
 > **EthGetBlockByHashJsonRpcResponse** = [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"eth_getBlockByHash"`, [`BlockResult`](../../index/type-aliases/BlockResult.md), `string` \| `number`\>
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthJsonRpcResponse.d.ts:81
-
 JSON-RPC response for `eth_getBlockByHash` procedure

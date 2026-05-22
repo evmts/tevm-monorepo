@@ -12,10 +12,7 @@ Defined in: [eip1193/DerivedRpcSchema.ts:11](https://github.com/evmts/tevm-monor
 
 ## Type Parameters
 
-### TRpcSchema
-
-`TRpcSchema` *extends* [`RpcSchema`](RpcSchema.md) \| `undefined`
-
-### TRpcSchemaOverride
-
-`TRpcSchemaOverride` *extends* [`RpcSchemaOverride`](RpcSchemaOverride.md) \| `undefined`
+| Type Parameter |
+| ------ |
+| `TRpcSchema` *extends* [`RpcSchema`](RpcSchema.md) \| `undefined` |
+| `TRpcSchemaOverride` *extends* [`RpcSchemaOverride`](RpcSchemaOverride.md) \| `undefined` |

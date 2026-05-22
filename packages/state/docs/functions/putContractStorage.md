@@ -17,9 +17,9 @@ If it is empty or filled with zeros, deletes the value.
 
 ## Parameters
 
-### baseState
-
-[`BaseState`](../type-aliases/BaseState.md)
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `baseState` | [`BaseState`](../type-aliases/BaseState.md) | - |
 
 ## Returns
 

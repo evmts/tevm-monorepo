@@ -8,6 +8,10 @@
 		"./src/fileExists.js",
 		"./src/logAllErrors.js"
 	],
-	"plugin": ["typedoc-plugin-markdown"],
-	"gitRevision": "main"
+	"plugin": [
+		"typedoc-plugin-markdown"
+	],
+	"gitRevision": "main",
+	"parametersFormat": "table",
+	"propertiesFormat": "table"
 }

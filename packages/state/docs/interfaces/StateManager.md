@@ -10,149 +10,29 @@ Defined in: [tevm-monorepo/packages/state/src/StateManager.ts:8](https://github.
 
 ## Extends
 
-- `Omit`\<`EvmStateManagerInterface`, `"getAccount"` \| `"putAccount"` \| `"modifyAccountFields"` \| `"shallowCopy"`\>
+- `Omit`\<`EvmStateManagerInterface`, `"getAccount"` \| `"putAccount"` \| `"modifyAccountFields"` \| `"shallowCopy"` \| `"initBinaryTreeExecutionWitness"`\>
 
 ## Properties
 
-### \_baseState
-
-> **\_baseState**: [`BaseState`](../type-aliases/BaseState.md)
-
-Defined in: [tevm-monorepo/packages/state/src/StateManager.ts:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L13)
-
-The internal state representation
-
-***
-
-### checkChunkWitnessPresent?
-
-> `optional` **checkChunkWitnessPresent?**: (`contract`, `programCounter`) => `Promise`\<`boolean`\>
-
-#### Parameters
-
-##### contract
-
-`Address`
-
-##### programCounter
-
-`number`
-
-#### Returns
-
-`Promise`\<`boolean`\>
-
-#### Inherited from
-
-`Omit.checkChunkWitnessPresent`
-
-***
-
-### getAccountAddresses
-
-> **getAccountAddresses**: () => `Set`\<`` `0x${string}` ``\>
-
-Defined in: [tevm-monorepo/packages/state/src/StateManager.ts:18](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L18)
-
-Returns contract addresses
-
-#### Returns
-
-`Set`\<`` `0x${string}` ``\>
-
-***
-
-### getAppliedKey?
-
-> `optional` **getAppliedKey?**: (`address`) => `Uint8Array`
-
-#### Parameters
-
-##### address
-
-`Uint8Array`
-
-#### Returns
-
-`Uint8Array`
-
-#### Inherited from
-
-`Omit.getAppliedKey`
-
-***
-
-### originalStorageCache
-
-> **originalStorageCache**: `object`
-
-#### clear()
-
-> **clear**(): `void`
-
-##### Returns
-
-`void`
-
-#### get()
-
-> **get**(`address`, `key`): `Promise`\<`Uint8Array`\<`ArrayBufferLike`\>\>
-
-##### Parameters
-
-###### address
-
-`Address`
-
-###### key
-
-`Uint8Array`
-
-##### Returns
-
-`Promise`\<`Uint8Array`\<`ArrayBufferLike`\>\>
-
-#### Inherited from
-
-`Omit.originalStorageCache`
-
-***
-
-### ready
-
-> **ready**: () => `Promise`\<`true`\>
-
-Defined in: [tevm-monorepo/packages/state/src/StateManager.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L14)
-
-#### Returns
-
-`Promise`\<`true`\>
-
-***
-
-### verifyBinaryTreePostState?
-
-> `optional` **verifyBinaryTreePostState?**: (`accessWitness`) => `Promise`\<`boolean`\>
-
-#### Parameters
-
-##### accessWitness
-
-`BinaryTreeAccessWitnessInterface`
-
-#### Returns
-
-`Promise`\<`boolean`\>
-
-#### Inherited from
-
-`Omit.verifyBinaryTreePostState`
+| Property | Type | Description | Inherited from | Defined in |
+| ------ | ------ | ------ | ------ | ------ |
+| <a id="_basestate"></a> `_baseState` | [`BaseState`](../type-aliases/BaseState.md) | The internal state representation | - | [tevm-monorepo/packages/state/src/StateManager.ts:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L16) |
+| <a id="checkchunkwitnesspresent"></a> `checkChunkWitnessPresent?` | (`contract`, `programCounter`) => `Promise`\<`boolean`\> | - | `Omit.checkChunkWitnessPresent` | tevm-monorepo/node\_modules/.pnpm/@ethereumjs+common@10.1.1/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:127 |
+| <a id="getaccountaddresses"></a> `getAccountAddresses` | () => `Set`\<`` `0x${string}` ``\> | Returns contract addresses | - | [tevm-monorepo/packages/state/src/StateManager.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L21) |
+| <a id="getappliedkey"></a> `getAppliedKey?` | (`address`) => `Uint8Array` | - | `Omit.getAppliedKey` | tevm-monorepo/node\_modules/.pnpm/@ethereumjs+common@10.1.1/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:128 |
+| <a id="originalstoragecache"></a> `originalStorageCache` | `object` | - | `Omit.originalStorageCache` | tevm-monorepo/node\_modules/.pnpm/@ethereumjs+common@10.1.1/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:120 |
+| `originalStorageCache.clear` | `void` | - | - | tevm-monorepo/node\_modules/.pnpm/@ethereumjs+common@10.1.1/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:122 |
+| `originalStorageCache.get` | `Promise`\<`Uint8Array`\<`ArrayBufferLike`\>\> | - | - | tevm-monorepo/node\_modules/.pnpm/@ethereumjs+common@10.1.1/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:121 |
+| <a id="ready"></a> `ready` | () => `Promise`\<`true`\> | - | - | [tevm-monorepo/packages/state/src/StateManager.ts:17](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L17) |
+| <a id="verifybinarytreepoststate"></a> `verifyBinaryTreePostState?` | (`accessWitness`) => `Promise`\<`boolean`\> | - | `Omit.verifyBinaryTreePostState` | tevm-monorepo/node\_modules/.pnpm/@ethereumjs+common@10.1.1/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:126 |
 
 ## Methods
 
 ### checkpoint()
 
 > **checkpoint**(): `Promise`\<`void`\>
+
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+common@10.1.1/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:112
 
 #### Returns
 
@@ -168,7 +48,7 @@ Defined in: [tevm-monorepo/packages/state/src/StateManager.ts:14](https://github
 
 > **clearCaches**(): `void`
 
-Defined in: [tevm-monorepo/packages/state/src/StateManager.ts:34](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L34)
+Defined in: [tevm-monorepo/packages/state/src/StateManager.ts:37](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L37)
 
 Resets all internal caches
 
@@ -186,15 +66,15 @@ Resets all internal caches
 
 > **clearContractStorage**(`address`): `Promise`\<`void`\>
 
-Defined in: [tevm-monorepo/packages/state/src/StateManager.ts:56](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L56)
+Defined in: [tevm-monorepo/packages/state/src/StateManager.ts:59](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L59)
 
 Clears all storage entries for the account
 
 #### Parameters
 
-##### address
-
-`Address`
+| Parameter | Type |
+| ------ | ------ |
+| `address` | `Address` |
 
 #### Returns
 
@@ -206,11 +86,13 @@ Clears all storage entries for the account
 
 > **clearStorage**(`address`): `Promise`\<`void`\>
 
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+common@10.1.1/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:111
+
 #### Parameters
 
-##### address
-
-`Address`
+| Parameter | Type |
+| ------ | ------ |
+| `address` | `Address` |
 
 #### Returns
 
@@ -226,21 +108,15 @@ Clears all storage entries for the account
 
 > **commit**(`createNewStateRoot?`): `Promise`\<`void`\>
 
-Defined in: [tevm-monorepo/packages/state/src/StateManager.ts:44](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L44)
+Defined in: [tevm-monorepo/packages/state/src/StateManager.ts:47](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L47)
 
 Commits the current state.
 
 #### Parameters
 
-##### createNewStateRoot?
-
-`boolean`
-
-**`Experimental`**
-
-Whether to create a new state root
-Defaults to true.
-This api is not stable
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `createNewStateRoot?` | `boolean` | **`Experimental`** Whether to create a new state root Defaults to true. This api is not stable |
 
 #### Returns
 
@@ -256,7 +132,7 @@ This api is not stable
 
 > **deepCopy**(): `Promise`\<`StateManager`\>
 
-Defined in: [tevm-monorepo/packages/state/src/StateManager.ts:25](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L25)
+Defined in: [tevm-monorepo/packages/state/src/StateManager.ts:28](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L28)
 
 Returns a new instance of the ForkStateManager with the same opts and all storage copied over
 
@@ -270,11 +146,13 @@ Returns a new instance of the ForkStateManager with the same opts and all storag
 
 > **deleteAccount**(`address`): `Promise`\<`void`\>
 
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+common@10.1.1/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:104
+
 #### Parameters
 
-##### address
-
-`Address`
+| Parameter | Type |
+| ------ | ------ |
+| `address` | `Address` |
 
 #### Returns
 
@@ -290,7 +168,7 @@ Returns a new instance of the ForkStateManager with the same opts and all storag
 
 > **dumpCanonicalGenesis**(): `Promise`\<[`TevmState`](../type-aliases/TevmState.md)\>
 
-Defined in: [tevm-monorepo/packages/state/src/StateManager.ts:30](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L30)
+Defined in: [tevm-monorepo/packages/state/src/StateManager.ts:33](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L33)
 
 Dumps the state of the state manager as a [TevmState](../type-aliases/TevmState.md)
 
@@ -304,15 +182,15 @@ Dumps the state of the state manager as a [TevmState](../type-aliases/TevmState.
 
 > **dumpStorage**(`address`): `Promise`\<`StorageDump`\>
 
-Defined in: [tevm-monorepo/packages/state/src/StateManager.ts:60](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L60)
+Defined in: [tevm-monorepo/packages/state/src/StateManager.ts:63](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L63)
 
 Dumps storage based on the input
 
 #### Parameters
 
-##### address
-
-`Address`
+| Parameter | Type |
+| ------ | ------ |
+| `address` | `Address` |
 
 #### Returns
 
@@ -328,23 +206,17 @@ Dumps storage based on the input
 
 > **dumpStorageRange**(`address`, `startKey`, `limit`): `Promise`\<`StorageRange`\>
 
-Defined in: [tevm-monorepo/packages/state/src/StateManager.ts:64](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L64)
+Defined in: [tevm-monorepo/packages/state/src/StateManager.ts:67](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L67)
 
 Dumps a range of storage values
 
 #### Parameters
 
-##### address
-
-`Address`
-
-##### startKey
-
-`bigint`
-
-##### limit
-
-`number`
+| Parameter | Type |
+| ------ | ------ |
+| `address` | `Address` |
+| `startKey` | `bigint` |
+| `limit` | `number` |
 
 #### Returns
 
@@ -360,15 +232,15 @@ Dumps a range of storage values
 
 > **generateCanonicalGenesis**(`state`): `Promise`\<`void`\>
 
-Defined in: [tevm-monorepo/packages/state/src/StateManager.ts:72](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L72)
+Defined in: [tevm-monorepo/packages/state/src/StateManager.ts:75](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L75)
 
 Loads a state from a given state root
 
 #### Parameters
 
-##### state
-
-[`TevmState`](../type-aliases/TevmState.md)
+| Parameter | Type |
+| ------ | ------ |
+| `state` | [`TevmState`](../type-aliases/TevmState.md) |
 
 #### Returns
 
@@ -384,13 +256,13 @@ Loads a state from a given state root
 
 > **getAccount**(`address`): `Promise`\<`Account` \| `undefined`\>
 
-Defined in: [tevm-monorepo/packages/state/src/StateManager.ts:19](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L19)
+Defined in: [tevm-monorepo/packages/state/src/StateManager.ts:22](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L22)
 
 #### Parameters
 
-##### address
-
-`Address`
+| Parameter | Type |
+| ------ | ------ |
+| `address` | `Address` |
 
 #### Returns
 
@@ -402,11 +274,13 @@ Defined in: [tevm-monorepo/packages/state/src/StateManager.ts:19](https://github
 
 > **getCode**(`address`): `Promise`\<`Uint8Array`\<`ArrayBufferLike`\>\>
 
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+common@10.1.1/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:107
+
 #### Parameters
 
-##### address
-
-`Address`
+| Parameter | Type |
+| ------ | ------ |
+| `address` | `Address` |
 
 #### Returns
 
@@ -422,11 +296,13 @@ Defined in: [tevm-monorepo/packages/state/src/StateManager.ts:19](https://github
 
 > **getCodeSize**(`address`): `Promise`\<`number`\>
 
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+common@10.1.1/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:108
+
 #### Parameters
 
-##### address
-
-`Address`
+| Parameter | Type |
+| ------ | ------ |
+| `address` | `Address` |
 
 #### Returns
 
@@ -442,23 +318,16 @@ Defined in: [tevm-monorepo/packages/state/src/StateManager.ts:19](https://github
 
 > **getProof**(`address`, `storageSlots?`): `Promise`\<`Proof`\>
 
-Defined in: [tevm-monorepo/packages/state/src/StateManager.ts:79](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L79)
+Defined in: [tevm-monorepo/packages/state/src/StateManager.ts:82](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L82)
 
 Get an EIP-1186 proof from the provider
 
 #### Parameters
 
-##### address
-
-`Address`
-
-The address to get proof for
-
-##### storageSlots?
-
-`Uint8Array`\<`ArrayBufferLike`\>[]
-
-Storage slots to include in the proof
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `address` | `Address` | The address to get proof for |
+| `storageSlots?` | `Uint8Array`\<`ArrayBufferLike`\>[] | Storage slots to include in the proof |
 
 #### Returns
 
@@ -471,6 +340,8 @@ The account and storage proof
 ### getStateRoot()
 
 > **getStateRoot**(): `Promise`\<`Uint8Array`\<`ArrayBufferLike`\>\>
+
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+common@10.1.1/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:115
 
 #### Returns
 
@@ -486,15 +357,14 @@ The account and storage proof
 
 > **getStorage**(`address`, `key`): `Promise`\<`Uint8Array`\<`ArrayBufferLike`\>\>
 
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+common@10.1.1/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:109
+
 #### Parameters
 
-##### address
-
-`Address`
-
-##### key
-
-`Uint8Array`
+| Parameter | Type |
+| ------ | ------ |
+| `address` | `Address` |
+| `key` | `Uint8Array` |
 
 #### Returns
 
@@ -510,11 +380,13 @@ The account and storage proof
 
 > **hasStateRoot**(`root`): `Promise`\<`boolean`\>
 
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+common@10.1.1/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:117
+
 #### Parameters
 
-##### root
-
-`Uint8Array`
+| Parameter | Type |
+| ------ | ------ |
+| `root` | `Uint8Array` |
 
 #### Returns
 
@@ -530,17 +402,14 @@ The account and storage proof
 
 > **modifyAccountFields**(`address`, `accountFields`): `Promise`\<`void`\>
 
-Defined in: [tevm-monorepo/packages/state/src/StateManager.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L21)
+Defined in: [tevm-monorepo/packages/state/src/StateManager.ts:24](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L24)
 
 #### Parameters
 
-##### address
-
-`Address`
-
-##### accountFields
-
-`AccountFields`
+| Parameter | Type |
+| ------ | ------ |
+| `address` | `Address` |
+| `accountFields` | `AccountFields` |
 
 #### Returns
 
@@ -552,17 +421,14 @@ Defined in: [tevm-monorepo/packages/state/src/StateManager.ts:21](https://github
 
 > **putAccount**(`address`, `account?`): `Promise`\<`void`\>
 
-Defined in: [tevm-monorepo/packages/state/src/StateManager.ts:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L20)
+Defined in: [tevm-monorepo/packages/state/src/StateManager.ts:23](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L23)
 
 #### Parameters
 
-##### address
-
-`Address`
-
-##### account?
-
-`Account`
+| Parameter | Type |
+| ------ | ------ |
+| `address` | `Address` |
+| `account?` | `Account` |
 
 #### Returns
 
@@ -574,15 +440,14 @@ Defined in: [tevm-monorepo/packages/state/src/StateManager.ts:20](https://github
 
 > **putCode**(`address`, `value`): `Promise`\<`void`\>
 
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+common@10.1.1/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:106
+
 #### Parameters
 
-##### address
-
-`Address`
-
-##### value
-
-`Uint8Array`
+| Parameter | Type |
+| ------ | ------ |
+| `address` | `Address` |
+| `value` | `Uint8Array` |
 
 #### Returns
 
@@ -598,19 +463,15 @@ Defined in: [tevm-monorepo/packages/state/src/StateManager.ts:20](https://github
 
 > **putStorage**(`address`, `key`, `value`): `Promise`\<`void`\>
 
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+common@10.1.1/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:110
+
 #### Parameters
 
-##### address
-
-`Address`
-
-##### key
-
-`Uint8Array`
-
-##### value
-
-`Uint8Array`
+| Parameter | Type |
+| ------ | ------ |
+| `address` | `Address` |
+| `key` | `Uint8Array` |
+| `value` | `Uint8Array` |
 
 #### Returns
 
@@ -626,6 +487,8 @@ Defined in: [tevm-monorepo/packages/state/src/StateManager.ts:20](https://github
 
 > **revert**(): `Promise`\<`void`\>
 
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+common@10.1.1/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:114
+
 #### Returns
 
 `Promise`\<`void`\>
@@ -640,7 +503,7 @@ Defined in: [tevm-monorepo/packages/state/src/StateManager.ts:20](https://github
 
 > **saveStateRoot**(`root`, `state`): `void`
 
-Defined in: [tevm-monorepo/packages/state/src/StateManager.ts:40](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L40)
+Defined in: [tevm-monorepo/packages/state/src/StateManager.ts:43](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L43)
 
 **`Experimental`**
 
@@ -649,13 +512,10 @@ THis API is considered unstable
 
 #### Parameters
 
-##### root
-
-`Uint8Array`
-
-##### state
-
-[`TevmState`](../type-aliases/TevmState.md)
+| Parameter | Type |
+| ------ | ------ |
+| `root` | `Uint8Array` |
+| `state` | [`TevmState`](../type-aliases/TevmState.md) |
 
 #### Returns
 
@@ -667,15 +527,14 @@ THis API is considered unstable
 
 > **setStateRoot**(`stateRoot`, `clearCache?`): `Promise`\<`void`\>
 
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+common@10.1.1/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:116
+
 #### Parameters
 
-##### stateRoot
-
-`Uint8Array`
-
-##### clearCache?
-
-`boolean`
+| Parameter | Type |
+| ------ | ------ |
+| `stateRoot` | `Uint8Array` |
+| `clearCache?` | `boolean` |
 
 #### Returns
 
@@ -691,7 +550,7 @@ THis API is considered unstable
 
 > **shallowCopy**(): `StateManager`
 
-Defined in: [tevm-monorepo/packages/state/src/StateManager.ts:26](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L26)
+Defined in: [tevm-monorepo/packages/state/src/StateManager.ts:29](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L29)
 
 #### Returns
 

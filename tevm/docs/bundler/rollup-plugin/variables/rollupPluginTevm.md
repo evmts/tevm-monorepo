@@ -8,8 +8,6 @@
 
 > `const` **rollupPluginTevm**: (`options?`) => `any`
 
-Defined in: tevm-monorepo/bundler-packages/rollup/types/rollupPluginTevm.d.ts:123
-
 Creates a Rollup plugin for Tevm that enables direct Solidity imports in JavaScript
 and TypeScript code.
 
@@ -20,11 +18,10 @@ in a type-safe way directly from your JavaScript/TypeScript code.
 
 ## Parameters
 
-### options?
-
-#### solc?
-
-`CompilerOption`
+| Parameter | Type |
+| ------ | ------ |
+| `options?` | \{ `solc?`: `CompilerOption`; \} |
+| `options.solc?` | `CompilerOption` |
 
 ## Returns
 

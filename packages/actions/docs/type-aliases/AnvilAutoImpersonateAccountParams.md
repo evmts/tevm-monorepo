@@ -14,11 +14,6 @@ Params for `anvil_autoImpersonateAccount` handler
 
 ## Properties
 
-### enabled
-
-> `readonly` **enabled**: `boolean`
-
-Defined in: [packages/actions/src/anvil/AnvilParams.ts:37](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilParams.ts#L37)
-
-Whether to enable automatic impersonation of accounts.
-When true, all transactions will have their sender automatically impersonated.
+| Property | Modifier | Type | Description | Defined in |
+| ------ | ------ | ------ | ------ | ------ |
+| <a id="enabled"></a> `enabled` | `readonly` | `boolean` | Whether to enable automatic impersonation of accounts. When true, all transactions will have their sender automatically impersonated. | [packages/actions/src/anvil/AnvilParams.ts:37](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilParams.ts#L37) |

@@ -8,13 +8,11 @@
 
 > **anvilSetCoinbaseJsonRpcProcedure**(`client`): [`AnvilSetCoinbaseProcedure`](../type-aliases/AnvilSetCoinbaseProcedure.md)
 
-Defined in: tevm-monorepo/packages/actions/types/anvil/anvilSetCoinbaseProcedure.d.ts:1
-
 ## Parameters
 
-### client
-
-[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{ \}\>
+| Parameter | Type |
+| ------ | ------ |
+| `client` | [`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{ \}\> |
 
 ## Returns
 

@@ -14,9 +14,9 @@ Deals ERC20 tokens to an account by overriding the storage of balanceOf(account)
 
 ## Parameters
 
-### node
-
-`TevmNode`\<`"fork"` \| `"normal"`, \{ \}\>
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `node` | `TevmNode`\<`"fork"` \| `"normal"`, \{ \}\> | - |
 
 ## Returns
 

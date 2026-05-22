@@ -8,6 +8,4 @@
 
 > `const` **setStateRoot**: [`StateAction`](../type-aliases/StateAction.md)\<`"setStateRoot"`\>
 
-Defined in: tevm-monorepo/packages/state/dist/index.d.ts:518
-
 Changes the currently loaded state root

@@ -14,10 +14,6 @@ Params for `anvil_stopImpersonatingAccount` handler
 
 ## Properties
 
-### address
-
-> `readonly` **address**: [`Address`](Address.md)
-
-Defined in: [packages/actions/src/anvil/AnvilParams.ts:25](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilParams.ts#L25)
-
-The address to stop impersonating
+| Property | Modifier | Type | Description | Defined in |
+| ------ | ------ | ------ | ------ | ------ |
+| <a id="address"></a> `address` | `readonly` | [`Address`](Address.md) | The address to stop impersonating | [packages/actions/src/anvil/AnvilParams.ts:25](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilParams.ts#L25) |

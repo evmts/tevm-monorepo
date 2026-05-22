@@ -8,8 +8,6 @@
 
 > **CommonOptions** = `ViemChain` & `object`
 
-Defined in: tevm-monorepo/packages/common/types/CommonOptions.d.ts:37
-
 ## Type Declaration
 
 ### customCrypto?
@@ -22,7 +20,7 @@ For EIP-4844 support kzg must be passed
 #### Warning
 
 KZG can add a significant amount of bundle size to an app
-In future a stub will be provided that that automatically returns valid without checking the kzg proof
+A mock KZG implementation is available via createMockKzg but must be passed explicitly
 
 #### Example
 
@@ -44,12 +42,12 @@ const common = createCommon({
 
 > `optional` **eips?**: `ReadonlyArray`\<`number`\>
 
-Eips to enable. Defaults to `[1559, 4895]`
+EIPs to enable in addition to hardfork-native EIPs. Defaults to `[]`.
 
 #### Default
 
 ```ts
-[1559, 4895]
+[]
 ```
 
 ### hardfork?

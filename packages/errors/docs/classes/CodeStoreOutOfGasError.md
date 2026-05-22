@@ -56,37 +56,13 @@ Additional parameters for the BaseError.
 
 > **new CodeStoreOutOfGasError**(`message?`, `args?`, `tag?`): `CodeStoreOutOfGasError`
 
-Constructs a CodeStoreOutOfGasError.
-Represents an error that occurs when a transaction runs out of gas during code storage.
-This error is typically encountered when the gas provided for storing code is insufficient to complete its execution.
-EVM transaction execution metadata level error
-
-Code store out of gas errors can occur due to:
-- Insufficient gas provided for storing large contracts.
-- Incorrect estimation of gas required for storing code.
-- Contracts with high gas consumption during the deployment phase.
-- Non-deterministic gas usage during code storage.
-- If TEVM submitted the transaction using `createTransaction: true` and the account being used runs out of gas.
-
 #### Parameters
 
-##### message?
-
-`string` = `'Code store out of gas error occurred.'`
-
-Human-readable error message.
-
-##### args?
-
-[`CodeStoreOutOfGasErrorParameters`](../interfaces/CodeStoreOutOfGasErrorParameters.md) = `{}`
-
-Additional parameters for the BaseError.
-
-##### tag?
-
-`string` = `'CodeStoreOutOfGasError'`
-
-The tag for the error.
+| Parameter | Type | Default value | Description |
+| ------ | ------ | ------ | ------ |
+| `message?` | `string` | `'Code store out of gas error occurred.'` | Human-readable error message. |
+| `args?` | [`CodeStoreOutOfGasErrorParameters`](../interfaces/CodeStoreOutOfGasErrorParameters.md) | `{}` | Additional parameters. |
+| `tag?` | `string` | `'CodeStoreOutOfGasError'` | Internal error tag. |
 
 #### Returns
 
@@ -98,107 +74,18 @@ The tag for the error.
 
 ## Properties
 
-### \_tag
-
-> **\_tag**: `string`
-
-Same as name, used internally.
-
-#### Inherited from
-
-[`GasLimitExceededError`](GasLimitExceededError.md).[`_tag`](GasLimitExceededError.md#_tag)
-
-***
-
-### cause
-
-> **cause**: `any`
-
-#### Inherited from
-
-[`GasLimitExceededError`](GasLimitExceededError.md).[`cause`](GasLimitExceededError.md#cause)
-
-***
-
-### code
-
-> **code**: `number`
-
-#### Inherited from
-
-[`GasLimitExceededError`](GasLimitExceededError.md).[`code`](GasLimitExceededError.md#code)
-
-***
-
-### details
-
-> **details**: `string`
-
-#### Inherited from
-
-[`GasLimitExceededError`](GasLimitExceededError.md).[`details`](GasLimitExceededError.md#details)
-
-***
-
-### docsPath
-
-> **docsPath**: `string` \| `undefined`
-
-Path to the documentation for this error.
-
-#### Inherited from
-
-[`GasLimitExceededError`](GasLimitExceededError.md).[`docsPath`](GasLimitExceededError.md#docspath)
-
-***
-
-### metaMessages
-
-> **metaMessages**: `string`[] \| `undefined`
-
-Additional meta messages for more context.
-
-#### Inherited from
-
-[`GasLimitExceededError`](GasLimitExceededError.md).[`metaMessages`](GasLimitExceededError.md#metamessages)
-
-***
-
-### shortMessage
-
-> **shortMessage**: `string`
-
-#### Inherited from
-
-[`GasLimitExceededError`](GasLimitExceededError.md).[`shortMessage`](GasLimitExceededError.md#shortmessage)
-
-***
-
-### version
-
-> **version**: `string`
-
-#### Inherited from
-
-[`GasLimitExceededError`](GasLimitExceededError.md).[`version`](GasLimitExceededError.md#version)
-
-***
-
-### code
-
-> `static` **code**: `number` = `-32003`
-
-Error code, analogous to the code in JSON RPC error.
-
-#### Inherited from
-
-[`GasLimitExceededError`](GasLimitExceededError.md).[`code`](GasLimitExceededError.md#code-1)
-
-***
-
-### EVMErrorMessage
-
-> `static` **EVMErrorMessage**: `string` = `EVMError.errorMessages.CODESTORE_OUT_OF_GAS`
+| Property | Modifier | Type | Default value | Description | Inherited from |
+| ------ | ------ | ------ | ------ | ------ | ------ |
+| <a id="_tag"></a> `_tag` | `public` | `string` | `undefined` | - | [`GasLimitExceededError`](GasLimitExceededError.md).[`_tag`](GasLimitExceededError.md#_tag) |
+| <a id="cause"></a> `cause` | `public` | `any` | `undefined` | - | [`GasLimitExceededError`](GasLimitExceededError.md).[`cause`](GasLimitExceededError.md#cause) |
+| <a id="code"></a> `code` | `public` | `number` | `undefined` | - | [`GasLimitExceededError`](GasLimitExceededError.md).[`code`](GasLimitExceededError.md#code) |
+| <a id="details"></a> `details` | `public` | `string` | `undefined` | - | [`GasLimitExceededError`](GasLimitExceededError.md).[`details`](GasLimitExceededError.md#details) |
+| <a id="docspath"></a> `docsPath` | `public` | `string` \| `undefined` | `undefined` | - | [`GasLimitExceededError`](GasLimitExceededError.md).[`docsPath`](GasLimitExceededError.md#docspath) |
+| <a id="metamessages"></a> `metaMessages` | `public` | `string`[] \| `undefined` | `undefined` | - | [`GasLimitExceededError`](GasLimitExceededError.md).[`metaMessages`](GasLimitExceededError.md#metamessages) |
+| <a id="shortmessage"></a> `shortMessage` | `public` | `string` | `undefined` | - | [`GasLimitExceededError`](GasLimitExceededError.md).[`shortMessage`](GasLimitExceededError.md#shortmessage) |
+| <a id="version"></a> `version` | `public` | `string` | `undefined` | - | [`GasLimitExceededError`](GasLimitExceededError.md).[`version`](GasLimitExceededError.md#version) |
+| <a id="code-1"></a> `code` | `static` | `number` | `-32003` | The error code for GasLimitExceededError. | [`GasLimitExceededError`](GasLimitExceededError.md).[`code`](GasLimitExceededError.md#code-1) |
+| <a id="evmerrormessage"></a> `EVMErrorMessage` | `static` | `string` | `EVMError.errorMessages.CODESTORE_OUT_OF_GAS` | - | - |
 
 ## Methods
 
@@ -210,11 +97,9 @@ Walks through the error chain.
 
 #### Parameters
 
-##### fn?
-
-`Function`
-
-A function to execute on each error in the chain.
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `fn?` | `Function` | A function to execute on each error in the chain. |
 
 #### Returns
 

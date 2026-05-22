@@ -8,13 +8,11 @@
 
 > **DebugGetRawTransactionHandler** = (`params`) => `Promise`\<[`DebugGetRawTransactionResult`](DebugGetRawTransactionResult.md)\>
 
-Defined in: tevm-monorepo/packages/actions/types/debug/DebugHandler.d.ts:6
-
 ## Parameters
 
-### params
-
-[`DebugGetRawTransactionParams`](DebugGetRawTransactionParams.md)
+| Parameter | Type |
+| ------ | ------ |
+| `params` | [`DebugGetRawTransactionParams`](DebugGetRawTransactionParams.md) |
 
 ## Returns
 

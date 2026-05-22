@@ -15,37 +15,18 @@ This handler is used to deploy a contract by specifying the deployment parameter
 
 ## Type Parameters
 
-### TThrowOnFail
-
-`TThrowOnFail` *extends* `boolean` = `boolean`
-
-Indicates whether to throw an error on failure.
-
-### TAbi
-
-`TAbi` *extends* `Abi` \| readonly `unknown`[] = `Abi`
-
-The ABI type of the contract.
-
-### THasConstructor
-
-`THasConstructor` = `TAbi` *extends* `Abi` ? `Abi` *extends* `TAbi` ? `true` : \[`Extract`\<`TAbi`\[`number`\], \{ `type`: `"constructor"`; \}\>\] *extends* \[`never`\] ? `false` : `true` : `true`
-
-Indicates whether the contract has a constructor.
-
-### TAllArgs
-
-`TAllArgs` = `ContractConstructorArgs`\<`TAbi`\>
-
-The types of the constructor arguments.
+| Type Parameter | Default type | Description |
+| ------ | ------ | ------ |
+| `TThrowOnFail` *extends* `boolean` | `boolean` | Indicates whether to throw an error on failure. |
+| `TAbi` *extends* `Abi` \| readonly `unknown`[] | `Abi` | The ABI type of the contract. |
+| `THasConstructor` | `TAbi` *extends* `Abi` ? `Abi` *extends* `TAbi` ? `true` : \[`Extract`\<`TAbi`\[`number`\], \{ `type`: `"constructor"`; \}\>\] *extends* \[`never`\] ? `false` : `true` : `true` | Indicates whether the contract has a constructor. |
+| `TAllArgs` | `ContractConstructorArgs`\<`TAbi`\> | The types of the constructor arguments. |
 
 ## Parameters
 
-### action
-
-[`DeployParams`](DeployParams.md)\<`TThrowOnFail`, `TAbi`, `THasConstructor`, `TAllArgs`\> & [`CallEvents`](CallEvents.md)
-
-The deployment parameters and optional event handlers.
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `action` | [`DeployParams`](DeployParams.md)\<`TThrowOnFail`, `TAbi`, `THasConstructor`, `TAllArgs`\> & [`CallEvents`](CallEvents.md) | The deployment parameters and optional event handlers. |
 
 ## Returns
 

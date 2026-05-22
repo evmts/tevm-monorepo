@@ -8,15 +8,13 @@
 
 > **AnvilDealErc20Procedure** = (`request`) => `Promise`\<[`AnvilDealErc20JsonRpcResponse`](AnvilDealErc20JsonRpcResponse.md)\>
 
-Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilProcedure.d.ts:79
-
 JSON-RPC procedure for `anvil_dealErc20`
 
 ## Parameters
 
-### request
-
-[`AnvilDealErc20JsonRpcRequest`](AnvilDealErc20JsonRpcRequest.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`AnvilDealErc20JsonRpcRequest`](AnvilDealErc20JsonRpcRequest.md) |
 
 ## Returns
 

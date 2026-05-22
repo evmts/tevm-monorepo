@@ -12,9 +12,9 @@ Defined in: [packages/vm/src/actions/deepCopy.js:20](https://github.com/evmts/te
 
 ## Parameters
 
-### baseVm
-
-`BaseVm`
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `baseVm` | `BaseVm` | - |
 
 ## Returns
 

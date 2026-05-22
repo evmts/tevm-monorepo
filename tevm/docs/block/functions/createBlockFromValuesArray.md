@@ -8,23 +8,14 @@
 
 > **createBlockFromValuesArray**(`values`, `opts`): [`Block`](../classes/Block.md)
 
-Defined in: tevm-monorepo/packages/block/types/index.d.ts:35
-
 Creates a block from an array of Bytes values
 
 ## Parameters
 
-### values
-
-[`BlockBytes`](../type-aliases/BlockBytes.md)
-
-The block values array
-
-### opts
-
-[`BlockOptions`](../interfaces/BlockOptions.md)
-
-Options for the block
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `values` | [`BlockBytes`](../type-aliases/BlockBytes.md) | The block values array |
+| `opts` | [`BlockOptions`](../interfaces/BlockOptions.md) | Options for the block |
 
 ## Returns
 

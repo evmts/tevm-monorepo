@@ -8,36 +8,12 @@
 
 > **JsonRpcContractCreationEvent** = `object`
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthJsonRpcResponse.d.ts:301
-
 JSON-RPC contract creation event for eth_simulateV2
 
 ## Properties
 
-### address
-
-> **address**: [`Address`](../../index/type-aliases/Address.md)
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthJsonRpcResponse.d.ts:303
-
-The address of the newly created contract
-
-***
-
-### code
-
-> **code**: [`Hex`](../../index/type-aliases/Hex.md)
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthJsonRpcResponse.d.ts:307
-
-The code deployed to the contract
-
-***
-
-### creator
-
-> **creator**: [`Address`](../../index/type-aliases/Address.md)
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthJsonRpcResponse.d.ts:305
-
-The address of the creator
+| Property | Type | Description |
+| ------ | ------ | ------ |
+| <a id="address"></a> `address` | [`Address`](../../index/type-aliases/Address.md) | The address of the newly created contract |
+| <a id="code"></a> `code` | [`Hex`](../../index/type-aliases/Hex.md) | The code deployed to the contract |
+| <a id="creator"></a> `creator` | [`Address`](../../index/type-aliases/Address.md) | The address of the creator |

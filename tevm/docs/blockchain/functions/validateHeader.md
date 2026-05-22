@@ -8,13 +8,11 @@
 
 > **validateHeader**(`baseChain`): (`header`, `height?`) => `Promise`\<`void`\>
 
-Defined in: tevm-monorepo/packages/blockchain/types/actions/validateHeader.d.ts:1
-
 ## Parameters
 
-### baseChain
-
-`BaseChain`
+| Parameter | Type |
+| ------ | ------ |
+| `baseChain` | `BaseChain` |
 
 ## Returns
 
@@ -24,17 +22,10 @@ Validates a block header, throwing if invalid. It is being validated against the
 
 ### Parameters
 
-#### header
-
-[`BlockHeader`](../../block/classes/BlockHeader.md)
-
-header to be validated
-
-#### height?
-
-`bigint`
-
-If this is an uncle header, this is the height of the block that is including it
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `header` | [`BlockHeader`](../../block/classes/BlockHeader.md) | header to be validated |
+| `height?` | `bigint` | If this is an uncle header, this is the height of the block that is including it |
 
 ### Returns
 

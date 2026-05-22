@@ -8,8 +8,6 @@
 
 > **SetAccountParams**\<`TThrowOnFail`\> = [`BaseParams`](../../index/type-aliases/BaseParams.md)\<`TThrowOnFail`\> & `object`
 
-Defined in: tevm-monorepo/packages/actions/types/SetAccount/SetAccountParams.d.ts:15
-
 Tevm params to set an account in the vm state
 all fields are optional except address
 
@@ -59,9 +57,9 @@ Storage root to set account to
 
 ## Type Parameters
 
-### TThrowOnFail
-
-`TThrowOnFail` *extends* `boolean` = `boolean`
+| Type Parameter | Default type |
+| ------ | ------ |
+| `TThrowOnFail` *extends* `boolean` | `boolean` |
 
 ## Example
 

@@ -8,36 +8,11 @@
 
 > **CreateVmOptions** = `object`
 
-Defined in: tevm-monorepo/packages/vm/types/CreateVmOptions.d.ts:5
-
 ## Properties
 
-### blockchain
-
-> **blockchain**: [`Chain`](../../blockchain/type-aliases/Chain.md)
-
-Defined in: tevm-monorepo/packages/vm/types/CreateVmOptions.d.ts:8
-
-***
-
-### common
-
-> **common**: [`Common`](../../common/type-aliases/Common.md)
-
-Defined in: tevm-monorepo/packages/vm/types/CreateVmOptions.d.ts:9
-
-***
-
-### evm
-
-> **evm**: [`EvmType`](../../evm/type-aliases/EvmType.md)
-
-Defined in: tevm-monorepo/packages/vm/types/CreateVmOptions.d.ts:7
-
-***
-
-### stateManager
-
-> **stateManager**: [`StateManager`](../../state/interfaces/StateManager.md)
-
-Defined in: tevm-monorepo/packages/vm/types/CreateVmOptions.d.ts:6
+| Property | Type |
+| ------ | ------ |
+| <a id="blockchain"></a> `blockchain` | [`Chain`](../../blockchain/type-aliases/Chain.md) |
+| <a id="common"></a> `common` | [`Common`](../../common/type-aliases/Common.md) |
+| <a id="evm"></a> `evm` | [`EvmType`](../../evm/type-aliases/EvmType.md) |
+| <a id="statemanager"></a> `stateManager` | [`StateManager`](../../state/interfaces/StateManager.md) |

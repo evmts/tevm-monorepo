@@ -6,8 +6,6 @@
 
 # Class: Address
 
-Defined in: tevm-monorepo/packages/address/types/Address.d.ts:42
-
 A specialized Ethereum address class that extends EthjsAddress with TEVM-specific
 functionality. This class provides EIP-55 compliant checksummed address formatting
 and consistent behavior across the TEVM ecosystem.
@@ -60,13 +58,11 @@ address = createAddress('8ba1f109551bd432803012645ac136ddd64dba72');
 
 > **new Address**(`bytes`): `Address`
 
-Defined in: zevm/npm/zevm/dist/util.d.ts:163
-
 #### Parameters
 
-##### bytes
-
-`Uint8Array`
+| Parameter | Type |
+| ------ | ------ |
+| `bytes` | `Uint8Array` |
 
 #### Returns
 
@@ -78,15 +74,9 @@ Defined in: zevm/npm/zevm/dist/util.d.ts:163
 
 ## Properties
 
-### bytes
-
-> **bytes**: `Uint8Array`
-
-Defined in: zevm/npm/zevm/dist/util.d.ts:162
-
-#### Inherited from
-
-[`EthjsAddress`](../../utils/classes/EthjsAddress.md).[`bytes`](../../utils/classes/EthjsAddress.md#bytes)
+| Property | Type | Inherited from |
+| ------ | ------ | ------ |
+| <a id="bytes"></a> `bytes` | `Uint8Array` | [`EthjsAddress`](../../utils/classes/EthjsAddress.md).[`bytes`](../../utils/classes/EthjsAddress.md#bytes) |
 
 ## Methods
 
@@ -94,13 +84,11 @@ Defined in: zevm/npm/zevm/dist/util.d.ts:162
 
 > **equals**(`address`): `boolean`
 
-Defined in: zevm/npm/zevm/dist/util.d.ts:166
-
 #### Parameters
 
-##### address
-
-[`EthjsAddress`](../../utils/classes/EthjsAddress.md)
+| Parameter | Type |
+| ------ | ------ |
+| `address` | [`EthjsAddress`](../../utils/classes/EthjsAddress.md) |
 
 #### Returns
 
@@ -116,8 +104,6 @@ Defined in: zevm/npm/zevm/dist/util.d.ts:166
 
 > **isPrecompileOrSystemAddress**(): `boolean`
 
-Defined in: zevm/npm/zevm/dist/util.d.ts:168
-
 #### Returns
 
 `boolean`
@@ -131,8 +117,6 @@ Defined in: zevm/npm/zevm/dist/util.d.ts:168
 ### isZero()
 
 > **isZero**(): `boolean`
-
-Defined in: zevm/npm/zevm/dist/util.d.ts:167
 
 #### Returns
 
@@ -148,8 +132,6 @@ Defined in: zevm/npm/zevm/dist/util.d.ts:167
 
 > **toBytes**(): `Uint8Array`
 
-Defined in: zevm/npm/zevm/dist/util.d.ts:170
-
 #### Returns
 
 `Uint8Array`
@@ -163,8 +145,6 @@ Defined in: zevm/npm/zevm/dist/util.d.ts:170
 ### toString()
 
 > **toString**(): `` `0x${string}` ``
-
-Defined in: zevm/npm/zevm/dist/util.d.ts:169
 
 #### Returns
 
@@ -180,13 +160,11 @@ Defined in: zevm/npm/zevm/dist/util.d.ts:169
 
 > `static` **fromString**(`str`): [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
 
-Defined in: zevm/npm/zevm/dist/util.d.ts:164
-
 #### Parameters
 
-##### str
-
-`string`
+| Parameter | Type |
+| ------ | ------ |
+| `str` | `string` |
 
 #### Returns
 
@@ -201,8 +179,6 @@ Defined in: zevm/npm/zevm/dist/util.d.ts:164
 ### zero()
 
 > `static` **zero**(): [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
-
-Defined in: zevm/npm/zevm/dist/util.d.ts:165
 
 #### Returns
 

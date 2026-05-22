@@ -28,8 +28,6 @@ const value: ManualMining = {
 
 ## Properties
 
-### type
-
-> **type**: `"manual"`
-
-Defined in: [packages/node/src/MiningConfig.ts:17](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/MiningConfig.ts#L17)
+| Property | Type | Defined in |
+| ------ | ------ | ------ |
+| <a id="type"></a> `type` | `"manual"` | [packages/node/src/MiningConfig.ts:17](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/MiningConfig.ts#L17) |

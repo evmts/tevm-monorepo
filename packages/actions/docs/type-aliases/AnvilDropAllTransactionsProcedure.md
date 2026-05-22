@@ -14,9 +14,9 @@ JSON-RPC procedure for `anvil_dropAllTransactions`
 
 ## Parameters
 
-### request
-
-[`AnvilDropAllTransactionsJsonRpcRequest`](AnvilDropAllTransactionsJsonRpcRequest.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`AnvilDropAllTransactionsJsonRpcRequest`](AnvilDropAllTransactionsJsonRpcRequest.md) |
 
 ## Returns
 

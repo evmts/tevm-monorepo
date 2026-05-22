@@ -8,13 +8,11 @@
 
 > **AnvilSetRpcUrlHandler** = (`params`) => `Promise`\<[`AnvilSetRpcUrlResult`](AnvilSetRpcUrlResult.md)\>
 
-Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilHandler.d.ts:21
-
 ## Parameters
 
-### params
-
-[`AnvilSetRpcUrlParams`](AnvilSetRpcUrlParams.md)
+| Parameter | Type |
+| ------ | ------ |
+| `params` | [`AnvilSetRpcUrlParams`](AnvilSetRpcUrlParams.md) |
 
 ## Returns
 

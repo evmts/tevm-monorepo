@@ -8,28 +8,10 @@
 
 > **SolcMetadataSettings** = `object`
 
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:62
-
 ## Properties
 
-### appendCBOR?
-
-> `optional` **appendCBOR?**: `boolean`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:63
-
-***
-
-### bytecodeHash?
-
-> `optional` **bytecodeHash?**: `"ipfs"` \| `"bzzr1"` \| `"none"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:65
-
-***
-
-### useLiteralContent?
-
-> `optional` **useLiteralContent?**: `boolean`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:64
+| Property | Type |
+| ------ | ------ |
+| <a id="appendcbor"></a> `appendCBOR?` | `boolean` |
+| <a id="bytecodehash"></a> `bytecodeHash?` | `"ipfs"` \| `"bzzr1"` \| `"none"` |
+| <a id="useliteralcontent"></a> `useLiteralContent?` | `boolean` |

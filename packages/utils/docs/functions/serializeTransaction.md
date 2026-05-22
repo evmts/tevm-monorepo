@@ -12,23 +12,17 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/viem@2.49.3\_bufferutil@4.1.0\_typ
 
 ## Type Parameters
 
-### transaction
-
-`transaction` *extends* `TransactionSerializable`
-
-### _transactionType
-
-`_transactionType` *extends* `TransactionType` = `GetTransactionType`\<`transaction`\>
+| Type Parameter | Default type |
+| ------ | ------ |
+| `transaction` *extends* `TransactionSerializable` | - |
+| `_transactionType` *extends* `TransactionType` | `GetTransactionType`\<`transaction`\> |
 
 ## Parameters
 
-### transaction
-
-`transaction`
-
-### signature?
-
-`Signature`
+| Parameter | Type |
+| ------ | ------ |
+| `transaction` | `transaction` |
+| `signature?` | `Signature` |
 
 ## Returns
 

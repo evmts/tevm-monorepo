@@ -23,6 +23,6 @@ Block tag to fetch account from
 
 ## Type Parameters
 
-### TThrowOnFail
-
-`TThrowOnFail` *extends* `boolean` = `boolean`
+| Type Parameter | Default type |
+| ------ | ------ |
+| `TThrowOnFail` *extends* `boolean` | `boolean` |

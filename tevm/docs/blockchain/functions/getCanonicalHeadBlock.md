@@ -8,13 +8,11 @@
 
 > **getCanonicalHeadBlock**(`baseChain`): () => `Promise`\<[`Block`](../../block/classes/Block.md)\>
 
-Defined in: tevm-monorepo/packages/blockchain/types/actions/getCanonicalHeadBlock.d.ts:1
-
 ## Parameters
 
-### baseChain
-
-`BaseChain`
+| Parameter | Type |
+| ------ | ------ |
+| `baseChain` | `BaseChain` |
 
 ## Returns
 

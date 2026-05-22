@@ -6,8 +6,6 @@
 
 # Interface: BaseTxReceipt
 
-Defined in: tevm-monorepo/packages/vm/types/utils/BaseTxReceipt.d.ts:5
-
 Abstract interface with common transaction receipt fields
 
 ## Extended by
@@ -17,30 +15,8 @@ Abstract interface with common transaction receipt fields
 
 ## Properties
 
-### bitvector
-
-> **bitvector**: `Uint8Array`
-
-Defined in: tevm-monorepo/packages/vm/types/utils/BaseTxReceipt.d.ts:13
-
-Bloom bitvector
-
-***
-
-### cumulativeBlockGasUsed
-
-> **cumulativeBlockGasUsed**: `bigint`
-
-Defined in: tevm-monorepo/packages/vm/types/utils/BaseTxReceipt.d.ts:9
-
-Cumulative gas used in the block including this tx
-
-***
-
-### logs
-
-> **logs**: [`EthjsLog`](../../utils/type-aliases/EthjsLog.md)[]
-
-Defined in: tevm-monorepo/packages/vm/types/utils/BaseTxReceipt.d.ts:17
-
-Logs emitted
+| Property | Type | Description |
+| ------ | ------ | ------ |
+| <a id="bitvector"></a> `bitvector` | `Uint8Array` | Bloom bitvector |
+| <a id="cumulativeblockgasused"></a> `cumulativeBlockGasUsed` | `bigint` | Cumulative gas used in the block including this tx |
+| <a id="logs"></a> `logs` | [`EthjsLog`](../../utils/type-aliases/EthjsLog.md)[] | Logs emitted |

@@ -18,11 +18,9 @@ in a way that is compatible with both. It also wraps them with Effect for better
 
 ## Parameters
 
-### url
-
-`string`
-
-url to create require from
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `url` | `string` | url to create require from |
 
 ## Returns
 

@@ -12,9 +12,9 @@ Defined in: [packages/actions/src/eth/EthHandler.ts:207](https://github.com/evmt
 
 ## Parameters
 
-### request
-
-[`EthUninstallFilterParams`](EthUninstallFilterParams.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`EthUninstallFilterParams`](EthUninstallFilterParams.md) |
 
 ## Returns
 

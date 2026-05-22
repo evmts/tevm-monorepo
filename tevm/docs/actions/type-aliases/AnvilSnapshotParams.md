@@ -8,6 +8,4 @@
 
 > **AnvilSnapshotParams** = \{ \} \| `undefined` \| `never`
 
-Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilParams.d.ts:264
-
 Params for `anvil_snapshot` handler

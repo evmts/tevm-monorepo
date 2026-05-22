@@ -16,11 +16,9 @@ transaction root.
 
 ## Parameters
 
-### block
-
-`Block`
-
-The block to generate the transaction trie for
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `block` | `Block` | The block to generate the transaction trie for |
 
 ## Returns
 

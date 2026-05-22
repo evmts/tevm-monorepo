@@ -8,8 +8,6 @@
 
 > **tevmActions**(): [`Extension`](../../index/type-aliases/Extension.md)\<[`TevmActionsApi`](../../index/type-aliases/TevmActionsApi.md)\>
 
-Defined in: tevm-monorepo/packages/decorators/dist/index.d.ts:213
-
 ## Returns
 
 [`Extension`](../../index/type-aliases/Extension.md)\<[`TevmActionsApi`](../../index/type-aliases/TevmActionsApi.md)\>

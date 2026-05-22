@@ -8,7 +8,7 @@
 
 > **EIP1193Events** = `object`
 
-Defined in: [packages/node/src/EIP1193EventEmitterTypes.ts:46](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/EIP1193EventEmitterTypes.ts#L46)
+Defined in: [packages/node/src/EIP1193EventEmitterTypes.ts:48](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/EIP1193EventEmitterTypes.ts#L48)
 
 ## Methods
 
@@ -16,23 +16,20 @@ Defined in: [packages/node/src/EIP1193EventEmitterTypes.ts:46](https://github.co
 
 > **on**\<`TEvent`\>(`event`, `listener`): `void`
 
-Defined in: [packages/node/src/EIP1193EventEmitterTypes.ts:47](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/EIP1193EventEmitterTypes.ts#L47)
+Defined in: [packages/node/src/EIP1193EventEmitterTypes.ts:49](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/EIP1193EventEmitterTypes.ts#L49)
 
 #### Type Parameters
 
-##### TEvent
-
-`TEvent` *extends* keyof [`EIP1193EventMap`](EIP1193EventMap.md)
+| Type Parameter |
+| ------ |
+| `TEvent` *extends* keyof [`EIP1193EventMap`](EIP1193EventMap.md) |
 
 #### Parameters
 
-##### event
-
-`TEvent`
-
-##### listener
-
-[`EIP1193EventMap`](EIP1193EventMap.md)\[`TEvent`\]
+| Parameter | Type |
+| ------ | ------ |
+| `event` | `TEvent` |
+| `listener` | [`EIP1193EventMap`](EIP1193EventMap.md)\[`TEvent`\] |
 
 #### Returns
 
@@ -44,23 +41,20 @@ Defined in: [packages/node/src/EIP1193EventEmitterTypes.ts:47](https://github.co
 
 > **removeListener**\<`TEvent`\>(`event`, `listener`): `void`
 
-Defined in: [packages/node/src/EIP1193EventEmitterTypes.ts:48](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/EIP1193EventEmitterTypes.ts#L48)
+Defined in: [packages/node/src/EIP1193EventEmitterTypes.ts:50](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/EIP1193EventEmitterTypes.ts#L50)
 
 #### Type Parameters
 
-##### TEvent
-
-`TEvent` *extends* keyof [`EIP1193EventMap`](EIP1193EventMap.md)
+| Type Parameter |
+| ------ |
+| `TEvent` *extends* keyof [`EIP1193EventMap`](EIP1193EventMap.md) |
 
 #### Parameters
 
-##### event
-
-`TEvent`
-
-##### listener
-
-[`EIP1193EventMap`](EIP1193EventMap.md)\[`TEvent`\]
+| Parameter | Type |
+| ------ | ------ |
+| `event` | `TEvent` |
+| `listener` | [`EIP1193EventMap`](EIP1193EventMap.md)\[`TEvent`\] |
 
 #### Returns
 

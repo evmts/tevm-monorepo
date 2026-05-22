@@ -14,10 +14,6 @@ Params taken by `debug_preimage` handler
 
 ## Properties
 
-### hash
-
-> `readonly` **hash**: [`Hex`](Hex.md)
-
-Defined in: [packages/actions/src/debug/DebugParams.ts:304](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/DebugParams.ts#L304)
-
-The SHA3 hash to get the preimage for
+| Property | Modifier | Type | Description | Defined in |
+| ------ | ------ | ------ | ------ | ------ |
+| <a id="hash"></a> `hash` | `readonly` | [`Hex`](Hex.md) | The SHA3 hash to get the preimage for | [packages/actions/src/debug/DebugParams.ts:304](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/DebugParams.ts#L304) |

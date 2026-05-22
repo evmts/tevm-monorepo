@@ -8,13 +8,11 @@
 
 > **EthGetTransactionReceiptHandler** = (`request`) => `Promise`\<[`EthGetTransactionReceiptResult`](EthGetTransactionReceiptResult.md)\>
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthHandler.d.ts:29
-
 ## Parameters
 
-### request
-
-[`EthGetTransactionReceiptParams`](EthGetTransactionReceiptParams.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`EthGetTransactionReceiptParams`](EthGetTransactionReceiptParams.md) |
 
 ## Returns
 

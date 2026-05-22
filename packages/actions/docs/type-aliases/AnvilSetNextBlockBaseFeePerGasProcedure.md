@@ -14,9 +14,9 @@ JSON-RPC procedure for `anvil_setNextBlockBaseFeePerGas`
 
 ## Parameters
 
-### request
-
-[`AnvilSetNextBlockBaseFeePerGasJsonRpcRequest`](AnvilSetNextBlockBaseFeePerGasJsonRpcRequest.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`AnvilSetNextBlockBaseFeePerGasJsonRpcRequest`](AnvilSetNextBlockBaseFeePerGasJsonRpcRequest.md) |
 
 ## Returns
 

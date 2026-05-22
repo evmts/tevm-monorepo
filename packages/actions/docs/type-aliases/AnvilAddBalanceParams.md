@@ -8,26 +8,13 @@
 
 > **AnvilAddBalanceParams** = `object`
 
-Defined in: [packages/actions/src/anvil/AnvilParams.ts:289](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilParams.ts#L289)
+Defined in: [packages/actions/src/anvil/AnvilParams.ts:294](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilParams.ts#L294)
 
 Params for `anvil_addBalance` handler
 
 ## Properties
 
-### address
-
-> `readonly` **address**: [`Address`](Address.md)
-
-Defined in: [packages/actions/src/anvil/AnvilParams.ts:293](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilParams.ts#L293)
-
-The address to add balance to
-
-***
-
-### amount
-
-> `readonly` **amount**: [`Hex`](Hex.md) \| `BigInt`
-
-Defined in: [packages/actions/src/anvil/AnvilParams.ts:297](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilParams.ts#L297)
-
-The amount to add to the balance
+| Property | Modifier | Type | Description | Defined in |
+| ------ | ------ | ------ | ------ | ------ |
+| <a id="address"></a> `address` | `readonly` | [`Address`](Address.md) | The address to add balance to | [packages/actions/src/anvil/AnvilParams.ts:298](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilParams.ts#L298) |
+| <a id="amount"></a> `amount` | `readonly` | [`Hex`](Hex.md) \| `BigInt` | The amount to add to the balance | [packages/actions/src/anvil/AnvilParams.ts:302](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilParams.ts#L302) |

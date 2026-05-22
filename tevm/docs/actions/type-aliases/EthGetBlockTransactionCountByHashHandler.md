@@ -8,13 +8,11 @@
 
 > **EthGetBlockTransactionCountByHashHandler** = (`request`) => `Promise`\<[`EthGetBlockTransactionCountByHashResult`](EthGetBlockTransactionCountByHashResult.md)\>
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthHandler.d.ts:16
-
 ## Parameters
 
-### request
-
-[`EthGetBlockTransactionCountByHashParams`](EthGetBlockTransactionCountByHashParams.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`EthGetBlockTransactionCountByHashParams`](EthGetBlockTransactionCountByHashParams.md) |
 
 ## Returns
 

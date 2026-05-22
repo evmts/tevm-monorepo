@@ -8,7 +8,7 @@
 
 > **tevmViemExtensionOptimistic**(): [`ViemTevmOptimisticClientDecorator`](../type-aliases/ViemTevmOptimisticClientDecorator.md)
 
-Defined in: [extensions/viem/src/tevmViemExtensionOptimistic.js:66](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/tevmViemExtensionOptimistic.js#L66)
+Defined in: [extensions/viem/src/tevmViemExtensionOptimistic.js:105](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/tevmViemExtensionOptimistic.js#L105)
 
 **`Experimental`**
 

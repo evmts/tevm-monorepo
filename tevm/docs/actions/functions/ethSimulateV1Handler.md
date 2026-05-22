@@ -8,13 +8,11 @@
 
 > **ethSimulateV1Handler**(`client`): [`EthSimulateV1Handler`](../type-aliases/EthSimulateV1Handler.md)
 
-Defined in: tevm-monorepo/packages/actions/types/eth/ethSimulateV1Handler.d.ts:1
-
 ## Parameters
 
-### client
-
-[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{ \}\>
+| Parameter | Type |
+| ------ | ------ |
+| `client` | [`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{ \}\> |
 
 ## Returns
 

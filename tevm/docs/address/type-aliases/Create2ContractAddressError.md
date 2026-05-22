@@ -7,5 +7,3 @@
 # Type Alias: Create2ContractAddressError
 
 > **Create2ContractAddressError** = [`InvalidSaltError`](../../errors/classes/InvalidSaltError.md) \| [`InvalidAddressError`](../../errors/classes/InvalidAddressError.md)
-
-Defined in: tevm-monorepo/packages/address/types/create2ContractAddress.d.ts:2

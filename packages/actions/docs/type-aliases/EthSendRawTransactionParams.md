@@ -15,8 +15,6 @@ This type is a placeholder
 
 ## Properties
 
-### data
-
-> `readonly` **data**: [`Hex`](Hex.md)
-
-Defined in: [packages/actions/src/eth/EthParams.ts:261](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L261)
+| Property | Modifier | Type | Defined in |
+| ------ | ------ | ------ | ------ |
+| <a id="data"></a> `data` | `readonly` | [`Hex`](Hex.md) | [packages/actions/src/eth/EthParams.ts:261](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L261) |

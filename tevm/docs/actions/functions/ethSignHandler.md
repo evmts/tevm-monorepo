@@ -8,15 +8,12 @@
 
 > **ethSignHandler**(`__namedParameters`): [`EthSignHandler`](../type-aliases/EthSignHandler.md)
 
-Defined in: tevm-monorepo/packages/actions/types/eth/ethSignHandler.d.ts:12
-
 ## Parameters
 
-### \_\_namedParameters
-
-#### accounts
-
-readonly `object`[]
+| Parameter | Type |
+| ------ | ------ |
+| `__namedParameters` | \{ `accounts`: readonly `object`[]; \} |
+| `__namedParameters.accounts` | readonly `object`[] |
 
 ## Returns
 

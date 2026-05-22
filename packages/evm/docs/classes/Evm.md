@@ -6,9 +6,7 @@
 
 # Class: Evm
 
-Defined in: [packages/evm/src/Evm.js:24](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/src/Evm.js#L24)
-
-The Tevm EVM is in charge of executing bytecode. It is a light wrapper around ZEVM EVM primitives
+The Tevm EVM is in charge of executing bytecode. It is a light wrapper around ZEVM EVM primitives.
 The Evm class provides tevm specific typing with regard to the custom stateManager. It does not
 provide custom typing to the blockchain or common objects.
 
@@ -46,11 +44,9 @@ Creates new EVM object
 
 #### Parameters
 
-##### opts
-
-`EVMOpts`
-
-The EVM options
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `opts` | `EVMOpts` | The EVM options |
 
 #### Returns
 
@@ -68,265 +64,34 @@ use the async createEVM constructor instead (same API).
 
 ## Properties
 
-### \_block?
-
-> `protected` `optional` **\_block?**: `Block`
-
-#### Inherited from
-
-`EVM._block`
-
-***
-
-### \_bls?
-
-> `protected` `readonly` `optional` **\_bls?**: `EVMBLSInterface`
-
-#### Inherited from
-
-`EVM._bls`
-
-***
-
-### \_customOpcodes?
-
-> `protected` `readonly` `optional` **\_customOpcodes?**: `CustomOpcode`[]
-
-#### Inherited from
-
-`EVM._customOpcodes`
-
-***
-
-### \_customPrecompiles?
-
-> `protected` `readonly` `optional` **\_customPrecompiles?**: `CustomPrecompile`[]
-
-#### Inherited from
-
-`EVM._customPrecompiles`
-
-***
-
-### \_dynamicGasHandlers
-
-> `protected` **\_dynamicGasHandlers**: `Map`\<`number`, `AsyncDynamicGasHandler` \| `SyncDynamicGasHandler`\>
-
-#### Inherited from
-
-`EVM._dynamicGasHandlers`
-
-***
-
-### \_emit
-
-> `protected` `readonly` **\_emit**: (`topic`, `data`) => `Promise`\<`void`\>
-
-#### Parameters
-
-##### topic
-
-`string`
-
-##### data
-
-`any`
-
-#### Returns
-
-`Promise`\<`void`\>
-
-#### Inherited from
-
-`EVM._emit`
-
-***
-
-### \_handlers
-
-> `protected` **\_handlers**: `Map`\<`number`, `OpHandler`\>
-
-#### Inherited from
-
-`EVM._handlers`
-
-***
-
-### \_opcodeMap
-
-> `protected` **\_opcodeMap**: `OpcodeMap`
-
-#### Inherited from
-
-`EVM._opcodeMap`
-
-***
-
-### \_opcodes
-
-> `protected` **\_opcodes**: `OpcodeList`
-
-#### Inherited from
-
-`EVM._opcodes`
-
-***
-
-### \_optsCached
-
-> `protected` `readonly` **\_optsCached**: `EVMOpts`
-
-#### Inherited from
-
-`EVM._optsCached`
-
-***
-
-### \_precompiles
-
-> `protected` **\_precompiles**: `Map`\<`string`, `PrecompileFunc`\>
-
-#### Inherited from
-
-`EVM._precompiles`
-
-***
-
-### \_tx?
-
-> `protected` `optional` **\_tx?**: `object`
-
-#### gasPrice
-
-> **gasPrice**: `bigint`
-
-#### origin
-
-> **origin**: `Address`
-
-#### Inherited from
-
-`EVM._tx`
-
-***
-
-### allowUnlimitedContractSize
-
-> `readonly` **allowUnlimitedContractSize**: `boolean`
-
-#### Inherited from
-
-`EVM.allowUnlimitedContractSize`
-
-***
-
-### allowUnlimitedInitCodeSize
-
-> `readonly` **allowUnlimitedInitCodeSize**: `boolean`
-
-#### Inherited from
-
-`EVM.allowUnlimitedInitCodeSize`
-
-***
-
-### binaryAccessWitness?
-
-> `optional` **binaryAccessWitness?**: `BinaryTreeAccessWitness`
-
-#### Inherited from
-
-`EVM.binaryAccessWitness`
-
-***
-
-### blockchain
-
-> **blockchain**: `EVMMockBlockchainInterface`
-
-#### Inherited from
-
-`EVM.blockchain`
-
-***
-
-### common
-
-> `readonly` **common**: `Common`
-
-#### Inherited from
-
-`EVM.common`
-
-***
-
-### events
-
-> `readonly` **events**: `EventEmitter`\<`EVMEvent`\>
-
-#### Inherited from
-
-`EVM.events`
-
-***
-
-### journal
-
-> **journal**: `Journal`
-
-#### Inherited from
-
-`EVM.journal`
-
-***
-
-### performanceLogger
-
-> `protected` **performanceLogger**: `EVMPerformanceLogger`
-
-#### Inherited from
-
-`EVM.performanceLogger`
-
-***
-
-### stateManager
-
-> **stateManager**: `StateManagerInterface`
-
-#### Inherited from
-
-`EVM.stateManager`
-
-***
-
-### systemBinaryAccessWitness?
-
-> `optional` **systemBinaryAccessWitness?**: `BinaryTreeAccessWitness`
-
-#### Inherited from
-
-`EVM.systemBinaryAccessWitness`
-
-***
-
-### transientStorage
-
-> `readonly` **transientStorage**: `TransientStorage`
-
-#### Inherited from
-
-`EVM.transientStorage`
-
-***
-
-### supportedHardforks
-
-> `protected` `static` **supportedHardforks**: (`"chainstart"` \| `"homestead"` \| `"dao"` \| `"tangerineWhistle"` \| `"spuriousDragon"` \| `"byzantium"` \| `"constantinople"` \| `"petersburg"` \| `"istanbul"` \| `"muirGlacier"` \| `"berlin"` \| `"london"` \| `"arrowGlacier"` \| `"grayGlacier"` \| `"mergeNetsplitBlock"` \| `"paris"` \| `"shanghai"` \| `"cancun"` \| `"prague"` \| `"osaka"` \| `"bpo1"` \| `"bpo2"` \| `"bpo3"` \| `"bpo4"` \| `"bpo5"` \| `"amsterdam"`)[]
-
-#### Inherited from
-
-`EVM.supportedHardforks`
+| Property | Modifier | Type | Inherited from |
+| ------ | ------ | ------ | ------ |
+| <a id="_block"></a> `_block?` | `protected` | `Block` | `EVM._block` |
+| <a id="_bls"></a> `_bls?` | `readonly` | `EVMBLSInterface` | `EVM._bls` |
+| <a id="_customopcodes"></a> `_customOpcodes?` | `readonly` | `CustomOpcode`[] | `EVM._customOpcodes` |
+| <a id="_customprecompiles"></a> `_customPrecompiles?` | `readonly` | `CustomPrecompile`[] | `EVM._customPrecompiles` |
+| <a id="_dynamicgashandlers"></a> `_dynamicGasHandlers` | `protected` | `Map`\<`number`, `AsyncDynamicGasHandler` \| `SyncDynamicGasHandler`\> | `EVM._dynamicGasHandlers` |
+| <a id="_emit"></a> `_emit` | `readonly` | (`topic`, `data`) => `Promise`\<`void`\> | `EVM._emit` |
+| <a id="_handlers"></a> `_handlers` | `protected` | `Map`\<`number`, `OpHandler`\> | `EVM._handlers` |
+| <a id="_opcodemap"></a> `_opcodeMap` | `protected` | `OpcodeMap` | `EVM._opcodeMap` |
+| <a id="_opcodes"></a> `_opcodes` | `protected` | `OpcodeList` | `EVM._opcodes` |
+| <a id="_optscached"></a> `_optsCached` | `readonly` | `EVMOpts` | `EVM._optsCached` |
+| <a id="_precompiles"></a> `_precompiles` | `protected` | `Map`\<`string`, `PrecompileFunc`\> | `EVM._precompiles` |
+| <a id="_tx"></a> `_tx?` | `protected` | `object` | `EVM._tx` |
+| `_tx.gasPrice` | `public` | `bigint` | - |
+| `_tx.origin` | `public` | `Address` | - |
+| <a id="allowunlimitedcontractsize"></a> `allowUnlimitedContractSize` | `readonly` | `boolean` | `EVM.allowUnlimitedContractSize` |
+| <a id="allowunlimitedinitcodesize"></a> `allowUnlimitedInitCodeSize` | `readonly` | `boolean` | `EVM.allowUnlimitedInitCodeSize` |
+| <a id="binaryaccesswitness"></a> `binaryAccessWitness?` | `public` | `BinaryTreeAccessWitness` | `EVM.binaryAccessWitness` |
+| <a id="blockchain"></a> `blockchain` | `public` | `EVMMockBlockchainInterface` | `EVM.blockchain` |
+| <a id="common"></a> `common` | `readonly` | `Common` | `EVM.common` |
+| <a id="events"></a> `events` | `readonly` | `EventEmitter`\<`EVMEvent`\> | `EVM.events` |
+| <a id="journal"></a> `journal` | `public` | `Journal` | `EVM.journal` |
+| <a id="performancelogger"></a> `performanceLogger` | `protected` | `EVMPerformanceLogger` | `EVM.performanceLogger` |
+| <a id="statemanager"></a> `stateManager` | `public` | `StateManagerInterface` | `EVM.stateManager` |
+| <a id="systembinaryaccesswitness"></a> `systemBinaryAccessWitness?` | `public` | `BinaryTreeAccessWitness` | `EVM.systemBinaryAccessWitness` |
+| <a id="transientstorage"></a> `transientStorage` | `readonly` | `TransientStorage` | `EVM.transientStorage` |
+| <a id="supportedhardforks"></a> `supportedHardforks` | `static` | (`"chainstart"` \| `"homestead"` \| `"dao"` \| `"tangerineWhistle"` \| `"spuriousDragon"` \| `"byzantium"` \| `"constantinople"` \| `"petersburg"` \| `"istanbul"` \| `"muirGlacier"` \| `"berlin"` \| `"london"` \| `"arrowGlacier"` \| `"grayGlacier"` \| `"mergeNetsplitBlock"` \| `"paris"` \| `"shanghai"` \| `"cancun"` \| `"prague"` \| `"osaka"` \| `"bpo1"` \| `"bpo2"` \| `"bpo3"` \| `"bpo4"` \| `"bpo5"` \| `"amsterdam"`)[] | `EVM.supportedHardforks` |
 
 ## Accessors
 
@@ -368,13 +133,10 @@ use the async createEVM constructor instead (same API).
 
 #### Parameters
 
-##### toAccount
-
-`Account`
-
-##### message
-
-`MessageWithTo`
+| Parameter | Type |
+| ------ | ------ |
+| `toAccount` | `Account` |
+| `message` | `MessageWithTo` |
 
 #### Returns
 
@@ -392,9 +154,9 @@ use the async createEVM constructor instead (same API).
 
 #### Parameters
 
-##### message
-
-`MessageWithTo`
+| Parameter | Type |
+| ------ | ------ |
+| `message` | `MessageWithTo` |
 
 #### Returns
 
@@ -412,9 +174,9 @@ use the async createEVM constructor instead (same API).
 
 #### Parameters
 
-##### message
-
-[`EthjsMessage`](EthjsMessage.md)
+| Parameter | Type |
+| ------ | ------ |
+| `message` | [`EthjsMessage`](EthjsMessage.md) |
 
 #### Returns
 
@@ -432,9 +194,9 @@ use the async createEVM constructor instead (same API).
 
 #### Parameters
 
-##### message
-
-[`EthjsMessage`](EthjsMessage.md)
+| Parameter | Type |
+| ------ | ------ |
+| `message` | [`EthjsMessage`](EthjsMessage.md) |
 
 #### Returns
 
@@ -452,9 +214,9 @@ use the async createEVM constructor instead (same API).
 
 #### Parameters
 
-##### message
-
-[`EthjsMessage`](EthjsMessage.md)
+| Parameter | Type |
+| ------ | ------ |
+| `message` | [`EthjsMessage`](EthjsMessage.md) |
 
 #### Returns
 
@@ -472,13 +234,10 @@ use the async createEVM constructor instead (same API).
 
 #### Parameters
 
-##### account
-
-`Account`
-
-##### message
-
-[`EthjsMessage`](EthjsMessage.md)
+| Parameter | Type |
+| ------ | ------ |
+| `account` | `Account` |
+| `message` | [`EthjsMessage`](EthjsMessage.md) |
 
 #### Returns
 
@@ -494,15 +253,13 @@ use the async createEVM constructor instead (same API).
 
 > **addCustomPrecompile**(`precompile`): `void`
 
-Defined in: [packages/evm/src/Evm.js:30](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/src/Evm.js#L30)
-
 Adds a custom precompile to the EVM.
 
 #### Parameters
 
-##### precompile
-
-`CustomPrecompile`
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `precompile` | `CustomPrecompile` | - |
 
 #### Returns
 
@@ -574,9 +331,9 @@ if no such precompile exists.
 
 #### Parameters
 
-##### address
-
-`Address`
+| Parameter | Type |
+| ------ | ------ |
+| `address` | `Address` |
 
 #### Returns
 
@@ -592,15 +349,13 @@ if no such precompile exists.
 
 > **removeCustomPrecompile**(`precompile`): `void`
 
-Defined in: [packages/evm/src/Evm.js:46](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/src/Evm.js#L46)
-
 Removes a custom precompile from the EVM.
 
 #### Parameters
 
-##### precompile
-
-`CustomPrecompile`
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `precompile` | `CustomPrecompile` | - |
 
 #### Returns
 
@@ -622,9 +377,9 @@ if an exception happens during the message execution.
 
 #### Parameters
 
-##### opts
-
-[`EvmRunCallOpts`](../interfaces/EvmRunCallOpts.md)
+| Parameter | Type |
+| ------ | ------ |
+| `opts` | [`EvmRunCallOpts`](../interfaces/EvmRunCallOpts.md) |
 
 #### Returns
 
@@ -645,9 +400,9 @@ shouldn't be used directly from the evm class
 
 #### Parameters
 
-##### opts
-
-`EVMRunCodeOpts`
+| Parameter | Type |
+| ------ | ------ |
+| `opts` | `EVMRunCodeOpts` |
 
 #### Returns
 
@@ -667,13 +422,10 @@ Starts the actual bytecode processing for a CALL or CREATE
 
 #### Parameters
 
-##### message
-
-[`EthjsMessage`](EthjsMessage.md)
-
-##### opts?
-
-`InterpreterOpts`
+| Parameter | Type |
+| ------ | ------ |
+| `message` | [`EthjsMessage`](EthjsMessage.md) |
+| `opts?` | `InterpreterOpts` |
 
 #### Returns
 
@@ -693,17 +445,11 @@ Executes a precompiled contract with given data and gas limit.
 
 #### Parameters
 
-##### code
-
-`PrecompileFunc`
-
-##### data
-
-`Uint8Array`
-
-##### gasLimit
-
-`bigint`
+| Parameter | Type |
+| ------ | ------ |
+| `code` | `PrecompileFunc` |
+| `data` | `Uint8Array` |
+| `gasLimit` | `bigint` |
 
 #### Returns
 
@@ -741,13 +487,11 @@ EVM
 
 > `static` **create**(`options?`): `Promise`\<[`EvmType`](../type-aliases/EvmType.md)\>
 
-Defined in: [packages/evm/src/Evm.js:64](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/src/Evm.js#L64)
-
 #### Parameters
 
-##### options?
-
-`EVMOpts`
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `options?` | `EVMOpts` | - |
 
 #### Returns
 

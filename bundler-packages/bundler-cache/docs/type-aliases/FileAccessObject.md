@@ -15,142 +15,17 @@ Allows this package to be used in browser environments or otherwise pluggable
 
 ## Properties
 
-### exists
-
-> **exists**: (`path`) => `Promise`\<`boolean`\>
-
-Defined in: [types.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/bundler-cache/src/types.ts#L14)
-
-#### Parameters
-
-##### path
-
-`string`
-
-#### Returns
-
-`Promise`\<`boolean`\>
-
-***
-
-### existsSync
-
-> **existsSync**: (`path`) => `boolean`
-
-Defined in: [types.ts:15](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/bundler-cache/src/types.ts#L15)
-
-#### Parameters
-
-##### path
-
-`string`
-
-#### Returns
-
-`boolean`
-
-***
-
-### mkdir
-
-> **mkdir**: *typeof* `mkdir`
-
-Defined in: [types.ts:19](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/bundler-cache/src/types.ts#L19)
-
-***
-
-### mkdirSync
-
-> **mkdirSync**: *typeof* `mkdirSync`
-
-Defined in: [types.ts:18](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/bundler-cache/src/types.ts#L18)
-
-***
-
-### readFile
-
-> **readFile**: (`path`, `encoding`) => `Promise`\<`string`\>
-
-Defined in: [types.ts:12](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/bundler-cache/src/types.ts#L12)
-
-#### Parameters
-
-##### path
-
-`string`
-
-##### encoding
-
-`BufferEncoding`
-
-#### Returns
-
-`Promise`\<`string`\>
-
-***
-
-### readFileSync
-
-> **readFileSync**: (`path`, `encoding`) => `string`
-
-Defined in: [types.ts:13](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/bundler-cache/src/types.ts#L13)
-
-#### Parameters
-
-##### path
-
-`string`
-
-##### encoding
-
-`BufferEncoding`
-
-#### Returns
-
-`string`
-
-***
-
-### stat
-
-> **stat**: *typeof* `stat`
-
-Defined in: [types.ts:17](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/bundler-cache/src/types.ts#L17)
-
-***
-
-### statSync
-
-> **statSync**: *typeof* `statSync`
-
-Defined in: [types.ts:16](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/bundler-cache/src/types.ts#L16)
-
-***
-
-### writeFile
-
-> **writeFile**: *typeof* `writeFile`
-
-Defined in: [types.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/bundler-cache/src/types.ts#L11)
-
-***
-
-### writeFileSync
-
-> **writeFileSync**: (`path`, `data`) => `void`
-
-Defined in: [types.ts:10](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/bundler-cache/src/types.ts#L10)
-
-#### Parameters
-
-##### path
-
-`string`
-
-##### data
-
-`string`
-
-#### Returns
-
-`void`
+| Property | Type | Defined in |
+| ------ | ------ | ------ |
+| <a id="exists"></a> `exists` | (`path`) => `Promise`\<`boolean`\> | [types.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/bundler-cache/src/types.ts#L14) |
+| <a id="existssync"></a> `existsSync` | (`path`) => `boolean` | [types.ts:15](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/bundler-cache/src/types.ts#L15) |
+| <a id="mkdir"></a> `mkdir` | *typeof* `mkdir` | [types.ts:19](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/bundler-cache/src/types.ts#L19) |
+| <a id="mkdirsync"></a> `mkdirSync` | *typeof* `mkdirSync` | [types.ts:18](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/bundler-cache/src/types.ts#L18) |
+| <a id="readfile"></a> `readFile` | (`path`, `encoding`) => `Promise`\<`string`\> | [types.ts:12](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/bundler-cache/src/types.ts#L12) |
+| <a id="readfilesync"></a> `readFileSync` | (`path`, `encoding`) => `string` | [types.ts:13](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/bundler-cache/src/types.ts#L13) |
+| <a id="rename"></a> `rename?` | *typeof* `rename` | [types.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/bundler-cache/src/types.ts#L21) |
+| <a id="renamesync"></a> `renameSync?` | *typeof* `renameSync` | [types.ts:20](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/bundler-cache/src/types.ts#L20) |
+| <a id="stat"></a> `stat` | *typeof* `stat` | [types.ts:17](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/bundler-cache/src/types.ts#L17) |
+| <a id="statsync"></a> `statSync` | *typeof* `statSync` | [types.ts:16](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/bundler-cache/src/types.ts#L16) |
+| <a id="writefile"></a> `writeFile` | *typeof* `writeFile` | [types.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/bundler-cache/src/types.ts#L11) |
+| <a id="writefilesync"></a> `writeFileSync` | (`path`, `data`) => `void` | [types.ts:10](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/bundler-cache/src/types.ts#L10) |

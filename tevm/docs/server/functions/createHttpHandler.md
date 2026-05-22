@@ -6,15 +6,20 @@
 
 # Function: createHttpHandler()
 
-> **createHttpHandler**(`client`): `RequestListener`\<*typeof* `IncomingMessage`, *typeof* `ServerResponse`\>
-
-Defined in: tevm-monorepo/packages/server/types/createHttpHandler.d.ts:1
+> **createHttpHandler**(`client`, `options?`): `RequestListener`\<*typeof* `IncomingMessage`, *typeof* `ServerResponse`\>
 
 ## Parameters
 
-### client
-
-[`Client`](../type-aliases/Client.md)
+| Parameter | Type |
+| ------ | ------ |
+| `client` | [`Client`](../type-aliases/Client.md) |
+| `options?` | \{ `compatibility?`: `boolean`; `cors?`: `boolean`; `maxBatchSize?`: `number`; `maxBodySize?`: `number`; `maxHeaderSize?`: `number`; `requestTimeout?`: `number`; \} |
+| `options.compatibility?` | `boolean` |
+| `options.cors?` | `boolean` |
+| `options.maxBatchSize?` | `number` |
+| `options.maxBodySize?` | `number` |
+| `options.maxHeaderSize?` | `number` |
+| `options.requestTimeout?` | `number` |
 
 ## Returns
 

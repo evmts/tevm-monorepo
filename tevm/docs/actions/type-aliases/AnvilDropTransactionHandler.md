@@ -8,13 +8,11 @@
 
 > **AnvilDropTransactionHandler** = (`params`) => `Promise`\<[`AnvilDropTransactionResult`](AnvilDropTransactionResult.md)\>
 
-Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilHandler.d.ts:8
-
 ## Parameters
 
-### params
-
-[`AnvilDropTransactionParams`](AnvilDropTransactionParams.md)
+| Parameter | Type |
+| ------ | ------ |
+| `params` | [`AnvilDropTransactionParams`](AnvilDropTransactionParams.md) |
 
 ## Returns
 

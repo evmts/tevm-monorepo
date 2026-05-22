@@ -12,9 +12,9 @@ Defined in: [packages/actions/src/eth/EthProcedure.ts:165](https://github.com/ev
 
 ## Parameters
 
-### request
-
-[`EthGetLogsJsonRpcRequest`](EthGetLogsJsonRpcRequest.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`EthGetLogsJsonRpcRequest`](EthGetLogsJsonRpcRequest.md) |
 
 ## Returns
 

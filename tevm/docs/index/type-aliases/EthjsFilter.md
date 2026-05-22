@@ -8,8 +8,6 @@
 
 > **EthjsFilter**\<`filterType`, `abi`, `eventName`, `args`, `strict`, `fromBlock`, `toBlock`\> = `object` & `filterType` *extends* `"event"` ? `object` & `abi` *extends* [`Abi`](Abi.md) ? `undefined` *extends* `eventName` ? `object` : `args` *extends* `MaybeExtractEventArgsFromAbi`\<`abi`, `eventName`\> ? `object` : `object` : `object` : `object`
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/viem@2.49.3\_bufferutil@4.1.0\_typescript@6.0.3\_utf-8-validate@5.0.10\_zod@4.4.3/node\_modules/viem/\_types/types/filter.d.ts:11
-
 ## Type Declaration
 
 ### id
@@ -26,30 +24,12 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/viem@2.49.3\_bufferutil@4.1.0\_typ
 
 ## Type Parameters
 
-### filterType
-
-`filterType` *extends* `FilterType` = `"event"`
-
-### abi
-
-`abi` *extends* [`Abi`](Abi.md) \| readonly `unknown`[] \| `undefined` = `undefined`
-
-### eventName
-
-`eventName` *extends* `string` \| `undefined` = `undefined`
-
-### args
-
-`args` *extends* `MaybeExtractEventArgsFromAbi`\<`abi`, `eventName`\> \| `undefined` = `MaybeExtractEventArgsFromAbi`\<`abi`, `eventName`\>
-
-### strict
-
-`strict` *extends* `boolean` \| `undefined` = `undefined`
-
-### fromBlock
-
-`fromBlock` *extends* [`BlockNumber`](BlockNumber.md) \| [`BlockTag`](BlockTag.md) \| `undefined` = `undefined`
-
-### toBlock
-
-`toBlock` *extends* [`BlockNumber`](BlockNumber.md) \| [`BlockTag`](BlockTag.md) \| `undefined` = `undefined`
+| Type Parameter | Default type |
+| ------ | ------ |
+| `filterType` *extends* `FilterType` | `"event"` |
+| `abi` *extends* [`Abi`](Abi.md) \| readonly `unknown`[] \| `undefined` | `undefined` |
+| `eventName` *extends* `string` \| `undefined` | `undefined` |
+| `args` *extends* `MaybeExtractEventArgsFromAbi`\<`abi`, `eventName`\> \| `undefined` | `MaybeExtractEventArgsFromAbi`\<`abi`, `eventName`\> |
+| `strict` *extends* `boolean` \| `undefined` | `undefined` |
+| `fromBlock` *extends* [`BlockNumber`](BlockNumber.md) \| [`BlockTag`](BlockTag.md) \| `undefined` | `undefined` |
+| `toBlock` *extends* [`BlockNumber`](BlockNumber.md) \| [`BlockTag`](BlockTag.md) \| `undefined` | `undefined` |

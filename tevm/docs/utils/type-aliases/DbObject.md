@@ -8,8 +8,6 @@
 
 > **DbObject** = `object`
 
-Defined in: zevm/npm/zevm/dist/util.d.ts:11
-
 ## Index Signature
 
 \[`key`: `string`\]: `string` \| `number` \| `string`[]

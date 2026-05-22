@@ -8,22 +8,11 @@
 
 > **EthGetUncleByBlockHashAndIndexParams** = `object`
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthParams.d.ts:220
-
 Based on the JSON-RPC request for `eth_getUncleByBlockHashAndIndex` procedure
 
 ## Properties
 
-### blockHash
-
-> `readonly` **blockHash**: [`Hex`](Hex.md)
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthParams.d.ts:221
-
-***
-
-### uncleIndex
-
-> `readonly` **uncleIndex**: [`Hex`](Hex.md)
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthParams.d.ts:222
+| Property | Modifier | Type |
+| ------ | ------ | ------ |
+| <a id="blockhash"></a> `blockHash` | `readonly` | [`Hex`](Hex.md) |
+| <a id="uncleindex"></a> `uncleIndex` | `readonly` | [`Hex`](Hex.md) |

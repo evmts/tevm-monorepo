@@ -8,13 +8,11 @@
 
 > **validateSetAccountParams**(`action`): [`ValidateSetAccountParamsError`](../type-aliases/ValidateSetAccountParamsError.md)[]
 
-Defined in: tevm-monorepo/packages/actions/types/SetAccount/validateSetAccountParams.d.ts:1
-
 ## Parameters
 
-### action
-
-[`SetAccountParams`](../type-aliases/SetAccountParams.md)\<`boolean`\>
+| Parameter | Type |
+| ------ | ------ |
+| `action` | [`SetAccountParams`](../type-aliases/SetAccountParams.md)\<`boolean`\> |
 
 ## Returns
 

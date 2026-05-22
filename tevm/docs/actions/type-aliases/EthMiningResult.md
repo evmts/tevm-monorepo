@@ -8,6 +8,4 @@
 
 > **EthMiningResult** = `boolean`
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthResult.d.ts:153
-
 JSON-RPC response for `eth_mining` procedure

@@ -20,9 +20,9 @@ and the copied state. This is intentional and safe because:
 
 ## Parameters
 
-### baseState
-
-[`BaseState`](../type-aliases/BaseState.md)
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `baseState` | [`BaseState`](../type-aliases/BaseState.md) | - |
 
 ## Returns
 

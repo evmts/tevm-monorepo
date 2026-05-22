@@ -16,15 +16,10 @@ Encodes a number or bigint into a hex string
 
 ## Parameters
 
-### value\_
-
-`number` \| `bigint`
-
-### opts?
-
-`NumberToHexOpts`
-
-Options.
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `value_` | `number` \| `bigint` | - |
+| `opts?` | `NumberToHexOpts` | Options. |
 
 ## Returns
 

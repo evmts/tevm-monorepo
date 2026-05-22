@@ -8,20 +8,11 @@
 
 > **SolcYulDetails** = `object`
 
-Defined in: [solcTypes.ts:53](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L53)
+Defined in: [solcTypes.ts:57](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L57)
 
 ## Properties
 
-### optimizerSteps
-
-> **optimizerSteps**: `string`
-
-Defined in: [solcTypes.ts:69](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L69)
-
-***
-
-### stackAllocation?
-
-> `optional` **stackAllocation?**: `boolean`
-
-Defined in: [solcTypes.ts:56](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L56)
+| Property | Type | Defined in |
+| ------ | ------ | ------ |
+| <a id="optimizersteps"></a> `optimizerSteps?` | `string` | [solcTypes.ts:73](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L73) |
+| <a id="stackallocation"></a> `stackAllocation?` | `boolean` | [solcTypes.ts:60](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L60) |

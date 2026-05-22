@@ -12,9 +12,9 @@ Defined in: [packages/actions/src/eth/getStorageAtProcedure.js:7](https://github
 
 ## Parameters
 
-### client
-
-`TevmNode`\<`"fork"` \| `"normal"`, \{ \}\>
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `client` | `TevmNode`\<`"fork"` \| `"normal"`, \{ \}\> | - |
 
 ## Returns
 

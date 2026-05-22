@@ -8,8 +8,6 @@
 
 > `const` **DAOConfig**: `object`
 
-Defined in: tevm-monorepo/packages/vm/types/actions/DAOConfig.d.ts:1
-
 ## Type Declaration
 
 ### DAOAccounts

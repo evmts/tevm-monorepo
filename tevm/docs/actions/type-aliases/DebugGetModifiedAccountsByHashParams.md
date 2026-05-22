@@ -8,26 +8,11 @@
 
 > **DebugGetModifiedAccountsByHashParams** = `object`
 
-Defined in: tevm-monorepo/packages/actions/types/debug/DebugParams.d.ts:141
-
 Params taken by `debug_getModifiedAccountsByHash` handler
 
 ## Properties
 
-### endBlockHash?
-
-> `readonly` `optional` **endBlockHash?**: [`Hex`](Hex.md) \| `Uint8Array`
-
-Defined in: tevm-monorepo/packages/actions/types/debug/DebugParams.d.ts:149
-
-Ending block hash (optional)
-
-***
-
-### startBlockHash
-
-> `readonly` **startBlockHash**: [`Hex`](Hex.md) \| `Uint8Array`
-
-Defined in: tevm-monorepo/packages/actions/types/debug/DebugParams.d.ts:145
-
-Starting block hash
+| Property | Modifier | Type | Description |
+| ------ | ------ | ------ | ------ |
+| <a id="endblockhash"></a> `endBlockHash?` | `readonly` | [`Hex`](Hex.md) \| `Uint8Array` | Ending block hash (optional) |
+| <a id="startblockhash"></a> `startBlockHash` | `readonly` | [`Hex`](Hex.md) \| `Uint8Array` | Starting block hash |

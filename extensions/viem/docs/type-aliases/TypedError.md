@@ -20,6 +20,6 @@ An error with a tag
 
 ## Type Parameters
 
-### T
-
-`T`
+| Type Parameter |
+| ------ |
+| `T` |

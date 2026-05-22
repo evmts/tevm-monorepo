@@ -8,26 +8,13 @@
 
 > **AnvilSetNonceParams** = `object`
 
-Defined in: [packages/actions/src/anvil/AnvilParams.ts:140](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilParams.ts#L140)
+Defined in: [packages/actions/src/anvil/AnvilParams.ts:145](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilParams.ts#L145)
 
 Params for `anvil_setNonce` handler
 
 ## Properties
 
-### address
-
-> `readonly` **address**: [`Address`](Address.md)
-
-Defined in: [packages/actions/src/anvil/AnvilParams.ts:144](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilParams.ts#L144)
-
-The address to set the nonce for
-
-***
-
-### nonce
-
-> `readonly` **nonce**: `BigInt`
-
-Defined in: [packages/actions/src/anvil/AnvilParams.ts:148](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilParams.ts#L148)
-
-The nonce to set
+| Property | Modifier | Type | Description | Defined in |
+| ------ | ------ | ------ | ------ | ------ |
+| <a id="address"></a> `address` | `readonly` | [`Address`](Address.md) | The address to set the nonce for | [packages/actions/src/anvil/AnvilParams.ts:149](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilParams.ts#L149) |
+| <a id="nonce"></a> `nonce` | `readonly` | `BigInt` | The nonce to set | [packages/actions/src/anvil/AnvilParams.ts:153](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilParams.ts#L153) |

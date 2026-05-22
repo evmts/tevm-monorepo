@@ -56,37 +56,13 @@ Additional parameters for the BaseError.
 
 > **new CodeStoreOutOfGasError**(`message?`, `args?`, `tag?`): `CodeStoreOutOfGasError`
 
-Constructs a CodeStoreOutOfGasError.
-Represents an error that occurs when a transaction runs out of gas during code storage.
-This error is typically encountered when the gas provided for storing code is insufficient to complete its execution.
-EVM transaction execution metadata level error
-
-Code store out of gas errors can occur due to:
-- Insufficient gas provided for storing large contracts.
-- Incorrect estimation of gas required for storing code.
-- Contracts with high gas consumption during the deployment phase.
-- Non-deterministic gas usage during code storage.
-- If TEVM submitted the transaction using `createTransaction: true` and the account being used runs out of gas.
-
 #### Parameters
 
-##### message?
-
-`string`
-
-Human-readable error message.
-
-##### args?
-
-[`CodeStoreOutOfGasErrorParameters`](../type-aliases/CodeStoreOutOfGasErrorParameters.md)
-
-Additional parameters for the BaseError.
-
-##### tag?
-
-`string`
-
-The tag for the error.
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `message?` | `string` | Human-readable error message. |
+| `args?` | [`CodeStoreOutOfGasErrorParameters`](../type-aliases/CodeStoreOutOfGasErrorParameters.md) | Additional parameters. |
+| `tag?` | `string` | Internal error tag. |
 
 #### Returns
 
@@ -98,187 +74,22 @@ The tag for the error.
 
 ## Properties
 
-### \_tag
-
-> **\_tag**: `string`
-
-Defined in: tevm-monorepo/packages/errors/types/ethereum/BaseError.d.ts:40
-
-Same as name, used internally.
-
-#### Inherited from
-
-[`GasLimitExceededError`](GasLimitExceededError.md).[`_tag`](GasLimitExceededError.md#_tag)
-
-***
-
-### cause
-
-> **cause**: `any`
-
-Defined in: tevm-monorepo/packages/errors/types/ethereum/BaseError.d.ts:65
-
-#### Inherited from
-
-[`GasLimitExceededError`](GasLimitExceededError.md).[`cause`](GasLimitExceededError.md#cause)
-
-***
-
-### code
-
-> **code**: `number`
-
-Defined in: tevm-monorepo/packages/errors/types/ethereum/BaseError.d.ts:64
-
-#### Inherited from
-
-[`GasLimitExceededError`](GasLimitExceededError.md).[`code`](GasLimitExceededError.md#code)
-
-***
-
-### details
-
-> **details**: `string`
-
-Defined in: tevm-monorepo/packages/errors/types/ethereum/BaseError.d.ts:44
-
-#### Inherited from
-
-[`GasLimitExceededError`](GasLimitExceededError.md).[`details`](GasLimitExceededError.md#details)
-
-***
-
-### docsPath
-
-> **docsPath**: `string` \| `undefined`
-
-Defined in: tevm-monorepo/packages/errors/types/ethereum/BaseError.d.ts:48
-
-Path to the documentation for this error.
-
-#### Inherited from
-
-[`GasLimitExceededError`](GasLimitExceededError.md).[`docsPath`](GasLimitExceededError.md#docspath)
-
-***
-
-### message
-
-> **message**: `string`
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/typescript@6.0.3/node\_modules/typescript/lib/lib.es5.d.ts:1075
-
-Human-readable error message.
-
-#### Inherited from
-
-[`GasLimitExceededError`](GasLimitExceededError.md).[`message`](GasLimitExceededError.md#message)
-
-***
-
-### metaMessages
-
-> **metaMessages**: `string`[] \| `undefined`
-
-Defined in: tevm-monorepo/packages/errors/types/ethereum/BaseError.d.ts:52
-
-Additional meta messages for more context.
-
-#### Inherited from
-
-[`GasLimitExceededError`](GasLimitExceededError.md).[`metaMessages`](GasLimitExceededError.md#metamessages)
-
-***
-
-### name
-
-> **name**: `string`
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/typescript@6.0.3/node\_modules/typescript/lib/lib.es5.d.ts:1074
-
-The name of the error, used to discriminate errors.
-
-#### Inherited from
-
-[`GasLimitExceededError`](GasLimitExceededError.md).[`name`](GasLimitExceededError.md#name)
-
-***
-
-### shortMessage
-
-> **shortMessage**: `string`
-
-Defined in: tevm-monorepo/packages/errors/types/ethereum/BaseError.d.ts:56
-
-#### Inherited from
-
-[`GasLimitExceededError`](GasLimitExceededError.md).[`shortMessage`](GasLimitExceededError.md#shortmessage)
-
-***
-
-### stack?
-
-> `optional` **stack?**: `string`
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/typescript@6.0.3/node\_modules/typescript/lib/lib.es5.d.ts:1076
-
-#### Inherited from
-
-[`GasLimitExceededError`](GasLimitExceededError.md).[`stack`](GasLimitExceededError.md#stack)
-
-***
-
-### version
-
-> **version**: `string`
-
-Defined in: tevm-monorepo/packages/errors/types/ethereum/BaseError.d.ts:60
-
-#### Inherited from
-
-[`GasLimitExceededError`](GasLimitExceededError.md).[`version`](GasLimitExceededError.md#version)
-
-***
-
-### code
-
-> `static` **code**: `number`
-
-Defined in: tevm-monorepo/packages/errors/types/ethereum/GasLimitExceededError.d.ts:42
-
-Error code, analogous to the code in JSON RPC error.
-
-#### Inherited from
-
-[`GasLimitExceededError`](GasLimitExceededError.md).[`code`](GasLimitExceededError.md#code-1)
-
-***
-
-### EVMErrorMessage
-
-> `static` **EVMErrorMessage**: `string`
-
-***
-
-### stackTraceLimit
-
-> `static` **stackTraceLimit**: `number`
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@types+node@25.9.0/node\_modules/@types/node/globals.d.ts:67
-
-The `Error.stackTraceLimit` property specifies the number of stack frames
-collected by a stack trace (whether generated by `new Error().stack` or
-`Error.captureStackTrace(obj)`).
-
-The default value is `10` but may be set to any valid JavaScript number. Changes
-will affect any stack trace captured _after_ the value has been changed.
-
-If set to a non-number value, or set to a negative number, stack traces will
-not capture any frames.
-
-#### Inherited from
-
-[`GasLimitExceededError`](GasLimitExceededError.md).[`stackTraceLimit`](GasLimitExceededError.md#stacktracelimit)
+| Property | Modifier | Type | Description | Inherited from |
+| ------ | ------ | ------ | ------ | ------ |
+| <a id="_tag"></a> `_tag` | `public` | `string` | - | [`GasLimitExceededError`](GasLimitExceededError.md).[`_tag`](GasLimitExceededError.md#_tag) |
+| <a id="cause"></a> `cause` | `public` | `any` | - | [`GasLimitExceededError`](GasLimitExceededError.md).[`cause`](GasLimitExceededError.md#cause) |
+| <a id="code"></a> `code` | `public` | `number` | - | [`GasLimitExceededError`](GasLimitExceededError.md).[`code`](GasLimitExceededError.md#code) |
+| <a id="details"></a> `details` | `public` | `string` | - | [`GasLimitExceededError`](GasLimitExceededError.md).[`details`](GasLimitExceededError.md#details) |
+| <a id="docspath"></a> `docsPath` | `public` | `string` \| `undefined` | - | [`GasLimitExceededError`](GasLimitExceededError.md).[`docsPath`](GasLimitExceededError.md#docspath) |
+| <a id="message"></a> `message` | `public` | `string` | - | [`GasLimitExceededError`](GasLimitExceededError.md).[`message`](GasLimitExceededError.md#message) |
+| <a id="metamessages"></a> `metaMessages` | `public` | `string`[] \| `undefined` | - | [`GasLimitExceededError`](GasLimitExceededError.md).[`metaMessages`](GasLimitExceededError.md#metamessages) |
+| <a id="name"></a> `name` | `public` | `string` | - | [`GasLimitExceededError`](GasLimitExceededError.md).[`name`](GasLimitExceededError.md#name) |
+| <a id="shortmessage"></a> `shortMessage` | `public` | `string` | - | [`GasLimitExceededError`](GasLimitExceededError.md).[`shortMessage`](GasLimitExceededError.md#shortmessage) |
+| <a id="stack"></a> `stack?` | `public` | `string` | - | [`GasLimitExceededError`](GasLimitExceededError.md).[`stack`](GasLimitExceededError.md#stack) |
+| <a id="version"></a> `version` | `public` | `string` | - | [`GasLimitExceededError`](GasLimitExceededError.md).[`version`](GasLimitExceededError.md#version) |
+| <a id="code-1"></a> `code` | `static` | `number` | The error code for GasLimitExceededError. | [`GasLimitExceededError`](GasLimitExceededError.md).[`code`](GasLimitExceededError.md#code-1) |
+| <a id="evmerrormessage"></a> `EVMErrorMessage` | `static` | `string` | - | - |
+| <a id="stacktracelimit"></a> `stackTraceLimit` | `static` | `number` | The `Error.stackTraceLimit` property specifies the number of stack frames collected by a stack trace (whether generated by `new Error().stack` or `Error.captureStackTrace(obj)`). The default value is `10` but may be set to any valid JavaScript number. Changes will affect any stack trace captured _after_ the value has been changed. If set to a non-number value, or set to a negative number, stack traces will not capture any frames. | [`GasLimitExceededError`](GasLimitExceededError.md).[`stackTraceLimit`](GasLimitExceededError.md#stacktracelimit) |
 
 ## Methods
 
@@ -286,17 +97,13 @@ not capture any frames.
 
 > **walk**(`fn?`): `unknown`
 
-Defined in: tevm-monorepo/packages/errors/types/ethereum/BaseError.d.ts:71
-
 Walks through the error chain.
 
 #### Parameters
 
-##### fn?
-
-`Function`
-
-A function to execute on each error in the chain.
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `fn?` | `Function` | A function to execute on each error in the chain. |
 
 #### Returns
 
@@ -312,9 +119,9 @@ The first error that matches the function, or the original error.
 
 ### captureStackTrace()
 
-> `static` **captureStackTrace**(`targetObject`, `constructorOpt?`): `void`
+#### Call Signature
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@types+node@25.9.0/node\_modules/@types/node/globals.d.ts:51
+> `static` **captureStackTrace**(`targetObject`, `constructorOpt?`): `void`
 
 Creates a `.stack` property on `targetObject`, which when accessed returns
 a string representing the location in the code at which
@@ -360,21 +167,81 @@ function c() {
 a();
 ```
 
-#### Parameters
+##### Parameters
 
-##### targetObject
+| Parameter | Type |
+| ------ | ------ |
+| `targetObject` | `object` |
+| `constructorOpt?` | `Function` |
 
-`object`
-
-##### constructorOpt?
-
-`Function`
-
-#### Returns
+##### Returns
 
 `void`
 
-#### Inherited from
+##### Inherited from
+
+[`GasLimitExceededError`](GasLimitExceededError.md).[`captureStackTrace`](GasLimitExceededError.md#capturestacktrace)
+
+#### Call Signature
+
+> `static` **captureStackTrace**(`targetObject`, `constructorOpt?`): `void`
+
+Creates a `.stack` property on `targetObject`, which when accessed returns
+a string representing the location in the code at which
+`Error.captureStackTrace()` was called.
+
+```js
+const myObject = {};
+Error.captureStackTrace(myObject);
+myObject.stack;  // Similar to `new Error().stack`
+```
+
+The first line of the trace will be prefixed with
+`${myObject.name}: ${myObject.message}`.
+
+The optional `constructorOpt` argument accepts a function. If given, all frames
+above `constructorOpt`, including `constructorOpt`, will be omitted from the
+generated stack trace.
+
+The `constructorOpt` argument is useful for hiding implementation
+details of error generation from the user. For instance:
+
+```js
+function a() {
+  b();
+}
+
+function b() {
+  c();
+}
+
+function c() {
+  // Create an error without stack trace to avoid calculating the stack trace twice.
+  const { stackTraceLimit } = Error;
+  Error.stackTraceLimit = 0;
+  const error = new Error();
+  Error.stackTraceLimit = stackTraceLimit;
+
+  // Capture the stack trace above function b
+  Error.captureStackTrace(error, b); // Neither function c, nor b is included in the stack trace
+  throw error;
+}
+
+a();
+```
+
+##### Parameters
+
+| Parameter | Type |
+| ------ | ------ |
+| `targetObject` | `object` |
+| `constructorOpt?` | `Function` |
+
+##### Returns
+
+`void`
+
+##### Inherited from
 
 [`GasLimitExceededError`](GasLimitExceededError.md).[`captureStackTrace`](GasLimitExceededError.md#capturestacktrace)
 
@@ -384,15 +251,13 @@ a();
 
 > `static` **isError**(`error`): `error is Error`
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/typescript@6.0.3/node\_modules/typescript/lib/lib.esnext.error.d.ts:21
-
 Indicates whether the argument provided is a built-in Error instance or not.
 
 #### Parameters
 
-##### error
-
-`unknown`
+| Parameter | Type |
+| ------ | ------ |
+| `error` | `unknown` |
 
 #### Returns
 
@@ -406,28 +271,48 @@ Indicates whether the argument provided is a built-in Error instance or not.
 
 ### prepareStackTrace()
 
+#### Call Signature
+
 > `static` **prepareStackTrace**(`err`, `stackTraces`): `any`
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@types+node@25.9.0/node\_modules/@types/node/globals.d.ts:55
+##### Parameters
 
-#### Parameters
+| Parameter | Type |
+| ------ | ------ |
+| `err` | `Error` |
+| `stackTraces` | `CallSite`[] |
 
-##### err
-
-`Error`
-
-##### stackTraces
-
-`CallSite`[]
-
-#### Returns
+##### Returns
 
 `any`
 
-#### See
+##### See
 
 https://v8.dev/docs/stack-trace-api#customizing-stack-traces
 
-#### Inherited from
+##### Inherited from
+
+[`GasLimitExceededError`](GasLimitExceededError.md).[`prepareStackTrace`](GasLimitExceededError.md#preparestacktrace)
+
+#### Call Signature
+
+> `static` **prepareStackTrace**(`err`, `stackTraces`): `any`
+
+##### Parameters
+
+| Parameter | Type |
+| ------ | ------ |
+| `err` | `Error` |
+| `stackTraces` | `CallSite`[] |
+
+##### Returns
+
+`any`
+
+##### See
+
+https://v8.dev/docs/stack-trace-api#customizing-stack-traces
+
+##### Inherited from
 
 [`GasLimitExceededError`](GasLimitExceededError.md).[`prepareStackTrace`](GasLimitExceededError.md#preparestacktrace)

@@ -16,31 +16,17 @@ This type reuses the viem `contractRead`/`contractWrite` API to encode ABI, func
 
 ## Type Parameters
 
-### TAbi
-
-`TAbi` *extends* `Abi` \| readonly `unknown`[] = `Abi`
-
-The ABI of the contract.
-
-### TFunctionName
-
-`TFunctionName` *extends* `ContractFunctionName`\<`TAbi`\> = `ContractFunctionName`\<`TAbi`\>
-
-The name of the contract function.
+| Type Parameter | Default type | Description |
+| ------ | ------ | ------ |
+| `TAbi` *extends* `Abi` \| readonly `unknown`[] | `Abi` | The ABI of the contract. |
+| `TFunctionName` *extends* `ContractFunctionName`\<`TAbi`\> | `ContractFunctionName`\<`TAbi`\> | The name of the contract function. |
 
 ## Parameters
 
-### client
-
-`Client`\<[`TevmTransport`](TevmTransport.md)\<`string`\>\>
-
-The viem client configured with TEVM transport.
-
-### params
-
-`ContractParams`\<`TAbi`, `TFunctionName`\> & `CallEvents`
-
-Parameters for the contract method call, including ABI, function name, and arguments.
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `client` | `Client`\<[`TevmTransport`](TevmTransport.md)\<`string`\>\> | The viem client configured with TEVM transport. |
+| `params` | `ContractParams`\<`TAbi`, `TFunctionName`\> & `CallEvents` | Parameters for the contract method call, including ABI, function name, and arguments. |
 
 ## Returns
 

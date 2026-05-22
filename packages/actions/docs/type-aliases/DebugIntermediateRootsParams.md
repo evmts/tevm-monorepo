@@ -14,10 +14,6 @@ Params taken by `debug_intermediateRoots` handler
 
 ## Properties
 
-### block
-
-> `readonly` **block**: [`Hex`](Hex.md) \| `Uint8Array` \| `number` \| `bigint` \| [`BlockTag`](BlockTag.md)
-
-Defined in: [packages/actions/src/debug/DebugParams.ts:294](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/DebugParams.ts#L294)
-
-Block number, hash, or tag to get intermediate roots for
+| Property | Modifier | Type | Description | Defined in |
+| ------ | ------ | ------ | ------ | ------ |
+| <a id="block"></a> `block` | `readonly` | [`Hex`](Hex.md) \| `Uint8Array` \| `number` \| `bigint` \| [`BlockTag`](BlockTag.md) | Block number, hash, or tag to get intermediate roots for | [packages/actions/src/debug/DebugParams.ts:294](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/DebugParams.ts#L294) |

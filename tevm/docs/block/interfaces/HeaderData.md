@@ -6,174 +6,30 @@
 
 # Interface: HeaderData
 
-Defined in: tevm-monorepo/packages/block/types/types.d.ts:159
-
 A block header's data.
 
 ## Properties
 
-### baseFeePerGas?
-
-> `optional` **baseFeePerGas?**: `string` \| `number` \| `bigint` \| `Uint8Array`\<`ArrayBufferLike`\>
-
-Defined in: tevm-monorepo/packages/block/types/types.d.ts:175
-
-***
-
-### blobGasUsed?
-
-> `optional` **blobGasUsed?**: `string` \| `number` \| `bigint` \| `Uint8Array`\<`ArrayBufferLike`\>
-
-Defined in: tevm-monorepo/packages/block/types/types.d.ts:177
-
-***
-
-### coinbase?
-
-> `optional` **coinbase?**: `string` \| [`EthjsAddress`](../../utils/classes/EthjsAddress.md) \| `Uint8Array`\<`ArrayBufferLike`\>
-
-Defined in: tevm-monorepo/packages/block/types/types.d.ts:162
-
-***
-
-### difficulty?
-
-> `optional` **difficulty?**: `string` \| `number` \| `bigint` \| `Uint8Array`\<`ArrayBufferLike`\>
-
-Defined in: tevm-monorepo/packages/block/types/types.d.ts:167
-
-***
-
-### excessBlobGas?
-
-> `optional` **excessBlobGas?**: `string` \| `number` \| `bigint` \| `Uint8Array`\<`ArrayBufferLike`\>
-
-Defined in: tevm-monorepo/packages/block/types/types.d.ts:178
-
-***
-
-### extraData?
-
-> `optional` **extraData?**: `string` \| `number` \| `bigint` \| `number`[] \| `Uint8Array`\<`ArrayBufferLike`\> \| `TransformableToBytes`
-
-Defined in: tevm-monorepo/packages/block/types/types.d.ts:172
-
-***
-
-### gasLimit?
-
-> `optional` **gasLimit?**: `string` \| `number` \| `bigint` \| `Uint8Array`\<`ArrayBufferLike`\>
-
-Defined in: tevm-monorepo/packages/block/types/types.d.ts:169
-
-***
-
-### gasUsed?
-
-> `optional` **gasUsed?**: `string` \| `number` \| `bigint` \| `Uint8Array`\<`ArrayBufferLike`\>
-
-Defined in: tevm-monorepo/packages/block/types/types.d.ts:170
-
-***
-
-### logsBloom?
-
-> `optional` **logsBloom?**: `string` \| `number` \| `bigint` \| `number`[] \| `Uint8Array`\<`ArrayBufferLike`\> \| `TransformableToBytes`
-
-Defined in: tevm-monorepo/packages/block/types/types.d.ts:166
-
-***
-
-### mixHash?
-
-> `optional` **mixHash?**: `string` \| `number` \| `bigint` \| `number`[] \| `Uint8Array`\<`ArrayBufferLike`\> \| `TransformableToBytes`
-
-Defined in: tevm-monorepo/packages/block/types/types.d.ts:173
-
-***
-
-### nonce?
-
-> `optional` **nonce?**: `string` \| `number` \| `bigint` \| `number`[] \| `Uint8Array`\<`ArrayBufferLike`\> \| `TransformableToBytes`
-
-Defined in: tevm-monorepo/packages/block/types/types.d.ts:174
-
-***
-
-### number?
-
-> `optional` **number?**: `string` \| `number` \| `bigint` \| `Uint8Array`\<`ArrayBufferLike`\>
-
-Defined in: tevm-monorepo/packages/block/types/types.d.ts:168
-
-***
-
-### parentBeaconBlockRoot?
-
-> `optional` **parentBeaconBlockRoot?**: `string` \| `number` \| `bigint` \| `number`[] \| `Uint8Array`\<`ArrayBufferLike`\> \| `TransformableToBytes`
-
-Defined in: tevm-monorepo/packages/block/types/types.d.ts:179
-
-***
-
-### parentHash?
-
-> `optional` **parentHash?**: `string` \| `number` \| `bigint` \| `number`[] \| `Uint8Array`\<`ArrayBufferLike`\> \| `TransformableToBytes`
-
-Defined in: tevm-monorepo/packages/block/types/types.d.ts:160
-
-***
-
-### receiptTrie?
-
-> `optional` **receiptTrie?**: `string` \| `number` \| `bigint` \| `number`[] \| `Uint8Array`\<`ArrayBufferLike`\> \| `TransformableToBytes`
-
-Defined in: tevm-monorepo/packages/block/types/types.d.ts:165
-
-***
-
-### requestsRoot?
-
-> `optional` **requestsRoot?**: `string` \| `number` \| `bigint` \| `number`[] \| `Uint8Array`\<`ArrayBufferLike`\> \| `TransformableToBytes`
-
-Defined in: tevm-monorepo/packages/block/types/types.d.ts:180
-
-***
-
-### stateRoot?
-
-> `optional` **stateRoot?**: `string` \| `number` \| `bigint` \| `number`[] \| `Uint8Array`\<`ArrayBufferLike`\> \| `TransformableToBytes`
-
-Defined in: tevm-monorepo/packages/block/types/types.d.ts:163
-
-***
-
-### timestamp?
-
-> `optional` **timestamp?**: `string` \| `number` \| `bigint` \| `Uint8Array`\<`ArrayBufferLike`\>
-
-Defined in: tevm-monorepo/packages/block/types/types.d.ts:171
-
-***
-
-### transactionsTrie?
-
-> `optional` **transactionsTrie?**: `string` \| `number` \| `bigint` \| `number`[] \| `Uint8Array`\<`ArrayBufferLike`\> \| `TransformableToBytes`
-
-Defined in: tevm-monorepo/packages/block/types/types.d.ts:164
-
-***
-
-### uncleHash?
-
-> `optional` **uncleHash?**: `string` \| `number` \| `bigint` \| `number`[] \| `Uint8Array`\<`ArrayBufferLike`\> \| `TransformableToBytes`
-
-Defined in: tevm-monorepo/packages/block/types/types.d.ts:161
-
-***
-
-### withdrawalsRoot?
-
-> `optional` **withdrawalsRoot?**: `string` \| `number` \| `bigint` \| `number`[] \| `Uint8Array`\<`ArrayBufferLike`\> \| `TransformableToBytes`
-
-Defined in: tevm-monorepo/packages/block/types/types.d.ts:176
+| Property | Type |
+| ------ | ------ |
+| <a id="basefeepergas"></a> `baseFeePerGas?` | `string` \| `number` \| `bigint` \| `Uint8Array`\<`ArrayBufferLike`\> |
+| <a id="blobgasused"></a> `blobGasUsed?` | `string` \| `number` \| `bigint` \| `Uint8Array`\<`ArrayBufferLike`\> |
+| <a id="coinbase"></a> `coinbase?` | `string` \| [`EthjsAddress`](../../utils/classes/EthjsAddress.md) \| `Uint8Array`\<`ArrayBufferLike`\> |
+| <a id="difficulty"></a> `difficulty?` | `string` \| `number` \| `bigint` \| `Uint8Array`\<`ArrayBufferLike`\> |
+| <a id="excessblobgas"></a> `excessBlobGas?` | `string` \| `number` \| `bigint` \| `Uint8Array`\<`ArrayBufferLike`\> |
+| <a id="extradata"></a> `extraData?` | `string` \| `number` \| `bigint` \| `number`[] \| `Uint8Array`\<`ArrayBufferLike`\> \| `TransformableToBytes` |
+| <a id="gaslimit"></a> `gasLimit?` | `string` \| `number` \| `bigint` \| `Uint8Array`\<`ArrayBufferLike`\> |
+| <a id="gasused"></a> `gasUsed?` | `string` \| `number` \| `bigint` \| `Uint8Array`\<`ArrayBufferLike`\> |
+| <a id="logsbloom"></a> `logsBloom?` | `string` \| `number` \| `bigint` \| `number`[] \| `Uint8Array`\<`ArrayBufferLike`\> \| `TransformableToBytes` |
+| <a id="mixhash"></a> `mixHash?` | `string` \| `number` \| `bigint` \| `number`[] \| `Uint8Array`\<`ArrayBufferLike`\> \| `TransformableToBytes` |
+| <a id="nonce"></a> `nonce?` | `string` \| `number` \| `bigint` \| `number`[] \| `Uint8Array`\<`ArrayBufferLike`\> \| `TransformableToBytes` |
+| <a id="number"></a> `number?` | `string` \| `number` \| `bigint` \| `Uint8Array`\<`ArrayBufferLike`\> |
+| <a id="parentbeaconblockroot"></a> `parentBeaconBlockRoot?` | `string` \| `number` \| `bigint` \| `number`[] \| `Uint8Array`\<`ArrayBufferLike`\> \| `TransformableToBytes` |
+| <a id="parenthash"></a> `parentHash?` | `string` \| `number` \| `bigint` \| `number`[] \| `Uint8Array`\<`ArrayBufferLike`\> \| `TransformableToBytes` |
+| <a id="receipttrie"></a> `receiptTrie?` | `string` \| `number` \| `bigint` \| `number`[] \| `Uint8Array`\<`ArrayBufferLike`\> \| `TransformableToBytes` |
+| <a id="requestsroot"></a> `requestsRoot?` | `string` \| `number` \| `bigint` \| `number`[] \| `Uint8Array`\<`ArrayBufferLike`\> \| `TransformableToBytes` |
+| <a id="stateroot"></a> `stateRoot?` | `string` \| `number` \| `bigint` \| `number`[] \| `Uint8Array`\<`ArrayBufferLike`\> \| `TransformableToBytes` |
+| <a id="timestamp"></a> `timestamp?` | `string` \| `number` \| `bigint` \| `Uint8Array`\<`ArrayBufferLike`\> |
+| <a id="transactionstrie"></a> `transactionsTrie?` | `string` \| `number` \| `bigint` \| `number`[] \| `Uint8Array`\<`ArrayBufferLike`\> \| `TransformableToBytes` |
+| <a id="unclehash"></a> `uncleHash?` | `string` \| `number` \| `bigint` \| `number`[] \| `Uint8Array`\<`ArrayBufferLike`\> \| `TransformableToBytes` |
+| <a id="withdrawalsroot"></a> `withdrawalsRoot?` | `string` \| `number` \| `bigint` \| `number`[] \| `Uint8Array`\<`ArrayBufferLike`\> \| `TransformableToBytes` |

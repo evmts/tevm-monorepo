@@ -16,6 +16,8 @@
 - [EIP1193EventEmitter](type-aliases/EIP1193EventEmitter.md)
 - [EIP1193EventMap](type-aliases/EIP1193EventMap.md)
 - [EIP1193Events](type-aliases/EIP1193Events.md)
+- [ExExEvent](type-aliases/ExExEvent.md)
+- [ExExHook](type-aliases/ExExHook.md)
 - [Extension](type-aliases/Extension.md)
 - [Filter](type-aliases/Filter.md)
 - [FilterLog](type-aliases/FilterLog.md)
@@ -26,8 +28,10 @@
 - [MiningConfig](type-aliases/MiningConfig.md)
 - [ProviderConnectInfo](type-aliases/ProviderConnectInfo.md)
 - [ProviderMessage](type-aliases/ProviderMessage.md)
+- [SnapshotMetadata](type-aliases/SnapshotMetadata.md)
 - [TevmNode](type-aliases/TevmNode.md)
 - [TevmNodeOptions](type-aliases/TevmNodeOptions.md)
+- [TevmSnapshot](type-aliases/TevmSnapshot.md)
 
 ## Variables
 
@@ -36,4 +40,5 @@
 
 ## Functions
 
+- [createIntervalMiner](functions/createIntervalMiner.md)
 - [createTevmNode](functions/createTevmNode.md)

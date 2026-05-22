@@ -16,16 +16,7 @@ Based on the JSON-RPC request for `eth_sign` procedure
 
 ## Properties
 
-### address
-
-> `readonly` **address**: [`Address`](Address.md)
-
-Defined in: [packages/actions/src/eth/EthParams.ts:274](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L274)
-
-***
-
-### data
-
-> `readonly` **data**: [`Hex`](Hex.md)
-
-Defined in: [packages/actions/src/eth/EthParams.ts:274](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L274)
+| Property | Modifier | Type | Defined in |
+| ------ | ------ | ------ | ------ |
+| <a id="address"></a> `address` | `readonly` | [`Address`](Address.md) | [packages/actions/src/eth/EthParams.ts:274](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L274) |
+| <a id="data"></a> `data` | `readonly` | [`Hex`](Hex.md) | [packages/actions/src/eth/EthParams.ts:274](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L274) |

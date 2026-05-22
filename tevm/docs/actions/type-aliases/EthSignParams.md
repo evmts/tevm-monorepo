@@ -8,24 +8,13 @@
 
 > **EthSignParams** = `object`
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthParams.d.ts:256
-
 **`Experimental`**
 
 Based on the JSON-RPC request for `eth_sign` procedure
 
 ## Properties
 
-### address
-
-> `readonly` **address**: [`Address`](Address.md)
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthParams.d.ts:257
-
-***
-
-### data
-
-> `readonly` **data**: [`Hex`](Hex.md)
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthParams.d.ts:258
+| Property | Modifier | Type |
+| ------ | ------ | ------ |
+| <a id="address"></a> `address` | `readonly` | [`Address`](Address.md) |
+| <a id="data"></a> `data` | `readonly` | [`Hex`](Hex.md) |

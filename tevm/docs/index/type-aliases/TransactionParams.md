@@ -8,62 +8,16 @@
 
 > **TransactionParams** = `object`
 
-Defined in: tevm-monorepo/packages/actions/types/common/TransactionParams.d.ts:6
-
 A transaction request object
 
 ## Properties
 
-### from
-
-> `readonly` **from**: [`Address`](../../actions/type-aliases/Address.md)
-
-Defined in: tevm-monorepo/packages/actions/types/common/TransactionParams.d.ts:7
-
-***
-
-### gas?
-
-> `readonly` `optional` **gas?**: [`Hex`](../../actions/type-aliases/Hex.md)
-
-Defined in: tevm-monorepo/packages/actions/types/common/TransactionParams.d.ts:9
-
-***
-
-### gasPrice?
-
-> `readonly` `optional` **gasPrice?**: [`Hex`](../../actions/type-aliases/Hex.md)
-
-Defined in: tevm-monorepo/packages/actions/types/common/TransactionParams.d.ts:10
-
-***
-
-### input
-
-> `readonly` **input**: [`Hex`](../../actions/type-aliases/Hex.md)
-
-Defined in: tevm-monorepo/packages/actions/types/common/TransactionParams.d.ts:12
-
-***
-
-### nonce?
-
-> `readonly` `optional` **nonce?**: [`Hex`](../../actions/type-aliases/Hex.md)
-
-Defined in: tevm-monorepo/packages/actions/types/common/TransactionParams.d.ts:13
-
-***
-
-### to?
-
-> `readonly` `optional` **to?**: [`Address`](../../actions/type-aliases/Address.md)
-
-Defined in: tevm-monorepo/packages/actions/types/common/TransactionParams.d.ts:8
-
-***
-
-### value?
-
-> `readonly` `optional` **value?**: [`Hex`](../../actions/type-aliases/Hex.md)
-
-Defined in: tevm-monorepo/packages/actions/types/common/TransactionParams.d.ts:11
+| Property | Modifier | Type |
+| ------ | ------ | ------ |
+| <a id="from"></a> `from` | `readonly` | [`Address`](../../actions/type-aliases/Address.md) |
+| <a id="gas"></a> `gas?` | `readonly` | [`Hex`](../../actions/type-aliases/Hex.md) |
+| <a id="gasprice"></a> `gasPrice?` | `readonly` | [`Hex`](../../actions/type-aliases/Hex.md) |
+| <a id="input"></a> `input` | `readonly` | [`Hex`](../../actions/type-aliases/Hex.md) |
+| <a id="nonce"></a> `nonce?` | `readonly` | [`Hex`](../../actions/type-aliases/Hex.md) |
+| <a id="to"></a> `to?` | `readonly` | [`Address`](../../actions/type-aliases/Address.md) |
+| <a id="value"></a> `value?` | `readonly` | [`Hex`](../../actions/type-aliases/Hex.md) |

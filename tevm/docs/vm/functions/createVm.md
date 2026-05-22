@@ -8,13 +8,11 @@
 
 > **createVm**(`opts`): [`Vm`](../type-aliases/Vm.md)
 
-Defined in: tevm-monorepo/packages/vm/types/createVm.d.ts:1
-
 ## Parameters
 
-### opts
-
-`VmOpts`
+| Parameter | Type |
+| ------ | ------ |
+| `opts` | `VmOpts` |
 
 ## Returns
 

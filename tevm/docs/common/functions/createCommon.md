@@ -8,13 +8,11 @@
 
 > **createCommon**(`__namedParameters`): `object`
 
-Defined in: tevm-monorepo/packages/common/types/createCommon.d.ts:1
-
 ## Parameters
 
-### \_\_namedParameters
-
-[`CommonOptions`](../type-aliases/CommonOptions.md)
+| Parameter | Type |
+| ------ | ------ |
+| `__namedParameters` | [`CommonOptions`](../type-aliases/CommonOptions.md) |
 
 ## Returns
 
@@ -23,6 +21,8 @@ Defined in: tevm-monorepo/packages/common/types/createCommon.d.ts:1
 > `optional` **blockExplorers?**: `object`
 
 Collection of block explorers
+
+#### Type Declaration
 
 #### Index Signature
 
@@ -43,6 +43,8 @@ Block time in milliseconds.
 > `optional` **contracts?**: `object`
 
 Collection of contracts
+
+#### Type Declaration
 
 #### Index Signature
 
@@ -145,6 +147,8 @@ Function to prepare a transaction request. Runs before the transaction is filled
 > **rpcUrls**: `object`
 
 Collection of RPC endpoints
+
+#### Type Declaration
 
 #### Index Signature
 

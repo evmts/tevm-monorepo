@@ -16,42 +16,16 @@ A result type for a single yield of writeContractOptimistic
 
 ## Type Parameters
 
-### TDataType
-
-`TDataType`
-
-### TTag
-
-`TTag` *extends* `string`
+| Type Parameter |
+| ------ |
+| `TDataType` |
+| `TTag` *extends* `string` |
 
 ## Properties
 
-### data
-
-> **data**: `TDataType`
-
-Defined in: [extensions/viem/src/GenResult.ts:10](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/GenResult.ts#L10)
-
-***
-
-### errors?
-
-> `optional` **errors?**: `ReadonlyArray`\<[`TypedError`](TypedError.md)\<`string`\>\>
-
-Defined in: [extensions/viem/src/GenResult.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/GenResult.ts#L11)
-
-***
-
-### success
-
-> **success**: `true`
-
-Defined in: [extensions/viem/src/GenResult.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/GenResult.ts#L8)
-
-***
-
-### tag
-
-> **tag**: `TTag`
-
-Defined in: [extensions/viem/src/GenResult.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/GenResult.ts#L9)
+| Property | Type | Defined in |
+| ------ | ------ | ------ |
+| <a id="data"></a> `data` | `TDataType` | [extensions/viem/src/GenResult.ts:10](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/GenResult.ts#L10) |
+| <a id="errors"></a> `errors?` | `ReadonlyArray`\<[`TypedError`](TypedError.md)\<`string`\>\> | [extensions/viem/src/GenResult.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/GenResult.ts#L11) |
+| <a id="success"></a> `success` | `true` | [extensions/viem/src/GenResult.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/GenResult.ts#L8) |
+| <a id="tag"></a> `tag` | `TTag` | [extensions/viem/src/GenResult.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/GenResult.ts#L9) |

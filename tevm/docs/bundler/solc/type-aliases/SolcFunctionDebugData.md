@@ -8,36 +8,11 @@
 
 > **SolcFunctionDebugData** = `object`
 
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:296
-
 ## Properties
 
-### entryPoint?
-
-> `optional` **entryPoint?**: `number`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:297
-
-***
-
-### id?
-
-> `optional` **id?**: `number` \| `null`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:298
-
-***
-
-### parameterSlots?
-
-> `optional` **parameterSlots?**: `number`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:299
-
-***
-
-### returnSlots?
-
-> `optional` **returnSlots?**: `number`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:300
+| Property | Type |
+| ------ | ------ |
+| <a id="entrypoint"></a> `entryPoint?` | `number` |
+| <a id="id"></a> `id?` | `number` \| `null` |
+| <a id="parameterslots"></a> `parameterSlots?` | `number` |
+| <a id="returnslots"></a> `returnSlots?` | `number` |

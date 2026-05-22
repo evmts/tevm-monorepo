@@ -8,17 +8,13 @@
 
 > **hashMessage**(`message`): `` `0x${string}` ``
 
-Defined in: tevm-monorepo/packages/utils/types/signature.d.ts:70
-
 Hashes a message according to EIP-191
 
 ## Parameters
 
-### message
-
-`string`
-
-The message to hash
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `message` | `string` | The message to hash |
 
 ## Returns
 

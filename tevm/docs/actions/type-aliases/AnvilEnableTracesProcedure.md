@@ -8,15 +8,13 @@
 
 > **AnvilEnableTracesProcedure** = (`request`) => `Promise`\<[`AnvilEnableTracesJsonRpcResponse`](AnvilEnableTracesJsonRpcResponse.md)\>
 
-Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilProcedure.d.ts:155
-
 JSON-RPC procedure for `anvil_enableTraces`
 
 ## Parameters
 
-### request
-
-[`AnvilEnableTracesJsonRpcRequest`](AnvilEnableTracesJsonRpcRequest.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`AnvilEnableTracesJsonRpcRequest`](AnvilEnableTracesJsonRpcRequest.md) |
 
 ## Returns
 

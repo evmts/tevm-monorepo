@@ -8,16 +8,10 @@
 
 > **AnvilSetNextBlockTimestampParams** = `object`
 
-Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilParams.d.ts:315
-
 Params for `anvil_setNextBlockTimestamp` handler
 
 ## Properties
 
-### timestamp
-
-> `readonly` **timestamp**: `bigint`
-
-Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilParams.d.ts:319
-
-The timestamp to set for the next block
+| Property | Modifier | Type | Description |
+| ------ | ------ | ------ | ------ |
+| <a id="timestamp"></a> `timestamp` | `readonly` | `bigint` | The timestamp to set for the next block |

@@ -10,13 +10,13 @@
 
 Defined in: [packages/actions/src/Mine/mineProcedure.js:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Mine/mineProcedure.js#L10)
 
-Creates a Mine JSON-RPC Procedure for handling tevm_mine requests with the Tevm VM
+Creates a Mine JSON-RPC Procedure for handling tevm_mine requests with the Tevm VM.
 
 ## Parameters
 
-### client
-
-`TevmNode`\<`"fork"` \| `"normal"`, \{ \}\>
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `client` | `TevmNode`\<`"fork"` \| `"normal"`, \{ \}\> | - |
 
 ## Returns
 

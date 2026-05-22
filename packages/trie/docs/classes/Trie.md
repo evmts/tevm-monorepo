@@ -6,7 +6,7 @@
 
 # Class: Trie
 
-The basic trie interface, use with `import { Trie } from '/trie'`.
+The basic trie interface, use with `import { Trie } from '@ethereumjs/trie'`.
 
 ## Constructors
 
@@ -18,13 +18,9 @@ Creates a new trie.
 
 #### Parameters
 
-##### opts?
-
-`TrieOpts`
-
-Options for instantiating the trie
-
-Note: in most cases, the static [Trie.create](#create) constructor should be used.  It uses the same API but provides sensible defaults
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `opts?` | `TrieOpts` | Options for instantiating the trie Note: in most cases, the static [Trie.create](#create) constructor should be used. It uses the same API but provides sensible defaults |
 
 #### Returns
 
@@ -32,105 +28,18 @@ Note: in most cases, the static [Trie.create](#create) constructor should be use
 
 ## Properties
 
-### \_db
-
-> `protected` **\_db**: `CheckpointDB`
-
-The backend DB
-
-***
-
-### \_debug
-
-> `protected` **\_debug**: `Debugger`
-
-***
-
-### \_hashLen
-
-> `protected` **\_hashLen**: `number`
-
-***
-
-### \_lock
-
-> `protected` **\_lock**: `Lock`
-
-***
-
-### \_opts
-
-> `protected` `readonly` **\_opts**: `TrieOptsWithDefaults`
-
-***
-
-### \_root
-
-> `protected` **\_root**: `Uint8Array`
-
-***
-
-### debug
-
-> `protected` **debug**: (...`args`) => `void`
-
-#### Parameters
-
-##### args
-
-...`any`
-
-#### Returns
-
-`void`
-
-***
-
-### DEBUG
-
-> `protected` **DEBUG**: `boolean`
-
-Debug logging
-
-***
-
-### EMPTY\_TRIE\_ROOT
-
-> **EMPTY\_TRIE\_ROOT**: `Uint8Array`
-
-The root for an empty trie
-
-***
-
-### walkTrieIterable
-
-> **walkTrieIterable**: (`nodeHash`, `currentKey?`, `onFound?`, `filter?`, `visited?`) => `AsyncIterable`\<\{ `currentKey`: `number`[]; `node`: `TrieNode`; \}\>
-
-#### Parameters
-
-##### nodeHash
-
-`Uint8Array`
-
-##### currentKey?
-
-`number`[]
-
-##### onFound?
-
-`OnFound`
-
-##### filter?
-
-`NodeFilter`
-
-##### visited?
-
-`Set`\<`string`\>
-
-#### Returns
-
-`AsyncIterable`\<\{ `currentKey`: `number`[]; `node`: `TrieNode`; \}\>
+| Property | Modifier | Type | Description |
+| ------ | ------ | ------ | ------ |
+| <a id="_db"></a> `_db` | `protected` | `CheckpointDB` | The backend DB |
+| <a id="_debug"></a> `_debug` | `protected` | `Debugger` | - |
+| <a id="_hashlen"></a> `_hashLen` | `protected` | `number` | - |
+| <a id="_lock"></a> `_lock` | `protected` | `Lock` | - |
+| <a id="_opts"></a> `_opts` | `readonly` | `TrieOptsWithDefaults` | - |
+| <a id="_root"></a> `_root` | `protected` | `Uint8Array` | - |
+| <a id="debug"></a> `debug` | `protected` | (...`args`) => `void` | - |
+| <a id="debug-1"></a> `DEBUG` | `protected` | `boolean` | Debug logging |
+| <a id="empty_trie_root"></a> `EMPTY_TRIE_ROOT` | `public` | `Uint8Array` | The root for an empty trie |
+| <a id="walktrieiterable"></a> `walkTrieIterable` | `public` | (`nodeHash`, `currentKey?`, `onFound?`, `filter?`, `visited?`) => `AsyncIterable`\<\{ `currentKey`: `number`[]; `node`: `TrieNode`; \}\> | - |
 
 ## Methods
 
@@ -143,9 +52,9 @@ depending on the `useKeyHashing` option being set or not.
 
 #### Parameters
 
-##### key
-
-`Uint8Array`
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `key` | `Uint8Array` | - |
 
 #### Returns
 
@@ -162,13 +71,10 @@ The given hash of operations (key additions or deletions) are executed on the tr
 
 #### Parameters
 
-##### ops
-
-`BatchDBOp`[]
-
-##### skipKeyTransform?
-
-`boolean`
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `ops` | `BatchDBOp`[] | - |
+| `skipKeyTransform?` | `boolean` | - |
 
 #### Returns
 
@@ -210,9 +116,9 @@ Checks if a given root exists.
 
 #### Parameters
 
-##### root
-
-`Uint8Array`
+| Parameter | Type |
+| ------ | ------ |
+| `root` | `Uint8Array` |
 
 #### Returns
 
@@ -247,11 +153,9 @@ serialized branch, extension, and/or leaf nodes.
 
 #### Parameters
 
-##### key
-
-`Uint8Array`
-
-key to create a proof for
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `key` | `Uint8Array` | key to create a proof for |
 
 #### Returns
 
@@ -279,13 +183,10 @@ Returns a [stream](https://nodejs.org/dist/latest-v12.x/docs/api/stream.html#str
 
 #### Parameters
 
-##### db?
-
-`DB`\<`string`, `string` \| `Uint8Array`\<`ArrayBufferLike`\>\>
-
-##### valueEncoding?
-
-`ValueEncoding`
+| Parameter | Type |
+| ------ | ------ |
+| `db?` | `DB`\<`string`, `string` \| `Uint8Array`\<`ArrayBufferLike`\>\> |
+| `valueEncoding?` | `ValueEncoding` |
 
 #### Returns
 
@@ -302,13 +203,10 @@ Deletes a value given a `key` from the trie
 
 #### Parameters
 
-##### key
-
-`Uint8Array`
-
-##### skipKeyTransform?
-
-`boolean`
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `key` | `Uint8Array` | - |
+| `skipKeyTransform?` | `boolean` | - |
 
 #### Returns
 
@@ -327,23 +225,12 @@ It returns a `stack` of nodes to the closest node.
 
 #### Parameters
 
-##### key
-
-`Uint8Array`
-
-the search key
-
-##### throwIfMissing?
-
-`boolean`
-
-if true, throws if any nodes are missing. Used for verifying proofs. (default: false)
-
-##### partialPath?
-
-###### stack
-
-`TrieNode`[]
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `key` | `Uint8Array` | the search key |
+| `throwIfMissing?` | `boolean` | if true, throws if any nodes are missing. Used for verifying proofs. (default: false) |
+| `partialPath?` | \{ `stack`: `TrieNode`[]; \} | - |
+| `partialPath.stack?` | `TrieNode`[] | - |
 
 #### Returns
 
@@ -373,11 +260,9 @@ with the same name.
 
 #### Parameters
 
-##### proof
-
-`Proof`
-
-an EIP-1186 proof to update the trie from
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `proof` | `Proof` | an EIP-1186 proof to update the trie from |
 
 #### Returns
 
@@ -397,17 +282,10 @@ Gets a value given a `key`
 
 #### Parameters
 
-##### key
-
-`Uint8Array`
-
-the key to search for
-
-##### throwIfMissing?
-
-`boolean`
-
-if true, throws if any nodes are missing. Used for verifying proofs. (default: false)
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `key` | `Uint8Array` | the key to search for |
+| `throwIfMissing?` | `boolean` | if true, throws if any nodes are missing. Used for verifying proofs. (default: false) |
 
 #### Returns
 
@@ -435,9 +313,9 @@ Is the trie during a checkpoint phase?
 
 #### Parameters
 
-##### msg
-
-`Uint8Array`
+| Parameter | Type |
+| ------ | ------ |
+| `msg` | `Uint8Array` |
 
 #### Returns
 
@@ -453,9 +331,9 @@ Retrieves a node from db by hash.
 
 #### Parameters
 
-##### node
-
-`Uint8Array`\<`ArrayBufferLike`\> \| `Uint8Array`\<`ArrayBufferLike`\>[]
+| Parameter | Type |
+| ------ | ------ |
+| `node` | `Uint8Array`\<`ArrayBufferLike`\> \| `Uint8Array`\<`ArrayBufferLike`\>[] |
 
 #### Returns
 
@@ -484,17 +362,11 @@ Stores a given `value` at the given `key` or do a delete if `value` is empty
 
 #### Parameters
 
-##### key
-
-`Uint8Array`
-
-##### value
-
-`Uint8Array`\<`ArrayBufferLike`\> \| `null`
-
-##### skipKeyTransform?
-
-`boolean`
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `key` | `Uint8Array` | - |
+| `value` | `Uint8Array`\<`ArrayBufferLike`\> \| `null` | - |
+| `skipKeyTransform?` | `boolean` | - |
 
 #### Returns
 
@@ -526,9 +398,9 @@ Gets and/or Sets the current root of the `trie`
 
 #### Parameters
 
-##### value?
-
-`Uint8Array`\<`ArrayBufferLike`\> \| `null`
+| Parameter | Type |
+| ------ | ------ |
+| `value?` | `Uint8Array`\<`ArrayBufferLike`\> \| `null` |
 
 #### Returns
 
@@ -544,23 +416,11 @@ Saves a stack of nodes to the database.
 
 #### Parameters
 
-##### key
-
-`Nibbles`
-
-the key. Should follow the stack
-
-##### stack
-
-`TrieNode`[]
-
-a stack of nodes to the value given by the key
-
-##### opStack
-
-`BatchDBOp`[]
-
-a stack of levelup operations to commit at the end of this function
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `key` | `Nibbles` | the key. Should follow the stack |
+| `stack` | `TrieNode`[] | a stack of nodes to the value given by the key |
+| `opStack` | `BatchDBOp`[] | a stack of levelup operations to commit at the end of this function |
 
 #### Returns
 
@@ -584,15 +444,10 @@ explicitly setting `cacheSize` as an option on the method.
 
 #### Parameters
 
-##### includeCheckpoints?
-
-`boolean`
-
-If true and during a checkpoint, the copy will contain the checkpointing metadata and will use the same scratch as underlying db.
-
-##### opts?
-
-`TrieShallowCopyOpts`
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `includeCheckpoints?` | `boolean` | If true and during a checkpoint, the copy will contain the checkpointing metadata and will use the same scratch as underlying db. |
+| `opts?` | `TrieShallowCopyOpts` | - |
 
 #### Returns
 
@@ -610,17 +465,10 @@ An (EIP-1186)[https://eips.ethereum.org/EIPS/eip-1186] proof contains the encode
 
 #### Parameters
 
-##### proof
-
-`Proof`
-
-An (EIP-1186)[https://eips.ethereum.org/EIPS/eip-1186] proof to update the trie from.
-
-##### shouldVerifyRoot?
-
-`boolean`
-
-If `true`, verifies that the root key of the proof matches the trie root. Throws if this is not the case.
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `proof` | `Proof` | An (EIP-1186)[https://eips.ethereum.org/EIPS/eip-1186] proof to update the trie from. |
+| `shouldVerifyRoot?` | `boolean` | If `true`, verifies that the root key of the proof matches the trie root. Throws if this is not the case. |
 
 #### Returns
 
@@ -639,23 +487,11 @@ contains the encoded trie nodes from the root node to the leaf node storing stat
 
 #### Parameters
 
-##### rootHash
-
-`Uint8Array`
-
-Root hash of the trie that this proof was created from and is being verified for
-
-##### key
-
-`Uint8Array`
-
-Key that is being verified and that the proof is created for
-
-##### proof
-
-`Proof`
-
-an EIP-1186 proof to verify the key against
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `rootHash` | `Uint8Array` | Root hash of the trie that this proof was created from and is being verified for |
+| `key` | `Uint8Array` | Key that is being verified and that the proof is created for |
+| `proof` | `Proof` | an EIP-1186 proof to verify the key against |
 
 #### Returns
 
@@ -690,41 +526,14 @@ version of this function also exists.
 
 #### Parameters
 
-##### rootHash
-
-`Uint8Array`
-
-root hash of state trie this proof is being verified against.
-
-##### firstKey
-
-`Uint8Array`\<`ArrayBufferLike`\> \| `null`
-
-first key of range being proven.
-
-##### lastKey
-
-`Uint8Array`\<`ArrayBufferLike`\> \| `null`
-
-last key of range being proven.
-
-##### keys
-
-`Uint8Array`\<`ArrayBufferLike`\>[]
-
-key list of leaf data being proven.
-
-##### values
-
-`Uint8Array`\<`ArrayBufferLike`\>[]
-
-value list of leaf data being proven, one-to-one correspondence with keys.
-
-##### proof
-
-`Uint8Array`\<`ArrayBufferLike`\>[] \| `null`
-
-proof node list, if all-elements-proof where no proof is needed, proof should be null, and both `firstKey` and `lastKey` must be null as well
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `rootHash` | `Uint8Array` | root hash of state trie this proof is being verified against. |
+| `firstKey` | `Uint8Array`\<`ArrayBufferLike`\> \| `null` | first key of range being proven. |
+| `lastKey` | `Uint8Array`\<`ArrayBufferLike`\> \| `null` | last key of range being proven. |
+| `keys` | `Uint8Array`\<`ArrayBufferLike`\>[] | key list of leaf data being proven. |
+| `values` | `Uint8Array`\<`ArrayBufferLike`\>[] | value list of leaf data being proven, one-to-one correspondence with keys. |
+| `proof` | `Uint8Array`\<`ArrayBufferLike`\>[] \| `null` | proof node list, if all-elements-proof where no proof is needed, proof should be null, and both `firstKey` and `lastKey` must be null as well |
 
 #### Returns
 
@@ -742,11 +551,9 @@ Executes a callback for each node in the trie.
 
 #### Parameters
 
-##### onFound
-
-`OnFound`
-
-callback to call when a node is found.
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `onFound` | `OnFound` | callback to call when a node is found. |
 
 #### Returns
 
@@ -764,11 +571,9 @@ Executes a callback for each value node in the trie.
 
 #### Parameters
 
-##### onFound
-
-`OnFound`
-
-callback to call when a node is found.
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `onFound` | `OnFound` | callback to call when a node is found. |
 
 #### Returns
 
@@ -786,15 +591,10 @@ Walks a trie until finished.
 
 #### Parameters
 
-##### root
-
-`Uint8Array`
-
-##### onFound
-
-`FoundNodeFunction`
-
-callback to call when a node is found. This schedules new tasks. If no tasks are available, the Promise resolves.
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `root` | `Uint8Array` | - |
+| `onFound` | `FoundNodeFunction` | callback to call when a node is found. This schedules new tasks. If no tasks are available, the Promise resolves. |
 
 #### Returns
 
@@ -810,9 +610,9 @@ Resolves when finished walking trie.
 
 #### Parameters
 
-##### opts?
-
-`TrieOpts`
+| Parameter | Type |
+| ------ | ------ |
+| `opts?` | `TrieOpts` |
 
 #### Returns
 
@@ -829,23 +629,11 @@ from the root node to the leaf node storing state data.
 
 #### Parameters
 
-##### proof
-
-`Proof`
-
-an EIP-1186 proof to create trie from
-
-##### trieOpts?
-
-`TrieOpts`
-
-trie opts to be applied to returned trie
-
-##### shouldVerifyRoot?
-
-`boolean`
-
-If `true`, verifies that the root key of the proof matches the trie root. Throws if this is not the case.
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `proof` | `Proof` | an EIP-1186 proof to create trie from |
+| `trieOpts?` | `TrieOpts` | trie opts to be applied to returned trie |
+| `shouldVerifyRoot?` | `boolean` | If `true`, verifies that the root key of the proof matches the trie root. Throws if this is not the case. |
 
 #### Returns
 
@@ -864,15 +652,10 @@ Static version of fromProof function. If a root is provided in the opts param, t
 
 #### Parameters
 
-##### proof
-
-`Proof`
-
-An (EIP-1186)[https://eips.ethereum.org/EIPS/eip-1186] proof contains the encoded trie nodes from the root node to the leaf node storing state data.
-
-##### opts?
-
-`TrieOpts`
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `proof` | `Proof` | An (EIP-1186)[https://eips.ethereum.org/EIPS/eip-1186] proof contains the encoded trie nodes from the root node to the leaf node storing state data. |
+| `opts?` | `TrieOpts` | - |
 
 #### Returns
 
@@ -893,23 +676,11 @@ from the root node to the leaf node storing state data.
 
 #### Parameters
 
-##### key
-
-`Uint8Array`
-
-Key that is being verified and that the proof is created for
-
-##### proof
-
-`Proof`
-
-An (EIP-1186)[https://eips.ethereum.org/EIPS/eip-1186] proof contains the encoded trie nodes from the root node to the leaf node storing state data.
-
-##### opts?
-
-`TrieOpts`
-
-optional, the opts may include a custom hashing function to use with the trie for proof verification
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `key` | `Uint8Array` | Key that is being verified and that the proof is created for |
+| `proof` | `Proof` | An (EIP-1186)[https://eips.ethereum.org/EIPS/eip-1186] proof contains the encoded trie nodes from the root node to the leaf node storing state data. |
+| `opts?` | `TrieOpts` | optional, the opts may include a custom hashing function to use with the trie for proof verification |
 
 #### Returns
 
@@ -934,47 +705,15 @@ version of this function also exists.
 
 #### Parameters
 
-##### rootHash
-
-`Uint8Array`
-
-root hash of state trie this proof is being verified against.
-
-##### firstKey
-
-`Uint8Array`\<`ArrayBufferLike`\> \| `null`
-
-first key of range being proven.
-
-##### lastKey
-
-`Uint8Array`\<`ArrayBufferLike`\> \| `null`
-
-last key of range being proven.
-
-##### keys
-
-`Uint8Array`\<`ArrayBufferLike`\>[]
-
-key list of leaf data being proven.
-
-##### values
-
-`Uint8Array`\<`ArrayBufferLike`\>[]
-
-value list of leaf data being proven, one-to-one correspondence with keys.
-
-##### proof
-
-`Uint8Array`\<`ArrayBufferLike`\>[] \| `null`
-
-proof node list, if all-elements-proof where no proof is needed, proof should be null, and both `firstKey` and `lastKey` must be null as well
-
-##### opts?
-
-`TrieOpts`
-
-optional, the opts may include a custom hashing function to use with the trie for proof verification
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `rootHash` | `Uint8Array` | root hash of state trie this proof is being verified against. |
+| `firstKey` | `Uint8Array`\<`ArrayBufferLike`\> \| `null` | first key of range being proven. |
+| `lastKey` | `Uint8Array`\<`ArrayBufferLike`\> \| `null` | last key of range being proven. |
+| `keys` | `Uint8Array`\<`ArrayBufferLike`\>[] | key list of leaf data being proven. |
+| `values` | `Uint8Array`\<`ArrayBufferLike`\>[] | value list of leaf data being proven, one-to-one correspondence with keys. |
+| `proof` | `Uint8Array`\<`ArrayBufferLike`\>[] \| `null` | proof node list, if all-elements-proof where no proof is needed, proof should be null, and both `firstKey` and `lastKey` must be null as well |
+| `opts?` | `TrieOpts` | optional, the opts may include a custom hashing function to use with the trie for proof verification |
 
 #### Returns
 

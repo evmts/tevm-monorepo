@@ -14,9 +14,9 @@ A blockchain interface method that accepts a block id number or hash and returns
 
 ## Parameters
 
-### baseChain
-
-`BaseChain`
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `baseChain` | `BaseChain` | - |
 
 ## Returns
 
@@ -26,9 +26,9 @@ Returns a block by its hash or number.
 
 ### Parameters
 
-#### blockId
-
-`number` \| `bigint` \| `Uint8Array`\<`ArrayBufferLike`\>
+| Parameter | Type |
+| ------ | ------ |
+| `blockId` | `number` \| `bigint` \| `Uint8Array`\<`ArrayBufferLike`\> |
 
 ### Returns
 

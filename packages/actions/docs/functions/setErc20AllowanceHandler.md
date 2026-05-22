@@ -14,9 +14,9 @@ Sets ERC20 allowance for a spender by overriding the storage of allowance(owner,
 
 ## Parameters
 
-### node
-
-`TevmNode`\<`"fork"` \| `"normal"`, \{ \}\>
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `node` | `TevmNode`\<`"fork"` \| `"normal"`, \{ \}\> | - |
 
 ## Returns
 

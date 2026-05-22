@@ -16,9 +16,9 @@ Takes an unknown error that is suspected of coming from EVM and returns a strong
 
 ## Parameters
 
-### e
-
-`unknown`
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `e` | `unknown` | - |
 
 ## Returns
 

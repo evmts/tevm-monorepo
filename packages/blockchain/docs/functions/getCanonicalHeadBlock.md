@@ -12,9 +12,9 @@ Defined in: [packages/blockchain/src/actions/getCanonicalHeadBlock.js:7](https:/
 
 ## Parameters
 
-### baseChain
-
-`BaseChain`
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `baseChain` | `BaseChain` | - |
 
 ## Returns
 

@@ -12,9 +12,9 @@ Defined in: [packages/actions/src/eth/EthHandler.ts:203](https://github.com/evmt
 
 ## Parameters
 
-### request
-
-[`EthNewPendingTransactionFilterParams`](EthNewPendingTransactionFilterParams.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`EthNewPendingTransactionFilterParams`](EthNewPendingTransactionFilterParams.md) |
 
 ## Returns
 

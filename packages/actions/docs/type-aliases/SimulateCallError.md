@@ -14,30 +14,8 @@ Error information for a simulated call
 
 ## Properties
 
-### code
-
-> **code**: `number`
-
-Defined in: [packages/actions/src/eth/EthResult.ts:371](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthResult.ts#L371)
-
-Error code
-
-***
-
-### data?
-
-> `optional` **data?**: [`Hex`](Hex.md)
-
-Defined in: [packages/actions/src/eth/EthResult.ts:379](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthResult.ts#L379)
-
-Optional data (e.g., revert reason)
-
-***
-
-### message
-
-> **message**: `string`
-
-Defined in: [packages/actions/src/eth/EthResult.ts:375](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthResult.ts#L375)
-
-Error message
+| Property | Type | Description | Defined in |
+| ------ | ------ | ------ | ------ |
+| <a id="code"></a> `code` | `number` | Error code | [packages/actions/src/eth/EthResult.ts:371](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthResult.ts#L371) |
+| <a id="data"></a> `data?` | [`Hex`](Hex.md) | Optional data (e.g., revert reason) | [packages/actions/src/eth/EthResult.ts:379](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthResult.ts#L379) |
+| <a id="message"></a> `message` | `string` | Error message | [packages/actions/src/eth/EthResult.ts:375](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthResult.ts#L375) |

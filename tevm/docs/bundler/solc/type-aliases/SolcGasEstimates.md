@@ -8,48 +8,13 @@
 
 > **SolcGasEstimates** = `object`
 
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:309
-
 ## Properties
 
-### creation
-
-> **creation**: `object`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:310
-
-#### codeDepositCost
-
-> **codeDepositCost**: `string`
-
-#### executionCost
-
-> **executionCost**: `string`
-
-#### totalCost
-
-> **totalCost**: `string`
-
-***
-
-### external
-
-> **external**: `object`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:315
-
-#### Index Signature
-
-\[`functionSignature`: `string`\]: `string`
-
-***
-
-### internal
-
-> **internal**: `object`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:318
-
-#### Index Signature
-
-\[`functionSignature`: `string`\]: `string`
+| Property | Type |
+| ------ | ------ |
+| <a id="creation"></a> `creation` | `object` |
+| `creation.codeDepositCost` | `string` |
+| `creation.executionCost` | `string` |
+| `creation.totalCost` | `string` |
+| <a id="external"></a> `external` | `object` |
+| <a id="internal"></a> `internal` | `object` |

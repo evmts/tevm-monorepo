@@ -15,15 +15,19 @@
 - [TevmTransport](type-aliases/TevmTransport.md)
 - [TevmViemActionsApi](type-aliases/TevmViemActionsApi.md)
 
+## Variables
+
+- [createMemoryClient](variables/createMemoryClient.md)
+
 ## Functions
 
 - [createClient](functions/createClient.md)
-- [createMemoryClient](functions/createMemoryClient.md)
 - [createTevmTransport](functions/createTevmTransport.md)
 - [publicActions](functions/publicActions.md)
 - [testActions](functions/testActions.md)
 - [tevmCall](functions/tevmCall.md)
 - [tevmContract](functions/tevmContract.md)
+- [tevmDeal](functions/tevmDeal.md)
 - [tevmDeploy](functions/tevmDeploy.md)
 - [tevmDumpState](functions/tevmDumpState.md)
 - [tevmGetAccount](functions/tevmGetAccount.md)

@@ -8,13 +8,11 @@
 
 > **EthGetLogsHandler** = (`request`) => `Promise`\<[`EthGetLogsResult`](EthGetLogsResult.md)\>
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthHandler.d.ts:21
-
 ## Parameters
 
-### request
-
-[`EthGetLogsParams`](EthGetLogsParams.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`EthGetLogsParams`](EthGetLogsParams.md) |
 
 ## Returns
 

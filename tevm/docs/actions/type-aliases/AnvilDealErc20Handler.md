@@ -8,13 +8,11 @@
 
 > **AnvilDealErc20Handler** = (`params`) => `Promise`\<[`AnvilDealErc20Result`](AnvilDealErc20Result.md)\>
 
-Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilHandler.d.ts:17
-
 ## Parameters
 
-### params
-
-[`AnvilDealErc20Params`](AnvilDealErc20Params.md)
+| Parameter | Type |
+| ------ | ------ |
+| `params` | [`AnvilDealErc20Params`](AnvilDealErc20Params.md) |
 
 ## Returns
 

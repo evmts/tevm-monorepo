@@ -8,13 +8,11 @@
 
 > **EthGetTransactionByBlockNumberAndIndexJsonRpcProcedure** = (`request`) => `Promise`\<[`EthGetTransactionByBlockNumberAndIndexJsonRpcResponse`](EthGetTransactionByBlockNumberAndIndexJsonRpcResponse.md)\>
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthProcedure.d.ts:29
-
 ## Parameters
 
-### request
-
-[`EthGetTransactionByBlockNumberAndIndexJsonRpcRequest`](EthGetTransactionByBlockNumberAndIndexJsonRpcRequest.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`EthGetTransactionByBlockNumberAndIndexJsonRpcRequest`](EthGetTransactionByBlockNumberAndIndexJsonRpcRequest.md) |
 
 ## Returns
 

@@ -1,7 +1,15 @@
 {
 	"$schema": "https://typedoc.org/schema.json",
 	"out": "./docs",
-	"entryPoints": ["./src/index.ts"],
-	"plugin": ["typedoc-plugin-markdown"],
-	"gitRevision": "main"
+	"entryPoints": [
+		"./src/index.ts"
+	],
+	"plugin": [
+		"typedoc-plugin-markdown"
+	],
+	"gitRevision": "main",
+	"expandObjects": false,
+	"expandParameters": false,
+	"parametersFormat": "table",
+	"propertiesFormat": "table"
 }

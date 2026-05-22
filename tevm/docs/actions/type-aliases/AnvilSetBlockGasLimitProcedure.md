@@ -8,15 +8,13 @@
 
 > **AnvilSetBlockGasLimitProcedure** = (`request`) => `Promise`\<[`AnvilSetBlockGasLimitJsonRpcResponse`](AnvilSetBlockGasLimitJsonRpcResponse.md)\>
 
-Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilProcedure.d.ts:103
-
 JSON-RPC procedure for `anvil_setBlockGasLimit`
 
 ## Parameters
 
-### request
-
-[`AnvilSetBlockGasLimitJsonRpcRequest`](AnvilSetBlockGasLimitJsonRpcRequest.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`AnvilSetBlockGasLimitJsonRpcRequest`](AnvilSetBlockGasLimitJsonRpcRequest.md) |
 
 ## Returns
 

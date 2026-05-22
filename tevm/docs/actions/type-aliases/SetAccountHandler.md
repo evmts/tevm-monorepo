@@ -8,15 +8,13 @@
 
 > **SetAccountHandler** = (`params`) => `Promise`\<[`SetAccountResult`](SetAccountResult.md)\>
 
-Defined in: tevm-monorepo/packages/actions/types/SetAccount/SetAccountHandlerType.d.ts:14
-
 Sets the state of a specific ethereum address
 
 ## Parameters
 
-### params
-
-[`SetAccountParams`](SetAccountParams.md)
+| Parameter | Type |
+| ------ | ------ |
+| `params` | [`SetAccountParams`](SetAccountParams.md) |
 
 ## Returns
 

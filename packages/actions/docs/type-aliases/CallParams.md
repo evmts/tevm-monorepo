@@ -129,9 +129,9 @@ await tevmCall(client, callParams)
 
 ## Type Parameters
 
-### TThrowOnFail
-
-`TThrowOnFail` *extends* `boolean` = `boolean`
+| Type Parameter | Default type |
+| ------ | ------ |
+| `TThrowOnFail` *extends* `boolean` | `boolean` |
 
 ## Example
 

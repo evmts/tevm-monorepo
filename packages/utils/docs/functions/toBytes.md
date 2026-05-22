@@ -17,17 +17,10 @@ Encodes a UTF-8 string, hex value, bigint, number or boolean to a byte array.
 
 ## Parameters
 
-### value
-
-`string` \| `number` \| `bigint` \| `boolean`
-
-Value to encode.
-
-### opts?
-
-`ToBytesParameters`
-
-Options.
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `value` | `string` \| `number` \| `bigint` \| `boolean` | Value to encode. |
+| `opts?` | `ToBytesParameters` | Options. |
 
 ## Returns
 

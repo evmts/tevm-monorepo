@@ -12,9 +12,9 @@ Defined in: [packages/actions/src/anvil/AnvilHandler.ts:86](https://github.com/e
 
 ## Parameters
 
-### params
-
-[`AnvilDealErc20Params`](AnvilDealErc20Params.md)
+| Parameter | Type |
+| ------ | ------ |
+| `params` | [`AnvilDealErc20Params`](AnvilDealErc20Params.md) |
 
 ## Returns
 

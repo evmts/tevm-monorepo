@@ -12,9 +12,9 @@ Defined in: zevm/npm/zevm/dist/util.d.ts:202
 
 ## Parameters
 
-### accountData
-
-`AccountData`
+| Parameter | Type |
+| ------ | ------ |
+| `accountData` | `AccountData` |
 
 ## Returns
 

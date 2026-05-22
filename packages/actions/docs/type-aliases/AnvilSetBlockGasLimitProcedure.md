@@ -14,9 +14,9 @@ JSON-RPC procedure for `anvil_setBlockGasLimit`
 
 ## Parameters
 
-### request
-
-[`AnvilSetBlockGasLimitJsonRpcRequest`](AnvilSetBlockGasLimitJsonRpcRequest.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`AnvilSetBlockGasLimitJsonRpcRequest`](AnvilSetBlockGasLimitJsonRpcRequest.md) |
 
 ## Returns
 

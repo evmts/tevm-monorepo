@@ -14,9 +14,9 @@ GetAccount JSON-RPC tevm procedure puts an account or contract into the tevm sta
 
 ## Parameters
 
-### request
-
-[`GetAccountJsonRpcRequest`](GetAccountJsonRpcRequest.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`GetAccountJsonRpcRequest`](GetAccountJsonRpcRequest.md) |
 
 ## Returns
 

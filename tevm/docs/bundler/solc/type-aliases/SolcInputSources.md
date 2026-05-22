@@ -4,12 +4,16 @@
 
 [tevm](../../../modules.md) / [bundler/solc](../README.md) / SolcInputSources
 
-# Type Alias: SolcInputSources
+# Type Alias: SolcInputSources\<T\>
 
-> **SolcInputSources** = `object`
+> **SolcInputSources**\<`T`\> = `object`
 
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:83
+## Type Parameters
+
+| Type Parameter | Default type |
+| ------ | ------ |
+| `T` *extends* [`SolcLanguage`](SolcLanguage.md) | [`SolcLanguage`](SolcLanguage.md) |
 
 ## Index Signature
 
-\[`globalName`: `string`\]: [`SolcInputSource`](SolcInputSource.md) & `object`
+\[`globalName`: `string`\]: [`SolcInputSource`](SolcInputSource.md)\<`T`\> & `object`

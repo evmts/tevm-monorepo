@@ -14,9 +14,9 @@
 
 #### Parameters
 
-##### opts
-
-`MessageOpts`
+| Parameter | Type |
+| ------ | ------ |
+| `opts` | `MessageOpts` |
 
 #### Returns
 
@@ -24,135 +24,29 @@
 
 ## Properties
 
-### \_codeAddress?
-
-> `optional` **\_codeAddress?**: `Address`
-
-***
-
-### accessWitness?
-
-> `optional` **accessWitness?**: `BinaryTreeAccessWitnessInterface`
-
-***
-
-### blobVersionedHashes?
-
-> `optional` **blobVersionedHashes?**: `` `0x${string}` ``[]
-
-List of versioned hashes if message is a blob transaction in the outer VM
-
-***
-
-### caller
-
-> **caller**: `Address`
-
-***
-
-### chargeCodeAccesses?
-
-> `optional` **chargeCodeAccesses?**: `boolean`
-
-***
-
-### code?
-
-> `optional` **code?**: `PrecompileFunc` \| `Uint8Array`\<`ArrayBufferLike`\>
-
-***
-
-### createdAddresses?
-
-> `optional` **createdAddresses?**: `Set`\<`` `0x${string}` ``\>
-
-Map of addresses which were created (used in EIP 6780)
-
-***
-
-### data
-
-> **data**: `Uint8Array`
-
-***
-
-### delegatecall
-
-> **delegatecall**: `boolean`
-
-***
-
-### depth
-
-> **depth**: `number`
-
-***
-
-### eof?
-
-> `optional` **eof?**: `EOFEnv`
-
-***
-
-### eofCallData?
-
-> `optional` **eofCallData?**: `Uint8Array`\<`ArrayBufferLike`\>
-
-***
-
-### gasLimit
-
-> **gasLimit**: `bigint`
-
-***
-
-### gasRefund
-
-> **gasRefund**: `bigint`
-
-***
-
-### isCompiled
-
-> **isCompiled**: `boolean`
-
-***
-
-### isCreate?
-
-> `optional` **isCreate?**: `boolean`
-
-***
-
-### isStatic
-
-> **isStatic**: `boolean`
-
-***
-
-### salt?
-
-> `optional` **salt?**: `Uint8Array`\<`ArrayBufferLike`\>
-
-***
-
-### selfdestruct?
-
-> `optional` **selfdestruct?**: `Set`\<`` `0x${string}` ``\>
-
-Set of addresses to selfdestruct. Key is the unprefixed address.
-
-***
-
-### to?
-
-> `optional` **to?**: `Address`
-
-***
-
-### value
-
-> **value**: `bigint`
+| Property | Type | Description |
+| ------ | ------ | ------ |
+| <a id="_codeaddress"></a> `_codeAddress?` | `Address` | - |
+| <a id="accesswitness"></a> `accessWitness?` | `BinaryTreeAccessWitnessInterface` | - |
+| <a id="blobversionedhashes"></a> `blobVersionedHashes?` | `` `0x${string}` ``[] | List of versioned hashes if message is a blob transaction in the outer VM |
+| <a id="caller"></a> `caller` | `Address` | - |
+| <a id="chargecodeaccesses"></a> `chargeCodeAccesses?` | `boolean` | - |
+| <a id="code"></a> `code?` | `PrecompileFunc` \| `Uint8Array`\<`ArrayBufferLike`\> | - |
+| <a id="createdaddresses"></a> `createdAddresses?` | `Set`\<`` `0x${string}` ``\> | Map of addresses which were created (used in EIP 6780) |
+| <a id="data"></a> `data` | `Uint8Array` | - |
+| <a id="delegatecall"></a> `delegatecall` | `boolean` | - |
+| <a id="depth"></a> `depth` | `number` | - |
+| <a id="eof"></a> `eof?` | `EOFEnv` | - |
+| <a id="eofcalldata"></a> `eofCallData?` | `Uint8Array`\<`ArrayBufferLike`\> | - |
+| <a id="gaslimit"></a> `gasLimit` | `bigint` | - |
+| <a id="gasrefund"></a> `gasRefund` | `bigint` | - |
+| <a id="iscompiled"></a> `isCompiled` | `boolean` | - |
+| <a id="iscreate"></a> `isCreate?` | `boolean` | - |
+| <a id="isstatic"></a> `isStatic` | `boolean` | - |
+| <a id="salt"></a> `salt?` | `Uint8Array`\<`ArrayBufferLike`\> | - |
+| <a id="selfdestruct"></a> `selfdestruct?` | `Set`\<`` `0x${string}` ``\> | Set of addresses to selfdestruct. Key is the unprefixed address. |
+| <a id="to"></a> `to?` | `Address` | - |
+| <a id="value"></a> `value` | `bigint` | - |
 
 ## Accessors
 

@@ -12,22 +12,10 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/viem@2.49.3\_bufferutil@4.1.0\_typ
 
 ## Parameters
 
-### address
-
-`string`
-
-### chainId?
-
-`number`
-
-Warning: EIP-1191 checksum addresses are generally not backwards compatible with the
-wider Ethereum ecosystem, meaning it will break when validated against an application/tool
-that relies on EIP-55 checksum encoding (checksum without chainId).
-
-It is highly recommended to not use this feature unless you
-know what you are doing.
-
-See more: https://github.com/ethereum/EIPs/issues/1121
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `address` | `string` | - |
+| `chainId?` | `number` | Warning: EIP-1191 checksum addresses are generally not backwards compatible with the wider Ethereum ecosystem, meaning it will break when validated against an application/tool that relies on EIP-55 checksum encoding (checksum without chainId). It is highly recommended to not use this feature unless you know what you are doing. See more: https://github.com/ethereum/EIPs/issues/1121 |
 
 ## Returns
 

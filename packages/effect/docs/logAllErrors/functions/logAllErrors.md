@@ -16,9 +16,9 @@ Logs all errors and causes from effect
 
 ## Parameters
 
-### e
-
-`unknown`
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `e` | `unknown` | - |
 
 ## Returns
 

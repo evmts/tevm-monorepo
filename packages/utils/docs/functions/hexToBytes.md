@@ -16,15 +16,10 @@ Encodes a hex string into a byte array.
 
 ## Parameters
 
-### hex\_
-
-`` `0x${string}` ``
-
-### opts?
-
-`HexToBytesOpts`
-
-Options.
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `hex_` | `` `0x${string}` `` | - |
+| `opts?` | `HexToBytesOpts` | Options. |
 
 ## Returns
 

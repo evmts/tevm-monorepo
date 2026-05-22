@@ -52,23 +52,11 @@ Constructs a BlockGasLimitExceededError.
 
 #### Parameters
 
-##### message
-
-`string`
-
-Human-readable error message.
-
-##### args?
-
-[`BlockGasLimitExceededErrorParameters`](../interfaces/BlockGasLimitExceededErrorParameters.md) = `{}`
-
-Additional parameters for the BaseError.
-
-##### tag?
-
-`string` = `'BlockGasLimitExceeded'`
-
-The tag for the error.
+| Parameter | Type | Default value | Description |
+| ------ | ------ | ------ | ------ |
+| `message` | `string` | `undefined` | Human-readable error message. |
+| `args?` | [`BlockGasLimitExceededErrorParameters`](../interfaces/BlockGasLimitExceededErrorParameters.md) | `{}` | Additional parameters for the BaseError. |
+| `tag?` | `string` | `'BlockGasLimitExceeded'` | The tag for the error. |
 
 #### Returns
 
@@ -80,105 +68,18 @@ The tag for the error.
 
 ## Properties
 
-### \_tag
-
-> **\_tag**: `string`
-
-Same as name, used internally.
-
-#### Inherited from
-
-[`BaseError`](BaseError.md).[`_tag`](BaseError.md#_tag)
-
-***
-
-### cause
-
-> **cause**: `any`
-
-#### Inherited from
-
-[`BaseError`](BaseError.md).[`cause`](BaseError.md#cause)
-
-***
-
-### code
-
-> **code**: `number`
-
-#### Inherited from
-
-[`BaseError`](BaseError.md).[`code`](BaseError.md#code)
-
-***
-
-### details
-
-> **details**: `string`
-
-#### Inherited from
-
-[`BaseError`](BaseError.md).[`details`](BaseError.md#details)
-
-***
-
-### docsPath
-
-> **docsPath**: `string` \| `undefined`
-
-Path to the documentation for this error.
-
-#### Inherited from
-
-[`BaseError`](BaseError.md).[`docsPath`](BaseError.md#docspath)
-
-***
-
-### meta
-
-> **meta**: `object` \| `undefined`
-
-Optional object containing additional information about the error.
-
-***
-
-### metaMessages
-
-> **metaMessages**: `string`[] \| `undefined`
-
-Additional meta messages for more context.
-
-#### Inherited from
-
-[`BaseError`](BaseError.md).[`metaMessages`](BaseError.md#metamessages)
-
-***
-
-### shortMessage
-
-> **shortMessage**: `string`
-
-#### Inherited from
-
-[`BaseError`](BaseError.md).[`shortMessage`](BaseError.md#shortmessage)
-
-***
-
-### version
-
-> **version**: `string`
-
-#### Inherited from
-
-[`BaseError`](BaseError.md).[`version`](BaseError.md#version)
-
-***
-
-### code
-
-> `static` **code**: `number` = `-32006`
-
-Error code (-32006), a non-standard extension for this specific error.
+| Property | Modifier | Type | Default value | Description | Inherited from |
+| ------ | ------ | ------ | ------ | ------ | ------ |
+| <a id="_tag"></a> `_tag` | `public` | `string` | `undefined` | - | [`BaseError`](BaseError.md).[`_tag`](BaseError.md#_tag) |
+| <a id="cause"></a> `cause` | `public` | `any` | `undefined` | - | [`BaseError`](BaseError.md).[`cause`](BaseError.md#cause) |
+| <a id="code"></a> `code` | `public` | `number` | `undefined` | - | [`BaseError`](BaseError.md).[`code`](BaseError.md#code) |
+| <a id="details"></a> `details` | `public` | `string` | `undefined` | - | [`BaseError`](BaseError.md).[`details`](BaseError.md#details) |
+| <a id="docspath"></a> `docsPath` | `public` | `string` \| `undefined` | `undefined` | - | [`BaseError`](BaseError.md).[`docsPath`](BaseError.md#docspath) |
+| <a id="meta"></a> `meta` | `public` | `object` \| `undefined` | `undefined` | - | - |
+| <a id="metamessages"></a> `metaMessages` | `public` | `string`[] \| `undefined` | `undefined` | - | [`BaseError`](BaseError.md).[`metaMessages`](BaseError.md#metamessages) |
+| <a id="shortmessage"></a> `shortMessage` | `public` | `string` | `undefined` | - | [`BaseError`](BaseError.md).[`shortMessage`](BaseError.md#shortmessage) |
+| <a id="version"></a> `version` | `public` | `string` | `undefined` | - | [`BaseError`](BaseError.md).[`version`](BaseError.md#version) |
+| <a id="code-1"></a> `code` | `static` | `number` | `-32006` | The error code for BlockGasLimitExceededError. | - |
 
 ## Methods
 
@@ -190,11 +91,9 @@ Walks through the error chain.
 
 #### Parameters
 
-##### fn?
-
-`Function`
-
-A function to execute on each error in the chain.
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `fn?` | `Function` | A function to execute on each error in the chain. |
 
 #### Returns
 

@@ -12,17 +12,11 @@ Defined in: [packages/vm/src/actions/rewardAccount.ts:4](https://github.com/evmt
 
 ## Parameters
 
-### evm
-
-`Evm$1`
-
-### address
-
-`Address`
-
-### reward
-
-`bigint`
+| Parameter | Type |
+| ------ | ------ |
+| `evm` | `Evm$1` |
+| `address` | `Address` |
+| `reward` | `bigint` |
 
 ## Returns
 

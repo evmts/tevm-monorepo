@@ -8,56 +8,15 @@
 
 > **TevmReturnType** = `object`
 
-Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/TevmReturnType.d.ts:10
-
 A mapping of `tevm_*` method names to their return type
 
 ## Properties
 
-### tevm\_call
-
-> **tevm\_call**: [`CallJsonRpcResponse`](CallJsonRpcResponse.md)
-
-Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/TevmReturnType.d.ts:11
-
-***
-
-### tevm\_dumpState
-
-> **tevm\_dumpState**: [`DumpStateJsonRpcResponse`](DumpStateJsonRpcResponse.md)
-
-Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/TevmReturnType.d.ts:16
-
-***
-
-### tevm\_getAccount
-
-> **tevm\_getAccount**: [`GetAccountJsonRpcResponse`](GetAccountJsonRpcResponse.md)
-
-Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/TevmReturnType.d.ts:17
-
-***
-
-### ~~tevm\_loadState~~
-
-> **tevm\_loadState**: [`LoadStateJsonRpcResponse`](LoadStateJsonRpcResponse.md)
-
-Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/TevmReturnType.d.ts:15
-
-#### Deprecated
-
-***
-
-### tevm\_mine
-
-> **tevm\_mine**: [`MineJsonRpcResponse`](MineJsonRpcResponse.md)
-
-Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/TevmReturnType.d.ts:19
-
-***
-
-### tevm\_setAccount
-
-> **tevm\_setAccount**: `SetAccountJsonRpcResponse`
-
-Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/TevmReturnType.d.ts:18
+| Property | Type | Description |
+| ------ | ------ | ------ |
+| <a id="tevm_call"></a> `tevm_call` | [`CallJsonRpcResponse`](CallJsonRpcResponse.md) | - |
+| <a id="tevm_dumpstate"></a> `tevm_dumpState` | [`DumpStateJsonRpcResponse`](DumpStateJsonRpcResponse.md) | - |
+| <a id="tevm_getaccount"></a> `tevm_getAccount` | [`GetAccountJsonRpcResponse`](GetAccountJsonRpcResponse.md) | - |
+| <a id="tevm_loadstate"></a> ~~`tevm_loadState`~~ | [`LoadStateJsonRpcResponse`](LoadStateJsonRpcResponse.md) | **Deprecated** |
+| <a id="tevm_mine"></a> `tevm_mine` | [`MineJsonRpcResponse`](MineJsonRpcResponse.md) | - |
+| <a id="tevm_setaccount"></a> `tevm_setAccount` | `SetAccountJsonRpcResponse` | - |

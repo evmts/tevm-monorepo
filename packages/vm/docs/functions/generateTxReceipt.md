@@ -14,9 +14,9 @@ Returns the tx receipt.
 
 ## Parameters
 
-### vm
-
-`BaseVm`
+| Parameter | Type |
+| ------ | ------ |
+| `vm` | `BaseVm` |
 
 ## Returns
 

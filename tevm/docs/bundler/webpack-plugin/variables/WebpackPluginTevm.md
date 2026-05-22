@@ -8,8 +8,6 @@
 
 > `const` **WebpackPluginTevm**: `TevmWebpackPluginConstructor`
 
-Defined in: tevm-monorepo/bundler-packages/webpack/types/WebpackPluginTevm.d.ts:108
-
 Webpack plugin for Tevm that enables direct Solidity imports in JavaScript and TypeScript code.
 
 This plugin integrates with Webpack to transform imports of .sol files into JavaScript

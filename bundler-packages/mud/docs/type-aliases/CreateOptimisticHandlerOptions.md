@@ -12,78 +12,19 @@ Defined in: [createOptimisticHandler.ts:40](https://github.com/evmts/tevm-monore
 
 ## Type Parameters
 
-### TConfig
-
-`TConfig` *extends* `StoreConfig` = `StoreConfig`
+| Type Parameter | Default type |
+| ------ | ------ |
+| `TConfig` *extends* `StoreConfig` | `StoreConfig` |
 
 ## Properties
 
-### client
-
-> **client**: `Client` \| [`SessionClient`](SessionClient.md)
-
-Defined in: [createOptimisticHandler.ts:42](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/mud/src/createOptimisticHandler.ts#L42)
-
-A base viem client
-
-***
-
-### config?
-
-> `optional` **config?**: `TConfig`
-
-Defined in: [createOptimisticHandler.ts:57](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/mud/src/createOptimisticHandler.ts#L57)
-
-The store config
-
-***
-
-### loggingLevel?
-
-> `optional` **loggingLevel?**: `"debug"` \| `"error"` \| `"fatal"` \| `"info"` \| `"trace"` \| `"warn"`
-
-Defined in: [createOptimisticHandler.ts:59](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/mud/src/createOptimisticHandler.ts#L59)
-
-The logging level for Tevm clients
-
-***
-
-### stash
-
-> **stash**: `Stash`\<`TConfig`\>
-
-Defined in: [createOptimisticHandler.ts:46](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/mud/src/createOptimisticHandler.ts#L46)
-
-The state manager (here stash)
-
-***
-
-### storeAddress
-
-> **storeAddress**: `Address`
-
-Defined in: [createOptimisticHandler.ts:44](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/mud/src/createOptimisticHandler.ts#L44)
-
-The address of the store contract
-
-***
-
-### sync?
-
-> `optional` **sync?**: `object`
-
-Defined in: [createOptimisticHandler.ts:48](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/mud/src/createOptimisticHandler.ts#L48)
-
-Sync options
-
-#### enabled?
-
-> `optional` **enabled?**: `boolean`
-
-Whether to enable sync (default: true)
-
-#### startBlock?
-
-> `optional` **startBlock?**: `bigint`
-
-The block number to start syncing from (default: 0n)
+| Property | Type | Description | Defined in |
+| ------ | ------ | ------ | ------ |
+| <a id="client"></a> `client` | `Client` \| [`SessionClient`](SessionClient.md) | A base viem client | [createOptimisticHandler.ts:42](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/mud/src/createOptimisticHandler.ts#L42) |
+| <a id="config"></a> `config?` | `TConfig` | The store config | [createOptimisticHandler.ts:57](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/mud/src/createOptimisticHandler.ts#L57) |
+| <a id="logginglevel"></a> `loggingLevel?` | `"debug"` \| `"error"` \| `"fatal"` \| `"info"` \| `"trace"` \| `"warn"` | The logging level for Tevm clients | [createOptimisticHandler.ts:59](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/mud/src/createOptimisticHandler.ts#L59) |
+| <a id="stash"></a> `stash` | `Stash`\<`TConfig`\> | The state manager (here stash) | [createOptimisticHandler.ts:46](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/mud/src/createOptimisticHandler.ts#L46) |
+| <a id="storeaddress"></a> `storeAddress` | `Address` | The address of the store contract | [createOptimisticHandler.ts:44](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/mud/src/createOptimisticHandler.ts#L44) |
+| <a id="sync"></a> `sync?` | `object` | Sync options | [createOptimisticHandler.ts:48](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/mud/src/createOptimisticHandler.ts#L48) |
+| `sync.enabled?` | `boolean` | Whether to enable sync (default: true) | [createOptimisticHandler.ts:51](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/mud/src/createOptimisticHandler.ts#L51) |
+| `sync.startBlock?` | `bigint` | The block number to start syncing from (default: 0n) | [createOptimisticHandler.ts:53](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/mud/src/createOptimisticHandler.ts#L53) |

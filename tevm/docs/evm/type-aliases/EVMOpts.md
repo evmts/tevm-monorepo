@@ -8,8 +8,6 @@
 
 > **EVMOpts** = `EVMOpts$1`
 
-Defined in: tevm-monorepo/packages/evm/dist/index.d.ts:27
-
 The options available to pass to the EVM. Inferred from ZEVM.
 
 ## Example

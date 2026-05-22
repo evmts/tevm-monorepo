@@ -21,9 +21,9 @@ Defined in: [tevm-monorepo/packages/state/src/ContractCache.js:11](https://githu
 
 #### Parameters
 
-##### storageCache?
-
-[`StorageCache`](StorageCache.md) = `...`
+| Parameter | Type |
+| ------ | ------ |
+| `storageCache` | [`StorageCache`](StorageCache.md) |
 
 #### Returns
 
@@ -31,11 +31,9 @@ Defined in: [tevm-monorepo/packages/state/src/ContractCache.js:11](https://githu
 
 ## Properties
 
-### storageCache
-
-> **storageCache**: [`StorageCache`](StorageCache.md)
-
-Defined in: [tevm-monorepo/packages/state/src/ContractCache.js:17](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ContractCache.js#L17)
+| Property | Type | Defined in |
+| ------ | ------ | ------ |
+| <a id="storagecache"></a> `storageCache` | [`StorageCache`](StorageCache.md) | [tevm-monorepo/packages/state/src/ContractCache.js:17](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ContractCache.js#L17) |
 
 ## Accessors
 
@@ -97,9 +95,9 @@ Defined in: [tevm-monorepo/packages/state/src/ContractCache.js:55](https://githu
 
 #### Parameters
 
-##### address
-
-`Address`
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `address` | `Address` | - |
 
 #### Returns
 
@@ -115,9 +113,9 @@ Defined in: [tevm-monorepo/packages/state/src/ContractCache.js:38](https://githu
 
 #### Parameters
 
-##### address
-
-`Address`
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `address` | `Address` | - |
 
 #### Returns
 
@@ -133,9 +131,9 @@ Defined in: [tevm-monorepo/packages/state/src/ContractCache.js:70](https://githu
 
 #### Parameters
 
-##### address
-
-`Address`
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `address` | `Address` | - |
 
 #### Returns
 
@@ -153,13 +151,10 @@ Defined in: [tevm-monorepo/packages/state/src/ContractCache.js:47](https://githu
 
 #### Parameters
 
-##### address
-
-`Address`
-
-##### bytecode
-
-`Uint8Array`\<`ArrayBufferLike`\>
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `address` | `Address` | - |
+| `bytecode` | `Uint8Array`\<`ArrayBufferLike`\> | - |
 
 #### Returns
 

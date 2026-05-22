@@ -113,6 +113,7 @@
 - [prefundedAccounts](variables/prefundedAccounts.md)
 - [rateLimit](variables/rateLimit.md)
 - [tevmContract](variables/tevmContract.md)
+- [tevmDeal](variables/tevmDeal.md)
 
 ## Functions
 

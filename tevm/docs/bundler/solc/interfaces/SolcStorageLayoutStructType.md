@@ -6,8 +6,6 @@
 
 # Interface: SolcStorageLayoutStructType
 
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:255
-
 A storage layout type that is a struct.
 
 ## Extends
@@ -16,59 +14,9 @@ A storage layout type that is a struct.
 
 ## Properties
 
-### encoding
-
-> **encoding**: `"inplace"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:220
-
-How the data is encoded in storage
-
-- inplace: data is laid out contiguously in storage
-- mapping: keccak-256 hash-based method
-- dynamic_array: keccak-256 hash-based method
-- bytes: single slot or keccak-256 hash-based depending on the data size
-
-#### Inherited from
-
-[`SolcStorageLayoutInplaceType`](SolcStorageLayoutInplaceType.md).[`encoding`](SolcStorageLayoutInplaceType.md#encoding)
-
-***
-
-### label
-
-> **label**: `string`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:208
-
-The canonical type name
-
-#### Inherited from
-
-[`SolcStorageLayoutInplaceType`](SolcStorageLayoutInplaceType.md).[`label`](SolcStorageLayoutInplaceType.md#label)
-
-***
-
-### members
-
-> **members**: [`SolcStorageLayoutItem`](../type-aliases/SolcStorageLayoutItem.md)\<[`SolcStorageLayoutTypes`](../type-aliases/SolcStorageLayoutTypes.md)\>[]
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:259
-
-The members of the struct in the same format as a [SolcStorageLayoutItem](../type-aliases/SolcStorageLayoutItem.md)
-
-***
-
-### numberOfBytes
-
-> **numberOfBytes**: `string`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:214
-
-The number of used bytes (as a decimal string)
-
-Note: if numberOfBytes > 32 this means that more than one slot is used
-
-#### Inherited from
-
-[`SolcStorageLayoutInplaceType`](SolcStorageLayoutInplaceType.md).[`numberOfBytes`](SolcStorageLayoutInplaceType.md#numberofbytes)
+| Property | Type | Description | Inherited from |
+| ------ | ------ | ------ | ------ |
+| <a id="encoding"></a> `encoding` | `"inplace"` | How the data is encoded in storage - inplace: data is laid out contiguously in storage - mapping: keccak-256 hash-based method - dynamic_array: keccak-256 hash-based method - bytes: single slot or keccak-256 hash-based depending on the data size | [`SolcStorageLayoutInplaceType`](SolcStorageLayoutInplaceType.md).[`encoding`](SolcStorageLayoutInplaceType.md#encoding) |
+| <a id="label"></a> `label` | `string` | The canonical type name | [`SolcStorageLayoutInplaceType`](SolcStorageLayoutInplaceType.md).[`label`](SolcStorageLayoutInplaceType.md#label) |
+| <a id="members"></a> `members` | [`SolcStorageLayoutItem`](../type-aliases/SolcStorageLayoutItem.md)\<[`SolcStorageLayoutTypes`](../type-aliases/SolcStorageLayoutTypes.md)\>[] | The members of the struct in the same format as a [SolcStorageLayoutItem](../type-aliases/SolcStorageLayoutItem.md) | - |
+| <a id="numberofbytes"></a> `numberOfBytes` | `string` | The number of used bytes (as a decimal string) Note: if numberOfBytes > 32 this means that more than one slot is used | [`SolcStorageLayoutInplaceType`](SolcStorageLayoutInplaceType.md).[`numberOfBytes`](SolcStorageLayoutInplaceType.md#numberofbytes) |

@@ -8,13 +8,11 @@
 
 > **EthCreateAccessListJsonRpcProcedure** = (`request`) => `Promise`\<[`EthCreateAccessListJsonRpcResponse`](EthCreateAccessListJsonRpcResponse.md)\>
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthProcedure.d.ts:47
-
 ## Parameters
 
-### request
-
-[`EthCreateAccessListJsonRpcRequest`](EthCreateAccessListJsonRpcRequest.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`EthCreateAccessListJsonRpcRequest`](EthCreateAccessListJsonRpcRequest.md) |
 
 ## Returns
 

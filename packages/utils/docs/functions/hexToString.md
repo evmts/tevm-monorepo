@@ -16,17 +16,10 @@ Decodes a hex value into a UTF-8 string.
 
 ## Parameters
 
-### hex
-
-`` `0x${string}` ``
-
-Hex value to decode.
-
-### opts?
-
-`HexToStringOpts`
-
-Options.
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `hex` | `` `0x${string}` `` | Hex value to decode. |
+| `opts?` | `HexToStringOpts` | Options. |
 
 ## Returns
 

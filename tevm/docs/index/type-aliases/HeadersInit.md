@@ -8,6 +8,4 @@
 
 > **HeadersInit** = `string`[][] \| `Record`\<`string`, `string` \| `ReadonlyArray`\<`string`\>\> \| `Headers`
 
-Defined in: tevm-monorepo/packages/jsonrpc/types/HeadersInit.d.ts:4
-
 The headers interface of the Fetch API

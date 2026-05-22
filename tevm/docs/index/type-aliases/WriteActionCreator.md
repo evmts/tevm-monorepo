@@ -8,36 +8,17 @@
 
 > **WriteActionCreator**\<`THumanReadableAbi`, `TAddress`, `TCode`, `TAddressArgs`\> = \{ \[TFunctionName in ExtractAbiFunctionNames\<ParseAbi\<THumanReadableAbi\>, "payable" \| "nonpayable"\>\]: (args: TArgs) =\> \{ abi: \[ExtractAbiFunction\<ParseAbi\<THumanReadableAbi\>, TFunctionName\>\]; address: TAddress; functionName: TFunctionName; humanReadableAbi: FormatAbi\<\[ExtractAbiFunction\<ParseAbi\<THumanReadableAbi\>, TFunctionName\>\]\>; to: TAddress \} & (TCode extends undefined ? \{\} : \{ code: TCode \}) & (TArgs\["length"\] extends 0 ? \{\} : \{ args: TArgs \}) & TAddressArgs & \{ abi: \[ExtractAbiFunction\<ParseAbi\<THumanReadableAbi\>, TFunctionName\>\]; functionName: TFunctionName; humanReadableAbi: FormatAbi\<\[ExtractAbiFunction\<ParseAbi\<THumanReadableAbi\>, TFunctionName\>\]\> \} & (TCode extends undefined ? \{\} : \{ code: TCode \}) & TAddressArgs \}
 
-Defined in: tevm-monorepo/packages/contract/types/write/WriteActionCreator.d.ts:26
-
 A mapping of payable and nonpayable contract methods to action creators.
 This type provides a way to create type-safe write actions for contract methods.
 
 ## Type Parameters
 
-### THumanReadableAbi
-
-`THumanReadableAbi` *extends* readonly `string`[]
-
-The human-readable ABI of the contract.
-
-### TAddress
-
-`TAddress` *extends* [`Address`](Address.md) \| `undefined`
-
-The address of the contract (optional).
-
-### TCode
-
-`TCode` *extends* [`Hex`](Hex.md) \| `undefined`
-
-The runtime bytecode of the contract (optional).
-
-### TAddressArgs
-
-`TAddressArgs` = `TAddress` *extends* `undefined` ? `object` : `object`
-
-Additional arguments for the address (derived from TAddress).
+| Type Parameter | Default type | Description |
+| ------ | ------ | ------ |
+| `THumanReadableAbi` *extends* readonly `string`[] | - | The human-readable ABI of the contract. |
+| `TAddress` *extends* [`Address`](Address.md) \| `undefined` | - | The address of the contract (optional). |
+| `TCode` *extends* [`Hex`](Hex.md) \| `undefined` | - | The runtime bytecode of the contract (optional). |
+| `TAddressArgs` | `TAddress` *extends* `undefined` ? `object` : `object` | Additional arguments for the address (derived from TAddress). |
 
 ## Example
 

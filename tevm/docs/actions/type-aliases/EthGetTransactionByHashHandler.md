@@ -8,13 +8,11 @@
 
 > **EthGetTransactionByHashHandler** = (`request`) => `Promise`\<[`EthGetTransactionByHashResult`](EthGetTransactionByHashResult.md)\>
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthHandler.d.ts:26
-
 ## Parameters
 
-### request
-
-[`EthGetTransactionByHashParams`](EthGetTransactionByHashParams.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`EthGetTransactionByHashParams`](EthGetTransactionByHashParams.md) |
 
 ## Returns
 

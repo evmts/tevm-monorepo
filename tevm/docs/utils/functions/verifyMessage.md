@@ -8,33 +8,16 @@
 
 > **verifyMessage**(`params`): `boolean`
 
-Defined in: tevm-monorepo/packages/utils/types/signature.d.ts:118
-
 Verifies a message signature
 
 ## Parameters
 
-### params
-
-The parameters
-
-#### address
-
-`` `0x${string}` ``
-
-The expected signer address
-
-#### message
-
-`string`
-
-The original message
-
-#### signature
-
-`Signature`
-
-The signature
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `params` | \{ `address`: `` `0x${string}` ``; `message`: `string`; `signature`: `Signature`; \} | The parameters |
+| `params.address` | `` `0x${string}` `` | The expected signer address |
+| `params.message` | `string` | The original message |
+| `params.signature` | `Signature` | The signature |
 
 ## Returns
 

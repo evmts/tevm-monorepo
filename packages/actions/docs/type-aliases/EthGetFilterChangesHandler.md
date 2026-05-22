@@ -12,9 +12,9 @@ Defined in: [packages/actions/src/eth/EthHandler.ts:137](https://github.com/evmt
 
 ## Parameters
 
-### request
-
-[`EthGetFilterChangesParams`](EthGetFilterChangesParams.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`EthGetFilterChangesParams`](EthGetFilterChangesParams.md) |
 
 ## Returns
 

@@ -14,40 +14,9 @@ Action details for a create trace entry
 
 ## Properties
 
-### from
-
-> **from**: [`Address`](Address.md)
-
-Defined in: [packages/actions/src/common/FlatCallTraceResult.ts:27](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/FlatCallTraceResult.ts#L27)
-
-Sender address
-
-***
-
-### gas
-
-> **gas**: `bigint`
-
-Defined in: [packages/actions/src/common/FlatCallTraceResult.ts:29](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/FlatCallTraceResult.ts#L29)
-
-Gas provided
-
-***
-
-### init
-
-> **init**: [`Hex`](Hex.md)
-
-Defined in: [packages/actions/src/common/FlatCallTraceResult.ts:31](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/FlatCallTraceResult.ts#L31)
-
-Init code
-
-***
-
-### value
-
-> **value**: `bigint`
-
-Defined in: [packages/actions/src/common/FlatCallTraceResult.ts:33](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/FlatCallTraceResult.ts#L33)
-
-Value transferred
+| Property | Type | Description | Defined in |
+| ------ | ------ | ------ | ------ |
+| <a id="from"></a> `from` | [`Address`](Address.md) | Sender address | [packages/actions/src/common/FlatCallTraceResult.ts:27](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/FlatCallTraceResult.ts#L27) |
+| <a id="gas"></a> `gas` | `bigint` | Gas provided | [packages/actions/src/common/FlatCallTraceResult.ts:29](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/FlatCallTraceResult.ts#L29) |
+| <a id="init"></a> `init` | [`Hex`](Hex.md) | Init code | [packages/actions/src/common/FlatCallTraceResult.ts:31](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/FlatCallTraceResult.ts#L31) |
+| <a id="value"></a> `value` | `bigint` | Value transferred | [packages/actions/src/common/FlatCallTraceResult.ts:33](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/FlatCallTraceResult.ts#L33) |

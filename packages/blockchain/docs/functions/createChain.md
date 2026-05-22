@@ -12,9 +12,9 @@ Defined in: [packages/blockchain/src/createChain.js:17](https://github.com/evmts
 
 ## Parameters
 
-### options
-
-[`ChainOptions`](../type-aliases/ChainOptions.md)
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `options` | [`ChainOptions`](../type-aliases/ChainOptions.md) | - |
 
 ## Returns
 

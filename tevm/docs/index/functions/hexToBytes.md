@@ -8,23 +8,16 @@
 
 > **hexToBytes**(`hex_`, `opts?`): `ByteArray`
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/viem@2.49.3\_bufferutil@4.1.0\_typescript@6.0.3\_utf-8-validate@5.0.10\_zod@4.4.3/node\_modules/viem/\_types/utils/encoding/toBytes.d.ts:87
-
 Encodes a hex string into a byte array.
 
 - Docs: https://viem.sh/docs/utilities/toBytes#hextobytes
 
 ## Parameters
 
-### hex\_
-
-`` `0x${string}` ``
-
-### opts?
-
-`HexToBytesOpts`
-
-Options.
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `hex_` | `` `0x${string}` `` | - |
+| `opts?` | `HexToBytesOpts` | Options. |
 
 ## Returns
 

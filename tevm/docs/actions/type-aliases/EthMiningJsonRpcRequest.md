@@ -8,6 +8,4 @@
 
 > **EthMiningJsonRpcRequest** = [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"eth_mining"`, readonly \[\]\>
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthJsonRpcRequest.d.ts:176
-
 JSON-RPC request for `eth_mining` procedure

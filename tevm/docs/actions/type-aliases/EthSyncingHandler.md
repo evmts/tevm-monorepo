@@ -8,13 +8,11 @@
 
 > **EthSyncingHandler** = (`request`) => `Promise`\<[`EthSyncingResult`](EthSyncingResult.md)\>
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthHandler.d.ts:39
-
 ## Parameters
 
-### request
-
-[`EthSyncingParams`](EthSyncingParams.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`EthSyncingParams`](EthSyncingParams.md) |
 
 ## Returns
 

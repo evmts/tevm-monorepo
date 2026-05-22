@@ -8,8 +8,6 @@
 
 > **ManualMining** = `object`
 
-Defined in: tevm-monorepo/packages/node/dist/index.d.ts:37
-
 Mining configuration where blocks are only created when explicitly requested.
 Transactions remain in the mempool until manually mined.
 
@@ -28,8 +26,6 @@ const value: ManualMining = {
 
 ## Properties
 
-### type
-
-> **type**: `"manual"`
-
-Defined in: tevm-monorepo/packages/node/dist/index.d.ts:38
+| Property | Type |
+| ------ | ------ |
+| <a id="type"></a> `type` | `"manual"` |

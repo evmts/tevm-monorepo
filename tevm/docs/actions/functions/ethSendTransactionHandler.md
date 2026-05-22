@@ -8,13 +8,11 @@
 
 > **ethSendTransactionHandler**(`client`): [`EthSendTransactionHandler`](../type-aliases/EthSendTransactionHandler.md)
 
-Defined in: tevm-monorepo/packages/actions/types/eth/ethSendTransactionHandler.d.ts:1
-
 ## Parameters
 
-### client
-
-[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{ \}\>
+| Parameter | Type |
+| ------ | ------ |
+| `client` | [`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{ \}\> |
 
 ## Returns
 

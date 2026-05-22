@@ -8,8 +8,6 @@
 
 > `const` **tevmDefault**: `object`
 
-Defined in: [packages/common/src/presets/tevmDefault.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/presets/tevmDefault.js#L9)
-
 The default chain if no fork url is passed
 
 ## Type Declaration
@@ -19,6 +17,8 @@ The default chain if no fork url is passed
 > `optional` **blockExplorers?**: `object`
 
 Collection of block explorers
+
+#### Type Declaration
 
 #### Index Signature
 
@@ -39,6 +39,8 @@ Block time in milliseconds.
 > `optional` **contracts?**: `object`
 
 Collection of contracts
+
+#### Type Declaration
 
 #### Index Signature
 
@@ -141,6 +143,8 @@ Function to prepare a transaction request. Runs before the transaction is filled
 > **rpcUrls**: `object`
 
 Collection of RPC endpoints
+
+#### Type Declaration
 
 #### Index Signature
 

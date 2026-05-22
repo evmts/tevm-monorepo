@@ -4,32 +4,22 @@
 
 [@tevm/solc](../globals.md) / SolcInputDescription
 
-# Type Alias: SolcInputDescription
+# Type Alias: SolcInputDescription\<T\>
 
-> **SolcInputDescription** = `object`
+> **SolcInputDescription**\<`T`\> = `object`
 
-Defined in: [solcTypes.ts:323](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L323)
+Defined in: [solcTypes.ts:348](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L348)
+
+## Type Parameters
+
+| Type Parameter | Default type |
+| ------ | ------ |
+| `T` *extends* [`SolcLanguage`](SolcLanguage.md) | [`SolcLanguage`](SolcLanguage.md) |
 
 ## Properties
 
-### language
-
-> **language**: [`SolcLanguage`](SolcLanguage.md)
-
-Defined in: [solcTypes.ts:324](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L324)
-
-***
-
-### settings?
-
-> `optional` **settings?**: [`SolcSettings`](SolcSettings.md)
-
-Defined in: [solcTypes.ts:327](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L327)
-
-***
-
-### sources
-
-> **sources**: [`SolcInputSources`](SolcInputSources.md)
-
-Defined in: [solcTypes.ts:326](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L326)
+| Property | Type | Defined in |
+| ------ | ------ | ------ |
+| <a id="language"></a> `language` | `T` | [solcTypes.ts:349](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L349) |
+| <a id="settings"></a> `settings?` | [`SolcSettings`](SolcSettings.md) | [solcTypes.ts:352](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L352) |
+| <a id="sources"></a> `sources` | [`SolcInputSources`](SolcInputSources.md)\<`T`\> | [solcTypes.ts:351](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L351) |

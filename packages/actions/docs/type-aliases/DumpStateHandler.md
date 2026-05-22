@@ -17,11 +17,9 @@ debugging, testing, or persisting the state across sessions.
 
 ## Parameters
 
-### params?
-
-[`DumpStateParams`](DumpStateParams.md)
-
-Optional parameters to customize the state dumping process.
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `params?` | [`DumpStateParams`](DumpStateParams.md) | Optional parameters to customize the state dumping process. |
 
 ## Returns
 

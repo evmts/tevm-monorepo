@@ -12,8 +12,6 @@ Defined in: [packages/actions/src/anvil/AnvilResult.ts:40](https://github.com/ev
 
 ## Properties
 
-### errors?
-
-> `optional` **errors?**: `Error`[]
-
-Defined in: [packages/actions/src/anvil/AnvilResult.ts:41](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilResult.ts#L41)
+| Property | Type | Defined in |
+| ------ | ------ | ------ |
+| <a id="errors"></a> `errors?` | `Error`[] | [packages/actions/src/anvil/AnvilResult.ts:41](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilResult.ts#L41) |

@@ -8,13 +8,11 @@
 
 > **DebugGetModifiedAccountsByNumberHandler** = (`params`) => `Promise`\<[`DebugGetModifiedAccountsByNumberResult`](DebugGetModifiedAccountsByNumberResult.md)\>
 
-Defined in: tevm-monorepo/packages/actions/types/debug/DebugHandler.d.ts:9
-
 ## Parameters
 
-### params
-
-[`DebugGetModifiedAccountsByNumberParams`](DebugGetModifiedAccountsByNumberParams.md)
+| Parameter | Type |
+| ------ | ------ |
+| `params` | [`DebugGetModifiedAccountsByNumberParams`](DebugGetModifiedAccountsByNumberParams.md) |
 
 ## Returns
 

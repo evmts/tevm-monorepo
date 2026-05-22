@@ -14,9 +14,9 @@ JSON-RPC procedure for `anvil_setLoggingEnabled`
 
 ## Parameters
 
-### request
-
-[`AnvilSetLoggingEnabledJsonRpcRequest`](AnvilSetLoggingEnabledJsonRpcRequest.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`AnvilSetLoggingEnabledJsonRpcRequest`](AnvilSetLoggingEnabledJsonRpcRequest.md) |
 
 ## Returns
 

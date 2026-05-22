@@ -6,13 +6,12 @@
 
 # Interface: VerkleProof
 
-Defined in: tevm-monorepo/packages/block/types/types.d.ts:86
+Represents a Verkle proof payload shape used by upstream specs.
 
-Represents a Verkle proof used for state verification
-
-Verkle trees are an upgrade to Merkle Patricia trees that use vector commitments
+Verkle trees are an upgrade to Merkle Patricia tries that use vector commitments
 instead of hash-based commitments, resulting in smaller proof sizes.
-This interface contains the elements needed for Verkle proof verification.
+Tevm models this payload shape but does not execute or verify Verkle/EIP-6800
+state-witness blocks.
 
 ## See
 
@@ -23,61 +22,22 @@ https://eips.ethereum.org/EIPS/eip-6800 for more details on Verkle trees in Ethe
 ```typescript
 import { VerkleProof } from '@tevm/block'
 
-// Example of verifying a Verkle proof
+// Example shape for a downstream verifier.
 function verifyProof(proof: VerkleProof, key: Hex, value: Hex, commitment: Hex): boolean {
-  // Verkle proof verification implementation would go here
+  // Verkle proof verification is intentionally outside Tevm's execution path.
   return true
 }
 ```
 
 ## Properties
 
-### commitmentsByPath
-
-> **commitmentsByPath**: `` `0x${string}` ``[]
-
-Defined in: tevm-monorepo/packages/block/types/types.d.ts:87
-
-***
-
-### d
-
-> **d**: `` `0x${string}` ``
-
-Defined in: tevm-monorepo/packages/block/types/types.d.ts:88
-
-***
-
-### depthExtensionPresent
-
-> **depthExtensionPresent**: `` `0x${string}` ``
-
-Defined in: tevm-monorepo/packages/block/types/types.d.ts:89
-
-***
-
-### ipaProof
-
-> **ipaProof**: `object`
-
-Defined in: tevm-monorepo/packages/block/types/types.d.ts:90
-
-#### cl
-
-> **cl**: `` `0x${string}` ``[]
-
-#### cr
-
-> **cr**: `` `0x${string}` ``[]
-
-#### finalEvaluation
-
-> **finalEvaluation**: `` `0x${string}` ``
-
-***
-
-### otherStems
-
-> **otherStems**: `` `0x${string}` ``[]
-
-Defined in: tevm-monorepo/packages/block/types/types.d.ts:95
+| Property | Type |
+| ------ | ------ |
+| <a id="commitmentsbypath"></a> `commitmentsByPath` | `` `0x${string}` ``[] |
+| <a id="d"></a> `d` | `` `0x${string}` `` |
+| <a id="depthextensionpresent"></a> `depthExtensionPresent` | `` `0x${string}` `` |
+| <a id="ipaproof"></a> `ipaProof` | `object` |
+| `ipaProof.cl` | `` `0x${string}` ``[] |
+| `ipaProof.cr` | `` `0x${string}` ``[] |
+| `ipaProof.finalEvaluation` | `` `0x${string}` `` |
+| <a id="otherstems"></a> `otherStems` | `` `0x${string}` ``[] |

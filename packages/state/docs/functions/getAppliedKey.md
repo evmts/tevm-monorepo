@@ -12,13 +12,10 @@ Defined in: [tevm-monorepo/packages/state/src/actions/getAppliedKey.js:9](https:
 
 ## Parameters
 
-### baseState
-
-[`BaseState`](../type-aliases/BaseState.md)
-
-### skipFetchingFromFork?
-
-`boolean`
+| Parameter | Type |
+| ------ | ------ |
+| `baseState` | [`BaseState`](../type-aliases/BaseState.md) |
+| `skipFetchingFromFork?` | `boolean` |
 
 ## Returns
 

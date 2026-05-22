@@ -6,8 +6,6 @@
 
 # Interface: ForkOptions
 
-Defined in: tevm-monorepo/packages/state/dist/index.d.ts:61
-
 Configuration options for forking from an existing blockchain network.
 Used to specify the RPC endpoint and block number to fork from.
 
@@ -36,40 +34,9 @@ const value: ForkOptions = {
 
 ## Properties
 
-### blockTag?
-
-> `optional` **blockTag?**: `bigint` \| [`BlockTag`](../../index/type-aliases/BlockTag.md)
-
-Defined in: tevm-monorepo/packages/state/dist/index.d.ts:65
-
-***
-
-### chainId?
-
-> `optional` **chainId?**: `number`
-
-Defined in: tevm-monorepo/packages/state/dist/index.d.ts:81
-
-Optional chain ID override.
-When set, this chain ID will be used instead of the one fetched from the fork RPC.
-This is useful to avoid wallet confusion (e.g., MetaMask) when the same chain ID
-is used for both the fork and the original network.
-
-#### Example
-
-```typescript
-const client = createMemoryClient({
-  fork: {
-    transport: http('https://mainnet.optimism.io'),
-    chainId: 1337, // Override Optimism's chain ID (10) with a custom one
-  },
-})
-```
-
-***
-
-### transport
-
-> **transport**: `Transport` \| \{ `request`: `EIP1193RequestFn`\<`any`\>; \}
-
-Defined in: tevm-monorepo/packages/state/dist/index.d.ts:62
+| Property | Type | Description |
+| ------ | ------ | ------ |
+| <a id="blockhash"></a> `blockHash?` | `` `0x${string}` `` | - |
+| <a id="blocktag"></a> `blockTag?` | `bigint` \| [`BlockTag`](../../index/type-aliases/BlockTag.md) | - |
+| <a id="chainid"></a> `chainId?` | `number` | Optional chain ID override. When set, this chain ID will be used instead of the one fetched from the fork RPC. This is useful to avoid wallet confusion (e.g., MetaMask) when the same chain ID is used for both the fork and the original network. **Example** `const client = createMemoryClient({ fork: { transport: http('https://mainnet.optimism.io'), chainId: 1337, // Override Optimism's chain ID (10) with a custom one }, })` |
+| <a id="transport"></a> `transport` | `Transport` \| \{ `request`: `EIP1193RequestFn`\<`any`\>; \} | - |

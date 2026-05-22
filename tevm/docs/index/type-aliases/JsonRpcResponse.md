@@ -8,18 +8,10 @@
 
 > **JsonRpcResponse**\<`TMethod`, `TResult`, `TErrorCode`\> = \{ `error?`: `never`; `id?`: `string` \| `number` \| `null`; `jsonrpc`: `"2.0"`; `method`: `TMethod`; `result`: `TResult`; \} \| \{ `error`: \{ `code`: `TErrorCode`; `message`: `string`; \}; `id?`: `string` \| `number` \| `null`; `jsonrpc`: `"2.0"`; `method`: `TMethod`; `result?`: `never`; \}
 
-Defined in: tevm-monorepo/packages/jsonrpc/types/JsonRpcResponse.d.ts:1
-
 ## Type Parameters
 
-### TMethod
-
-`TMethod` *extends* `string`
-
-### TResult
-
-`TResult`
-
-### TErrorCode
-
-`TErrorCode` *extends* `string` \| `number`
+| Type Parameter |
+| ------ |
+| `TMethod` *extends* `string` |
+| `TResult` |
+| `TErrorCode` *extends* `string` \| `number` |

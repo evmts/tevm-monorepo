@@ -8,13 +8,11 @@
 
 > **ethSimulateV2Procedure**(`client`): [`EthSimulateV2JsonRpcProcedure`](../type-aliases/EthSimulateV2JsonRpcProcedure.md)
 
-Defined in: tevm-monorepo/packages/actions/types/eth/ethSimulateV2Procedure.d.ts:1
-
 ## Parameters
 
-### client
-
-[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{ \}\>
+| Parameter | Type |
+| ------ | ------ |
+| `client` | [`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{ \}\> |
 
 ## Returns
 

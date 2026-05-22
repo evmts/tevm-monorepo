@@ -8,13 +8,11 @@
 
 > **EthMaxPriorityFeePerGasJsonRpcProcedure** = (`request`) => `Promise`\<[`EthMaxPriorityFeePerGasJsonRpcResponse`](EthMaxPriorityFeePerGasJsonRpcResponse.md)\>
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthProcedure.d.ts:12
-
 ## Parameters
 
-### request
-
-[`EthMaxPriorityFeePerGasJsonRpcRequest`](EthMaxPriorityFeePerGasJsonRpcRequest.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`EthMaxPriorityFeePerGasJsonRpcRequest`](EthMaxPriorityFeePerGasJsonRpcRequest.md) |
 
 ## Returns
 

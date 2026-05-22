@@ -8,15 +8,13 @@
 
 > **AnvilSetNextBlockBaseFeePerGasProcedure** = (`request`) => `Promise`\<[`AnvilSetNextBlockBaseFeePerGasJsonRpcResponse`](AnvilSetNextBlockBaseFeePerGasJsonRpcResponse.md)\>
 
-Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilProcedure.d.ts:107
-
 JSON-RPC procedure for `anvil_setNextBlockBaseFeePerGas`
 
 ## Parameters
 
-### request
-
-[`AnvilSetNextBlockBaseFeePerGasJsonRpcRequest`](AnvilSetNextBlockBaseFeePerGasJsonRpcRequest.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`AnvilSetNextBlockBaseFeePerGasJsonRpcRequest`](AnvilSetNextBlockBaseFeePerGasJsonRpcRequest.md) |
 
 ## Returns
 

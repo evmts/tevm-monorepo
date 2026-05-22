@@ -24,41 +24,14 @@ Webpack, Vite, Bun, ESBuild, and others.
 
 ## Parameters
 
-### config
-
-`ResolvedCompilerConfig`
-
-The Tevm compiler configuration
-
-### logger
-
-[`Logger`](../../types/type-aliases/Logger.md)
-
-Logger for error and info reporting
-
-### fao
-
-[`FileAccessObject`](../../types/type-aliases/FileAccessObject.md)
-
-File system access object for reading/writing files
-
-### solc
-
-`Solc`
-
-Solidity compiler instance
-
-### cache
-
-`Cache`
-
-Cache instance for build artifacts
-
-### contractPackage?
-
-`"tevm/contract"` \| `"@tevm/contract"`
-
-Optional contract package name
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `config` | `ResolvedCompilerConfig` | The Tevm compiler configuration |
+| `logger` | [`Logger`](../../types/type-aliases/Logger.md) | Logger for error and info reporting |
+| `fao` | [`FileAccessObject`](../../types/type-aliases/FileAccessObject.md) | File system access object for reading/writing files |
+| `solc` | `Solc` | Solidity compiler instance |
+| `cache` | `Cache` | Cache instance for build artifacts |
+| `contractPackage?` | `"tevm/contract"` \| `"@tevm/contract"` | Optional contract package name |
 
 ## Returns
 

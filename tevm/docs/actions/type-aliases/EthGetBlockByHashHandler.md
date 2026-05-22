@@ -8,13 +8,11 @@
 
 > **EthGetBlockByHashHandler** = (`request`) => `Promise`\<[`EthGetBlockByHashResult`](EthGetBlockByHashResult.md)\>
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthHandler.d.ts:14
-
 ## Parameters
 
-### request
-
-[`EthGetBlockByHashParams`](EthGetBlockByHashParams.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`EthGetBlockByHashParams`](EthGetBlockByHashParams.md) |
 
 ## Returns
 

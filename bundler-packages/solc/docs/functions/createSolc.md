@@ -8,13 +8,13 @@
 
 > **createSolc**(`release`): `Promise`\<[`Solc`](../interfaces/Solc.md)\>
 
-Defined in: [solc.js:146](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solc.js#L146)
+Defined in: [solc.js:142](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solc.js#L142)
 
 ## Parameters
 
-### release
-
-keyof [`Releases`](../type-aliases/Releases.md)
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `release` | keyof [`Releases`](../type-aliases/Releases.md) | - |
 
 ## Returns
 

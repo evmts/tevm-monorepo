@@ -124,11 +124,9 @@ Defined in: [extensions/ethers/src/TevmProvider.js:173](https://github.com/evmts
 
 #### Parameters
 
-##### client
-
-`TevmSendApi` & `TevmActionsApi` \| \{ `tevm`: `TevmSendApi` & `TevmActionsApi`; \}
-
-An instance of a tevm Memory client or TevmNode with TevmSendApi
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `client` | `TevmSendApi` & `TevmActionsApi` \| \{ `tevm`: `TevmSendApi` & `TevmActionsApi`; \} | An instance of a tevm Memory client or TevmNode with TevmSendApi |
 
 #### Returns
 
@@ -140,50 +138,9 @@ An instance of a tevm Memory client or TevmNode with TevmSendApi
 
 ## Properties
 
-### tevm
-
-> **tevm**: `TevmSendApi` & `TevmActionsApi`
-
-Defined in: [extensions/ethers/src/TevmProvider.js:168](https://github.com/evmts/tevm-monorepo/blob/main/extensions/ethers/src/TevmProvider.js#L168)
-
-An instance of the TevmClient interface.
-
-#### See
-
-[Tevm Client reference](https://tevm.sh/reference/tevm/client-types/type-aliases/tevmclient/)
-
-#### Example
-
-```typescript
-import {TevmProvider} from '@tevm/ethers'
-import {createContract} from 'tevm'
-
-const provider = await TevmProvider.createMemoryProvider({
-  fork: {
-    transport: http('https://mainnet.optimism.io')({}),
-  },
-})
-
-const addContract = createContract({
-  name: 'AddContract',
-  humanReadableAbi: [
-    'function add(uint256 a, uint256 b) public pure returns (uint256)',
-  ],
-  deployedBytecode: '0x608060405234801561000f575f80fd5b5060043610610029575f3560e01c8063771602f71461002d575b5f80fd5b610047600480360381019061004291906100a9565b61005d565b60405161005491906100f6565b60405180910390f35b5f818361006a919061013c565b905092915050565b5f80fd5b5f819050919050565b61008881610076565b8114610092575f80fd5b50565b5f813590506100a38161007f565b92915050565b5f80604083850312156100bf576100be610072565b5b5f6100cc85828601610095565b92505060206100dd85828601610095565b9150509250929050565b6100f081610076565b82525050565b5f6020820190506101095f8301846100e7565b92915050565b7f4e487b71000000000000000000000000000000000000000000000000000000005f52601160045260245ffd5b5f61014682610076565b915061015183610076565b92508282019050808211156101695761016861010f565b5b9291505056fea2646970667358221220a8f4b7187c62760aefc097c1827799c61a6df322acc9d7575862a525f9aa59a364736f6c63430008170033',
-  bytecode: '0x608060405234801561000f575f80fd5b506101a58061001d5f395ff3fe608060405234801561000f575f80fd5b5060043610610029575f3560e01c8063771602f71461002d575b5f80fd5b610047600480360381019061004291906100a9565b61005d565b60405161005491906100f6565b60405180910390f35b5f818361006a919061013c565b905092915050565b5f80fd5b5f819050919050565b61008881610076565b8114610092575f80fd5b50565b5f813590506100a38161007f565b92915050565b5f80604083850312156100bf576100be610072565b5b5f6100cc85828601610095565b92505060206100dd85828601610095565b9150509250929050565b6100f081610076565b82525050565b5f6020820190506101095f8301846100e7565b92915050565b7f4e487b71000000000000000000000000000000000000000000000000000000005f52601160045260245ffd5b5f61014682610076565b915061015183610076565b92508282019050808211156101695761016861010f565b5b9291505056fea2646970667358221220a8f4b7187c62760aefc097c1827799c61a6df322acc9d7575862a525f9aa59a364736f6c63430008170033',
-} as const)
-
-const result = await provider.tevm.script(addContract.read.add(390n, 30n))
-
-console.log(result)
-//  createdAddresses: new Set(),
-//  data: 420n,
-//  executionGasUsed: 927n,
-//  gas: 16776288n,
-//  logs: [],
-//  rawData: '0x00000000000000000000000000000000000000000000000000000000000001a4',
-//  selfdestruct: new Set(),
-```
+| Property | Type | Description | Defined in |
+| ------ | ------ | ------ | ------ |
+| <a id="tevm"></a> `tevm` | `TevmSendApi` & `TevmActionsApi` | An instance of the TevmClient interface. **See** [Tevm Client reference](https://tevm.sh/reference/tevm/client-types/type-aliases/tevmclient/) **Example** `import {TevmProvider} from '@tevm/ethers' import {createContract} from 'tevm' const provider = await TevmProvider.createMemoryProvider({ fork: { transport: http('https://mainnet.optimism.io')({}), }, }) const addContract = createContract({ name: 'AddContract', humanReadableAbi: [ 'function add(uint256 a, uint256 b) public pure returns (uint256)', ], deployedBytecode: '0x608060405234801561000f575f80fd5b5060043610610029575f3560e01c8063771602f71461002d575b5f80fd5b610047600480360381019061004291906100a9565b61005d565b60405161005491906100f6565b60405180910390f35b5f818361006a919061013c565b905092915050565b5f80fd5b5f819050919050565b61008881610076565b8114610092575f80fd5b50565b5f813590506100a38161007f565b92915050565b5f80604083850312156100bf576100be610072565b5b5f6100cc85828601610095565b92505060206100dd85828601610095565b9150509250929050565b6100f081610076565b82525050565b5f6020820190506101095f8301846100e7565b92915050565b7f4e487b71000000000000000000000000000000000000000000000000000000005f52601160045260245ffd5b5f61014682610076565b915061015183610076565b92508282019050808211156101695761016861010f565b5b9291505056fea2646970667358221220a8f4b7187c62760aefc097c1827799c61a6df322acc9d7575862a525f9aa59a364736f6c63430008170033', bytecode: '0x608060405234801561000f575f80fd5b506101a58061001d5f395ff3fe608060405234801561000f575f80fd5b5060043610610029575f3560e01c8063771602f71461002d575b5f80fd5b610047600480360381019061004291906100a9565b61005d565b60405161005491906100f6565b60405180910390f35b5f818361006a919061013c565b905092915050565b5f80fd5b5f819050919050565b61008881610076565b8114610092575f80fd5b50565b5f813590506100a38161007f565b92915050565b5f80604083850312156100bf576100be610072565b5b5f6100cc85828601610095565b92505060206100dd85828601610095565b9150509250929050565b6100f081610076565b82525050565b5f6020820190506101095f8301846100e7565b92915050565b7f4e487b71000000000000000000000000000000000000000000000000000000005f52601160045260245ffd5b5f61014682610076565b915061015183610076565b92508282019050808211156101695761016861010f565b5b9291505056fea2646970667358221220a8f4b7187c62760aefc097c1827799c61a6df322acc9d7575862a525f9aa59a364736f6c63430008170033', } as const) const result = await provider.tevm.script(addContract.read.add(390n, 30n)) console.log(result) // createdAddresses: new Set(), // data: 420n, // executionGasUsed: 927n, // gas: 16776288n, // logs: [], // rawData: '0x00000000000000000000000000000000000000000000000000000000000001a4', // selfdestruct: new Set(),` | [extensions/ethers/src/TevmProvider.js:168](https://github.com/evmts/tevm-monorepo/blob/main/extensions/ethers/src/TevmProvider.js#L168) |
 
 ## Accessors
 
@@ -255,9 +212,9 @@ Defined in: node\_modules/.pnpm/ethers@6.16.0\_bufferutil@4.1.0\_utf-8-validate@
 
 ##### Parameters
 
-###### value
-
-`boolean`
+| Parameter | Type |
+| ------ | ------ |
+| `value` | `boolean` |
 
 ##### Returns
 
@@ -299,9 +256,9 @@ Defined in: node\_modules/.pnpm/ethers@6.16.0\_bufferutil@4.1.0\_utf-8-validate@
 
 ##### Parameters
 
-###### pause
-
-`boolean`
+| Parameter | Type |
+| ------ | ------ |
+| `pause` | `boolean` |
 
 ##### Returns
 
@@ -402,9 +359,9 @@ Clear a timer created using the [[_setTimeout]] method.
 
 #### Parameters
 
-##### timerId
-
-`number`
+| Parameter | Type |
+| ------ | ------ |
+| `timerId` | `number` |
 
 #### Returns
 
@@ -448,9 +405,9 @@ Perform %%func%% on each subscriber.
 
 #### Parameters
 
-##### func
-
-(`s`) => `void`
+| Parameter | Type |
+| ------ | ------ |
+| `func` | (`s`) => `void` |
 
 #### Returns
 
@@ -474,9 +431,9 @@ Returns or resolves to the address for %%address%%, resolving ENS
 
 #### Parameters
 
-##### address
-
-`AddressLike`
+| Parameter | Type |
+| ------ | ------ |
+| `address` | `AddressLike` |
 
 #### Returns
 
@@ -499,9 +456,9 @@ Returns or resolves to a valid block tag for %%blockTag%%, resolving
 
 #### Parameters
 
-##### blockTag?
-
-`BlockTag`
+| Parameter | Type |
+| ------ | ------ |
+| `blockTag?` | `BlockTag` |
 
 #### Returns
 
@@ -525,9 +482,9 @@ Returns or resolves to a filter for %%filter%%, resolving any ENS
 
 #### Parameters
 
-##### filter
-
-`Filter` \| `FilterByBlockHash`
+| Parameter | Type |
+| ------ | ------ |
+| `filter` | `Filter` \| `FilterByBlockHash` |
 
 #### Returns
 
@@ -551,15 +508,15 @@ Returns the value associated with the option %%key%%.
 
 #### Type Parameters
 
-##### K
-
-`K` *extends* keyof `JsonRpcApiProviderOptions`
+| Type Parameter |
+| ------ |
+| `K` *extends* keyof `JsonRpcApiProviderOptions` |
 
 #### Parameters
 
-##### key
-
-`K`
+| Parameter | Type |
+| ------ | ------ |
+| `key` | `K` |
 
 #### Returns
 
@@ -579,9 +536,9 @@ Defined in: node\_modules/.pnpm/ethers@6.16.0\_bufferutil@4.1.0\_utf-8-validate@
 
 #### Parameters
 
-##### chainId
-
-`number`
+| Parameter | Type |
+| ------ | ------ |
+| `chainId` | `number` |
 
 #### Returns
 
@@ -606,9 +563,9 @@ Return a Subscriber that will manage the %%sub%%.
 
 #### Parameters
 
-##### sub
-
-`Subscription`
+| Parameter | Type |
+| ------ | ------ |
+| `sub` | `Subscription` |
 
 #### Returns
 
@@ -632,9 +589,9 @@ Returns or resolves to a transaction for %%request%%, resolving
 
 #### Parameters
 
-##### \_request
-
-`TransactionRequest`
+| Parameter | Type |
+| ------ | ------ |
+| `_request` | `TransactionRequest` |
 
 #### Returns
 
@@ -659,9 +616,9 @@ Resolves to the non-normalized value by performing %%req%%.
 
 #### Parameters
 
-##### req
-
-`PerformActionRequest`
+| Parameter | Type |
+| ------ | ------ |
+| `req` | `PerformActionRequest` |
 
 #### Returns
 
@@ -689,13 +646,10 @@ If a [[Subscriber]] fails and needs to replace itself, this
 
 #### Parameters
 
-##### oldSub
-
-`Subscriber`
-
-##### newSub
-
-`Subscriber`
+| Parameter | Type |
+| ------ | ------ |
+| `oldSub` | `Subscriber` |
+| `newSub` | `Subscriber` |
 
 #### Returns
 
@@ -711,15 +665,15 @@ If a [[Subscriber]] fails and needs to replace itself, this
 
 > **\_send**(`payload`): `Promise`\<(`JsonRpcResult` \| `JsonRpcError`)[]\>
 
-Defined in: [extensions/ethers/src/TevmProvider.js:187](https://github.com/evmts/tevm-monorepo/blob/main/extensions/ethers/src/TevmProvider.js#L187)
+Defined in: [extensions/ethers/src/TevmProvider.js:188](https://github.com/evmts/tevm-monorepo/blob/main/extensions/ethers/src/TevmProvider.js#L188)
 
 Sends a JSON-RPC %%payload%% (or a batch) to the underlying tevm instance.
 
 #### Parameters
 
-##### payload
-
-`JsonRpcPayload` \| `JsonRpcPayload`[]
+| Parameter | Type |
+| ------ | ------ |
+| `payload` | `JsonRpcPayload` \| `JsonRpcPayload`[] |
 
 #### Returns
 
@@ -746,13 +700,10 @@ Create a timer that will execute %%func%% after at least %%timeout%%
 
 #### Parameters
 
-##### \_func
-
-() => `void`
-
-##### timeout?
-
-`number`
+| Parameter | Type |
+| ------ | ------ |
+| `_func` | () => `void` |
+| `timeout?` | `number` |
 
 #### Returns
 
@@ -818,13 +769,10 @@ Provides the opportunity for a sub-class to wrap a block before
 
 #### Parameters
 
-##### value
-
-`BlockParams`
-
-##### network
-
-`Network`
+| Parameter | Type |
+| ------ | ------ |
+| `value` | `BlockParams` |
+| `network` | `Network` |
 
 #### Returns
 
@@ -848,13 +796,10 @@ Provides the opportunity for a sub-class to wrap a log before
 
 #### Parameters
 
-##### value
-
-`LogParams`
-
-##### network
-
-`Network`
+| Parameter | Type |
+| ------ | ------ |
+| `value` | `LogParams` |
+| `network` | `Network` |
 
 #### Returns
 
@@ -878,13 +823,10 @@ Provides the opportunity for a sub-class to wrap a transaction
 
 #### Parameters
 
-##### value
-
-`TransactionReceiptParams`
-
-##### network
-
-`Network`
+| Parameter | Type |
+| ------ | ------ |
+| `value` | `TransactionReceiptParams` |
+| `network` | `Network` |
 
 #### Returns
 
@@ -908,13 +850,10 @@ Provides the opportunity for a sub-class to wrap a transaction
 
 #### Parameters
 
-##### tx
-
-`TransactionResponseParams`
-
-##### network
-
-`Network`
+| Parameter | Type |
+| ------ | ------ |
+| `tx` | `TransactionResponseParams` |
+| `network` | `Network` |
 
 #### Returns
 
@@ -936,13 +875,10 @@ Alias for [[on]].
 
 #### Parameters
 
-##### event
-
-`ProviderEvent`
-
-##### listener
-
-`Listener`
+| Parameter | Type |
+| ------ | ------ |
+| `event` | `ProviderEvent` |
+| `listener` | `Listener` |
 
 #### Returns
 
@@ -964,9 +900,9 @@ Attach a new plug-in.
 
 #### Parameters
 
-##### plugin
-
-`AbstractProviderPlugin`
+| Parameter | Type |
+| ------ | ------ |
+| `plugin` | `AbstractProviderPlugin` |
 
 #### Returns
 
@@ -990,9 +926,9 @@ Broadcasts the %%signedTx%% to the network, adding it to the
 
 #### Parameters
 
-##### signedTx
-
-`string`
+| Parameter | Type |
+| ------ | ------ |
+| `signedTx` | `string` |
 
 #### Returns
 
@@ -1015,9 +951,9 @@ Simulate the execution of %%tx%%. If the call reverts, it will
 
 #### Parameters
 
-##### \_tx
-
-`TransactionRequest`
+| Parameter | Type |
+| ------ | ------ |
+| `_tx` | `TransactionRequest` |
 
 #### Returns
 
@@ -1039,17 +975,11 @@ Resolves to the data for executing the CCIP-read operations.
 
 #### Parameters
 
-##### tx
-
-`PerformActionTransaction`
-
-##### calldata
-
-`string`
-
-##### urls
-
-`string`[]
+| Parameter | Type |
+| ------ | ------ |
+| `tx` | `PerformActionTransaction` |
+| `calldata` | `string` |
+| `urls` | `string`[] |
 
 #### Returns
 
@@ -1092,13 +1022,10 @@ Triggers each listener for %%event%% with the %%args%%.
 
 #### Parameters
 
-##### event
-
-`ProviderEvent`
-
-##### args
-
-...`any`[]
+| Parameter | Type |
+| ------ | ------ |
+| `event` | `ProviderEvent` |
+| ...`args` | `any`[] |
 
 #### Returns
 
@@ -1120,9 +1047,9 @@ Estimates the amount of gas required to execute %%tx%%.
 
 #### Parameters
 
-##### \_tx
-
-`TransactionRequest`
+| Parameter | Type |
+| ------ | ------ |
+| `_tx` | `TransactionRequest` |
 
 #### Returns
 
@@ -1142,9 +1069,9 @@ Defined in: node\_modules/.pnpm/ethers@6.16.0\_bufferutil@4.1.0\_utf-8-validate@
 
 #### Parameters
 
-##### name
-
-`string`
+| Parameter | Type |
+| ------ | ------ |
+| `name` | `string` |
 
 #### Returns
 
@@ -1168,13 +1095,10 @@ Get the account balance (in wei) of %%address%%. If %%blockTag%%
 
 #### Parameters
 
-##### address
-
-`AddressLike`
-
-##### blockTag?
-
-`BlockTag`
+| Parameter | Type |
+| ------ | ------ |
+| `address` | `AddressLike` |
+| `blockTag?` | `BlockTag` |
 
 #### Returns
 
@@ -1206,13 +1130,10 @@ Resolves to the block for %%blockHashOrBlockTag%%.
 
 #### Parameters
 
-##### block
-
-`BlockTag`
-
-##### prefetchTxs?
-
-`boolean`
+| Parameter | Type |
+| ------ | ------ |
+| `block` | `BlockTag` |
+| `prefetchTxs?` | `boolean` |
 
 #### Returns
 
@@ -1252,13 +1173,10 @@ Get the bytecode for %%address%%.
 
 #### Parameters
 
-##### address
-
-`AddressLike`
-
-##### blockTag?
-
-`BlockTag`
+| Parameter | Type |
+| ------ | ------ |
+| `address` | `AddressLike` |
+| `blockTag?` | `BlockTag` |
 
 #### Returns
 
@@ -1303,9 +1221,9 @@ Resolves to the list of Logs that match %%filter%%
 
 #### Parameters
 
-##### \_filter
-
-`Filter` \| `FilterByBlockHash`
+| Parameter | Type |
+| ------ | ------ |
+| `_filter` | `Filter` \| `FilterByBlockHash` |
 
 #### Returns
 
@@ -1345,15 +1263,15 @@ Get a plugin by name.
 
 #### Type Parameters
 
-##### T
-
-`T` *extends* `AbstractProviderPlugin` = `AbstractProviderPlugin`
+| Type Parameter | Default type |
+| ------ | ------ |
+| `T` *extends* `AbstractProviderPlugin` | `AbstractProviderPlugin` |
 
 #### Parameters
 
-##### name
-
-`string`
+| Parameter | Type |
+| ------ | ------ |
+| `name` | `string` |
 
 #### Returns
 
@@ -1373,9 +1291,9 @@ Defined in: node\_modules/.pnpm/ethers@6.16.0\_bufferutil@4.1.0\_utf-8-validate@
 
 #### Parameters
 
-##### name
-
-`string`
+| Parameter | Type |
+| ------ | ------ |
+| `name` | `string` |
 
 #### Returns
 
@@ -1400,13 +1318,10 @@ Returns an ethers-style Error for the given JSON-RPC error
 
 #### Parameters
 
-##### payload
-
-`JsonRpcPayload`
-
-##### \_error
-
-`JsonRpcError`
+| Parameter | Type |
+| ------ | ------ |
+| `payload` | `JsonRpcPayload` |
+| `_error` | `JsonRpcError` |
 
 #### Returns
 
@@ -1429,9 +1344,9 @@ Returns the request method and arguments required to perform
 
 #### Parameters
 
-##### req
-
-`PerformActionRequest`
+| Parameter | Type |
+| ------ | ------ |
+| `req` | `PerformActionRequest` |
 
 #### Returns
 
@@ -1455,9 +1370,9 @@ Returns %%tx%% as a normalized JSON-RPC transaction request,
 
 #### Parameters
 
-##### tx
-
-`TransactionRequest`
+| Parameter | Type |
+| ------ | ------ |
+| `tx` | `TransactionRequest` |
 
 #### Returns
 
@@ -1488,9 +1403,9 @@ Resolves to the [[Signer]] account for  %%address%% managed by
 
 #### Parameters
 
-##### address?
-
-`string` \| `number`
+| Parameter | Type |
+| ------ | ------ |
+| `address?` | `string` \| `number` |
 
 #### Returns
 
@@ -1512,17 +1427,11 @@ Get the storage slot value for %%address%% at slot %%position%%.
 
 #### Parameters
 
-##### address
-
-`AddressLike`
-
-##### \_position
-
-`BigNumberish`
-
-##### blockTag?
-
-`BlockTag`
+| Parameter | Type |
+| ------ | ------ |
+| `address` | `AddressLike` |
+| `_position` | `BigNumberish` |
+| `blockTag?` | `BlockTag` |
 
 #### Returns
 
@@ -1552,9 +1461,9 @@ Resolves to the transaction for %%hash%%.
 
 #### Parameters
 
-##### hash
-
-`string`
+| Parameter | Type |
+| ------ | ------ |
+| `hash` | `string` |
 
 #### Returns
 
@@ -1580,13 +1489,10 @@ Get the number of transactions ever sent for %%address%%, which
 
 #### Parameters
 
-##### address
-
-`AddressLike`
-
-##### blockTag?
-
-`BlockTag`
+| Parameter | Type |
+| ------ | ------ |
+| `address` | `AddressLike` |
+| `blockTag?` | `BlockTag` |
 
 #### Returns
 
@@ -1617,9 +1523,9 @@ Resolves to the transaction receipt for %%hash%%, if mined.
 
 #### Parameters
 
-##### hash
-
-`string`
+| Parameter | Type |
+| ------ | ------ |
+| `hash` | `string` |
 
 #### Returns
 
@@ -1644,9 +1550,9 @@ Resolves to the result returned by the executions of %%hash%%.
 
 #### Parameters
 
-##### hash
-
-`string`
+| Parameter | Type |
+| ------ | ------ |
+| `hash` | `string` |
 
 #### Returns
 
@@ -1684,9 +1590,9 @@ Resolves to the number of listeners for %%event%%.
 
 #### Parameters
 
-##### event?
-
-`ProviderEvent`
+| Parameter | Type |
+| ------ | ------ |
+| `event?` | `ProviderEvent` |
 
 #### Returns
 
@@ -1708,9 +1614,9 @@ Resolves to the listeners for %%event%%.
 
 #### Parameters
 
-##### event?
-
-`ProviderEvent`
+| Parameter | Type |
+| ------ | ------ |
+| `event?` | `ProviderEvent` |
 
 #### Returns
 
@@ -1736,9 +1642,9 @@ Resolves to the ENS name associated for the %%address%% or
 
 #### Parameters
 
-##### address
-
-`string`
+| Parameter | Type |
+| ------ | ------ |
+| `address` | `string` |
 
 #### Returns
 
@@ -1761,13 +1667,10 @@ Unregister the %%listener%% for %%event%%. If %%listener%%
 
 #### Parameters
 
-##### event
-
-`ProviderEvent`
-
-##### listener?
-
-`Listener`
+| Parameter | Type |
+| ------ | ------ |
+| `event` | `ProviderEvent` |
+| `listener?` | `Listener` |
 
 #### Returns
 
@@ -1790,13 +1693,10 @@ Registers a %%listener%% that is called whenever the
 
 #### Parameters
 
-##### event
-
-`ProviderEvent`
-
-##### listener
-
-`Listener`
+| Parameter | Type |
+| ------ | ------ |
+| `event` | `ProviderEvent` |
+| `listener` | `Listener` |
 
 #### Returns
 
@@ -1819,13 +1719,10 @@ Registers a %%listener%% that is called the next time
 
 #### Parameters
 
-##### event
-
-`ProviderEvent`
-
-##### listener
-
-`Listener`
+| Parameter | Type |
+| ------ | ------ |
+| `event` | `ProviderEvent` |
+| `listener` | `Listener` |
 
 #### Returns
 
@@ -1849,9 +1746,9 @@ Pause the provider. If %%dropWhilePaused%%, any events that occur
 
 #### Parameters
 
-##### dropWhilePaused?
-
-`boolean`
+| Parameter | Type |
+| ------ | ------ |
+| `dropWhilePaused?` | `boolean` |
 
 #### Returns
 
@@ -1873,9 +1770,9 @@ Unregister all listeners for %%event%%.
 
 #### Parameters
 
-##### event?
-
-`ProviderEvent`
+| Parameter | Type |
+| ------ | ------ |
+| `event?` | `ProviderEvent` |
 
 #### Returns
 
@@ -1897,13 +1794,10 @@ Alias for [[off]].
 
 #### Parameters
 
-##### event
-
-`ProviderEvent`
-
-##### listener
-
-`Listener`
+| Parameter | Type |
+| ------ | ------ |
+| `event` | `ProviderEvent` |
+| `listener` | `Listener` |
 
 #### Returns
 
@@ -1926,9 +1820,9 @@ Resolves to the address configured for the %%ensName%% or
 
 #### Parameters
 
-##### name
-
-`string`
+| Parameter | Type |
+| ------ | ------ |
+| `name` | `string` |
 
 #### Returns
 
@@ -1978,13 +1872,10 @@ Requests the %%method%% with %%params%% via the JSON-RPC protocol
 
 #### Parameters
 
-##### method
-
-`string`
-
-##### params
-
-`any`[] \| `Record`\<`string`, `any`\>
+| Parameter | Type |
+| ------ | ------ |
+| `method` | `string` |
+| `params` | `any`[] \| `Record`\<`string`, `any`\> |
 
 #### Returns
 
@@ -2009,9 +1900,9 @@ Resolves to the block at %%blockTag%% once it has been mined.
 
 #### Parameters
 
-##### blockTag?
-
-`BlockTag`
+| Parameter | Type |
+| ------ | ------ |
+| `blockTag?` | `BlockTag` |
 
 #### Returns
 
@@ -2034,17 +1925,11 @@ Waits until the transaction %%hash%% is mined and has %%confirms%%
 
 #### Parameters
 
-##### hash
-
-`string`
-
-##### \_confirms?
-
-`number` \| `null`
-
-##### timeout?
-
-`number` \| `null`
+| Parameter | Type |
+| ------ | ------ |
+| `hash` | `string` |
+| `_confirms?` | `number` \| `null` |
+| `timeout?` | `number` \| `null` |
 
 #### Returns
 
@@ -2066,11 +1951,9 @@ Creates a new TevmProvider instance with a TevmMemoryClient.
 
 #### Parameters
 
-##### options
-
-`TevmNodeOptions`\<\{ `blockExplorers?`: \{\[`key`: `string`\]: `ChainBlockExplorer`; `default`: `ChainBlockExplorer`; \}; `blockTime?`: `number`; `contracts?`: \{\[`key`: `string`\]: `ChainContract` \| \{\[`sourceId`: `number`\]: `ChainContract` \| `undefined`; \} \| `undefined`; `ensRegistry?`: `ChainContract`; `ensUniversalResolver?`: `ChainContract`; `erc6492Verifier?`: `ChainContract`; `multicall3?`: `ChainContract`; \}; `copy`: () => `object`; `custom?`: `Record`\<`string`, `unknown`\>; `ensTlds?`: readonly `string`[]; `ethjsCommon`: `Common`; `experimental_preconfirmationTime?`: `number`; `extendSchema?`: `Record`\<`string`, `unknown`\>; `fees?`: `ChainFees`\<`ChainFormatters` \| `undefined`\>; `formatters?`: `ChainFormatters`; `id`: `number`; `name`: `string`; `nativeCurrency`: `ChainNativeCurrency`; `prepareTransactionRequest?`: `PrepareTransactionRequestFn` \| \[`PrepareTransactionRequestFn`, `object`\]; `rpcUrls`: \{\[`key`: `string`\]: `ChainRpcUrls`; `default`: `ChainRpcUrls`; \}; `serializers?`: `ChainSerializers`\<`ChainFormatters` \| `undefined`, `TransactionSerializable`\>; `sourceId?`: `number`; `testnet?`: `boolean`; `verifyHash?`: `ChainVerifyHashFn`; \}\>
-
-Options to create a new TevmProvider.
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `options` | `TevmNodeOptions`\<\{ `blockExplorers?`: \{\[`key`: `string`\]: `ChainBlockExplorer`; `default`: `ChainBlockExplorer`; \}; `blockTime?`: `number`; `contracts?`: \{\[`key`: `string`\]: `ChainContract` \| \{\[`sourceId`: `number`\]: `ChainContract` \| `undefined`; \} \| `undefined`; `ensRegistry?`: `ChainContract`; `ensUniversalResolver?`: `ChainContract`; `erc6492Verifier?`: `ChainContract`; `multicall3?`: `ChainContract`; \}; `copy`: () => `object`; `custom?`: `Record`\<`string`, `unknown`\>; `ensTlds?`: readonly `string`[]; `ethjsCommon`: `Common`; `experimental_preconfirmationTime?`: `number`; `extendSchema?`: `Record`\<`string`, `unknown`\>; `fees?`: `ChainFees`\<`ChainFormatters` \| `undefined`\>; `formatters?`: `ChainFormatters`; `id`: `number`; `name`: `string`; `nativeCurrency`: `ChainNativeCurrency`; `prepareTransactionRequest?`: `PrepareTransactionRequestFn` \| \[`PrepareTransactionRequestFn`, `object`\]; `rpcUrls`: \{\[`key`: `string`\]: `ChainRpcUrls`; `default`: `ChainRpcUrls`; \}; `serializers?`: `ChainSerializers`\<`ChainFormatters` \| `undefined`, `TransactionSerializable`\>; `sourceId?`: `number`; `testnet?`: `boolean`; `verifyHash?`: `ChainVerifyHashFn`; \}\> | Options to create a new TevmProvider. |
 
 #### Returns
 

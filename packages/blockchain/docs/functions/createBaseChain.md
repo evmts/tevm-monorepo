@@ -12,9 +12,9 @@ Defined in: [packages/blockchain/src/createBaseChain.js:36](https://github.com/e
 
 ## Parameters
 
-### options
-
-[`ChainOptions`](../type-aliases/ChainOptions.md)
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `options` | [`ChainOptions`](../type-aliases/ChainOptions.md) | - |
 
 ## Returns
 

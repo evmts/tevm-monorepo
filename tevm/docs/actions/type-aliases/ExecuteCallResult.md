@@ -8,30 +8,12 @@
 
 > **ExecuteCallResult** = `object`
 
-Defined in: tevm-monorepo/packages/actions/types/Call/executeCall.d.ts:13
-
 The return value of executeCall
 
 ## Properties
 
-### accessList
-
-> **accessList**: `undefined` \| `Map`\<`string`, `Set`\<`string`\>\>
-
-Defined in: tevm-monorepo/packages/actions/types/Call/executeCall.d.ts:16
-
-***
-
-### runTxResult
-
-> **runTxResult**: [`RunTxResult`](../../vm/interfaces/RunTxResult.md)
-
-Defined in: tevm-monorepo/packages/actions/types/Call/executeCall.d.ts:14
-
-***
-
-### trace
-
-> **trace**: [`TraceResult`](../../index/type-aliases/TraceResult.md) \| `undefined`
-
-Defined in: tevm-monorepo/packages/actions/types/Call/executeCall.d.ts:15
+| Property | Type |
+| ------ | ------ |
+| <a id="accesslist"></a> `accessList` | `undefined` \| `Map`\<`string`, `Set`\<`string`\>\> |
+| <a id="runtxresult"></a> `runTxResult` | [`RunTxResult`](../../vm/interfaces/RunTxResult.md) |
+| <a id="trace"></a> `trace` | [`TraceResult`](../../index/type-aliases/TraceResult.md) \| `undefined` |

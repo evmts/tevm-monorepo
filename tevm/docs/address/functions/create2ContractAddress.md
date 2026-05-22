@@ -8,21 +8,13 @@
 
 > **create2ContractAddress**(`from`, `salt`, `code`): [`Address`](../classes/Address.md)
 
-Defined in: tevm-monorepo/packages/address/types/create2ContractAddress.d.ts:1
-
 ## Parameters
 
-### from
-
-[`EthjsAddress`](../../utils/classes/EthjsAddress.md)
-
-### salt
-
-`` `0x${string}` ``
-
-### code
-
-`` `0x${string}` ``
+| Parameter | Type |
+| ------ | ------ |
+| `from` | [`EthjsAddress`](../../utils/classes/EthjsAddress.md) |
+| `salt` | `` `0x${string}` `` |
+| `code` | `` `0x${string}` `` |
 
 ## Returns
 

@@ -15,13 +15,10 @@ last call to checkpoint.
 
 ## Parameters
 
-### baseState
-
-[`BaseState`](../type-aliases/BaseState.md)
-
-### skipFetchingFromFork?
-
-`boolean`
+| Parameter | Type |
+| ------ | ------ |
+| `baseState` | [`BaseState`](../type-aliases/BaseState.md) |
+| `skipFetchingFromFork?` | `boolean` |
 
 ## Returns
 

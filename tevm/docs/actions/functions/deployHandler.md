@@ -8,19 +8,13 @@
 
 > **deployHandler**(`client`, `__namedParameters?`): [`DeployHandler`](../type-aliases/DeployHandler.md)
 
-Defined in: tevm-monorepo/packages/actions/types/Deploy/deployHandler.d.ts:1
-
 ## Parameters
 
-### client
-
-[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{ \}\>
-
-### \_\_namedParameters?
-
-#### throwOnFail?
-
-`boolean`
+| Parameter | Type |
+| ------ | ------ |
+| `client` | [`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{ \}\> |
+| `__namedParameters?` | \{ `throwOnFail?`: `boolean`; \} |
+| `__namedParameters.throwOnFail?` | `boolean` |
 
 ## Returns
 

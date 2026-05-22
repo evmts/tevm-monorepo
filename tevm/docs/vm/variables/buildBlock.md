@@ -8,13 +8,11 @@
 
 > `const` **buildBlock**: (`vm`) => [`BuildBlock`](../type-aliases/BuildBlock.md)
 
-Defined in: tevm-monorepo/packages/vm/types/actions/buildBlock.d.ts:5
-
 ## Parameters
 
-### vm
-
-`BaseVm`
+| Parameter | Type |
+| ------ | ------ |
+| `vm` | `BaseVm` |
 
 ## Returns
 

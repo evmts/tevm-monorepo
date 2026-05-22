@@ -8,13 +8,11 @@
 
 > **EthGetProofJsonRpcProcedure** = (`request`) => `Promise`\<[`EthGetProofJsonRpcResponse`](EthGetProofJsonRpcResponse.md)\>
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthProcedure.d.ts:48
-
 ## Parameters
 
-### request
-
-[`EthGetProofJsonRpcRequest`](EthGetProofJsonRpcRequest.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`EthGetProofJsonRpcRequest`](EthGetProofJsonRpcRequest.md) |
 
 ## Returns
 

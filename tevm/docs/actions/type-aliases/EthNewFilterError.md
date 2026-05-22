@@ -7,5 +7,3 @@
 # Type Alias: EthNewFilterError
 
 > **EthNewFilterError** = [`UnknownBlockError`](../../errors/classes/UnknownBlockError.md) \| [`InvalidBlockError`](../../errors/classes/InvalidBlockError.md)
-
-Defined in: tevm-monorepo/packages/actions/types/eth/ethNewFilterHandler.d.ts:2

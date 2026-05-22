@@ -12,11 +12,10 @@ Defined in: [packages/actions/src/eth/ethSignHandler.js:18](https://github.com/e
 
 ## Parameters
 
-### params
-
-#### accounts
-
-readonly `object`[]
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `params` | \{ `accounts`: readonly `object`[]; \} | - |
+| `params.accounts` | readonly `object`[] | - |
 
 ## Returns
 

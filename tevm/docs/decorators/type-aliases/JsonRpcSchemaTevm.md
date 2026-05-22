@@ -8,8 +8,6 @@
 
 > **JsonRpcSchemaTevm** = `object`
 
-Defined in: tevm-monorepo/packages/decorators/dist/index.d.ts:1367
-
 Type definitions for Tevm-specific JSON-RPC methods.
 Includes methods for state manipulation, EVM calls, and account management.
 
@@ -40,173 +38,29 @@ const account = await node.request({
 
 ## Properties
 
-### tevm\_call
-
-> **tevm\_call**: `object`
-
-Defined in: tevm-monorepo/packages/decorators/dist/index.d.ts:1375
-
-#### Method
-
-> **Method**: `"tevm_call"`
-
-#### Parameters
-
-> **Parameters**: [`CallJsonRpcRequest`](../../actions/type-aliases/CallJsonRpcRequest.md)\[`"params"`\]
-
-#### ReturnType
-
-> **ReturnType**: [`SerializeToJson`](../../utils/type-aliases/SerializeToJson.md)\<[`CallResult`](../../actions/type-aliases/CallResult.md)\<`never`\>\>
-
-#### Description
-
-A versatile way of executing an EVM call with many options and detailed return data
-
-#### Link
-
-https://tevm.sh/learn/json-rpc/#tevm-methods
-
-#### Example
-
-```ts
-provider.request({ method: 'tevm_call', params: [{ from: '0x...', to: '0x...', data: '0x...' }] })})
-// => { data: '0x...', events: [{...}], ... }
-```
-
-***
-
-### tevm\_dumpState
-
-> **tevm\_dumpState**: `object`
-
-Defined in: tevm-monorepo/packages/decorators/dist/index.d.ts:1398
-
-#### Method
-
-> **Method**: `"tevm_dumpState"`
-
-#### Parameters?
-
-> `optional` **Parameters?**: [`DumpStateJsonRpcRequest`](../../actions/type-aliases/DumpStateJsonRpcRequest.md)\[`"params"`\]
-
-#### ReturnType
-
-> **ReturnType**: [`SerializeToJson`](../../utils/type-aliases/SerializeToJson.md)\<[`DumpStateResult`](../../actions/type-aliases/DumpStateResult.md)\<`never`\>\>
-
-#### Description
-
-Dumps the current cached state of the EVM.
-
-#### Link
-
-https://tevm.sh/learn/json-rpc/#tevm-methods
-
-#### Example
-
-```ts
-provider.request({ method: 'tevm_dumpState' })})
-```
-
-***
-
-### tevm\_getAccount
-
-> **tevm\_getAccount**: `object`
-
-Defined in: tevm-monorepo/packages/decorators/dist/index.d.ts:1409
-
-#### Method
-
-> **Method**: `"tevm_getAccount"`
-
-#### Parameters
-
-> **Parameters**: [`GetAccountJsonRpcRequest`](../../actions/type-aliases/GetAccountJsonRpcRequest.md)\[`"params"`\]
-
-#### ReturnType
-
-> **ReturnType**: [`SerializeToJson`](../../utils/type-aliases/SerializeToJson.md)\<[`GetAccountResult`](../../actions/type-aliases/GetAccountResult.md)\<`never`\>\>
-
-#### Description
-
-Returns the account state of the given address
-
-#### Link
-
-https://tevm.sh/learn/json-rpc/#tevm-methods
-
-#### Example
-
-```ts
-provider.request({ method: 'tevm_getAccount', params: [{address: '0x...' }])})
-```
-
-***
-
-### tevm\_loadState
-
-> **tevm\_loadState**: `object`
-
-Defined in: tevm-monorepo/packages/decorators/dist/index.d.ts:1387
-
-#### Method
-
-> **Method**: `"tevm_loadState"`
-
-#### Parameters
-
-> **Parameters**: [`LoadStateJsonRpcRequest`](../../actions/type-aliases/LoadStateJsonRpcRequest.md)\[`"params"`\]
-
-#### ReturnType
-
-> **ReturnType**: [`SerializeToJson`](../../utils/type-aliases/SerializeToJson.md)\<[`LoadStateResult`](../../actions/type-aliases/LoadStateResult.md)\<`never`\>\>
-
-#### Description
-
-Loads the provided state into the EVM
-
-#### Link
-
-https://tevm.sh/learn/json-rpc/#tevm-methods
-
-#### Example
-
-```ts
-provider.request({ method: 'tevm_loadState', params: [{ state: {...} }] }])})
-// => { success: true }
-```
-
-***
-
-### tevm\_setAccount
-
-> **tevm\_setAccount**: `object`
-
-Defined in: tevm-monorepo/packages/decorators/dist/index.d.ts:1420
-
-#### Method
-
-> **Method**: `"tevm_setAccount"`
-
-#### Parameters
-
-> **Parameters**: [`SetAccountJsonRpcRequest`](../../actions/type-aliases/SetAccountJsonRpcRequest.md)\[`"params"`\]
-
-#### ReturnType
-
-> **ReturnType**: [`SerializeToJson`](../../utils/type-aliases/SerializeToJson.md)\<[`SetAccountResult`](../../actions/type-aliases/SetAccountResult.md)\<`never`\>\>
-
-#### Description
-
-Sets the account state of the given address
-
-#### Link
-
-https://tevm.sh/learn/json-rpc/#tevm-methods
-
-#### Example
-
-```ts
-provider.request({ method: 'tevm_setAccount', params: [{address: '0x...', value: '0x42' }])})
-r
-```
+| Property | Type | Description |
+| ------ | ------ | ------ |
+| <a id="tevm_call"></a> `tevm_call` | `object` | **Description** A versatile way of executing an EVM call with many options and detailed return data **Link** https://tevm.sh/learn/json-rpc/#tevm-methods **Example** `provider.request({ method: 'tevm_call', params: [{ from: '0x...', to: '0x...', data: '0x...' }] })}) // => { data: '0x...', events: [{...}], ... }` |
+| `tevm_call.Method` | `"tevm_call"` | - |
+| `tevm_call.Parameters` | [`CallJsonRpcRequest`](../../actions/type-aliases/CallJsonRpcRequest.md)\[`"params"`\] | - |
+| `tevm_call.ReturnType` | [`SerializeToJson`](../../utils/type-aliases/SerializeToJson.md)\<[`CallResult`](../../actions/type-aliases/CallResult.md)\<`never`\>\> | - |
+| <a id="tevm_dumpstate"></a> `tevm_dumpState` | `object` | **Description** Dumps the current cached state of the EVM. **Link** https://tevm.sh/learn/json-rpc/#tevm-methods **Example** `provider.request({ method: 'tevm_dumpState' })})` |
+| `tevm_dumpState.Method` | `"tevm_dumpState"` | - |
+| `tevm_dumpState.Parameters?` | [`DumpStateJsonRpcRequest`](../../actions/type-aliases/DumpStateJsonRpcRequest.md)\[`"params"`\] | - |
+| `tevm_dumpState.ReturnType` | [`SerializeToJson`](../../utils/type-aliases/SerializeToJson.md)\<[`DumpStateResult`](../../actions/type-aliases/DumpStateResult.md)\<`never`\>\> | - |
+| <a id="tevm_getaccount"></a> `tevm_getAccount` | `object` | **Description** Returns the account state of the given address **Link** https://tevm.sh/learn/json-rpc/#tevm-methods **Example** `provider.request({ method: 'tevm_getAccount', params: [{address: '0x...' }])})` |
+| `tevm_getAccount.Method` | `"tevm_getAccount"` | - |
+| `tevm_getAccount.Parameters` | [`GetAccountJsonRpcRequest`](../../actions/type-aliases/GetAccountJsonRpcRequest.md)\[`"params"`\] | - |
+| `tevm_getAccount.ReturnType` | [`SerializeToJson`](../../utils/type-aliases/SerializeToJson.md)\<[`GetAccountResult`](../../actions/type-aliases/GetAccountResult.md)\<`never`\>\> | - |
+| <a id="tevm_loadstate"></a> `tevm_loadState` | `object` | **Description** Loads the provided state into the EVM **Link** https://tevm.sh/learn/json-rpc/#tevm-methods **Example** `provider.request({ method: 'tevm_loadState', params: [{ state: {...} }] }])}) // => { success: true }` |
+| `tevm_loadState.Method` | `"tevm_loadState"` | - |
+| `tevm_loadState.Parameters` | [`LoadStateJsonRpcRequest`](../../actions/type-aliases/LoadStateJsonRpcRequest.md)\[`"params"`\] | - |
+| `tevm_loadState.ReturnType` | [`SerializeToJson`](../../utils/type-aliases/SerializeToJson.md)\<[`LoadStateResult`](../../actions/type-aliases/LoadStateResult.md)\<`never`\>\> | - |
+| <a id="tevm_mine"></a> `tevm_mine` | `object` | **Description** Mines one or more blocks. **Link** https://tevm.sh/learn/json-rpc/#tevm-methods |
+| `tevm_mine.Method` | `"tevm_mine"` | - |
+| `tevm_mine.Parameters` | [`MineJsonRpcRequest`](../../actions/type-aliases/MineJsonRpcRequest.md)\[`"params"`\] | - |
+| `tevm_mine.ReturnType` | [`SerializeToJson`](../../utils/type-aliases/SerializeToJson.md)\<[`MineResult`](../../actions/type-aliases/MineResult.md)\> | - |
+| <a id="tevm_setaccount"></a> `tevm_setAccount` | `object` | **Description** Sets the account state of the given address **Link** https://tevm.sh/learn/json-rpc/#tevm-methods **Example** `provider.request({ method: 'tevm_setAccount', params: [{address: '0x...', value: '0x42' }])}) r` |
+| `tevm_setAccount.Method` | `"tevm_setAccount"` | - |
+| `tevm_setAccount.Parameters` | [`SetAccountJsonRpcRequest`](../../actions/type-aliases/SetAccountJsonRpcRequest.md)\[`"params"`\] | - |
+| `tevm_setAccount.ReturnType` | [`SerializeToJson`](../../utils/type-aliases/SerializeToJson.md)\<[`SetAccountResult`](../../actions/type-aliases/SetAccountResult.md)\<`never`\>\> | - |

@@ -12,8 +12,6 @@ Defined in: [packages/node/src/EIP1193EventEmitterTypes.ts:12](https://github.co
 
 ## Properties
 
-### chainId
-
-> **chainId**: `string`
-
-Defined in: [packages/node/src/EIP1193EventEmitterTypes.ts:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/EIP1193EventEmitterTypes.ts#L13)
+| Property | Type | Defined in |
+| ------ | ------ | ------ |
+| <a id="chainid"></a> `chainId` | `string` | [packages/node/src/EIP1193EventEmitterTypes.ts:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/EIP1193EventEmitterTypes.ts#L13) |

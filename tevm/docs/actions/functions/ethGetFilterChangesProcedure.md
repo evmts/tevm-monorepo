@@ -8,13 +8,11 @@
 
 > **ethGetFilterChangesProcedure**(`client`): [`EthGetFilterChangesJsonRpcProcedure`](../type-aliases/EthGetFilterChangesJsonRpcProcedure.md)
 
-Defined in: tevm-monorepo/packages/actions/types/eth/ethGetFilterChangesProcedure.d.ts:1
-
 ## Parameters
 
-### client
-
-[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{ \}\>
+| Parameter | Type |
+| ------ | ------ |
+| `client` | [`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{ \}\> |
 
 ## Returns
 

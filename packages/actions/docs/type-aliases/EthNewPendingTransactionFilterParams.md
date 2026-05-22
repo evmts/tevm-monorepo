@@ -8,6 +8,6 @@
 
 > **EthNewPendingTransactionFilterParams** = [`EmptyParams`](EmptyParams.md)
 
-Defined in: [packages/actions/src/eth/EthParams.ts:334](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L334)
+Defined in: [packages/actions/src/eth/EthParams.ts:341](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L341)
 
 Based on the JSON-RPC request for `eth_newPendingTransactionFilter` procedure

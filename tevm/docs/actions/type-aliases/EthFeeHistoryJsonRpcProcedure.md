@@ -8,13 +8,11 @@
 
 > **EthFeeHistoryJsonRpcProcedure** = (`request`) => `Promise`\<[`EthFeeHistoryJsonRpcResponse`](EthFeeHistoryJsonRpcResponse.md)\>
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthProcedure.d.ts:13
-
 ## Parameters
 
-### request
-
-[`EthFeeHistoryJsonRpcRequest`](EthFeeHistoryJsonRpcRequest.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`EthFeeHistoryJsonRpcRequest`](EthFeeHistoryJsonRpcRequest.md) |
 
 ## Returns
 

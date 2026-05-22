@@ -8,8 +8,6 @@
 
 > **StateOptions** = `object`
 
-Defined in: tevm-monorepo/packages/state/dist/index.d.ts:345
-
 Configuration options for the Tevm state manager.
 Controls forking, initial state, caching, and event handling.
 
@@ -30,92 +28,14 @@ const value: StateOptions = {
 
 ## Properties
 
-### accountsCache?
-
-> `readonly` `optional` **accountsCache?**: [`AccountCache`](../../state/classes/AccountCache.md)
-
-Defined in: tevm-monorepo/packages/state/dist/index.d.ts:369
-
-Optionally configure the accounts cache
-
-***
-
-### contractCache?
-
-> `readonly` `optional` **contractCache?**: [`ContractCache`](../../state/classes/ContractCache.md)
-
-Defined in: tevm-monorepo/packages/state/dist/index.d.ts:361
-
-Optionally configure and pass in your own ContractCache
-
-***
-
-### currentStateRoot?
-
-> `optional` **currentStateRoot?**: [`Hex`](Hex.md)
-
-Defined in: tevm-monorepo/packages/state/dist/index.d.ts:348
-
-***
-
-### fork?
-
-> `optional` **fork?**: [`ForkOptions`](../../state/interfaces/ForkOptions.md)
-
-Defined in: tevm-monorepo/packages/state/dist/index.d.ts:346
-
-***
-
-### genesisState?
-
-> `optional` **genesisState?**: [`TevmState`](TevmState.md)
-
-Defined in: tevm-monorepo/packages/state/dist/index.d.ts:347
-
-***
-
-### loggingLevel?
-
-> `readonly` `optional` **loggingLevel?**: `LogOptions`\[`"level"`\]
-
-Defined in: tevm-monorepo/packages/state/dist/index.d.ts:357
-
-Configure logging options for the client
-
-***
-
-### onCommit?
-
-> `optional` **onCommit?**: (`stateManager`) => `void`
-
-Defined in: tevm-monorepo/packages/state/dist/index.d.ts:353
-
-Called when state manager commits state
-
-#### Parameters
-
-##### stateManager
-
-[`BaseState`](../../state/type-aliases/BaseState.md)
-
-#### Returns
-
-`void`
-
-***
-
-### stateRoots?
-
-> `optional` **stateRoots?**: [`StateRoots`](../../state/type-aliases/StateRoots.md)
-
-Defined in: tevm-monorepo/packages/state/dist/index.d.ts:349
-
-***
-
-### storageCache?
-
-> `readonly` `optional` **storageCache?**: [`StorageCache`](../../state/classes/StorageCache.md)
-
-Defined in: tevm-monorepo/packages/state/dist/index.d.ts:365
-
-Optionally configure and pass in your own StorageCache
+| Property | Modifier | Type | Description |
+| ------ | ------ | ------ | ------ |
+| <a id="accountscache"></a> `accountsCache?` | `readonly` | [`AccountCache`](../../state/classes/AccountCache.md) | Optionally configure the accounts cache |
+| <a id="contractcache"></a> `contractCache?` | `readonly` | [`ContractCache`](../../state/classes/ContractCache.md) | Optionally configure and pass in your own ContractCache |
+| <a id="currentstateroot"></a> `currentStateRoot?` | `public` | [`Hex`](Hex.md) | - |
+| <a id="fork"></a> `fork?` | `public` | [`ForkOptions`](../../state/interfaces/ForkOptions.md) | - |
+| <a id="genesisstate"></a> `genesisState?` | `public` | [`TevmState`](TevmState.md) | - |
+| <a id="logginglevel"></a> `loggingLevel?` | `readonly` | `LogOptions`\[`"level"`\] | Configure logging options for the client |
+| <a id="oncommit"></a> `onCommit?` | `public` | (`stateManager`) => `void` | Called when state manager commits state |
+| <a id="stateroots"></a> `stateRoots?` | `public` | [`StateRoots`](../../state/type-aliases/StateRoots.md) | - |
+| <a id="storagecache"></a> `storageCache?` | `readonly` | [`StorageCache`](../../state/classes/StorageCache.md) | Optionally configure and pass in your own StorageCache |

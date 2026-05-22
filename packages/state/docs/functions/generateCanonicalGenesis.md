@@ -14,13 +14,10 @@ Loads a [TevmState](../type-aliases/TevmState.md) into the state manager
 
 ## Parameters
 
-### baseState
-
-[`BaseState`](../type-aliases/BaseState.md)
-
-### skipFetchingFromFork?
-
-`boolean`
+| Parameter | Type |
+| ------ | ------ |
+| `baseState` | [`BaseState`](../type-aliases/BaseState.md) |
+| `skipFetchingFromFork?` | `boolean` |
 
 ## Returns
 
@@ -30,9 +27,9 @@ Loads a state from a given state root
 
 ### Parameters
 
-#### state
-
-[`TevmState`](../type-aliases/TevmState.md)
+| Parameter | Type |
+| ------ | ------ |
+| `state` | [`TevmState`](../type-aliases/TevmState.md) |
 
 ### Returns
 

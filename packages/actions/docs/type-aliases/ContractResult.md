@@ -16,23 +16,11 @@ This type extends the `CallResult` type with additional contract-specific fields
 
 ## Type Parameters
 
-### TAbi
-
-`TAbi` *extends* [`Abi`](Abi.md) \| readonly `unknown`[] = [`Abi`](Abi.md)
-
-The ABI type.
-
-### TFunctionName
-
-`TFunctionName` *extends* `ContractFunctionName`\<`TAbi`\> = `ContractFunctionName`\<`TAbi`\>
-
-The function name type from the ABI.
-
-### ErrorType
-
-`ErrorType` = [`TevmContractError`](TevmContractError.md)
-
-The error type.
+| Type Parameter | Default type | Description |
+| ------ | ------ | ------ |
+| `TAbi` *extends* [`Abi`](Abi.md) \| readonly `unknown`[] | [`Abi`](Abi.md) | The ABI type. |
+| `TFunctionName` *extends* `ContractFunctionName`\<`TAbi`\> | `ContractFunctionName`\<`TAbi`\> | The function name type from the ABI. |
+| `ErrorType` | [`TevmContractError`](TevmContractError.md) | The error type. |
 
 ## Example
 

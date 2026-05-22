@@ -7,5 +7,3 @@
 # Type Alias: CallHandlerOptsError
 
 > **CallHandlerOptsError** = [`UnknownBlockError`](../../errors/classes/UnknownBlockError.md) \| [`UnknownBlockError`](../../errors/classes/UnknownBlockError.md) \| [`InvalidParamsError`](../../errors/classes/InvalidParamsError.md)
-
-Defined in: tevm-monorepo/packages/actions/types/Call/callHandlerOpts.d.ts:8

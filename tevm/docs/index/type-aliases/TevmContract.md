@@ -8,39 +8,23 @@
 
 > **TevmContract** = \<`TAbi`, `TFunctionName`\>(`client`, `params`) => `Promise`\<[`ContractResult`](../../actions/type-aliases/ContractResult.md)\<`TAbi`, `TFunctionName`\>\>
 
-Defined in: tevm-monorepo/packages/memory-client/types/TevmContractType.d.ts:47
-
 A type representing the handler for a TEVM contract procedure.
 
 This type reuses the viem `contractRead`/`contractWrite` API to encode ABI, function name, and arguments.
 
 ## Type Parameters
 
-### TAbi
-
-`TAbi` *extends* [`Abi`](Abi.md) \| readonly `unknown`[] = [`Abi`](Abi.md)
-
-The ABI of the contract.
-
-### TFunctionName
-
-`TFunctionName` *extends* [`ContractFunctionName`](ContractFunctionName.md)\<`TAbi`\> = [`ContractFunctionName`](ContractFunctionName.md)\<`TAbi`\>
-
-The name of the contract function.
+| Type Parameter | Default type | Description |
+| ------ | ------ | ------ |
+| `TAbi` *extends* [`Abi`](Abi.md) \| readonly `unknown`[] | [`Abi`](Abi.md) | The ABI of the contract. |
+| `TFunctionName` *extends* [`ContractFunctionName`](ContractFunctionName.md)\<`TAbi`\> | [`ContractFunctionName`](ContractFunctionName.md)\<`TAbi`\> | The name of the contract function. |
 
 ## Parameters
 
-### client
-
-`Client`\<[`TevmTransport`](TevmTransport.md)\<`string`\>\>
-
-The viem client configured with TEVM transport.
-
-### params
-
-[`ContractParams`](../../actions/type-aliases/ContractParams.md)\<`TAbi`, `TFunctionName`\> & [`CallEvents`](../../actions/type-aliases/CallEvents.md)
-
-Parameters for the contract method call, including ABI, function name, and arguments.
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `client` | `Client`\<[`TevmTransport`](TevmTransport.md)\<`string`\>\> | The viem client configured with TEVM transport. |
+| `params` | [`ContractParams`](../../actions/type-aliases/ContractParams.md)\<`TAbi`, `TFunctionName`\> & [`CallEvents`](../../actions/type-aliases/CallEvents.md) | Parameters for the contract method call, including ABI, function name, and arguments. |
 
 ## Returns
 

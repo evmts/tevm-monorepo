@@ -8,56 +8,14 @@
 
 > **EthSimulateV1CallResult** = `object`
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthResult.d.ts:290
-
 Result of a single simulated call
 
 ## Properties
 
-### error?
-
-> `optional` **error?**: [`SimulateCallError`](SimulateCallError.md)
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthResult.d.ts:310
-
-Error information if the call failed
-
-***
-
-### gasUsed
-
-> **gasUsed**: `bigint`
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthResult.d.ts:302
-
-Gas used by the call
-
-***
-
-### logs
-
-> **logs**: [`FilterLog`](FilterLog.md)[]
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthResult.d.ts:298
-
-Logs emitted during the call execution
-
-***
-
-### returnData
-
-> **returnData**: [`Hex`](Hex.md)
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthResult.d.ts:294
-
-The return data from the call
-
-***
-
-### status
-
-> **status**: `bigint`
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthResult.d.ts:306
-
-Status of the call (1 = success, 0 = failure)
+| Property | Type | Description |
+| ------ | ------ | ------ |
+| <a id="error"></a> `error?` | [`SimulateCallError`](SimulateCallError.md) | Error information if the call failed |
+| <a id="gasused"></a> `gasUsed` | `bigint` | Gas used by the call |
+| <a id="logs"></a> `logs` | [`FilterLog`](FilterLog.md)[] | Logs emitted during the call execution |
+| <a id="returndata"></a> `returnData` | [`Hex`](Hex.md) | The return data from the call |
+| <a id="status"></a> `status` | `bigint` | Status of the call (1 = success, 0 = failure) |

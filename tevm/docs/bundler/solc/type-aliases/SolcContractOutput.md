@@ -8,84 +8,19 @@
 
 > **SolcContractOutput** = `object`
 
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:126
-
 ## Properties
 
-### abi
-
-> **abi**: [`Abi`](../../../index/type-aliases/Abi.md)
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:127
-
-***
-
-### devdoc
-
-> **devdoc**: `any`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:137
-
-***
-
-### evm
-
-> **evm**: [`SolcEVMOutput`](SolcEVMOutput.md)
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:140
-
-***
-
-### ewasm
-
-> **ewasm**: [`SolcEwasmOutput`](SolcEwasmOutput.md)
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:141
-
-***
-
-### ir
-
-> **ir**: `string`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:138
-
-***
-
-### metadata
-
-> **metadata**: `string`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:128
-
-***
-
-### storageLayout
-
-> **storageLayout**: [`SolcStorageLayout`](SolcStorageLayout.md)
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:139
-
-***
-
-### userdoc
-
-> **userdoc**: `object`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:129
-
-#### kind
-
-> **kind**: `"user"`
-
-#### methods?
-
-> `optional` **methods?**: `Record`\<`string`, \{ `notice`: `string`; \}\>
-
-#### notice?
-
-> `optional` **notice?**: `string`
-
-#### version
-
-> **version**: `number`
+| Property | Type |
+| ------ | ------ |
+| <a id="abi"></a> `abi` | [`Abi`](../../../index/type-aliases/Abi.md) |
+| <a id="devdoc"></a> `devdoc` | `any` |
+| <a id="evm"></a> `evm` | [`SolcEvmOutput`](SolcEvmOutput.md) |
+| <a id="ewasm"></a> `ewasm` | [`SolcEwasmOutput`](SolcEwasmOutput.md) |
+| <a id="ir"></a> `ir` | `string` |
+| <a id="metadata"></a> `metadata` | `string` |
+| <a id="storagelayout"></a> `storageLayout` | [`SolcStorageLayout`](SolcStorageLayout.md) |
+| <a id="userdoc"></a> `userdoc` | `object` |
+| `userdoc.kind` | `"user"` |
+| `userdoc.methods?` | `Record`\<`string`, \{ `notice`: `string`; \}\> |
+| `userdoc.notice?` | `string` |
+| `userdoc.version` | `number` |

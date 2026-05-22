@@ -8,13 +8,11 @@
 
 > **DebugGetRawReceiptsHandler** = (`params`) => `Promise`\<[`DebugGetRawReceiptsResult`](DebugGetRawReceiptsResult.md)\>
 
-Defined in: tevm-monorepo/packages/actions/types/debug/DebugHandler.d.ts:7
-
 ## Parameters
 
-### params
-
-[`DebugGetRawReceiptsParams`](DebugGetRawReceiptsParams.md)
+| Parameter | Type |
+| ------ | ------ |
+| `params` | [`DebugGetRawReceiptsParams`](DebugGetRawReceiptsParams.md) |
 
 ## Returns
 

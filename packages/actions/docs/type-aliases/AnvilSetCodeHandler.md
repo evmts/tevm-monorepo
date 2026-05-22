@@ -12,9 +12,9 @@ Defined in: [packages/actions/src/anvil/AnvilHandler.ts:70](https://github.com/e
 
 ## Parameters
 
-### params
-
-[`AnvilSetCodeParams`](AnvilSetCodeParams.md)
+| Parameter | Type |
+| ------ | ------ |
+| `params` | [`AnvilSetCodeParams`](AnvilSetCodeParams.md) |
 
 ## Returns
 

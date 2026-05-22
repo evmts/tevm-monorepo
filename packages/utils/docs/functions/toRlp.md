@@ -12,19 +12,16 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/viem@2.49.3\_bufferutil@4.1.0\_typ
 
 ## Type Parameters
 
-### to
-
-`to` *extends* `To` = `"hex"`
+| Type Parameter | Default type |
+| ------ | ------ |
+| `to` *extends* `To` | `"hex"` |
 
 ## Parameters
 
-### bytes
-
-`RecursiveArray`\<`ByteArray`\> \| `RecursiveArray`\<`` `0x${string}` ``\>
-
-### to?
-
-`to` \| `To`
+| Parameter | Type |
+| ------ | ------ |
+| `bytes` | `RecursiveArray`\<`ByteArray`\> \| `RecursiveArray`\<`` `0x${string}` ``\> |
+| `to?` | `to` \| `To` |
 
 ## Returns
 

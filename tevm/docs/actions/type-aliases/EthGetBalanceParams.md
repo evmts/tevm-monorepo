@@ -8,22 +8,11 @@
 
 > **EthGetBalanceParams** = `object`
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthParams.d.ts:99
-
 Based on the  JSON-RPC request for `eth_getBalance` procedure
 
 ## Properties
 
-### address
-
-> **address**: [`Address`](Address.md)
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthParams.d.ts:100
-
-***
-
-### blockTag?
-
-> `optional` **blockTag?**: [`BlockParam`](../../index/type-aliases/BlockParam.md)
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthParams.d.ts:101
+| Property | Type |
+| ------ | ------ |
+| <a id="address"></a> `address` | [`Address`](Address.md) |
+| <a id="blocktag"></a> `blockTag?` | [`BlockParam`](../../index/type-aliases/BlockParam.md) |

@@ -12,17 +12,11 @@ Defined in: [packages/vm/src/actions/calculateOmmerReward.ts:1](https://github.c
 
 ## Parameters
 
-### ommerBlockNumber
-
-`bigint`
-
-### blockNumber
-
-`bigint`
-
-### minerReward
-
-`bigint`
+| Parameter | Type |
+| ------ | ------ |
+| `ommerBlockNumber` | `bigint` |
+| `blockNumber` | `bigint` |
+| `minerReward` | `bigint` |
 
 ## Returns
 

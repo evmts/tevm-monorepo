@@ -7,5 +7,3 @@
 # Type Alias: ValidateContractParamsError
 
 > **ValidateContractParamsError** = [`InvalidAbiError`](../../errors/classes/InvalidAbiError.md) \| [`InvalidAddressError`](../../errors/classes/InvalidAddressError.md) \| [`InvalidArgsError`](../../errors/classes/InvalidArgsError.md) \| [`InvalidFunctionNameError`](../../errors/classes/InvalidFunctionNameError.md) \| `ValidateBaseCallParamsError`
-
-Defined in: tevm-monorepo/packages/actions/types/Contract/validateContractParams.d.ts:2

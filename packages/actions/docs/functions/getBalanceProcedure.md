@@ -12,9 +12,9 @@ Defined in: [packages/actions/src/eth/getBalanceProcedure.js:8](https://github.c
 
 ## Parameters
 
-### baseClient
-
-`TevmNode`\<`"fork"` \| `"normal"`, \{ \}\>
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `baseClient` | `TevmNode`\<`"fork"` \| `"normal"`, \{ \}\> | - |
 
 ## Returns
 

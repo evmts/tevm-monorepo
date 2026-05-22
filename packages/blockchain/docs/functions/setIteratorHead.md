@@ -8,13 +8,13 @@
 
 > **setIteratorHead**(`baseChain`): (`tag`, `headHash`) => `Promise`\<`void`\>
 
-Defined in: [packages/blockchain/src/actions/setIteratorHead.js:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/actions/setIteratorHead.js#L7)
+Defined in: [packages/blockchain/src/actions/setIteratorHead.js:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/actions/setIteratorHead.js#L8)
 
 ## Parameters
 
-### baseChain
-
-`BaseChain`
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `baseChain` | `BaseChain` | - |
 
 ## Returns
 
@@ -25,17 +25,10 @@ When calling the iterator, the iterator will start running the first child block
 
 ### Parameters
 
-#### tag
-
-`string`
-
-The tag to save the headHash to
-
-#### headHash
-
-`Uint8Array`
-
-The head hash to save
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `tag` | `string` | The tag to save the headHash to |
+| `headHash` | `Uint8Array` | The head hash to save |
 
 ### Returns
 

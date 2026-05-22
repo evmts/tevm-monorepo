@@ -19,3 +19,16 @@
 
 - [resolveArtifacts](variables/resolveArtifacts.md)
 - [resolveArtifactsSync](variables/resolveArtifactsSync.md)
+
+## Functions
+
+- [compileFiles](functions/compileFiles.md)
+- [compileFilesWithShadow](functions/compileFilesWithShadow.md)
+- [compileSource](functions/compileSource.md)
+- [compileSources](functions/compileSources.md)
+- [compileSourcesWithShadow](functions/compileSourcesWithShadow.md)
+- [compileSourceWithShadow](functions/compileSourceWithShadow.md)
+- [createCompiler](functions/createCompiler.md)
+- [extractContractsFromAstNodes](functions/extractContractsFromAstNodes.md)
+- [extractContractsFromSolcOutput](functions/extractContractsFromSolcOutput.md)
+- [solcSourcesToAstNodes](functions/solcSourcesToAstNodes.md)

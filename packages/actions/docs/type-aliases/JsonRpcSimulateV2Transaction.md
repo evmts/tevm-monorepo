@@ -8,7 +8,7 @@
 
 > **JsonRpcSimulateV2Transaction** = [`JsonRpcSimulateTransaction`](JsonRpcSimulateTransaction.md) & `object`
 
-Defined in: [packages/actions/src/eth/EthJsonRpcRequest.ts:418](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcRequest.ts#L418)
+Defined in: [packages/actions/src/eth/EthJsonRpcRequest.ts:425](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcRequest.ts#L425)
 
 JSON-RPC transaction for simulateV2 (extends V1 with estimateGas option)
 

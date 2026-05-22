@@ -8,8 +8,6 @@
 
 > **MineResult** = \{ `blockHashes`: [`Hex`](../../index/type-aliases/Hex.md)[]; `errors?`: `undefined`; \} \| \{ `blockHashes?`: `undefined`; `errors`: [`TevmMineError`](TevmMineError.md)[]; \}
 
-Defined in: tevm-monorepo/packages/actions/types/Mine/MineResult.d.ts:6
-
 Result of Mine Method
 
 ## Union Members

@@ -12,6 +12,9 @@ Defined in: [packages/vm/src/actions/deepCopy.js:12](https://github.com/evmts/te
 
 ## Type Parameters
 
+| Type Parameter |
+| ------ |
+
 ## Returns
 
 `Promise`\<`BaseVm`\>

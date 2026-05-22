@@ -8,30 +8,12 @@
 
 > **JsonRpcBlockStateCall** = `object`
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthJsonRpcRequest.d.ts:284
-
 A block of calls for simulateV1
 
 ## Properties
 
-### blockOverrides?
-
-> `optional` **blockOverrides?**: [`JsonRpcBlockOverride`](JsonRpcBlockOverride.md)
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthJsonRpcRequest.d.ts:285
-
-***
-
-### calls?
-
-> `optional` **calls?**: [`JsonRpcSimulateTransaction`](JsonRpcSimulateTransaction.md)[]
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthJsonRpcRequest.d.ts:287
-
-***
-
-### stateOverrides?
-
-> `optional` **stateOverrides?**: [`JsonRpcStateOverride`](JsonRpcStateOverride.md)
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthJsonRpcRequest.d.ts:286
+| Property | Type |
+| ------ | ------ |
+| <a id="blockoverrides"></a> `blockOverrides?` | [`JsonRpcBlockOverride`](JsonRpcBlockOverride.md) |
+| <a id="calls"></a> `calls?` | [`JsonRpcSimulateTransaction`](JsonRpcSimulateTransaction.md)[] |
+| <a id="stateoverrides"></a> `stateOverrides?` | [`JsonRpcStateOverride`](JsonRpcStateOverride.md) |

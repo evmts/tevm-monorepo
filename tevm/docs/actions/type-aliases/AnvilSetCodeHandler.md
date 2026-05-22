@@ -8,13 +8,11 @@
 
 > **AnvilSetCodeHandler** = (`params`) => `Promise`\<[`AnvilSetCodeResult`](AnvilSetCodeResult.md)\>
 
-Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilHandler.d.ts:10
-
 ## Parameters
 
-### params
-
-[`AnvilSetCodeParams`](AnvilSetCodeParams.md)
+| Parameter | Type |
+| ------ | ------ |
+| `params` | [`AnvilSetCodeParams`](AnvilSetCodeParams.md) |
 
 ## Returns
 

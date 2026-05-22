@@ -8,15 +8,13 @@
 
 > **GetAccountJsonRpcProcedure** = (`request`) => `Promise`\<[`GetAccountJsonRpcResponse`](GetAccountJsonRpcResponse.md)\>
 
-Defined in: tevm-monorepo/packages/actions/types/GetAccount/GetAccountJsonRpcProcedure.d.ts:6
-
 GetAccount JSON-RPC tevm procedure puts an account or contract into the tevm state
 
 ## Parameters
 
-### request
-
-[`GetAccountJsonRpcRequest`](GetAccountJsonRpcRequest.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`GetAccountJsonRpcRequest`](GetAccountJsonRpcRequest.md) |
 
 ## Returns
 

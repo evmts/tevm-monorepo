@@ -8,40 +8,18 @@
 
 > **Predeploy**\<`TName`, `THumanReadableAbi`\> = `object`
 
-Defined in: tevm-monorepo/packages/predeploys/types/Predeploy.d.ts:6
-
 Type of predeploy contract for tevm
 
 ## Type Parameters
 
-### TName
-
-`TName` *extends* `string`
-
-### THumanReadableAbi
-
-`THumanReadableAbi` *extends* readonly `string`[]
+| Type Parameter |
+| ------ |
+| `TName` *extends* `string` |
+| `THumanReadableAbi` *extends* readonly `string`[] |
 
 ## Properties
 
-### contract
-
-> `readonly` **contract**: [`Contract`](Contract.md)\<`TName`, `THumanReadableAbi`, [`Address`](Address.md), [`Hex`](Hex.md), [`Hex`](Hex.md)\>
-
-Defined in: tevm-monorepo/packages/predeploys/types/Predeploy.d.ts:7
-
-***
-
-### predeploy
-
-> `readonly` **predeploy**: () => `object`
-
-Defined in: tevm-monorepo/packages/predeploys/types/Predeploy.d.ts:8
-
-#### Returns
-
-`object`
-
-##### address
-
-> **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
+| Property | Modifier | Type |
+| ------ | ------ | ------ |
+| <a id="contract"></a> `contract` | `readonly` | [`Contract`](Contract.md)\<`TName`, `THumanReadableAbi`, [`Address`](Address.md), [`Hex`](Hex.md), [`Hex`](Hex.md)\> |
+| <a id="predeploy"></a> `predeploy` | `readonly` | () => `object` |

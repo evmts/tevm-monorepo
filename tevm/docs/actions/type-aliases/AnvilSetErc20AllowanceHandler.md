@@ -8,13 +8,11 @@
 
 > **AnvilSetErc20AllowanceHandler** = (`params`) => `Promise`\<[`AnvilSetErc20AllowanceResult`](AnvilSetErc20AllowanceResult.md)\>
 
-Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilHandler.d.ts:18
-
 ## Parameters
 
-### params
-
-[`AnvilSetErc20AllowanceParams`](AnvilSetErc20AllowanceParams.md)
+| Parameter | Type |
+| ------ | ------ |
+| `params` | [`AnvilSetErc20AllowanceParams`](AnvilSetErc20AllowanceParams.md) |
 
 ## Returns
 

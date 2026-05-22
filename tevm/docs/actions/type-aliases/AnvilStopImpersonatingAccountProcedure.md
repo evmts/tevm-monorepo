@@ -8,15 +8,13 @@
 
 > **AnvilStopImpersonatingAccountProcedure** = (`request`) => `Promise`\<[`AnvilStopImpersonatingAccountJsonRpcResponse`](AnvilStopImpersonatingAccountJsonRpcResponse.md)\>
 
-Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilProcedure.d.ts:11
-
 JSON-RPC procedure for `anvil_stopImpersonatingAccount`
 
 ## Parameters
 
-### request
-
-[`AnvilStopImpersonatingAccountJsonRpcRequest`](AnvilStopImpersonatingAccountJsonRpcRequest.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`AnvilStopImpersonatingAccountJsonRpcRequest`](AnvilStopImpersonatingAccountJsonRpcRequest.md) |
 
 ## Returns
 

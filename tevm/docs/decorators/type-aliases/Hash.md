@@ -8,8 +8,6 @@
 
 > **Hash** = `` `0x${string}` ``
 
-Defined in: tevm-monorepo/packages/decorators/dist/index.d.ts:350
-
 Ethereum hash value represented as a hexadecimal string.
 Used for block hashes, transaction hashes, state roots, etc.
 

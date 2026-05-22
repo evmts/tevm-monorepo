@@ -14,20 +14,7 @@ Result of a call trace entry
 
 ## Properties
 
-### gasUsed
-
-> **gasUsed**: `bigint`
-
-Defined in: [packages/actions/src/common/FlatCallTraceResult.ts:41](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/FlatCallTraceResult.ts#L41)
-
-Gas used
-
-***
-
-### output
-
-> **output**: [`Hex`](Hex.md)
-
-Defined in: [packages/actions/src/common/FlatCallTraceResult.ts:43](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/FlatCallTraceResult.ts#L43)
-
-Output data
+| Property | Type | Description | Defined in |
+| ------ | ------ | ------ | ------ |
+| <a id="gasused"></a> `gasUsed` | `bigint` | Gas used | [packages/actions/src/common/FlatCallTraceResult.ts:41](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/FlatCallTraceResult.ts#L41) |
+| <a id="output"></a> `output` | [`Hex`](Hex.md) | Output data | [packages/actions/src/common/FlatCallTraceResult.ts:43](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/FlatCallTraceResult.ts#L43) |

@@ -8,13 +8,11 @@
 
 > **AnvilImpersonateAccountHandler** = (`params`) => `Promise`\<[`AnvilImpersonateAccountResult`](AnvilImpersonateAccountResult.md)\>
 
-Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilHandler.d.ts:3
-
 ## Parameters
 
-### params
-
-[`AnvilImpersonateAccountParams`](AnvilImpersonateAccountParams.md)
+| Parameter | Type |
+| ------ | ------ |
+| `params` | [`AnvilImpersonateAccountParams`](AnvilImpersonateAccountParams.md) |
 
 ## Returns
 

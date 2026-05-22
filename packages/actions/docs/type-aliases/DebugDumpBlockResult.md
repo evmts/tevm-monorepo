@@ -14,20 +14,7 @@ Result from `debug_dumpBlock`
 
 ## Properties
 
-### accounts
-
-> **accounts**: `Record`\<[`Hex`](Hex.md), [`DebugDumpBlockAccountState`](DebugDumpBlockAccountState.md)\>
-
-Defined in: [packages/actions/src/debug/DebugResult.ts:206](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/DebugResult.ts#L206)
-
-Accounts in the state
-
-***
-
-### root
-
-> **root**: [`Hex`](Hex.md)
-
-Defined in: [packages/actions/src/debug/DebugResult.ts:202](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/DebugResult.ts#L202)
-
-State root hash
+| Property | Type | Description | Defined in |
+| ------ | ------ | ------ | ------ |
+| <a id="accounts"></a> `accounts` | `Record`\<[`Hex`](Hex.md), [`DebugDumpBlockAccountState`](DebugDumpBlockAccountState.md)\> | Accounts in the state | [packages/actions/src/debug/DebugResult.ts:206](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/DebugResult.ts#L206) |
+| <a id="root"></a> `root` | [`Hex`](Hex.md) | State root hash | [packages/actions/src/debug/DebugResult.ts:202](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/DebugResult.ts#L202) |

@@ -8,13 +8,11 @@
 
 > **createNextApiHandler**(`client`): `NextApiHandler`\<`any`\>
 
-Defined in: tevm-monorepo/packages/server/types/adapters/createNextApiHandler.d.ts:1
-
 ## Parameters
 
-### client
-
-[`Client`](../type-aliases/Client.md)
+| Parameter | Type |
+| ------ | ------ |
+| `client` | [`Client`](../type-aliases/Client.md) |
 
 ## Returns
 

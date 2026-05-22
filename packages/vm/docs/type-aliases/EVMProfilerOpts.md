@@ -25,8 +25,6 @@ const value: EVMProfilerOpts = {
 
 ## Properties
 
-### enabled
-
-> **enabled**: `boolean`
-
-Defined in: [packages/vm/src/utils/EVMProfileOpts.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/EVMProfileOpts.ts#L14)
+| Property | Type | Defined in |
+| ------ | ------ | ------ |
+| <a id="enabled"></a> `enabled` | `boolean` | [packages/vm/src/utils/EVMProfileOpts.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/EVMProfileOpts.ts#L14) |

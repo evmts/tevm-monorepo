@@ -8,8 +8,6 @@
 
 > **SolcModelCheckerContracts** = `object`
 
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:42
-
 ## Index Signature
 
 \[`fileName`: `` `${string}.sol` ``\]: `string`[]

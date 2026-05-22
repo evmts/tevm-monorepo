@@ -12,9 +12,9 @@ Defined in: [packages/actions/src/eth/EthHandler.ts:185](https://github.com/evmt
 
 ## Parameters
 
-### request
-
-[`EthProtocolVersionParams`](EthProtocolVersionParams.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`EthProtocolVersionParams`](EthProtocolVersionParams.md) |
 
 ## Returns
 

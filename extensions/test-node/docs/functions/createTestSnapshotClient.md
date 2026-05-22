@@ -14,25 +14,17 @@ Creates a test snapshot client that automatically caches RPC responses
 
 ## Type Parameters
 
-### TCommon
-
-`TCommon` *extends* `object` & `object` & `ChainConfig`\<`ChainFormatters` \| `undefined`, `Record`\<`string`, `unknown`\> \| `undefined`\> = `object` & `object` & `ChainConfig`\<`ChainFormatters` \| `undefined`, `Record`\<`string`, `unknown`\> \| `undefined`\>
-
-### TAccountOrAddress
-
-`TAccountOrAddress` *extends* `` `0x${string}` `` \| `Account` \| `undefined` = `undefined`
-
-### TRpcSchema
-
-`TRpcSchema` *extends* `RpcSchema` \| `undefined` = \[\{ `Method`: `"web3_clientVersion"`; `Parameters?`: `undefined`; `ReturnType`: `string`; \}, \{ `Method`: `"web3_sha3"`; `Parameters`: \[`` `0x${string}` ``\]; `ReturnType`: `string`; \}, \{ `Method`: `"net_listening"`; `Parameters?`: `undefined`; `ReturnType`: `boolean`; \}, \{ `Method`: `"net_peerCount"`; `Parameters?`: `undefined`; `ReturnType`: `` `0x${string}` ``; \}, \{ `Method`: `"net_version"`; `Parameters?`: `undefined`; `ReturnType`: `` `0x${string}` ``; \}\]
+| Type Parameter | Default type |
+| ------ | ------ |
+| `TCommon` *extends* `object` & `object` & `ChainConfig`\<`ChainFormatters` \| `undefined`, `Record`\<`string`, `unknown`\> \| `undefined`\> | `object` & `object` & `ChainConfig`\<`ChainFormatters` \| `undefined`, `Record`\<`string`, `unknown`\> \| `undefined`\> |
+| `TAccountOrAddress` *extends* `` `0x${string}` `` \| `Account` \| `undefined` | `undefined` |
+| `TRpcSchema` *extends* `RpcSchema` \| `undefined` | \[\{ `Method`: `"web3_clientVersion"`; `Parameters?`: `undefined`; `ReturnType`: `string`; \}, \{ `Method`: `"web3_sha3"`; `Parameters`: \[`` `0x${string}` ``\]; `ReturnType`: `string`; \}, \{ `Method`: `"net_listening"`; `Parameters?`: `undefined`; `ReturnType`: `boolean`; \}, \{ `Method`: `"net_peerCount"`; `Parameters?`: `undefined`; `ReturnType`: `` `0x${string}` ``; \}, \{ `Method`: `"net_version"`; `Parameters?`: `undefined`; `ReturnType`: `` `0x${string}` ``; \}\] |
 
 ## Parameters
 
-### options
-
-[`TestSnapshotClientOptions`](../type-aliases/TestSnapshotClientOptions.md)\<`TCommon`, `TAccountOrAddress`, `TRpcSchema`\>
-
-Configuration options for the client
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `options` | [`TestSnapshotClientOptions`](../type-aliases/TestSnapshotClientOptions.md)\<`TCommon`, `TAccountOrAddress`, `TRpcSchema`\> | Configuration options for the client |
 
 ## Returns
 

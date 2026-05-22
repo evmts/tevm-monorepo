@@ -8,8 +8,6 @@
 
 > **fromHex**\<`to`\>(`hex`, `toOrOpts`): `FromHexReturnType`\<`to`\>
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/viem@2.49.3\_bufferutil@4.1.0\_typescript@6.0.3\_utf-8-validate@5.0.10\_zod@4.4.3/node\_modules/viem/\_types/utils/encoding/fromHex.d.ts:47
-
 Decodes a hex string into a string, number, bigint, boolean, or byte array.
 
 - Docs: https://viem.sh/docs/utilities/fromHex
@@ -17,23 +15,16 @@ Decodes a hex string into a string, number, bigint, boolean, or byte array.
 
 ## Type Parameters
 
-### to
-
-`to` *extends* `"string"` \| `"number"` \| `"bigint"` \| `"boolean"` \| `"bytes"`
+| Type Parameter |
+| ------ |
+| `to` *extends* `"string"` \| `"number"` \| `"bigint"` \| `"boolean"` \| `"bytes"` |
 
 ## Parameters
 
-### hex
-
-`` `0x${string}` ``
-
-Hex string to decode.
-
-### toOrOpts
-
-`FromHexParameters`\<`to`\>
-
-Type to convert to or options.
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `hex` | `` `0x${string}` `` | Hex string to decode. |
+| `toOrOpts` | `FromHexParameters`\<`to`\> | Type to convert to or options. |
 
 ## Returns
 

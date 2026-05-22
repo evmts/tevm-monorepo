@@ -8,13 +8,11 @@
 
 > **handleRunTxError**(`e`): [`HandleRunTxError`](../type-aliases/HandleRunTxError.md)
 
-Defined in: tevm-monorepo/packages/actions/types/Call/handleEvmError.d.ts:1
-
 ## Parameters
 
-### e
-
-`unknown`
+| Parameter | Type |
+| ------ | ------ |
+| `e` | `unknown` |
 
 ## Returns
 

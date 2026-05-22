@@ -16,14 +16,8 @@ The result of an optimistic write
 
 ## Type Parameters
 
-### TAbi
-
-`TAbi` *extends* `Abi` \| readonly `unknown`[]
-
-### TFunctionName
-
-`TFunctionName` *extends* `ContractFunctionName`\<`TAbi`\>
-
-### TChain
-
-`TChain` *extends* `Chain` \| `undefined`
+| Type Parameter |
+| ------ |
+| `TAbi` *extends* `Abi` \| readonly `unknown`[] |
+| `TFunctionName` *extends* `ContractFunctionName`\<`TAbi`\> |
+| `TChain` *extends* `Chain` \| `undefined` |

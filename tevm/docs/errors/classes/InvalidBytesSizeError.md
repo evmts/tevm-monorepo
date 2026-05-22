@@ -6,8 +6,6 @@
 
 # Class: InvalidBytesSizeError
 
-Defined in: tevm-monorepo/packages/errors/types/data/InvalidByteSizeError.d.ts:40
-
 Represents an error that occurs when the size of the bytes does not match the expected size.
 
 ## Example
@@ -44,35 +42,16 @@ try {
 
 > **new InvalidBytesSizeError**(`size`, `expectedSize`, `message?`, `args?`): `InvalidBytesSizeError`
 
-Defined in: tevm-monorepo/packages/errors/types/data/InvalidByteSizeError.d.ts:49
-
 Constructs an InvalidBytesSizeError.
 
 #### Parameters
 
-##### size
-
-`number`
-
-The actual size of the bytes.
-
-##### expectedSize
-
-`number`
-
-The expected size of the bytes.
-
-##### message?
-
-`string`
-
-Human-readable error message.
-
-##### args?
-
-[`InvalidBytesSizeErrorParameters`](../type-aliases/InvalidBytesSizeErrorParameters.md)
-
-Additional parameters for the error.
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `size` | `number` | The actual size of the bytes. |
+| `expectedSize` | `number` | The expected size of the bytes. |
+| `message?` | `string` | Human-readable error message. |
+| `args?` | [`InvalidBytesSizeErrorParameters`](../type-aliases/InvalidBytesSizeErrorParameters.md) | Additional parameters for the error. |
 
 #### Returns
 
@@ -84,209 +63,24 @@ Additional parameters for the error.
 
 ## Properties
 
-### \_tag
-
-> **\_tag**: `string`
-
-Defined in: tevm-monorepo/packages/errors/types/ethereum/BaseError.d.ts:40
-
-#### Inherited from
-
-[`InternalError`](InternalError.md).[`_tag`](InternalError.md#_tag)
-
-***
-
-### cause
-
-> **cause**: `any`
-
-Defined in: tevm-monorepo/packages/errors/types/ethereum/BaseError.d.ts:65
-
-#### Inherited from
-
-[`InternalError`](InternalError.md).[`cause`](InternalError.md#cause)
-
-***
-
-### code
-
-> **code**: `number`
-
-Defined in: tevm-monorepo/packages/errors/types/ethereum/BaseError.d.ts:64
-
-#### Inherited from
-
-[`InternalError`](InternalError.md).[`code`](InternalError.md#code)
-
-***
-
-### details
-
-> **details**: `string`
-
-Defined in: tevm-monorepo/packages/errors/types/ethereum/BaseError.d.ts:44
-
-#### Inherited from
-
-[`InternalError`](InternalError.md).[`details`](InternalError.md#details)
-
-***
-
-### docsPath
-
-> **docsPath**: `string` \| `undefined`
-
-Defined in: tevm-monorepo/packages/errors/types/ethereum/BaseError.d.ts:48
-
-#### Inherited from
-
-[`InternalError`](InternalError.md).[`docsPath`](InternalError.md#docspath)
-
-***
-
-### expectedSize
-
-> **expectedSize**: `number`
-
-Defined in: tevm-monorepo/packages/errors/types/data/InvalidByteSizeError.d.ts:59
-
-The expected size of the bytes.
-
-***
-
-### message
-
-> **message**: `string`
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/typescript@6.0.3/node\_modules/typescript/lib/lib.es5.d.ts:1075
-
-Human-readable error message.
-
-#### Inherited from
-
-[`InternalError`](InternalError.md).[`message`](InternalError.md#message)
-
-***
-
-### meta
-
-> **meta**: `object` \| `undefined`
-
-Defined in: tevm-monorepo/packages/errors/types/ethereum/InternalErrorError.d.ts:58
-
-Optional object containing additional information about the error.
-
-#### Inherited from
-
-[`InternalError`](InternalError.md).[`meta`](InternalError.md#meta)
-
-***
-
-### metaMessages
-
-> **metaMessages**: `string`[] \| `undefined`
-
-Defined in: tevm-monorepo/packages/errors/types/ethereum/BaseError.d.ts:52
-
-#### Inherited from
-
-[`InternalError`](InternalError.md).[`metaMessages`](InternalError.md#metamessages)
-
-***
-
-### name
-
-> **name**: `string`
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/typescript@6.0.3/node\_modules/typescript/lib/lib.es5.d.ts:1074
-
-The name of the error, used to discriminate errors.
-
-#### Inherited from
-
-[`InternalError`](InternalError.md).[`name`](InternalError.md#name)
-
-***
-
-### shortMessage
-
-> **shortMessage**: `string`
-
-Defined in: tevm-monorepo/packages/errors/types/ethereum/BaseError.d.ts:56
-
-#### Inherited from
-
-[`InternalError`](InternalError.md).[`shortMessage`](InternalError.md#shortmessage)
-
-***
-
-### size
-
-> **size**: `number`
-
-Defined in: tevm-monorepo/packages/errors/types/data/InvalidByteSizeError.d.ts:54
-
-The actual size of the bytes.
-
-***
-
-### stack?
-
-> `optional` **stack?**: `string`
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/typescript@6.0.3/node\_modules/typescript/lib/lib.es5.d.ts:1076
-
-#### Inherited from
-
-[`InternalError`](InternalError.md).[`stack`](InternalError.md#stack)
-
-***
-
-### version
-
-> **version**: `string`
-
-Defined in: tevm-monorepo/packages/errors/types/ethereum/BaseError.d.ts:60
-
-#### Inherited from
-
-[`InternalError`](InternalError.md).[`version`](InternalError.md#version)
-
-***
-
-### code
-
-> `static` **code**: `number`
-
-Defined in: tevm-monorepo/packages/errors/types/ethereum/InternalErrorError.d.ts:49
-
-The error code for InternalError.
-
-#### Inherited from
-
-[`InternalError`](InternalError.md).[`code`](InternalError.md#code-1)
-
-***
-
-### stackTraceLimit
-
-> `static` **stackTraceLimit**: `number`
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@types+node@25.9.0/node\_modules/@types/node/globals.d.ts:67
-
-The `Error.stackTraceLimit` property specifies the number of stack frames
-collected by a stack trace (whether generated by `new Error().stack` or
-`Error.captureStackTrace(obj)`).
-
-The default value is `10` but may be set to any valid JavaScript number. Changes
-will affect any stack trace captured _after_ the value has been changed.
-
-If set to a non-number value, or set to a negative number, stack traces will
-not capture any frames.
-
-#### Inherited from
-
-[`InternalError`](InternalError.md).[`stackTraceLimit`](InternalError.md#stacktracelimit)
+| Property | Modifier | Type | Description | Inherited from |
+| ------ | ------ | ------ | ------ | ------ |
+| <a id="_tag"></a> `_tag` | `public` | `string` | - | [`InternalError`](InternalError.md).[`_tag`](InternalError.md#_tag) |
+| <a id="cause"></a> `cause` | `public` | `any` | - | [`InternalError`](InternalError.md).[`cause`](InternalError.md#cause) |
+| <a id="code"></a> `code` | `public` | `number` | - | [`InternalError`](InternalError.md).[`code`](InternalError.md#code) |
+| <a id="details"></a> `details` | `public` | `string` | - | [`InternalError`](InternalError.md).[`details`](InternalError.md#details) |
+| <a id="docspath"></a> `docsPath` | `public` | `string` \| `undefined` | - | [`InternalError`](InternalError.md).[`docsPath`](InternalError.md#docspath) |
+| <a id="expectedsize"></a> `expectedSize` | `public` | `number` | The expected size of the bytes. | - |
+| <a id="message"></a> `message` | `public` | `string` | - | [`InternalError`](InternalError.md).[`message`](InternalError.md#message) |
+| <a id="meta"></a> `meta` | `public` | `object` \| `undefined` | - | [`InternalError`](InternalError.md).[`meta`](InternalError.md#meta) |
+| <a id="metamessages"></a> `metaMessages` | `public` | `string`[] \| `undefined` | - | [`InternalError`](InternalError.md).[`metaMessages`](InternalError.md#metamessages) |
+| <a id="name"></a> `name` | `public` | `string` | - | [`InternalError`](InternalError.md).[`name`](InternalError.md#name) |
+| <a id="shortmessage"></a> `shortMessage` | `public` | `string` | - | [`InternalError`](InternalError.md).[`shortMessage`](InternalError.md#shortmessage) |
+| <a id="size"></a> `size` | `public` | `number` | The actual size of the bytes. | - |
+| <a id="stack"></a> `stack?` | `public` | `string` | - | [`InternalError`](InternalError.md).[`stack`](InternalError.md#stack) |
+| <a id="version"></a> `version` | `public` | `string` | - | [`InternalError`](InternalError.md).[`version`](InternalError.md#version) |
+| <a id="code-1"></a> `code` | `static` | `number` | The error code for InternalError. | [`InternalError`](InternalError.md).[`code`](InternalError.md#code-1) |
+| <a id="stacktracelimit"></a> `stackTraceLimit` | `static` | `number` | The `Error.stackTraceLimit` property specifies the number of stack frames collected by a stack trace (whether generated by `new Error().stack` or `Error.captureStackTrace(obj)`). The default value is `10` but may be set to any valid JavaScript number. Changes will affect any stack trace captured _after_ the value has been changed. If set to a non-number value, or set to a negative number, stack traces will not capture any frames. | [`InternalError`](InternalError.md).[`stackTraceLimit`](InternalError.md#stacktracelimit) |
 
 ## Methods
 
@@ -294,17 +88,13 @@ not capture any frames.
 
 > **walk**(`fn?`): `unknown`
 
-Defined in: tevm-monorepo/packages/errors/types/ethereum/BaseError.d.ts:71
-
 Walks through the error chain.
 
 #### Parameters
 
-##### fn?
-
-`Function`
-
-A function to execute on each error in the chain.
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `fn?` | `Function` | A function to execute on each error in the chain. |
 
 #### Returns
 
@@ -320,9 +110,9 @@ The first error that matches the function, or the original error.
 
 ### captureStackTrace()
 
-> `static` **captureStackTrace**(`targetObject`, `constructorOpt?`): `void`
+#### Call Signature
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@types+node@25.9.0/node\_modules/@types/node/globals.d.ts:51
+> `static` **captureStackTrace**(`targetObject`, `constructorOpt?`): `void`
 
 Creates a `.stack` property on `targetObject`, which when accessed returns
 a string representing the location in the code at which
@@ -368,21 +158,81 @@ function c() {
 a();
 ```
 
-#### Parameters
+##### Parameters
 
-##### targetObject
+| Parameter | Type |
+| ------ | ------ |
+| `targetObject` | `object` |
+| `constructorOpt?` | `Function` |
 
-`object`
-
-##### constructorOpt?
-
-`Function`
-
-#### Returns
+##### Returns
 
 `void`
 
-#### Inherited from
+##### Inherited from
+
+[`InternalError`](InternalError.md).[`captureStackTrace`](InternalError.md#capturestacktrace)
+
+#### Call Signature
+
+> `static` **captureStackTrace**(`targetObject`, `constructorOpt?`): `void`
+
+Creates a `.stack` property on `targetObject`, which when accessed returns
+a string representing the location in the code at which
+`Error.captureStackTrace()` was called.
+
+```js
+const myObject = {};
+Error.captureStackTrace(myObject);
+myObject.stack;  // Similar to `new Error().stack`
+```
+
+The first line of the trace will be prefixed with
+`${myObject.name}: ${myObject.message}`.
+
+The optional `constructorOpt` argument accepts a function. If given, all frames
+above `constructorOpt`, including `constructorOpt`, will be omitted from the
+generated stack trace.
+
+The `constructorOpt` argument is useful for hiding implementation
+details of error generation from the user. For instance:
+
+```js
+function a() {
+  b();
+}
+
+function b() {
+  c();
+}
+
+function c() {
+  // Create an error without stack trace to avoid calculating the stack trace twice.
+  const { stackTraceLimit } = Error;
+  Error.stackTraceLimit = 0;
+  const error = new Error();
+  Error.stackTraceLimit = stackTraceLimit;
+
+  // Capture the stack trace above function b
+  Error.captureStackTrace(error, b); // Neither function c, nor b is included in the stack trace
+  throw error;
+}
+
+a();
+```
+
+##### Parameters
+
+| Parameter | Type |
+| ------ | ------ |
+| `targetObject` | `object` |
+| `constructorOpt?` | `Function` |
+
+##### Returns
+
+`void`
+
+##### Inherited from
 
 [`InternalError`](InternalError.md).[`captureStackTrace`](InternalError.md#capturestacktrace)
 
@@ -392,15 +242,13 @@ a();
 
 > `static` **isError**(`error`): `error is Error`
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/typescript@6.0.3/node\_modules/typescript/lib/lib.esnext.error.d.ts:21
-
 Indicates whether the argument provided is a built-in Error instance or not.
 
 #### Parameters
 
-##### error
-
-`unknown`
+| Parameter | Type |
+| ------ | ------ |
+| `error` | `unknown` |
 
 #### Returns
 
@@ -414,28 +262,48 @@ Indicates whether the argument provided is a built-in Error instance or not.
 
 ### prepareStackTrace()
 
+#### Call Signature
+
 > `static` **prepareStackTrace**(`err`, `stackTraces`): `any`
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@types+node@25.9.0/node\_modules/@types/node/globals.d.ts:55
+##### Parameters
 
-#### Parameters
+| Parameter | Type |
+| ------ | ------ |
+| `err` | `Error` |
+| `stackTraces` | `CallSite`[] |
 
-##### err
-
-`Error`
-
-##### stackTraces
-
-`CallSite`[]
-
-#### Returns
+##### Returns
 
 `any`
 
-#### See
+##### See
 
 https://v8.dev/docs/stack-trace-api#customizing-stack-traces
 
-#### Inherited from
+##### Inherited from
+
+[`InternalError`](InternalError.md).[`prepareStackTrace`](InternalError.md#preparestacktrace)
+
+#### Call Signature
+
+> `static` **prepareStackTrace**(`err`, `stackTraces`): `any`
+
+##### Parameters
+
+| Parameter | Type |
+| ------ | ------ |
+| `err` | `Error` |
+| `stackTraces` | `CallSite`[] |
+
+##### Returns
+
+`any`
+
+##### See
+
+https://v8.dev/docs/stack-trace-api#customizing-stack-traces
+
+##### Inherited from
 
 [`InternalError`](InternalError.md).[`prepareStackTrace`](InternalError.md#preparestacktrace)

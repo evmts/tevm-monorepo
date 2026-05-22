@@ -8,13 +8,11 @@
 
 > **ethGetLogsHandler**(`client`): [`EthGetLogsHandler`](../type-aliases/EthGetLogsHandler.md)
 
-Defined in: tevm-monorepo/packages/actions/types/eth/ethGetLogsHandler.d.ts:1
-
 ## Parameters
 
-### client
-
-[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{ \}\>
+| Parameter | Type |
+| ------ | ------ |
+| `client` | [`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{ \}\> |
 
 ## Returns
 

@@ -35,58 +35,8 @@ const memoryStorage: Storage = {
 
 ## Properties
 
-### getItem
-
-> **getItem**: (`key`) => `string` \| `null`
-
-Defined in: [Storage.ts:27](https://github.com/evmts/tevm-monorepo/blob/main/packages/sync-storage-persister/src/Storage.ts#L27)
-
-#### Parameters
-
-##### key
-
-`string`
-
-#### Returns
-
-`string` \| `null`
-
-***
-
-### removeItem
-
-> **removeItem**: (`key`) => `void`
-
-Defined in: [Storage.ts:29](https://github.com/evmts/tevm-monorepo/blob/main/packages/sync-storage-persister/src/Storage.ts#L29)
-
-#### Parameters
-
-##### key
-
-`string`
-
-#### Returns
-
-`void`
-
-***
-
-### setItem
-
-> **setItem**: (`key`, `value`) => `void`
-
-Defined in: [Storage.ts:28](https://github.com/evmts/tevm-monorepo/blob/main/packages/sync-storage-persister/src/Storage.ts#L28)
-
-#### Parameters
-
-##### key
-
-`string`
-
-##### value
-
-`string`
-
-#### Returns
-
-`void`
+| Property | Type | Defined in |
+| ------ | ------ | ------ |
+| <a id="getitem"></a> `getItem` | (`key`) => `string` \| `null` | [Storage.ts:27](https://github.com/evmts/tevm-monorepo/blob/main/packages/sync-storage-persister/src/Storage.ts#L27) |
+| <a id="removeitem"></a> `removeItem` | (`key`) => `void` | [Storage.ts:29](https://github.com/evmts/tevm-monorepo/blob/main/packages/sync-storage-persister/src/Storage.ts#L29) |
+| <a id="setitem"></a> `setItem` | (`key`, `value`) => `void` | [Storage.ts:28](https://github.com/evmts/tevm-monorepo/blob/main/packages/sync-storage-persister/src/Storage.ts#L28) |

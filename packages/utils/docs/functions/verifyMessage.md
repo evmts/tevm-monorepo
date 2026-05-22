@@ -8,33 +8,18 @@
 
 > **verifyMessage**(`params`): `boolean`
 
-Defined in: [tevm-monorepo/packages/utils/src/signature.js:162](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/signature.js#L162)
+Defined in: [tevm-monorepo/packages/utils/src/signature.js:163](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/signature.js#L163)
 
 Verifies a message signature
 
 ## Parameters
 
-### params
-
-The parameters
-
-#### address
-
-`` `0x${string}` ``
-
-The expected signer address
-
-#### message
-
-`string`
-
-The original message
-
-#### signature
-
-`Signature`
-
-The signature
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `params` | \{ `address`: `` `0x${string}` ``; `message`: `string`; `signature`: `Signature`; \} | The parameters |
+| `params.address` | `` `0x${string}` `` | The expected signer address |
+| `params.message` | `string` | The original message |
+| `params.signature` | `Signature` | The signature |
 
 ## Returns
 

@@ -8,13 +8,11 @@
 
 > **debugGetModifiedAccountsByHashJsonRpcProcedure**(`client`): `DebugGetModifiedAccountsByHashProcedure`
 
-Defined in: tevm-monorepo/packages/actions/types/debug/debugGetModifiedAccountsByHashProcedure.d.ts:1
-
 ## Parameters
 
-### client
-
-[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{ \}\>
+| Parameter | Type |
+| ------ | ------ |
+| `client` | [`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{ \}\> |
 
 ## Returns
 

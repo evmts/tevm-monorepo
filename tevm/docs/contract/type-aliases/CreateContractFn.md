@@ -8,58 +8,26 @@
 
 > **CreateContractFn** = \<`TName`, `TAbi`, `TAddress`, `TBytecode`, `TDeployedBytecode`, `TCode`, `THumanReadableAbi`\>(`{ name, humanReadableAbi, bytecode, deployedBytecode, code, }`) => [`Contract`](../../index/type-aliases/Contract.md)\<`TName`, `THumanReadableAbi`, `TAddress`, `TBytecode`, `TDeployedBytecode`, `TCode`\>
 
-Defined in: tevm-monorepo/packages/contract/types/CreateContractFn.d.ts:76
-
 Type of `createContract` factory function.
 Creates a tevm Contract instance from a human readable ABI or JSON ABI.
 
 ## Type Parameters
 
-### TName
-
-`TName` *extends* `string`
-
-The name of the contract
-
-### TAbi
-
-`TAbi` *extends* readonly `string`[] \| [`Abi`](../../index/type-aliases/Abi.md)
-
-The ABI type (either string[] for human readable or Abi for JSON)
-
-### TAddress
-
-`TAddress` *extends* `undefined` \| [`Address`](../../index/type-aliases/Address.md) = `undefined`
-
-The contract address type (optional)
-
-### TBytecode
-
-`TBytecode` *extends* `undefined` \| [`Hex`](../../index/type-aliases/Hex.md) = `undefined`
-
-The contract bytecode type (optional)
-
-### TDeployedBytecode
-
-`TDeployedBytecode` *extends* `undefined` \| [`Hex`](../../index/type-aliases/Hex.md) = `undefined`
-
-The deployed bytecode type (optional)
-
-### TCode
-
-`TCode` *extends* `undefined` \| [`Hex`](../../index/type-aliases/Hex.md) = `undefined`
-
-The runtime bytecode type (optional)
-
-### THumanReadableAbi
-
-`THumanReadableAbi` *extends* readonly `string`[] = `TAbi` *extends* readonly `string`[] ? `TAbi` : `TAbi` *extends* [`Abi`](../../index/type-aliases/Abi.md) ? [`FormatAbi`](../../index/type-aliases/FormatAbi.md)\<`TAbi`\> : `never`
+| Type Parameter | Default type | Description |
+| ------ | ------ | ------ |
+| `TName` *extends* `string` | - | The name of the contract |
+| `TAbi` *extends* readonly `string`[] \| [`Abi`](../../index/type-aliases/Abi.md) | - | The ABI type (either string[] for human readable or Abi for JSON) |
+| `TAddress` *extends* `undefined` \| [`Address`](../../index/type-aliases/Address.md) | `undefined` | The contract address type (optional) |
+| `TBytecode` *extends* `undefined` \| [`Hex`](../../index/type-aliases/Hex.md) | `undefined` | The contract bytecode type (optional) |
+| `TDeployedBytecode` *extends* `undefined` \| [`Hex`](../../index/type-aliases/Hex.md) | `undefined` | The deployed bytecode type (optional) |
+| `TCode` *extends* `undefined` \| [`Hex`](../../index/type-aliases/Hex.md) | `undefined` | The runtime bytecode type (optional) |
+| `THumanReadableAbi` *extends* readonly `string`[] | `TAbi` *extends* readonly `string`[] ? `TAbi` : `TAbi` *extends* [`Abi`](../../index/type-aliases/Abi.md) ? [`FormatAbi`](../../index/type-aliases/FormatAbi.md)\<`TAbi`\> : `never` | - |
 
 ## Parameters
 
-### \{ name, humanReadableAbi, bytecode, deployedBytecode, code, \}
-
-[`CreateContractParams`](../../index/type-aliases/CreateContractParams.md)\<`TName`, `TAbi`, `TAddress`, `TBytecode`, `TDeployedBytecode`, `TCode`\>
+| Parameter | Type |
+| ------ | ------ |
+| `{ name, humanReadableAbi, bytecode, deployedBytecode, code, }` | [`CreateContractParams`](../../index/type-aliases/CreateContractParams.md)\<`TName`, `TAbi`, `TAddress`, `TBytecode`, `TDeployedBytecode`, `TCode`\> |
 
 ## Returns
 

@@ -8,8 +8,6 @@
 
 > **CacheType**: `object`
 
-Defined in: zevm/npm/zevm/dist/statemanager.d.ts:2
-
 ## Type Declaration
 
 ### LRU

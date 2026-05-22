@@ -8,6 +8,6 @@
 
 > **AnvilSetBlockGasLimitJsonRpcRequest** = `JsonRpcRequest`\<`"anvil_setBlockGasLimit"`, readonly \[`Hex`\]\>
 
-Defined in: [packages/actions/src/anvil/AnvilJsonRpcRequest.ts:215](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilJsonRpcRequest.ts#L215)
+Defined in: [packages/actions/src/anvil/AnvilJsonRpcRequest.ts:219](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilJsonRpcRequest.ts#L219)
 
 JSON-RPC request for `anvil_setBlockGasLimit` method

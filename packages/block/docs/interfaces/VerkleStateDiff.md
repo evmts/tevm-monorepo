@@ -6,16 +6,16 @@
 
 # Interface: VerkleStateDiff
 
-Defined in: [packages/block/src/types.ts:135](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L135)
+Defined in: [packages/block/src/types.ts:136](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L136)
 
-Represents the state differences in a Verkle tree between two states
+Represents the state differences payload shape for a Verkle tree.
 
 Used to describe state changes between blocks in a more efficient way than
 recording the entire state. Contains a mapping of stems (path prefixes) to
 their corresponding state changes, along with proofs to verify these changes.
 
-Part of Ethereum's statelessness roadmap, enabling clients to validate blocks
-without storing the entire state.
+Tevm models this payload shape but does not execute or verify Verkle/EIP-6800
+state-witness blocks.
 
 ## Example
 
@@ -44,28 +44,7 @@ function applyStateDiff(currentState: Map<string, Hex>, diff: VerkleStateDiff): 
 
 ## Properties
 
-### stem
-
-> **stem**: `` `0x${string}` ``
-
-Defined in: [packages/block/src/types.ts:136](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L136)
-
-***
-
-### suffixDiffs
-
-> **suffixDiffs**: `object`[]
-
-Defined in: [packages/block/src/types.ts:137](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L137)
-
-#### currentValue
-
-> **currentValue**: `` `0x${string}` `` \| `null`
-
-#### newValue
-
-> **newValue**: `` `0x${string}` `` \| `null`
-
-#### suffix
-
-> **suffix**: `string` \| `number`
+| Property | Type | Defined in |
+| ------ | ------ | ------ |
+| <a id="stem"></a> `stem` | `` `0x${string}` `` | [packages/block/src/types.ts:137](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L137) |
+| <a id="suffixdiffs"></a> `suffixDiffs` | `object`[] | [packages/block/src/types.ts:138](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L138) |

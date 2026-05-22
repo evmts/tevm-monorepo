@@ -8,13 +8,11 @@
 
 > **AnvilSetChainIdHandler** = (`params`) => `Promise`\<[`AnvilSetChainIdResult`](AnvilSetChainIdResult.md)\>
 
-Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilHandler.d.ts:13
-
 ## Parameters
 
-### params
-
-[`AnvilSetChainIdParams`](AnvilSetChainIdParams.md)
+| Parameter | Type |
+| ------ | ------ |
+| `params` | [`AnvilSetChainIdParams`](AnvilSetChainIdParams.md) |
 
 ## Returns
 

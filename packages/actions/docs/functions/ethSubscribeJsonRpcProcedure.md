@@ -15,9 +15,9 @@ Creates a subscription for various Ethereum events.
 
 ## Parameters
 
-### tevmNode
-
-`TevmNode`\<`"fork"` \| `"normal"`, \{ \}\>
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `tevmNode` | `TevmNode`\<`"fork"` \| `"normal"`, \{ \}\> | - |
 
 ## Returns
 

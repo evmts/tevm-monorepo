@@ -14,8 +14,6 @@ Based on the JSON-RPC request for `eth_getLogs` procedure
 
 ## Properties
 
-### filterParams
-
-> `readonly` **filterParams**: [`FilterParams`](FilterParams.md)
-
-Defined in: [packages/actions/src/eth/EthParams.ts:169](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L169)
+| Property | Modifier | Type | Defined in |
+| ------ | ------ | ------ | ------ |
+| <a id="filterparams"></a> `filterParams` | `readonly` | [`FilterParams`](FilterParams.md) | [packages/actions/src/eth/EthParams.ts:169](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L169) |

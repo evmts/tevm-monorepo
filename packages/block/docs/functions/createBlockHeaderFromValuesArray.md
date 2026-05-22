@@ -14,17 +14,10 @@ Creates a block header from an array of Bytes values
 
 ## Parameters
 
-### values
-
-[`BlockHeaderBytes`](../type-aliases/BlockHeaderBytes.md)
-
-The header values array
-
-### opts
-
-[`BlockOptions`](../interfaces/BlockOptions.md)
-
-Options for the block header
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `values` | [`BlockHeaderBytes`](../type-aliases/BlockHeaderBytes.md) | The header values array |
+| `opts` | [`BlockOptions`](../interfaces/BlockOptions.md) | Options for the block header |
 
 ## Returns
 

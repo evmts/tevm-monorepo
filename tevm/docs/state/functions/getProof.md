@@ -8,13 +8,11 @@
 
 > **getProof**(`baseState`): (`address`, `storageSlots?`) => `Promise`\<`Proof`\>
 
-Defined in: tevm-monorepo/packages/state/dist/index.d.ts:468
-
 ## Parameters
 
-### baseState
-
-[`BaseState`](../type-aliases/BaseState.md)
+| Parameter | Type |
+| ------ | ------ |
+| `baseState` | [`BaseState`](../type-aliases/BaseState.md) |
 
 ## Returns
 

@@ -14,9 +14,9 @@ JSON-RPC procedure for `anvil_deal`
 
 ## Parameters
 
-### request
-
-[`AnvilDealJsonRpcRequest`](AnvilDealJsonRpcRequest.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`AnvilDealJsonRpcRequest`](AnvilDealJsonRpcRequest.md) |
 
 ## Returns
 

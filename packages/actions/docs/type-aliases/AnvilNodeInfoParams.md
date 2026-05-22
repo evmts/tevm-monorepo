@@ -8,6 +8,6 @@
 
 > **AnvilNodeInfoParams** = \{ \} \| `undefined` \| `never`
 
-Defined in: [packages/actions/src/anvil/AnvilParams.ts:255](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilParams.ts#L255)
+Defined in: [packages/actions/src/anvil/AnvilParams.ts:260](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilParams.ts#L260)
 
 Params for `anvil_nodeInfo` handler

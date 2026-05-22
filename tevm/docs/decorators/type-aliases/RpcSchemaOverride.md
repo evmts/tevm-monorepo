@@ -8,8 +8,6 @@
 
 > **RpcSchemaOverride** = `Omit`\<[`RpcSchema`](RpcSchema.md)\[`number`\], `"Method"`\>
 
-Defined in: tevm-monorepo/packages/decorators/dist/index.d.ts:289
-
 Type for overriding parameters and return types of existing JSON-RPC methods.
 Used to modify or extend the behavior of standard RPC methods in a type-safe way.
 

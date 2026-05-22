@@ -8,6 +8,4 @@
 
 > **EthProtocolVersionJsonRpcResponse** = [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"eth_protocolVersion"`, [`Hex`](../../index/type-aliases/Hex.md), `string` \| `number`\>
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthJsonRpcResponse.d.ts:161
-
 JSON-RPC response for `eth_protocolVersion` procedure

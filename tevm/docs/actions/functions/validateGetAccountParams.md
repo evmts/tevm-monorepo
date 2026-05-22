@@ -8,13 +8,11 @@
 
 > **validateGetAccountParams**(`action`): [`InvalidRequestError`](../../errors/classes/InvalidRequestError.md)[]
 
-Defined in: tevm-monorepo/packages/actions/types/GetAccount/validateGetAccountParams.d.ts:1
-
 ## Parameters
 
-### action
-
-[`GetAccountParams`](../type-aliases/GetAccountParams.md)\<`boolean`\>
+| Parameter | Type |
+| ------ | ------ |
+| `action` | [`GetAccountParams`](../type-aliases/GetAccountParams.md)\<`boolean`\> |
 
 ## Returns
 

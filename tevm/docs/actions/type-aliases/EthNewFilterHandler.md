@@ -8,13 +8,11 @@
 
 > **EthNewFilterHandler** = (`request`) => `Promise`\<[`EthNewFilterResult`](EthNewFilterResult.md)\>
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthHandler.d.ts:40
-
 ## Parameters
 
-### request
-
-[`EthNewFilterParams`](EthNewFilterParams.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`EthNewFilterParams`](EthNewFilterParams.md) |
 
 ## Returns
 

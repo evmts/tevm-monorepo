@@ -8,8 +8,6 @@
 
 > **TevmDumpStateError** = [`InternalError`](../../errors/classes/InternalError.md) \| [`InvalidAddressError`](../../errors/classes/InvalidAddressError.md) \| [`InvalidParamsError`](../../errors/classes/InvalidParamsError.md)
 
-Defined in: tevm-monorepo/packages/actions/types/DumpState/TevmDumpStateError.d.ts:9
-
 Errors that can occur during the dumpState method.
 
 This type represents the possible errors that can be encountered while executing the

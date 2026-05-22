@@ -14,9 +14,9 @@ SetAccount JSON-RPC tevm procedure sets an account into the tevm state
 
 ## Parameters
 
-### request
-
-[`SetAccountJsonRpcRequest`](SetAccountJsonRpcRequest.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`SetAccountJsonRpcRequest`](SetAccountJsonRpcRequest.md) |
 
 ## Returns
 

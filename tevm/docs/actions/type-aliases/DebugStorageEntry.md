@@ -8,26 +8,11 @@
 
 > **DebugStorageEntry** = `object`
 
-Defined in: tevm-monorepo/packages/actions/types/debug/DebugResult.d.ts:147
-
 Storage entry in debug_storageRangeAt result
 
 ## Properties
 
-### key
-
-> **key**: [`Hex`](Hex.md)
-
-Defined in: tevm-monorepo/packages/actions/types/debug/DebugResult.d.ts:151
-
-Storage key
-
-***
-
-### value
-
-> **value**: [`Hex`](Hex.md)
-
-Defined in: tevm-monorepo/packages/actions/types/debug/DebugResult.d.ts:155
-
-Storage value
+| Property | Type | Description |
+| ------ | ------ | ------ |
+| <a id="key"></a> `key` | [`Hex`](Hex.md) | Storage key |
+| <a id="value"></a> `value` | [`Hex`](Hex.md) | Storage value |

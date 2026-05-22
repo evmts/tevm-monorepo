@@ -8,13 +8,11 @@
 
 > **EthGetBlockByNumberHandler** = (`request`) => `Promise`\<[`EthGetBlockByNumberResult`](EthGetBlockByNumberResult.md)\>
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthHandler.d.ts:15
-
 ## Parameters
 
-### request
-
-[`EthGetBlockByNumberParams`](EthGetBlockByNumberParams.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`EthGetBlockByNumberParams`](EthGetBlockByNumberParams.md) |
 
 ## Returns
 

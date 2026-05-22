@@ -8,8 +8,6 @@
 
 > **Vm** = `BaseVm` & `object`
 
-Defined in: tevm-monorepo/packages/vm/types/Vm.d.ts:5
-
 ## Type Declaration
 
 ### buildBlock

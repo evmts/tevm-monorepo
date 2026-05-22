@@ -12,13 +12,10 @@ Defined in: [tevm-monorepo/packages/state/src/actions/dumpStorageRange.js:7](htt
 
 ## Parameters
 
-### baseState
-
-[`BaseState`](../type-aliases/BaseState.md)
-
-### skipFetchingFromFork?
-
-`boolean`
+| Parameter | Type |
+| ------ | ------ |
+| `baseState` | [`BaseState`](../type-aliases/BaseState.md) |
+| `skipFetchingFromFork?` | `boolean` |
 
 ## Returns
 
@@ -28,17 +25,11 @@ Dumps a range of storage values
 
 ### Parameters
 
-#### address
-
-`Address`
-
-#### startKey
-
-`bigint`
-
-#### limit
-
-`number`
+| Parameter | Type |
+| ------ | ------ |
+| `address` | `Address` |
+| `startKey` | `bigint` |
+| `limit` | `number` |
 
 ### Returns
 

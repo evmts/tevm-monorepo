@@ -8,17 +8,14 @@
 
 > **tevmUnplugin**(`options`, `meta`): `UnpluginOptions`
 
-Defined in: [bundler-packages/unplugin/src/tevmUnplugin.js:37](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/unplugin/src/tevmUnplugin.js#L37)
+Defined in: [bundler-packages/unplugin/src/tevmUnplugin.js:38](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/unplugin/src/tevmUnplugin.js#L38)
 
 ## Parameters
 
-### options
-
-\{ `solc?`: `SolcVersions`; \} \| `undefined`
-
-### meta
-
-`UnpluginContextMeta`
+| Parameter | Type |
+| ------ | ------ |
+| `options` | \{ `solc?`: `SolcVersions`; \} \| `undefined` |
+| `meta` | `UnpluginContextMeta` |
 
 ## Returns
 

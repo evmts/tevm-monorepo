@@ -30,17 +30,10 @@ This is useful for:
 
 ## Parameters
 
-### from
-
-`Address`
-
-The address of the account deploying the contract
-
-### nonce
-
-`bigint`
-
-The nonce of the deploying account at the time of deployment
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `from` | `Address` | The address of the account deploying the contract |
+| `nonce` | `bigint` | The nonce of the deploying account at the time of deployment |
 
 ## Returns
 

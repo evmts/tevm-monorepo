@@ -15,17 +15,10 @@ This method returns the right transaction.
 
 ## Parameters
 
-### data
-
-`Uint8Array`\<`ArrayBufferLike`\> \| `Uint8Array`\<`ArrayBufferLike`\>[]
-
-A Uint8Array or Uint8Array[]
-
-### txOptions?
-
-[`TxOptions`](../interfaces/TxOptions.md)
-
-The transaction options
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `data` | `Uint8Array`\<`ArrayBufferLike`\> \| `Uint8Array`\<`ArrayBufferLike`\>[] | A Uint8Array or Uint8Array[] |
+| `txOptions?` | [`TxOptions`](../interfaces/TxOptions.md) | The transaction options |
 
 ## Returns
 

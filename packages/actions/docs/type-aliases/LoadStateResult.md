@@ -37,16 +37,12 @@ if (result.errors) {
 
 ## Type Parameters
 
-### ErrorType
-
-`ErrorType` = [`TevmLoadStateError`](TevmLoadStateError.md)
+| Type Parameter | Default type |
+| ------ | ------ |
+| `ErrorType` | [`TevmLoadStateError`](TevmLoadStateError.md) |
 
 ## Properties
 
-### errors?
-
-> `optional` **errors?**: `ErrorType`[]
-
-Defined in: [packages/actions/src/LoadState/LoadStateResult.ts:30](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/LoadState/LoadStateResult.ts#L30)
-
-Description of the exception, if any occurred.
+| Property | Type | Description | Defined in |
+| ------ | ------ | ------ | ------ |
+| <a id="errors"></a> `errors?` | `ErrorType`[] | Description of the exception, if any occurred. | [packages/actions/src/LoadState/LoadStateResult.ts:30](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/LoadState/LoadStateResult.ts#L30) |

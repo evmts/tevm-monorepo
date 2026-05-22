@@ -8,142 +8,26 @@
 
 > **DebugReturnType** = `object`
 
-Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/DebugReturnType.d.ts:5
-
 A mapping of `debug_*` method names to their return type
 
 ## Properties
 
-### debug\_dumpBlock
-
-> **debug\_dumpBlock**: `DebugDumpBlockJsonRpcResponse`
-
-Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/DebugReturnType.d.ts:13
-
-***
-
-### debug\_getModifiedAccountsByHash
-
-> **debug\_getModifiedAccountsByHash**: `DebugGetModifiedAccountsByHashJsonRpcResponse`
-
-Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/DebugReturnType.d.ts:15
-
-***
-
-### debug\_getModifiedAccountsByNumber
-
-> **debug\_getModifiedAccountsByNumber**: `DebugGetModifiedAccountsByNumberJsonRpcResponse`
-
-Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/DebugReturnType.d.ts:14
-
-***
-
-### debug\_getRawBlock
-
-> **debug\_getRawBlock**: `DebugGetRawBlockJsonRpcResponse`
-
-Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/DebugReturnType.d.ts:19
-
-***
-
-### debug\_getRawHeader
-
-> **debug\_getRawHeader**: `DebugGetRawHeaderJsonRpcResponse`
-
-Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/DebugReturnType.d.ts:20
-
-***
-
-### debug\_getRawReceipts
-
-> **debug\_getRawReceipts**: `DebugGetRawReceiptsJsonRpcResponse`
-
-Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/DebugReturnType.d.ts:22
-
-***
-
-### debug\_getRawTransaction
-
-> **debug\_getRawTransaction**: `DebugGetRawTransactionJsonRpcResponse`
-
-Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/DebugReturnType.d.ts:21
-
-***
-
-### debug\_intermediateRoots
-
-> **debug\_intermediateRoots**: `DebugIntermediateRootsJsonRpcResponse`
-
-Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/DebugReturnType.d.ts:17
-
-***
-
-### debug\_preimage
-
-> **debug\_preimage**: `DebugPreimageJsonRpcResponse`
-
-Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/DebugReturnType.d.ts:18
-
-***
-
-### debug\_storageRangeAt
-
-> **debug\_storageRangeAt**: `DebugStorageRangeAtJsonRpcResponse`
-
-Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/DebugReturnType.d.ts:16
-
-***
-
-### debug\_traceBlock
-
-> **debug\_traceBlock**: `DebugTraceBlockJsonRpcResponse`
-
-Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/DebugReturnType.d.ts:8
-
-***
-
-### debug\_traceBlockByHash
-
-> **debug\_traceBlockByHash**: `DebugTraceBlockByHashJsonRpcResponse`
-
-Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/DebugReturnType.d.ts:10
-
-***
-
-### debug\_traceBlockByNumber
-
-> **debug\_traceBlockByNumber**: `DebugTraceBlockByNumberJsonRpcResponse`
-
-Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/DebugReturnType.d.ts:9
-
-***
-
-### debug\_traceCall
-
-> **debug\_traceCall**: `DebugTraceCallJsonRpcResponse`
-
-Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/DebugReturnType.d.ts:7
-
-***
-
-### debug\_traceChain
-
-> **debug\_traceChain**: `DebugTraceChainJsonRpcResponse`
-
-Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/DebugReturnType.d.ts:12
-
-***
-
-### debug\_traceState
-
-> **debug\_traceState**: `DebugTraceStateJsonRpcResponse`
-
-Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/DebugReturnType.d.ts:11
-
-***
-
-### debug\_traceTransaction
-
-> **debug\_traceTransaction**: `DebugTraceTransactionJsonRpcResponse`
-
-Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/DebugReturnType.d.ts:6
+| Property | Type |
+| ------ | ------ |
+| <a id="debug_dumpblock"></a> `debug_dumpBlock` | `DebugDumpBlockJsonRpcResponse` |
+| <a id="debug_getmodifiedaccountsbyhash"></a> `debug_getModifiedAccountsByHash` | `DebugGetModifiedAccountsByHashJsonRpcResponse` |
+| <a id="debug_getmodifiedaccountsbynumber"></a> `debug_getModifiedAccountsByNumber` | `DebugGetModifiedAccountsByNumberJsonRpcResponse` |
+| <a id="debug_getrawblock"></a> `debug_getRawBlock` | `DebugGetRawBlockJsonRpcResponse` |
+| <a id="debug_getrawheader"></a> `debug_getRawHeader` | `DebugGetRawHeaderJsonRpcResponse` |
+| <a id="debug_getrawreceipts"></a> `debug_getRawReceipts` | `DebugGetRawReceiptsJsonRpcResponse` |
+| <a id="debug_getrawtransaction"></a> `debug_getRawTransaction` | `DebugGetRawTransactionJsonRpcResponse` |
+| <a id="debug_intermediateroots"></a> `debug_intermediateRoots` | `DebugIntermediateRootsJsonRpcResponse` |
+| <a id="debug_preimage"></a> `debug_preimage` | `DebugPreimageJsonRpcResponse` |
+| <a id="debug_storagerangeat"></a> `debug_storageRangeAt` | `DebugStorageRangeAtJsonRpcResponse` |
+| <a id="debug_traceblock"></a> `debug_traceBlock` | `DebugTraceBlockJsonRpcResponse` |
+| <a id="debug_traceblockbyhash"></a> `debug_traceBlockByHash` | `DebugTraceBlockByHashJsonRpcResponse` |
+| <a id="debug_traceblockbynumber"></a> `debug_traceBlockByNumber` | `DebugTraceBlockByNumberJsonRpcResponse` |
+| <a id="debug_tracecall"></a> `debug_traceCall` | `DebugTraceCallJsonRpcResponse` |
+| <a id="debug_tracechain"></a> `debug_traceChain` | `DebugTraceChainJsonRpcResponse` |
+| <a id="debug_tracestate"></a> `debug_traceState` | `DebugTraceStateJsonRpcResponse` |
+| <a id="debug_tracetransaction"></a> `debug_traceTransaction` | `DebugTraceTransactionJsonRpcResponse` |

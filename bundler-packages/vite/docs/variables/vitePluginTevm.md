@@ -20,11 +20,10 @@ in a type-safe way directly in your Vite-powered applications.
 
 ## Parameters
 
-### options?
-
-#### solc?
-
-`SolcVersions`
+| Parameter | Type |
+| ------ | ------ |
+| `options?` | \{ `solc?`: `SolcVersions`; \} |
+| `options.solc?` | `SolcVersions` |
 
 ## Returns
 

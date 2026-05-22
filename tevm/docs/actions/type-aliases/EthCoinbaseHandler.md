@@ -8,13 +8,11 @@
 
 > **EthCoinbaseHandler** = (`request`) => `Promise`\<[`EthCoinbaseResult`](EthCoinbaseResult.md)\>
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthHandler.d.ts:7
-
 ## Parameters
 
-### request
-
-[`EthCoinbaseParams`](EthCoinbaseParams.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`EthCoinbaseParams`](EthCoinbaseParams.md) |
 
 ## Returns
 

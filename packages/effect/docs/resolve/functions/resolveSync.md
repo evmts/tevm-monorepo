@@ -14,13 +14,10 @@ Effect wrapper around import('node:resolve').resolveSync
 
 ## Parameters
 
-### arg0
-
-`string`
-
-### arg1
-
-`SyncOpts` & `AsyncOpts`
+| Parameter | Type |
+| ------ | ------ |
+| `arg0` | `string` |
+| `arg1` | `SyncOpts` & `AsyncOpts` |
 
 ## Returns
 

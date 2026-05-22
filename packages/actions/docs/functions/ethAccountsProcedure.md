@@ -12,9 +12,9 @@ Defined in: [packages/actions/src/eth/ethAccountsProcedure.js:7](https://github.
 
 ## Parameters
 
-### accounts
-
-readonly `Account`\<`` `0x${string}` ``\>[]
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `accounts` | readonly `Account`\<`` `0x${string}` ``\>[] | - |
 
 ## Returns
 

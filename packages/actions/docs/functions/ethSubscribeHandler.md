@@ -16,9 +16,9 @@ In Tevm, subscriptions are implemented using the same Filter infrastructure as e
 
 ## Parameters
 
-### tevmNode
-
-`TevmNode`\<`"fork"` \| `"normal"`, \{ \}\>
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `tevmNode` | `TevmNode`\<`"fork"` \| `"normal"`, \{ \}\> | - |
 
 ## Returns
 

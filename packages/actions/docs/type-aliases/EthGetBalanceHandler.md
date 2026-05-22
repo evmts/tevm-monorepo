@@ -12,9 +12,9 @@ Defined in: [packages/actions/src/eth/EthHandler.ts:121](https://github.com/evmt
 
 ## Parameters
 
-### request
-
-[`EthGetBalanceParams`](EthGetBalanceParams.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`EthGetBalanceParams`](EthGetBalanceParams.md) |
 
 ## Returns
 

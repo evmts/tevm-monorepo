@@ -8,8 +8,6 @@
 
 > **LogTopic** = [`Hex`](../../index/type-aliases/Hex.md) \| [`Hex`](../../index/type-aliases/Hex.md)[] \| `null`
 
-Defined in: tevm-monorepo/packages/decorators/dist/index.d.ts:371
-
 Event log topic for Ethereum event filtering.
 Can be a single topic, array of alternative topics, or null for wildcard matching.
 

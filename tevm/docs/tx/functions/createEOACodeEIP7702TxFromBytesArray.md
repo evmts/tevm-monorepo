@@ -15,13 +15,10 @@ accessList, authorityList, signatureYParity, signatureR, signatureS]`
 
 ## Parameters
 
-### values
-
-`EOACode7702TxValuesArray`
-
-### opts?
-
-[`TxOptions`](../interfaces/TxOptions.md)
+| Parameter | Type |
+| ------ | ------ |
+| `values` | `EOACode7702TxValuesArray` |
+| `opts?` | [`TxOptions`](../interfaces/TxOptions.md) |
 
 ## Returns
 

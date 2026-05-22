@@ -8,23 +8,14 @@
 
 > **createBlockHeaderFromRLP**(`serializedHeaderData`, `opts`): [`BlockHeader`](../classes/BlockHeader.md)
 
-Defined in: tevm-monorepo/packages/block/types/index.d.ts:67
-
 Creates a block header from a RLP-serialized header
 
 ## Parameters
 
-### serializedHeaderData
-
-`Uint8Array`
-
-The serialized header data
-
-### opts
-
-[`BlockOptions`](../interfaces/BlockOptions.md)
-
-Options for the block header
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `serializedHeaderData` | `Uint8Array` | The serialized header data |
+| `opts` | [`BlockOptions`](../interfaces/BlockOptions.md) | Options for the block header |
 
 ## Returns
 

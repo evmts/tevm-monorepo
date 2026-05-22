@@ -8,32 +8,58 @@
 
 > **TevmNode**\<`TMode`, `TExtended`\> = `object` & [`EIP1193EventEmitter`](EIP1193EventEmitter.md) & `TExtended`
 
-Defined in: tevm-monorepo/packages/node/dist/index.d.ts:358
-
 The base client used by Tevm. Add extensions to add additional functionality
 
 ## Type Declaration
 
 ### addSnapshot
 
-> `readonly` **addSnapshot**: (`stateRoot`, `state`) => `string`
+> `readonly` **addSnapshot**: (`stateRoot`, `state`, `metadata?`) => `string`
 
 Adds a new snapshot and returns its ID (hex string like "0x1")
 Used by evm_snapshot RPC method
 
 #### Parameters
 
-##### stateRoot
-
-`string`
-
-##### state
-
-[`TevmState`](TevmState.md)
+| Parameter | Type |
+| ------ | ------ |
+| `stateRoot` | `string` |
+| `state` | [`TevmState`](TevmState.md) |
+| `metadata?` | [`SnapshotMetadata`](../../node/type-aliases/SnapshotMetadata.md) |
 
 #### Returns
 
 `string`
+
+### close
+
+> `readonly` **close**: () => `void`
+
+Closes the client and stops any running interval mining.
+This should be called when the client is no longer needed to prevent resource leaks.
+
+#### Returns
+
+`void`
+
+#### Example
+
+```ts
+const client = createTevmNode({
+  miningConfig: { type: 'interval', blockTime: 5 }
+})
+
+// Use the client...
+
+// Clean up when done
+client.close()
+```
+
+### consensus
+
+> `readonly` **consensus**: `ConsensusService`
+
+Consensus service used for trust assumptions and proof-backed reads.
 
 ### debug?
 
@@ -66,13 +92,27 @@ This is needed because reverting invalidates all subsequent snapshots
 
 #### Parameters
 
-##### snapshotId
-
-`string`
+| Parameter | Type |
+| ------ | ------ |
+| `snapshotId` | `string` |
 
 #### Returns
 
 `void`
+
+### emitExExEvent
+
+> `readonly` **emitExExEvent**: (`event`) => `Promise`\<`void`\>
+
+#### Parameters
+
+| Parameter | Type |
+| ------ | ------ |
+| `event` | [`ExExEvent`](../../node/type-aliases/ExExEvent.md) |
+
+#### Returns
+
+`Promise`\<`void`\>
 
 ### extend
 
@@ -83,15 +123,15 @@ and extensibility
 
 #### Type Parameters
 
-##### TExtension
-
-`TExtension` *extends* `Record`\<`string`, `any`\>
+| Type Parameter |
+| ------ |
+| `TExtension` *extends* `Record`\<`string`, `any`\> |
 
 #### Parameters
 
-##### decorator
-
-(`client`) => `TExtension`
+| Parameter | Type |
+| ------ | ------ |
+| `decorator` | (`client`) => `TExtension` |
 
 #### Returns
 
@@ -102,6 +142,8 @@ and extensibility
 > `readonly` `optional` **forkTransport?**: `object`
 
 Client to make json rpc requests to a forked node
+
+#### Type Declaration
 
 #### Example
 
@@ -155,6 +197,14 @@ The currently impersonated account. This is only used in `fork` mode
 
 [`Address`](Address.md) \| `undefined`
 
+### getLightSyncStatus
+
+> `readonly` **getLightSyncStatus**: () => `Readonly`\<`LightSyncStatus`\>
+
+#### Returns
+
+`Readonly`\<`LightSyncStatus`\>
+
 ### getMinGasPrice
 
 > `readonly` **getMinGasPrice**: () => `bigint` \| `undefined`
@@ -188,6 +238,17 @@ If undefined, the parent block's gas limit will be used
 
 `bigint` \| `undefined`
 
+### getNextBlockPrevRandao
+
+> `readonly` **getNextBlockPrevRandao**: () => `bigint` \| `undefined`
+
+Gets the prevRandao to use for the next block
+If undefined, the parent block's mixHash will be used
+
+#### Returns
+
+`bigint` \| `undefined`
+
 ### getNextBlockTimestamp
 
 > `readonly` **getNextBlockTimestamp**: () => `bigint` \| `undefined`
@@ -211,30 +272,30 @@ Interface for querying receipts and historical state
 
 ### getSnapshot
 
-> `readonly` **getSnapshot**: (`snapshotId`) => \{ `state`: [`TevmState`](TevmState.md); `stateRoot`: `string`; \} \| `undefined`
+> `readonly` **getSnapshot**: (`snapshotId`) => [`TevmSnapshot`](../../node/type-aliases/TevmSnapshot.md) \| `undefined`
 
 Gets a snapshot by ID
 Used by evm_revert RPC method
 
 #### Parameters
 
-##### snapshotId
-
-`string`
+| Parameter | Type |
+| ------ | ------ |
+| `snapshotId` | `string` |
 
 #### Returns
 
-\{ `state`: [`TevmState`](TevmState.md); `stateRoot`: `string`; \} \| `undefined`
+[`TevmSnapshot`](../../node/type-aliases/TevmSnapshot.md) \| `undefined`
 
 ### getSnapshots
 
-> `readonly` **getSnapshots**: () => `Map`\<`string`, \{ `state`: [`TevmState`](TevmState.md); `stateRoot`: `string`; \}\>
+> `readonly` **getSnapshots**: () => `Map`\<`string`, [`TevmSnapshot`](../../node/type-aliases/TevmSnapshot.md)\>
 
 Gets all stored snapshots for evm_snapshot/evm_revert
 
 #### Returns
 
-`Map`\<`string`, \{ `state`: [`TevmState`](TevmState.md); `stateRoot`: `string`; \}\>
+`Map`\<`string`, [`TevmSnapshot`](../../node/type-aliases/TevmSnapshot.md)\>
 
 ### getTracesEnabled
 
@@ -320,6 +381,20 @@ const client = createMemoryClient()
 await client.ready()
 ```
 
+### registerExExHook
+
+> `readonly` **registerExExHook**: (`hook`) => () => `void`
+
+#### Parameters
+
+| Parameter | Type |
+| ------ | ------ |
+| `hook` | [`ExExHook`](../../node/type-aliases/ExExHook.md) |
+
+#### Returns
+
+() => `void`
+
 ### removeFilter
 
 > `readonly` **removeFilter**: (`id`) => `void`
@@ -328,9 +403,9 @@ Removes a filter by id
 
 #### Parameters
 
-##### id
-
-[`Hex`](Hex.md)
+| Parameter | Type |
+| ------ | ------ |
+| `id` | [`Hex`](Hex.md) |
 
 #### Returns
 
@@ -345,9 +420,9 @@ When enabled, all transactions will have their sender automatically impersonated
 
 #### Parameters
 
-##### enabled
-
-`boolean`
+| Parameter | Type |
+| ------ | ------ |
+| `enabled` | `boolean` |
 
 #### Returns
 
@@ -363,9 +438,9 @@ Pass undefined to clear the interval.
 
 #### Parameters
 
-##### interval
-
-`bigint` \| `undefined`
+| Parameter | Type |
+| ------ | ------ |
+| `interval` | `bigint` \| `undefined` |
 
 #### Returns
 
@@ -379,9 +454,9 @@ Creates a new filter to watch for logs events and blocks
 
 #### Parameters
 
-##### filter
-
-[`Filter`](Filter.md)
+| Parameter | Type |
+| ------ | ------ |
+| `filter` | [`Filter`](Filter.md) |
 
 #### Returns
 
@@ -396,9 +471,9 @@ On Ethereum JSON_RPC endpoints. Pass in undefined to stop impersonating
 
 #### Parameters
 
-##### address
-
-[`Address`](Address.md) \| `undefined`
+| Parameter | Type |
+| ------ | ------ |
+| `address` | [`Address`](Address.md) \| `undefined` |
 
 #### Returns
 
@@ -415,13 +490,42 @@ Pass undefined to clear the minimum.
 
 #### Parameters
 
-##### minGasPrice
-
-`bigint` \| `undefined`
+| Parameter | Type |
+| ------ | ------ |
+| `minGasPrice` | `bigint` \| `undefined` |
 
 #### Returns
 
 `void`
+
+### setMiningConfig
+
+> `readonly` **setMiningConfig**: (`config`) => `void`
+
+Updates the mining configuration and handles any necessary state changes.
+This method properly starts/stops interval mining as needed.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `config` | [`MiningConfig`](MiningConfig.md) | The new mining configuration |
+
+#### Returns
+
+`void`
+
+#### Example
+
+```ts
+const client = createTevmNode()
+
+// Switch to interval mining
+client.setMiningConfig({ type: 'interval', blockTime: 5 })
+
+// Switch to manual mining
+client.setMiningConfig({ type: 'manual' })
+```
 
 ### setNextBlockBaseFeePerGas
 
@@ -434,9 +538,9 @@ Pass undefined to clear the override.
 
 #### Parameters
 
-##### baseFeePerGas
-
-`bigint` \| `undefined`
+| Parameter | Type |
+| ------ | ------ |
+| `baseFeePerGas` | `bigint` \| `undefined` |
 
 #### Returns
 
@@ -453,9 +557,26 @@ Pass undefined to clear the override and use parent block's gas limit.
 
 #### Parameters
 
-##### gasLimit
+| Parameter | Type |
+| ------ | ------ |
+| `gasLimit` | `bigint` \| `undefined` |
 
-`bigint` \| `undefined`
+#### Returns
+
+`void`
+
+### setNextBlockPrevRandao
+
+> `readonly` **setNextBlockPrevRandao**: (`prevRandao`) => `void`
+
+Sets the prevRandao for the next block.
+This only affects the immediate next block, then is cleared.
+
+#### Parameters
+
+| Parameter | Type |
+| ------ | ------ |
+| `prevRandao` | `bigint` \| `undefined` |
 
 #### Returns
 
@@ -471,9 +592,9 @@ Pass undefined to clear the override and use current time.
 
 #### Parameters
 
-##### timestamp
-
-`bigint` \| `undefined`
+| Parameter | Type |
+| ------ | ------ |
+| `timestamp` | `bigint` \| `undefined` |
 
 #### Returns
 
@@ -489,9 +610,9 @@ Note: This has performance and memory overhead.
 
 #### Parameters
 
-##### enabled
-
-`boolean`
+| Parameter | Type |
+| ------ | ------ |
+| `enabled` | `boolean` |
 
 #### Returns
 
@@ -509,10 +630,7 @@ Returns status of the client
 
 ## Type Parameters
 
-### TMode
-
-`TMode` *extends* `"fork"` \| `"normal"` = `"fork"` \| `"normal"`
-
-### TExtended
-
-`TExtended` = \{ \}
+| Type Parameter | Default type |
+| ------ | ------ |
+| `TMode` *extends* `"fork"` \| `"normal"` | `"fork"` \| `"normal"` |
+| `TExtended` | `object` |

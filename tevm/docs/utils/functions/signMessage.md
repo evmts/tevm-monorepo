@@ -8,27 +8,15 @@
 
 > **signMessage**(`params`): `Promise`\<`Signature`\>
 
-Defined in: tevm-monorepo/packages/utils/types/signature.d.ts:139
-
 Signs a message with a private key
 
 ## Parameters
 
-### params
-
-The parameters
-
-#### message
-
-`string`
-
-The message to sign
-
-#### privateKey
-
-`` `0x${string}` ``
-
-The private key
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `params` | \{ `message`: `string`; `privateKey`: `` `0x${string}` ``; \} | The parameters |
+| `params.message` | `string` | The message to sign |
+| `params.privateKey` | `` `0x${string}` `` | The private key |
 
 ## Returns
 

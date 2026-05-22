@@ -8,13 +8,11 @@
 
 > **DebugStorageRangeAtHandler** = (`params`) => `Promise`\<[`DebugStorageRangeAtResult`](DebugStorageRangeAtResult.md)\>
 
-Defined in: tevm-monorepo/packages/actions/types/debug/DebugHandler.d.ts:11
-
 ## Parameters
 
-### params
-
-[`DebugStorageRangeAtParams`](DebugStorageRangeAtParams.md)
+| Parameter | Type |
+| ------ | ------ |
+| `params` | [`DebugStorageRangeAtParams`](DebugStorageRangeAtParams.md) |
 
 ## Returns
 

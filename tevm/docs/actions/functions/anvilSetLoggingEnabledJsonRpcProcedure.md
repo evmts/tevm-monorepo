@@ -8,13 +8,11 @@
 
 > **anvilSetLoggingEnabledJsonRpcProcedure**(`client`): [`AnvilSetLoggingEnabledProcedure`](../type-aliases/AnvilSetLoggingEnabledProcedure.md)
 
-Defined in: tevm-monorepo/packages/actions/types/anvil/anvilSetLoggingEnabledProcedure.d.ts:1
-
 ## Parameters
 
-### client
-
-[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{ \}\>
+| Parameter | Type |
+| ------ | ------ |
+| `client` | [`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{ \}\> |
 
 ## Returns
 

@@ -8,8 +8,6 @@
 
 > **Hex** = `` `0x${string}` ``
 
-Defined in: tevm-monorepo/packages/actions/types/common/Hex.d.ts:6
-
 A hex string
 
 ## Example

@@ -12,9 +12,9 @@ Defined in: [packages/actions/src/eth/EthProcedure.ts:179](https://github.com/ev
 
 ## Parameters
 
-### request
-
-[`EthGetUncleCountByBlockNumberJsonRpcRequest`](EthGetUncleCountByBlockNumberJsonRpcRequest.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`EthGetUncleCountByBlockNumberJsonRpcRequest`](EthGetUncleCountByBlockNumberJsonRpcRequest.md) |
 
 ## Returns
 

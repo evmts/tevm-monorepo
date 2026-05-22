@@ -8,30 +8,12 @@
 
 > **Log** = `object`
 
-Defined in: tevm-monorepo/packages/actions/types/common/Log.d.ts:6
-
 Generic log information
 
 ## Properties
 
-### address
-
-> `readonly` **address**: [`Address`](Address.md)
-
-Defined in: tevm-monorepo/packages/actions/types/common/Log.d.ts:7
-
-***
-
-### data
-
-> `readonly` **data**: [`Hex`](Hex.md)
-
-Defined in: tevm-monorepo/packages/actions/types/common/Log.d.ts:9
-
-***
-
-### topics
-
-> `readonly` **topics**: [`Hex`](Hex.md)[]
-
-Defined in: tevm-monorepo/packages/actions/types/common/Log.d.ts:8
+| Property | Modifier | Type |
+| ------ | ------ | ------ |
+| <a id="address"></a> `address` | `readonly` | [`Address`](Address.md) |
+| <a id="data"></a> `data` | `readonly` | [`Hex`](Hex.md) |
+| <a id="topics"></a> `topics` | `readonly` | [`Hex`](Hex.md)[] |

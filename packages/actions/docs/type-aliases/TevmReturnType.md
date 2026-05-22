@@ -14,50 +14,11 @@ A mapping of `tevm_*` method names to their return type
 
 ## Properties
 
-### tevm\_call
-
-> **tevm\_call**: [`CallJsonRpcResponse`](CallJsonRpcResponse.md)
-
-Defined in: [packages/actions/src/tevm-request-handler/TevmReturnType.ts:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/TevmReturnType.ts#L12)
-
-***
-
-### tevm\_dumpState
-
-> **tevm\_dumpState**: [`DumpStateJsonRpcResponse`](DumpStateJsonRpcResponse.md)
-
-Defined in: [packages/actions/src/tevm-request-handler/TevmReturnType.ts:17](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/TevmReturnType.ts#L17)
-
-***
-
-### tevm\_getAccount
-
-> **tevm\_getAccount**: [`GetAccountJsonRpcResponse`](GetAccountJsonRpcResponse.md)
-
-Defined in: [packages/actions/src/tevm-request-handler/TevmReturnType.ts:18](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/TevmReturnType.ts#L18)
-
-***
-
-### ~~tevm\_loadState~~
-
-> **tevm\_loadState**: [`LoadStateJsonRpcResponse`](LoadStateJsonRpcResponse.md)
-
-Defined in: [packages/actions/src/tevm-request-handler/TevmReturnType.ts:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/TevmReturnType.ts#L16)
-
-#### Deprecated
-
-***
-
-### tevm\_mine
-
-> **tevm\_mine**: [`MineJsonRpcResponse`](MineJsonRpcResponse.md)
-
-Defined in: [packages/actions/src/tevm-request-handler/TevmReturnType.ts:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/TevmReturnType.ts#L20)
-
-***
-
-### tevm\_setAccount
-
-> **tevm\_setAccount**: `SetAccountJsonRpcResponse`
-
-Defined in: [packages/actions/src/tevm-request-handler/TevmReturnType.ts:19](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/TevmReturnType.ts#L19)
+| Property | Type | Description | Defined in |
+| ------ | ------ | ------ | ------ |
+| <a id="tevm_call"></a> `tevm_call` | [`CallJsonRpcResponse`](CallJsonRpcResponse.md) | - | [packages/actions/src/tevm-request-handler/TevmReturnType.ts:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/TevmReturnType.ts#L12) |
+| <a id="tevm_dumpstate"></a> `tevm_dumpState` | [`DumpStateJsonRpcResponse`](DumpStateJsonRpcResponse.md) | - | [packages/actions/src/tevm-request-handler/TevmReturnType.ts:17](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/TevmReturnType.ts#L17) |
+| <a id="tevm_getaccount"></a> `tevm_getAccount` | [`GetAccountJsonRpcResponse`](GetAccountJsonRpcResponse.md) | - | [packages/actions/src/tevm-request-handler/TevmReturnType.ts:18](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/TevmReturnType.ts#L18) |
+| <a id="tevm_loadstate"></a> ~~`tevm_loadState`~~ | [`LoadStateJsonRpcResponse`](LoadStateJsonRpcResponse.md) | **Deprecated** | [packages/actions/src/tevm-request-handler/TevmReturnType.ts:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/TevmReturnType.ts#L16) |
+| <a id="tevm_mine"></a> `tevm_mine` | [`MineJsonRpcResponse`](MineJsonRpcResponse.md) | - | [packages/actions/src/tevm-request-handler/TevmReturnType.ts:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/TevmReturnType.ts#L20) |
+| <a id="tevm_setaccount"></a> `tevm_setAccount` | `SetAccountJsonRpcResponse` | - | [packages/actions/src/tevm-request-handler/TevmReturnType.ts:19](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/TevmReturnType.ts#L19) |

@@ -8,8 +8,6 @@
 
 > **EncodeEventTopicsParameters**\<`abi`, `eventName`, `hasEvents`, `allArgs`, `allErrorNames`\> = `object` & `UnionEvaluate`\<`IsNarrowable`\<`abi`, [`Abi`](../../index/type-aliases/Abi.md)\> *extends* `true` ? `abi`\[`"length"`\] *extends* `1` ? `object` : `object` : `object`\> & `hasEvents` *extends* `true` ? `unknown` : `never`
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/viem@2.49.3\_bufferutil@4.1.0\_typescript@6.0.3\_utf-8-validate@5.0.10\_zod@4.4.3/node\_modules/viem/\_types/utils/abi/encodeEventTopics.d.ts:14
-
 ## Type Declaration
 
 ### abi
@@ -22,22 +20,10 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/viem@2.49.3\_bufferutil@4.1.0\_typ
 
 ## Type Parameters
 
-### abi
-
-`abi` *extends* [`Abi`](../../index/type-aliases/Abi.md) \| readonly `unknown`[] = [`Abi`](../../index/type-aliases/Abi.md)
-
-### eventName
-
-`eventName` *extends* `ContractEventName`\<`abi`\> \| `undefined` = `ContractEventName`\<`abi`\>
-
-### hasEvents
-
-`hasEvents` = `abi` *extends* [`Abi`](../../index/type-aliases/Abi.md) ? [`Abi`](../../index/type-aliases/Abi.md) *extends* `abi` ? `true` : \[[`ExtractAbiEvents`](../../index/type-aliases/ExtractAbiEvents.md)\<`abi`\>\] *extends* \[`never`\] ? `false` : `true` : `true`
-
-### allArgs
-
-`allArgs` = `ContractEventArgs`\<`abi`, `eventName` *extends* `ContractEventName`\<`abi`\> ? `eventName` : `ContractEventName`\<`abi`\>\>
-
-### allErrorNames
-
-`allErrorNames` = `ContractEventName`\<`abi`\>
+| Type Parameter | Default type |
+| ------ | ------ |
+| `abi` *extends* [`Abi`](../../index/type-aliases/Abi.md) \| readonly `unknown`[] | [`Abi`](../../index/type-aliases/Abi.md) |
+| `eventName` *extends* `ContractEventName`\<`abi`\> \| `undefined` | `ContractEventName`\<`abi`\> |
+| `hasEvents` | `abi` *extends* [`Abi`](../../index/type-aliases/Abi.md) ? [`Abi`](../../index/type-aliases/Abi.md) *extends* `abi` ? `true` : \[[`ExtractAbiEvents`](../../index/type-aliases/ExtractAbiEvents.md)\<`abi`\>\] *extends* \[`never`\] ? `false` : `true` : `true` |
+| `allArgs` | `ContractEventArgs`\<`abi`, `eventName` *extends* `ContractEventName`\<`abi`\> ? `eventName` : `ContractEventName`\<`abi`\>\> |
+| `allErrorNames` | `ContractEventName`\<`abi`\> |

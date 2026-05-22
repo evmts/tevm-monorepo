@@ -14,17 +14,12 @@ The base parameters shared across all actions
 
 ## Type Parameters
 
-### TThrowOnFail
-
-`TThrowOnFail` *extends* `boolean` = `boolean`
+| Type Parameter | Default type |
+| ------ | ------ |
+| `TThrowOnFail` *extends* `boolean` | `boolean` |
 
 ## Properties
 
-### throwOnFail?
-
-> `readonly` `optional` **throwOnFail?**: `TThrowOnFail`
-
-Defined in: [packages/actions/src/common/BaseParams.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/BaseParams.ts#L9)
-
-Whether to throw on errors or return errors as value on the 'errors' property
-Defaults to `true`
+| Property | Modifier | Type | Description | Defined in |
+| ------ | ------ | ------ | ------ | ------ |
+| <a id="throwonfail"></a> `throwOnFail?` | `readonly` | `TThrowOnFail` | Whether to throw on errors or return errors as value on the 'errors' property Defaults to `true` | [packages/actions/src/common/BaseParams.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/BaseParams.ts#L9) |

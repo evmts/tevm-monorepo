@@ -16,13 +16,10 @@ Converts numerical wei to a string representation of gwei.
 
 ## Parameters
 
-### wei
-
-`bigint`
-
-### unit?
-
-`"wei"`
+| Parameter | Type |
+| ------ | ------ |
+| `wei` | `bigint` |
+| `unit?` | `"wei"` |
 
 ## Returns
 

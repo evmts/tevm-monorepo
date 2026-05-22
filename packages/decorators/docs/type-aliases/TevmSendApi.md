@@ -39,16 +39,7 @@ await client.sendBulk([
 
 ## Properties
 
-### send
-
-> **send**: `TevmJsonRpcRequestHandler`
-
-Defined in: [request/TevmSendApi.ts:31](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/request/TevmSendApi.ts#L31)
-
-***
-
-### sendBulk
-
-> **sendBulk**: `TevmJsonRpcBulkRequestHandler`
-
-Defined in: [request/TevmSendApi.ts:32](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/request/TevmSendApi.ts#L32)
+| Property | Type | Defined in |
+| ------ | ------ | ------ |
+| <a id="send"></a> `send` | `TevmJsonRpcRequestHandler` | [request/TevmSendApi.ts:31](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/request/TevmSendApi.ts#L31) |
+| <a id="sendbulk"></a> `sendBulk` | `TevmJsonRpcBulkRequestHandler` | [request/TevmSendApi.ts:32](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/request/TevmSendApi.ts#L32) |

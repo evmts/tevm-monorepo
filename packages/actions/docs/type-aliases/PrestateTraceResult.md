@@ -14,6 +14,6 @@ Result from `debug_*` with `prestateTracer`
 
 ## Type Parameters
 
-### TDiffMode
-
-`TDiffMode` *extends* `boolean` = `boolean`
+| Type Parameter | Default type |
+| ------ | ------ |
+| `TDiffMode` *extends* `boolean` | `boolean` |

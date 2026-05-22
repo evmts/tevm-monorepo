@@ -8,15 +8,13 @@
 
 > **SetAccountJsonRpcProcedure** = (`request`) => `Promise`\<`SetAccountJsonRpcResponse`\>
 
-Defined in: tevm-monorepo/packages/actions/types/SetAccount/SetAccountJsonRpcProcedure.d.ts:6
-
 SetAccount JSON-RPC tevm procedure sets an account into the tevm state
 
 ## Parameters
 
-### request
-
-[`SetAccountJsonRpcRequest`](SetAccountJsonRpcRequest.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`SetAccountJsonRpcRequest`](SetAccountJsonRpcRequest.md) |
 
 ## Returns
 

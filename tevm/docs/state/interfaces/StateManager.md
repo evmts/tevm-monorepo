@@ -6,171 +6,23 @@
 
 # Interface: StateManager
 
-Defined in: tevm-monorepo/packages/state/dist/index.d.ts:174
-
 ## Extends
 
-- `Omit`\<[`EvmStateManagerInterface`](../../common/interfaces/EvmStateManagerInterface.md), `"getAccount"` \| `"putAccount"` \| `"modifyAccountFields"` \| `"shallowCopy"`\>
+- `Omit`\<[`EvmStateManagerInterface`](../../common/interfaces/EvmStateManagerInterface.md), `"getAccount"` \| `"putAccount"` \| `"modifyAccountFields"` \| `"shallowCopy"` \| `"initBinaryTreeExecutionWitness"`\>
 
 ## Properties
 
-### \_baseState
-
-> **\_baseState**: [`BaseState`](../type-aliases/BaseState.md)
-
-Defined in: tevm-monorepo/packages/state/dist/index.d.ts:178
-
-The internal state representation
-
-***
-
-### checkChunkWitnessPresent?
-
-> `optional` **checkChunkWitnessPresent?**: (`contract`, `programCounter`) => `Promise`\<`boolean`\>
-
-#### Parameters
-
-##### contract
-
-`Address`
-
-##### programCounter
-
-`number`
-
-#### Returns
-
-`Promise`\<`boolean`\>
-
-#### Inherited from
-
-[`EvmStateManagerInterface`](../../common/interfaces/EvmStateManagerInterface.md).[`checkChunkWitnessPresent`](../../common/interfaces/EvmStateManagerInterface.md#checkchunkwitnesspresent)
-
-***
-
-### getAccountAddresses
-
-> **getAccountAddresses**: () => `Set`\<`` `0x${string}` ``\>
-
-Defined in: tevm-monorepo/packages/state/dist/index.d.ts:183
-
-Returns contract addresses
-
-#### Returns
-
-`Set`\<`` `0x${string}` ``\>
-
-***
-
-### getAppliedKey?
-
-> `optional` **getAppliedKey?**: (`address`) => `Uint8Array`
-
-#### Parameters
-
-##### address
-
-`Uint8Array`
-
-#### Returns
-
-`Uint8Array`
-
-#### Inherited from
-
-[`EvmStateManagerInterface`](../../common/interfaces/EvmStateManagerInterface.md).[`getAppliedKey`](../../common/interfaces/EvmStateManagerInterface.md#getappliedkey)
-
-***
-
-### initBinaryTreeExecutionWitness?
-
-> `optional` **initBinaryTreeExecutionWitness?**: (`blockNum`, `executionWitness?`) => `void`
-
-#### Parameters
-
-##### blockNum
-
-`bigint`
-
-##### executionWitness?
-
-`BinaryTreeExecutionWitness` \| `null`
-
-#### Returns
-
-`void`
-
-#### Inherited from
-
-[`EvmStateManagerInterface`](../../common/interfaces/EvmStateManagerInterface.md).[`initBinaryTreeExecutionWitness`](../../common/interfaces/EvmStateManagerInterface.md#initbinarytreeexecutionwitness)
-
-***
-
-### originalStorageCache
-
-> **originalStorageCache**: `object`
-
-#### clear()
-
-> **clear**(): `void`
-
-##### Returns
-
-`void`
-
-#### get()
-
-> **get**(`address`, `key`): `Promise`\<`Uint8Array`\<`ArrayBufferLike`\>\>
-
-##### Parameters
-
-###### address
-
-`Address`
-
-###### key
-
-`Uint8Array`
-
-##### Returns
-
-`Promise`\<`Uint8Array`\<`ArrayBufferLike`\>\>
-
-#### Inherited from
-
-[`EvmStateManagerInterface`](../../common/interfaces/EvmStateManagerInterface.md).[`originalStorageCache`](../../common/interfaces/EvmStateManagerInterface.md#originalstoragecache)
-
-***
-
-### ready
-
-> **ready**: () => `Promise`\<`true`\>
-
-Defined in: tevm-monorepo/packages/state/dist/index.d.ts:179
-
-#### Returns
-
-`Promise`\<`true`\>
-
-***
-
-### verifyBinaryTreePostState?
-
-> `optional` **verifyBinaryTreePostState?**: (`accessWitness`) => `Promise`\<`boolean`\>
-
-#### Parameters
-
-##### accessWitness
-
-`BinaryTreeAccessWitnessInterface`
-
-#### Returns
-
-`Promise`\<`boolean`\>
-
-#### Inherited from
-
-[`EvmStateManagerInterface`](../../common/interfaces/EvmStateManagerInterface.md).[`verifyBinaryTreePostState`](../../common/interfaces/EvmStateManagerInterface.md#verifybinarytreepoststate)
+| Property | Type | Description | Inherited from |
+| ------ | ------ | ------ | ------ |
+| <a id="_basestate"></a> `_baseState` | [`BaseState`](../type-aliases/BaseState.md) | The internal state representation | - |
+| <a id="checkchunkwitnesspresent"></a> `checkChunkWitnessPresent?` | (`contract`, `programCounter`) => `Promise`\<`boolean`\> | - | [`EvmStateManagerInterface`](../../common/interfaces/EvmStateManagerInterface.md).[`checkChunkWitnessPresent`](../../common/interfaces/EvmStateManagerInterface.md#checkchunkwitnesspresent) |
+| <a id="getaccountaddresses"></a> `getAccountAddresses` | () => `Set`\<`` `0x${string}` ``\> | Returns contract addresses | - |
+| <a id="getappliedkey"></a> `getAppliedKey?` | (`address`) => `Uint8Array` | - | [`EvmStateManagerInterface`](../../common/interfaces/EvmStateManagerInterface.md).[`getAppliedKey`](../../common/interfaces/EvmStateManagerInterface.md#getappliedkey) |
+| <a id="originalstoragecache"></a> `originalStorageCache` | `object` | - | [`EvmStateManagerInterface`](../../common/interfaces/EvmStateManagerInterface.md).[`originalStorageCache`](../../common/interfaces/EvmStateManagerInterface.md#originalstoragecache) |
+| `originalStorageCache.clear` | `void` | - | - |
+| `originalStorageCache.get` | `Promise`\<`Uint8Array`\<`ArrayBufferLike`\>\> | - | - |
+| <a id="ready"></a> `ready` | () => `Promise`\<`true`\> | - | - |
+| <a id="verifybinarytreepoststate"></a> `verifyBinaryTreePostState?` | (`accessWitness`) => `Promise`\<`boolean`\> | - | [`EvmStateManagerInterface`](../../common/interfaces/EvmStateManagerInterface.md).[`verifyBinaryTreePostState`](../../common/interfaces/EvmStateManagerInterface.md#verifybinarytreepoststate) |
 
 ## Methods
 
@@ -192,8 +44,6 @@ Defined in: tevm-monorepo/packages/state/dist/index.d.ts:179
 
 > **clearCaches**(): `void`
 
-Defined in: tevm-monorepo/packages/state/dist/index.d.ts:199
-
 Resets all internal caches
 
 #### Returns
@@ -210,15 +60,13 @@ Resets all internal caches
 
 > **clearContractStorage**(`address`): `Promise`\<`void`\>
 
-Defined in: tevm-monorepo/packages/state/dist/index.d.ts:220
-
 Clears all storage entries for the account
 
 #### Parameters
 
-##### address
-
-[`EthjsAddress`](../../utils/classes/EthjsAddress.md)
+| Parameter | Type |
+| ------ | ------ |
+| `address` | [`EthjsAddress`](../../utils/classes/EthjsAddress.md) |
 
 #### Returns
 
@@ -232,9 +80,9 @@ Clears all storage entries for the account
 
 #### Parameters
 
-##### address
-
-`Address`
+| Parameter | Type |
+| ------ | ------ |
+| `address` | `Address` |
 
 #### Returns
 
@@ -250,21 +98,13 @@ Clears all storage entries for the account
 
 > **commit**(`createNewStateRoot?`): `Promise`\<`void`\>
 
-Defined in: tevm-monorepo/packages/state/dist/index.d.ts:209
-
 Commits the current state.
 
 #### Parameters
 
-##### createNewStateRoot?
-
-`boolean`
-
-**`Experimental`**
-
-Whether to create a new state root
-Defaults to true.
-This api is not stable
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `createNewStateRoot?` | `boolean` | **`Experimental`** Whether to create a new state root Defaults to true. This api is not stable |
 
 #### Returns
 
@@ -280,8 +120,6 @@ This api is not stable
 
 > **deepCopy**(): `Promise`\<`StateManager`\>
 
-Defined in: tevm-monorepo/packages/state/dist/index.d.ts:190
-
 Returns a new instance of the ForkStateManager with the same opts and all storage copied over
 
 #### Returns
@@ -296,9 +134,9 @@ Returns a new instance of the ForkStateManager with the same opts and all storag
 
 #### Parameters
 
-##### address
-
-`Address`
+| Parameter | Type |
+| ------ | ------ |
+| `address` | `Address` |
 
 #### Returns
 
@@ -314,8 +152,6 @@ Returns a new instance of the ForkStateManager with the same opts and all storag
 
 > **dumpCanonicalGenesis**(): `Promise`\<[`TevmState`](../../index/type-aliases/TevmState.md)\>
 
-Defined in: tevm-monorepo/packages/state/dist/index.d.ts:195
-
 Dumps the state of the state manager as a [TevmState](../../index/type-aliases/TevmState.md)
 
 #### Returns
@@ -328,15 +164,13 @@ Dumps the state of the state manager as a [TevmState](../../index/type-aliases/T
 
 > **dumpStorage**(`address`): `Promise`\<[`StorageDump`](../../common/interfaces/StorageDump.md)\>
 
-Defined in: tevm-monorepo/packages/state/dist/index.d.ts:224
-
 Dumps storage based on the input
 
 #### Parameters
 
-##### address
-
-[`EthjsAddress`](../../utils/classes/EthjsAddress.md)
+| Parameter | Type |
+| ------ | ------ |
+| `address` | [`EthjsAddress`](../../utils/classes/EthjsAddress.md) |
 
 #### Returns
 
@@ -352,23 +186,15 @@ Dumps storage based on the input
 
 > **dumpStorageRange**(`address`, `startKey`, `limit`): `Promise`\<[`StorageRange`](../../common/interfaces/StorageRange.md)\>
 
-Defined in: tevm-monorepo/packages/state/dist/index.d.ts:228
-
 Dumps a range of storage values
 
 #### Parameters
 
-##### address
-
-[`EthjsAddress`](../../utils/classes/EthjsAddress.md)
-
-##### startKey
-
-`bigint`
-
-##### limit
-
-`number`
+| Parameter | Type |
+| ------ | ------ |
+| `address` | [`EthjsAddress`](../../utils/classes/EthjsAddress.md) |
+| `startKey` | `bigint` |
+| `limit` | `number` |
 
 #### Returns
 
@@ -384,15 +210,13 @@ Dumps a range of storage values
 
 > **generateCanonicalGenesis**(`state`): `Promise`\<`void`\>
 
-Defined in: tevm-monorepo/packages/state/dist/index.d.ts:232
-
 Loads a state from a given state root
 
 #### Parameters
 
-##### state
-
-[`TevmState`](../../index/type-aliases/TevmState.md)
+| Parameter | Type |
+| ------ | ------ |
+| `state` | [`TevmState`](../../index/type-aliases/TevmState.md) |
 
 #### Returns
 
@@ -408,13 +232,11 @@ Loads a state from a given state root
 
 > **getAccount**(`address`): `Promise`\<[`EthjsAccount`](../../utils/classes/EthjsAccount.md) \| `undefined`\>
 
-Defined in: tevm-monorepo/packages/state/dist/index.d.ts:184
-
 #### Parameters
 
-##### address
-
-[`EthjsAddress`](../../utils/classes/EthjsAddress.md)
+| Parameter | Type |
+| ------ | ------ |
+| `address` | [`EthjsAddress`](../../utils/classes/EthjsAddress.md) |
 
 #### Returns
 
@@ -428,9 +250,9 @@ Defined in: tevm-monorepo/packages/state/dist/index.d.ts:184
 
 #### Parameters
 
-##### address
-
-`Address`
+| Parameter | Type |
+| ------ | ------ |
+| `address` | `Address` |
 
 #### Returns
 
@@ -448,9 +270,9 @@ Defined in: tevm-monorepo/packages/state/dist/index.d.ts:184
 
 #### Parameters
 
-##### address
-
-`Address`
+| Parameter | Type |
+| ------ | ------ |
+| `address` | `Address` |
 
 #### Returns
 
@@ -466,23 +288,14 @@ Defined in: tevm-monorepo/packages/state/dist/index.d.ts:184
 
 > **getProof**(`address`, `storageSlots?`): `Promise`\<`Proof`\>
 
-Defined in: tevm-monorepo/packages/state/dist/index.d.ts:239
-
 Get an EIP-1186 proof from the provider
 
 #### Parameters
 
-##### address
-
-[`EthjsAddress`](../../utils/classes/EthjsAddress.md)
-
-The address to get proof for
-
-##### storageSlots?
-
-`Uint8Array`\<`ArrayBufferLike`\>[]
-
-Storage slots to include in the proof
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `address` | [`EthjsAddress`](../../utils/classes/EthjsAddress.md) | The address to get proof for |
+| `storageSlots?` | `Uint8Array`\<`ArrayBufferLike`\>[] | Storage slots to include in the proof |
 
 #### Returns
 
@@ -512,13 +325,10 @@ The account and storage proof
 
 #### Parameters
 
-##### address
-
-`Address`
-
-##### key
-
-`Uint8Array`
+| Parameter | Type |
+| ------ | ------ |
+| `address` | `Address` |
+| `key` | `Uint8Array` |
 
 #### Returns
 
@@ -536,9 +346,9 @@ The account and storage proof
 
 #### Parameters
 
-##### root
-
-`Uint8Array`
+| Parameter | Type |
+| ------ | ------ |
+| `root` | `Uint8Array` |
 
 #### Returns
 
@@ -554,17 +364,12 @@ The account and storage proof
 
 > **modifyAccountFields**(`address`, `accountFields`): `Promise`\<`void`\>
 
-Defined in: tevm-monorepo/packages/state/dist/index.d.ts:186
-
 #### Parameters
 
-##### address
-
-[`EthjsAddress`](../../utils/classes/EthjsAddress.md)
-
-##### accountFields
-
-[`AccountFields`](../../common/type-aliases/AccountFields.md)
+| Parameter | Type |
+| ------ | ------ |
+| `address` | [`EthjsAddress`](../../utils/classes/EthjsAddress.md) |
+| `accountFields` | [`AccountFields`](../../common/type-aliases/AccountFields.md) |
 
 #### Returns
 
@@ -576,17 +381,12 @@ Defined in: tevm-monorepo/packages/state/dist/index.d.ts:186
 
 > **putAccount**(`address`, `account?`): `Promise`\<`void`\>
 
-Defined in: tevm-monorepo/packages/state/dist/index.d.ts:185
-
 #### Parameters
 
-##### address
-
-[`EthjsAddress`](../../utils/classes/EthjsAddress.md)
-
-##### account?
-
-[`EthjsAccount`](../../utils/classes/EthjsAccount.md)
+| Parameter | Type |
+| ------ | ------ |
+| `address` | [`EthjsAddress`](../../utils/classes/EthjsAddress.md) |
+| `account?` | [`EthjsAccount`](../../utils/classes/EthjsAccount.md) |
 
 #### Returns
 
@@ -600,13 +400,10 @@ Defined in: tevm-monorepo/packages/state/dist/index.d.ts:185
 
 #### Parameters
 
-##### address
-
-`Address`
-
-##### value
-
-`Uint8Array`
+| Parameter | Type |
+| ------ | ------ |
+| `address` | `Address` |
+| `value` | `Uint8Array` |
 
 #### Returns
 
@@ -624,17 +421,11 @@ Defined in: tevm-monorepo/packages/state/dist/index.d.ts:185
 
 #### Parameters
 
-##### address
-
-`Address`
-
-##### key
-
-`Uint8Array`
-
-##### value
-
-`Uint8Array`
+| Parameter | Type |
+| ------ | ------ |
+| `address` | `Address` |
+| `key` | `Uint8Array` |
+| `value` | `Uint8Array` |
 
 #### Returns
 
@@ -664,8 +455,6 @@ Defined in: tevm-monorepo/packages/state/dist/index.d.ts:185
 
 > **saveStateRoot**(`root`, `state`): `void`
 
-Defined in: tevm-monorepo/packages/state/dist/index.d.ts:205
-
 **`Experimental`**
 
 Saves a state root to the state root mapping
@@ -673,13 +462,10 @@ THis API is considered unstable
 
 #### Parameters
 
-##### root
-
-`Uint8Array`
-
-##### state
-
-[`TevmState`](../../index/type-aliases/TevmState.md)
+| Parameter | Type |
+| ------ | ------ |
+| `root` | `Uint8Array` |
+| `state` | [`TevmState`](../../index/type-aliases/TevmState.md) |
 
 #### Returns
 
@@ -693,13 +479,10 @@ THis API is considered unstable
 
 #### Parameters
 
-##### stateRoot
-
-`Uint8Array`
-
-##### clearCache?
-
-`boolean`
+| Parameter | Type |
+| ------ | ------ |
+| `stateRoot` | `Uint8Array` |
+| `clearCache?` | `boolean` |
 
 #### Returns
 
@@ -714,8 +497,6 @@ THis API is considered unstable
 ### shallowCopy()
 
 > **shallowCopy**(): `StateManager`
-
-Defined in: tevm-monorepo/packages/state/dist/index.d.ts:191
 
 #### Returns
 

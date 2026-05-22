@@ -12,6 +12,6 @@ Defined in: [extensions/ethers/src/contract/ContractMethodArgs.ts:3](https://git
 
 ## Type Parameters
 
-### A
-
-`A` *extends* `ReadonlyArray`\<`any`\>
+| Type Parameter |
+| ------ |
+| `A` *extends* `ReadonlyArray`\<`any`\> |

@@ -8,38 +8,13 @@
 
 > **FilterParams** = `object`
 
-Defined in: tevm-monorepo/packages/actions/types/common/FilterParams.d.ts:7
-
 An event filter options object
 
 ## Properties
 
-### address?
-
-> `readonly` `optional` **address?**: [`Address`](../../actions/type-aliases/Address.md)
-
-Defined in: tevm-monorepo/packages/actions/types/common/FilterParams.d.ts:10
-
-***
-
-### fromBlock?
-
-> `readonly` `optional` **fromBlock?**: [`BlockParam`](BlockParam.md)
-
-Defined in: tevm-monorepo/packages/actions/types/common/FilterParams.d.ts:8
-
-***
-
-### toBlock?
-
-> `readonly` `optional` **toBlock?**: [`BlockParam`](BlockParam.md)
-
-Defined in: tevm-monorepo/packages/actions/types/common/FilterParams.d.ts:9
-
-***
-
-### topics?
-
-> `readonly` `optional` **topics?**: `ReadonlyArray`\<[`Hex`](../../actions/type-aliases/Hex.md)\> \| `ReadonlyArray`\<`ReadonlyArray`\<[`Hex`](../../actions/type-aliases/Hex.md)\>\>
-
-Defined in: tevm-monorepo/packages/actions/types/common/FilterParams.d.ts:11
+| Property | Modifier | Type |
+| ------ | ------ | ------ |
+| <a id="address"></a> `address?` | `readonly` | [`Address`](../../actions/type-aliases/Address.md) |
+| <a id="fromblock"></a> `fromBlock?` | `readonly` | [`BlockParam`](BlockParam.md) |
+| <a id="toblock"></a> `toBlock?` | `readonly` | [`BlockParam`](BlockParam.md) |
+| <a id="topics"></a> `topics?` | `readonly` | `ReadonlyArray`\<[`Hex`](../../actions/type-aliases/Hex.md)\> \| `ReadonlyArray`\<`ReadonlyArray`\<[`Hex`](../../actions/type-aliases/Hex.md)\>\> |

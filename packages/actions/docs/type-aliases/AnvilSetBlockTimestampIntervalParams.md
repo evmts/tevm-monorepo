@@ -8,16 +8,12 @@
 
 > **AnvilSetBlockTimestampIntervalParams** = `object`
 
-Defined in: [packages/actions/src/anvil/AnvilParams.ts:406](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilParams.ts#L406)
+Defined in: [packages/actions/src/anvil/AnvilParams.ts:411](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilParams.ts#L411)
 
 Params for `anvil_setBlockTimestampInterval` handler
 
 ## Properties
 
-### interval
-
-> `readonly` **interval**: `bigint`
-
-Defined in: [packages/actions/src/anvil/AnvilParams.ts:410](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilParams.ts#L410)
-
-The interval in seconds to add between blocks
+| Property | Modifier | Type | Description | Defined in |
+| ------ | ------ | ------ | ------ | ------ |
+| <a id="interval"></a> `interval` | `readonly` | `bigint` | The interval in seconds to add between blocks | [packages/actions/src/anvil/AnvilParams.ts:415](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilParams.ts#L415) |

@@ -12,15 +12,11 @@ Defined in: [packages/actions/src/eth/ethSignTransactionProcedure.js:8](https://
 
 ## Parameters
 
-### options
-
-#### accounts
-
-readonly `object`[]
-
-#### getChainId
-
-() => `Promise`\<`number`\>
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `options` | \{ `accounts`: readonly `object`[]; `getChainId`: () => `Promise`\<`number`\>; \} | - |
+| `options.accounts` | readonly `object`[] | - |
+| `options.getChainId` | () => `Promise`\<`number`\> | - |
 
 ## Returns
 

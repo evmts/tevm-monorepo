@@ -12,9 +12,9 @@ Defined in: [packages/actions/src/debug/DebugHandler.ts:58](https://github.com/e
 
 ## Parameters
 
-### params
-
-[`DebugStorageRangeAtParams`](DebugStorageRangeAtParams.md)
+| Parameter | Type |
+| ------ | ------ |
+| `params` | [`DebugStorageRangeAtParams`](DebugStorageRangeAtParams.md) |
 
 ## Returns
 

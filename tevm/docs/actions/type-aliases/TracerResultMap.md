@@ -8,52 +8,20 @@
 
 > **TracerResultMap**\<`TDiffMode`\> = `object`
 
-Defined in: tevm-monorepo/packages/actions/types/common/MuxTraceResult.d.ts:13
-
 Maps tracer type to its result type
 
 ## Type Parameters
 
-### TDiffMode
-
-`TDiffMode` *extends* `boolean` = `boolean`
+| Type Parameter | Default type |
+| ------ | ------ |
+| `TDiffMode` *extends* `boolean` | `boolean` |
 
 ## Properties
 
-### 4byteTracer
-
-> **4byteTracer**: [`FourbyteTraceResult`](FourbyteTraceResult.md)
-
-Defined in: tevm-monorepo/packages/actions/types/common/MuxTraceResult.d.ts:16
-
-***
-
-### callTracer
-
-> **callTracer**: [`CallTraceResult`](CallTraceResult.md)
-
-Defined in: tevm-monorepo/packages/actions/types/common/MuxTraceResult.d.ts:14
-
-***
-
-### default
-
-> **default**: [`TraceResult`](../../index/type-aliases/TraceResult.md)
-
-Defined in: tevm-monorepo/packages/actions/types/common/MuxTraceResult.d.ts:18
-
-***
-
-### flatCallTracer
-
-> **flatCallTracer**: [`FlatCallTraceResult`](FlatCallTraceResult.md)
-
-Defined in: tevm-monorepo/packages/actions/types/common/MuxTraceResult.d.ts:17
-
-***
-
-### prestateTracer
-
-> **prestateTracer**: [`PrestateTraceResult`](../../index/type-aliases/PrestateTraceResult.md)\<`TDiffMode`\>
-
-Defined in: tevm-monorepo/packages/actions/types/common/MuxTraceResult.d.ts:15
+| Property | Type |
+| ------ | ------ |
+| <a id="4bytetracer"></a> `4byteTracer` | [`FourbyteTraceResult`](FourbyteTraceResult.md) |
+| <a id="calltracer"></a> `callTracer` | [`CallTraceResult`](CallTraceResult.md) |
+| <a id="default"></a> `default` | [`TraceResult`](../../index/type-aliases/TraceResult.md) |
+| <a id="flatcalltracer"></a> `flatCallTracer` | [`FlatCallTraceResult`](FlatCallTraceResult.md) |
+| <a id="prestatetracer"></a> `prestateTracer` | [`PrestateTraceResult`](../../index/type-aliases/PrestateTraceResult.md)\<`TDiffMode`\> |

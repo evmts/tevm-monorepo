@@ -8,6 +8,4 @@
 
 > **EthAccountsJsonRpcRequest** = [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"eth_accounts"`, readonly \[\]\>
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthJsonRpcRequest.d.ts:42
-
 JSON-RPC request for `eth_accounts` procedure

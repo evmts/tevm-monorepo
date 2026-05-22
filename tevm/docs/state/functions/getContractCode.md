@@ -8,17 +8,12 @@
 
 > **getContractCode**(`baseState`, `skipFetchingFromFork?`): (`address`) => `Promise`\<`Uint8Array`\<`ArrayBufferLike`\>\>
 
-Defined in: tevm-monorepo/packages/state/dist/index.d.ts:456
-
 ## Parameters
 
-### baseState
-
-[`BaseState`](../type-aliases/BaseState.md)
-
-### skipFetchingFromFork?
-
-`boolean`
+| Parameter | Type |
+| ------ | ------ |
+| `baseState` | [`BaseState`](../type-aliases/BaseState.md) |
+| `skipFetchingFromFork?` | `boolean` |
 
 ## Returns
 

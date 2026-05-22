@@ -20,11 +20,10 @@ in a type-safe way directly from your JavaScript/TypeScript code.
 
 ## Parameters
 
-### options?
-
-#### solc?
-
-`SolcVersions`
+| Parameter | Type |
+| ------ | ------ |
+| `options?` | \{ `solc?`: `SolcVersions`; \} |
+| `options.solc?` | `SolcVersions` |
 
 ## Returns
 

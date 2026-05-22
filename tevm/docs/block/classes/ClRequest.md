@@ -6,8 +6,6 @@
 
 # Class: ClRequest
 
-Defined in: tevm-monorepo/packages/block/types/ClRequest.d.ts:61
-
 Base implementation of a consensus layer request.
 Used to create and serialize requests between the execution and consensus layers.
 
@@ -31,17 +29,12 @@ const serialized = instance.serialize() // Type byte followed by payload
 
 > **new ClRequest**(`type`, `bytes`): `ClRequest`
 
-Defined in: tevm-monorepo/packages/block/types/ClRequest.d.ts:64
-
 #### Parameters
 
-##### type
-
-`number`
-
-##### bytes
-
-`Uint8Array`
+| Parameter | Type |
+| ------ | ------ |
+| `type` | `number` |
+| `bytes` | `Uint8Array` |
 
 #### Returns
 
@@ -49,35 +42,16 @@ Defined in: tevm-monorepo/packages/block/types/ClRequest.d.ts:64
 
 ## Properties
 
-### bytes
-
-> **bytes**: `Uint8Array`
-
-Defined in: tevm-monorepo/packages/block/types/ClRequest.d.ts:63
-
-#### Implementation of
-
-`CLRequestType.bytes`
-
-***
-
-### type
-
-> **type**: `number`
-
-Defined in: tevm-monorepo/packages/block/types/ClRequest.d.ts:62
-
-#### Implementation of
-
-`CLRequestType.type`
+| Property | Type |
+| ------ | ------ |
+| <a id="bytes"></a> `bytes` | `Uint8Array` |
+| <a id="type"></a> `type` | `number` |
 
 ## Methods
 
 ### serialize()
 
 > **serialize**(): `Uint8Array`\<`ArrayBufferLike`\>
-
-Defined in: tevm-monorepo/packages/block/types/ClRequest.d.ts:65
 
 #### Returns
 

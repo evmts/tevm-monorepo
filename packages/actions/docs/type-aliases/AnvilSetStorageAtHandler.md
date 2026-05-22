@@ -12,9 +12,9 @@ Defined in: [packages/actions/src/anvil/AnvilHandler.ts:74](https://github.com/e
 
 ## Parameters
 
-### params
-
-[`AnvilSetStorageAtParams`](AnvilSetStorageAtParams.md)
+| Parameter | Type |
+| ------ | ------ |
+| `params` | [`AnvilSetStorageAtParams`](AnvilSetStorageAtParams.md) |
 
 ## Returns
 

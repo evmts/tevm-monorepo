@@ -8,8 +8,6 @@
 
 > **BeaconPayloadJson** = `object`
 
-Defined in: tevm-monorepo/packages/block/types/from-beacon-payload.d.ts:37
-
 Represents the JSON structure of an execution payload from the Beacon API
 
 This type uses snake_case property names as returned by the Beacon API,
@@ -42,152 +40,24 @@ async function getExecutionPayload(blockNumber: number) {
 
 ## Properties
 
-### base\_fee\_per\_gas
-
-> **base\_fee\_per\_gas**: [`Hex`](../../index/type-aliases/Hex.md)
-
-Defined in: tevm-monorepo/packages/block/types/from-beacon-payload.d.ts:49
-
-***
-
-### blob\_gas\_used?
-
-> `optional` **blob\_gas\_used?**: [`Hex`](../../index/type-aliases/Hex.md)
-
-Defined in: tevm-monorepo/packages/block/types/from-beacon-payload.d.ts:53
-
-***
-
-### block\_hash
-
-> **block\_hash**: [`Hex`](../../index/type-aliases/Hex.md)
-
-Defined in: tevm-monorepo/packages/block/types/from-beacon-payload.d.ts:50
-
-***
-
-### block\_number
-
-> **block\_number**: [`Hex`](../../index/type-aliases/Hex.md)
-
-Defined in: tevm-monorepo/packages/block/types/from-beacon-payload.d.ts:44
-
-***
-
-### excess\_blob\_gas?
-
-> `optional` **excess\_blob\_gas?**: [`Hex`](../../index/type-aliases/Hex.md)
-
-Defined in: tevm-monorepo/packages/block/types/from-beacon-payload.d.ts:54
-
-***
-
-### execution\_witness?
-
-> `optional` **execution\_witness?**: [`VerkleExecutionWitness`](../interfaces/VerkleExecutionWitness.md)
-
-Defined in: tevm-monorepo/packages/block/types/from-beacon-payload.d.ts:56
-
-***
-
-### extra\_data
-
-> **extra\_data**: [`Hex`](../../index/type-aliases/Hex.md)
-
-Defined in: tevm-monorepo/packages/block/types/from-beacon-payload.d.ts:48
-
-***
-
-### fee\_recipient
-
-> **fee\_recipient**: [`Hex`](../../index/type-aliases/Hex.md)
-
-Defined in: tevm-monorepo/packages/block/types/from-beacon-payload.d.ts:39
-
-***
-
-### gas\_limit
-
-> **gas\_limit**: [`Hex`](../../index/type-aliases/Hex.md)
-
-Defined in: tevm-monorepo/packages/block/types/from-beacon-payload.d.ts:45
-
-***
-
-### gas\_used
-
-> **gas\_used**: [`Hex`](../../index/type-aliases/Hex.md)
-
-Defined in: tevm-monorepo/packages/block/types/from-beacon-payload.d.ts:46
-
-***
-
-### logs\_bloom
-
-> **logs\_bloom**: [`Hex`](../../index/type-aliases/Hex.md)
-
-Defined in: tevm-monorepo/packages/block/types/from-beacon-payload.d.ts:42
-
-***
-
-### parent\_beacon\_block\_root?
-
-> `optional` **parent\_beacon\_block\_root?**: [`Hex`](../../index/type-aliases/Hex.md)
-
-Defined in: tevm-monorepo/packages/block/types/from-beacon-payload.d.ts:55
-
-***
-
-### parent\_hash
-
-> **parent\_hash**: [`Hex`](../../index/type-aliases/Hex.md)
-
-Defined in: tevm-monorepo/packages/block/types/from-beacon-payload.d.ts:38
-
-***
-
-### prev\_randao
-
-> **prev\_randao**: [`Hex`](../../index/type-aliases/Hex.md)
-
-Defined in: tevm-monorepo/packages/block/types/from-beacon-payload.d.ts:43
-
-***
-
-### receipts\_root
-
-> **receipts\_root**: [`Hex`](../../index/type-aliases/Hex.md)
-
-Defined in: tevm-monorepo/packages/block/types/from-beacon-payload.d.ts:41
-
-***
-
-### state\_root
-
-> **state\_root**: [`Hex`](../../index/type-aliases/Hex.md)
-
-Defined in: tevm-monorepo/packages/block/types/from-beacon-payload.d.ts:40
-
-***
-
-### timestamp
-
-> **timestamp**: [`Hex`](../../index/type-aliases/Hex.md)
-
-Defined in: tevm-monorepo/packages/block/types/from-beacon-payload.d.ts:47
-
-***
-
-### transactions
-
-> **transactions**: [`Hex`](../../index/type-aliases/Hex.md)[]
-
-Defined in: tevm-monorepo/packages/block/types/from-beacon-payload.d.ts:51
-
-***
-
-### withdrawals?
-
-> `optional` **withdrawals?**: `BeaconWithdrawal`[]
-
-Defined in: tevm-monorepo/packages/block/types/from-beacon-payload.d.ts:52
+| Property | Type |
+| ------ | ------ |
+| <a id="base_fee_per_gas"></a> `base_fee_per_gas` | [`Hex`](../../index/type-aliases/Hex.md) |
+| <a id="blob_gas_used"></a> `blob_gas_used?` | [`Hex`](../../index/type-aliases/Hex.md) |
+| <a id="block_hash"></a> `block_hash` | [`Hex`](../../index/type-aliases/Hex.md) |
+| <a id="block_number"></a> `block_number` | [`Hex`](../../index/type-aliases/Hex.md) |
+| <a id="excess_blob_gas"></a> `excess_blob_gas?` | [`Hex`](../../index/type-aliases/Hex.md) |
+| <a id="execution_witness"></a> `execution_witness?` | [`VerkleExecutionWitness`](../interfaces/VerkleExecutionWitness.md) |
+| <a id="extra_data"></a> `extra_data` | [`Hex`](../../index/type-aliases/Hex.md) |
+| <a id="fee_recipient"></a> `fee_recipient` | [`Hex`](../../index/type-aliases/Hex.md) |
+| <a id="gas_limit"></a> `gas_limit` | [`Hex`](../../index/type-aliases/Hex.md) |
+| <a id="gas_used"></a> `gas_used` | [`Hex`](../../index/type-aliases/Hex.md) |
+| <a id="logs_bloom"></a> `logs_bloom` | [`Hex`](../../index/type-aliases/Hex.md) |
+| <a id="parent_beacon_block_root"></a> `parent_beacon_block_root?` | [`Hex`](../../index/type-aliases/Hex.md) |
+| <a id="parent_hash"></a> `parent_hash` | [`Hex`](../../index/type-aliases/Hex.md) |
+| <a id="prev_randao"></a> `prev_randao` | [`Hex`](../../index/type-aliases/Hex.md) |
+| <a id="receipts_root"></a> `receipts_root` | [`Hex`](../../index/type-aliases/Hex.md) |
+| <a id="state_root"></a> `state_root` | [`Hex`](../../index/type-aliases/Hex.md) |
+| <a id="timestamp"></a> `timestamp` | [`Hex`](../../index/type-aliases/Hex.md) |
+| <a id="transactions"></a> `transactions` | [`Hex`](../../index/type-aliases/Hex.md)[] |
+| <a id="withdrawals"></a> `withdrawals?` | `BeaconWithdrawal`[] |

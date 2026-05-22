@@ -8,35 +8,11 @@
 
 ## Properties
 
-### originalStorageCache
-
-> **originalStorageCache**: `object`
-
-#### clear()
-
-> **clear**(): `void`
-
-##### Returns
-
-`void`
-
-#### get()
-
-> **get**(`address`, `key`): `Promise`\<`Uint8Array`\<`ArrayBufferLike`\>\>
-
-##### Parameters
-
-###### address
-
-`Address`
-
-###### key
-
-`Uint8Array`
-
-##### Returns
-
-`Promise`\<`Uint8Array`\<`ArrayBufferLike`\>\>
+| Property | Type |
+| ------ | ------ |
+| <a id="originalstoragecache"></a> `originalStorageCache` | `object` |
+| `originalStorageCache.clear` | `void` |
+| `originalStorageCache.get` | `Promise`\<`Uint8Array`\<`ArrayBufferLike`\>\> |
 
 ## Methods
 
@@ -46,13 +22,10 @@
 
 #### Parameters
 
-##### contract
-
-`Address`
-
-##### programCounter
-
-`number`
+| Parameter | Type |
+| ------ | ------ |
+| `contract` | `Address` |
+| `programCounter` | `number` |
 
 #### Returns
 
@@ -86,9 +59,9 @@
 
 #### Parameters
 
-##### address
-
-`Address`
+| Parameter | Type |
+| ------ | ------ |
+| `address` | `Address` |
 
 #### Returns
 
@@ -112,9 +85,9 @@
 
 #### Parameters
 
-##### address
-
-`Address`
+| Parameter | Type |
+| ------ | ------ |
+| `address` | `Address` |
 
 #### Returns
 
@@ -128,9 +101,9 @@
 
 #### Parameters
 
-##### address
-
-`Address`
+| Parameter | Type |
+| ------ | ------ |
+| `address` | `Address` |
 
 #### Returns
 
@@ -144,17 +117,11 @@
 
 #### Parameters
 
-##### address
-
-`Address`
-
-##### startKey
-
-`bigint`
-
-##### limit
-
-`number`
+| Parameter | Type |
+| ------ | ------ |
+| `address` | `Address` |
+| `startKey` | `bigint` |
+| `limit` | `number` |
 
 #### Returns
 
@@ -168,9 +135,9 @@
 
 #### Parameters
 
-##### initState
-
-`any`
+| Parameter | Type |
+| ------ | ------ |
+| `initState` | `any` |
 
 #### Returns
 
@@ -184,9 +151,9 @@
 
 #### Parameters
 
-##### address
-
-`Address`
+| Parameter | Type |
+| ------ | ------ |
+| `address` | `Address` |
 
 #### Returns
 
@@ -200,9 +167,9 @@
 
 #### Parameters
 
-##### address
-
-`Uint8Array`
+| Parameter | Type |
+| ------ | ------ |
+| `address` | `Uint8Array` |
 
 #### Returns
 
@@ -216,9 +183,9 @@
 
 #### Parameters
 
-##### address
-
-`Address`
+| Parameter | Type |
+| ------ | ------ |
+| `address` | `Address` |
 
 #### Returns
 
@@ -232,9 +199,9 @@
 
 #### Parameters
 
-##### address
-
-`Address`
+| Parameter | Type |
+| ------ | ------ |
+| `address` | `Address` |
 
 #### Returns
 
@@ -258,13 +225,10 @@
 
 #### Parameters
 
-##### address
-
-`Address`
-
-##### key
-
-`Uint8Array`
+| Parameter | Type |
+| ------ | ------ |
+| `address` | `Address` |
+| `key` | `Uint8Array` |
 
 #### Returns
 
@@ -278,9 +242,9 @@
 
 #### Parameters
 
-##### root
-
-`Uint8Array`
+| Parameter | Type |
+| ------ | ------ |
+| `root` | `Uint8Array` |
 
 #### Returns
 
@@ -294,13 +258,10 @@
 
 #### Parameters
 
-##### blockNum
-
-`bigint`
-
-##### executionWitness?
-
-`BinaryTreeExecutionWitness` \| `null`
+| Parameter | Type |
+| ------ | ------ |
+| `blockNum` | `bigint` |
+| `executionWitness?` | `BinaryTreeExecutionWitness` \| `null` |
 
 #### Returns
 
@@ -314,13 +275,10 @@
 
 #### Parameters
 
-##### address
-
-`Address`
-
-##### accountFields
-
-[`AccountFields`](../type-aliases/AccountFields.md)
+| Parameter | Type |
+| ------ | ------ |
+| `address` | `Address` |
+| `accountFields` | [`AccountFields`](../type-aliases/AccountFields.md) |
 
 #### Returns
 
@@ -334,13 +292,10 @@
 
 #### Parameters
 
-##### address
-
-`Address`
-
-##### account?
-
-`Account`
+| Parameter | Type |
+| ------ | ------ |
+| `address` | `Address` |
+| `account?` | `Account` |
 
 #### Returns
 
@@ -354,13 +309,10 @@
 
 #### Parameters
 
-##### address
-
-`Address`
-
-##### value
-
-`Uint8Array`
+| Parameter | Type |
+| ------ | ------ |
+| `address` | `Address` |
+| `value` | `Uint8Array` |
 
 #### Returns
 
@@ -374,17 +326,11 @@
 
 #### Parameters
 
-##### address
-
-`Address`
-
-##### key
-
-`Uint8Array`
-
-##### value
-
-`Uint8Array`
+| Parameter | Type |
+| ------ | ------ |
+| `address` | `Address` |
+| `key` | `Uint8Array` |
+| `value` | `Uint8Array` |
 
 #### Returns
 
@@ -408,13 +354,10 @@
 
 #### Parameters
 
-##### stateRoot
-
-`Uint8Array`
-
-##### clearCache?
-
-`boolean`
+| Parameter | Type |
+| ------ | ------ |
+| `stateRoot` | `Uint8Array` |
+| `clearCache?` | `boolean` |
 
 #### Returns
 
@@ -428,9 +371,9 @@
 
 #### Parameters
 
-##### downlevelCaches?
-
-`boolean`
+| Parameter | Type |
+| ------ | ------ |
+| `downlevelCaches?` | `boolean` |
 
 #### Returns
 
@@ -444,9 +387,9 @@
 
 #### Parameters
 
-##### accessWitness
-
-`BinaryTreeAccessWitnessInterface`
+| Parameter | Type |
+| ------ | ------ |
+| `accessWitness` | `BinaryTreeAccessWitnessInterface` |
 
 #### Returns
 

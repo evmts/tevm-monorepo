@@ -12,9 +12,9 @@ Defined in: [tevm-monorepo/packages/utils/src/index.ts:150](https://github.com/e
 
 ## Type Parameters
 
-### T
-
-`T` *extends* `Record`\<`string`, `any`\> = \{ \}
+| Type Parameter | Default type |
+| ------ | ------ |
+| `T` *extends* `Record`\<`string`, `any`\> | `object` |
 
 ## Methods
 
@@ -26,19 +26,16 @@ Defined in: [tevm-monorepo/packages/utils/src/index.ts:154](https://github.com/e
 
 #### Type Parameters
 
-##### K
-
-`K` *extends* `string` \| `number` \| `symbol`
+| Type Parameter |
+| ------ |
+| `K` *extends* `string` \| `number` \| `symbol` |
 
 #### Parameters
 
-##### event
-
-`K`
-
-##### args
-
-...`Parameters`\<`T`\[`K`\]\>
+| Parameter | Type |
+| ------ | ------ |
+| `event` | `K` |
+| ...`args` | `Parameters`\<`T`\[`K`\]\> |
 
 #### Returns
 
@@ -54,19 +51,16 @@ Defined in: [tevm-monorepo/packages/utils/src/index.ts:153](https://github.com/e
 
 #### Type Parameters
 
-##### K
-
-`K` *extends* `string` \| `number` \| `symbol`
+| Type Parameter |
+| ------ |
+| `K` *extends* `string` \| `number` \| `symbol` |
 
 #### Parameters
 
-##### event
-
-`K`
-
-##### listener
-
-`T`\[`K`\]
+| Parameter | Type |
+| ------ | ------ |
+| `event` | `K` |
+| `listener` | `T`\[`K`\] |
 
 #### Returns
 
@@ -82,19 +76,16 @@ Defined in: [tevm-monorepo/packages/utils/src/index.ts:151](https://github.com/e
 
 #### Type Parameters
 
-##### K
-
-`K` *extends* `string` \| `number` \| `symbol`
+| Type Parameter |
+| ------ |
+| `K` *extends* `string` \| `number` \| `symbol` |
 
 #### Parameters
 
-##### event
-
-`K`
-
-##### listener
-
-`T`\[`K`\]
+| Parameter | Type |
+| ------ | ------ |
+| `event` | `K` |
+| `listener` | `T`\[`K`\] |
 
 #### Returns
 
@@ -110,19 +101,16 @@ Defined in: [tevm-monorepo/packages/utils/src/index.ts:152](https://github.com/e
 
 #### Type Parameters
 
-##### K
-
-`K` *extends* `string` \| `number` \| `symbol`
+| Type Parameter |
+| ------ |
+| `K` *extends* `string` \| `number` \| `symbol` |
 
 #### Parameters
 
-##### event
-
-`K`
-
-##### listener
-
-`T`\[`K`\]
+| Parameter | Type |
+| ------ | ------ |
+| `event` | `K` |
+| `listener` | `T`\[`K`\] |
 
 #### Returns
 
@@ -138,15 +126,15 @@ Defined in: [tevm-monorepo/packages/utils/src/index.ts:155](https://github.com/e
 
 #### Type Parameters
 
-##### K
-
-`K` *extends* `string` \| `number` \| `symbol`
+| Type Parameter |
+| ------ |
+| `K` *extends* `string` \| `number` \| `symbol` |
 
 #### Parameters
 
-##### event?
-
-`K`
+| Parameter | Type |
+| ------ | ------ |
+| `event?` | `K` |
 
 #### Returns
 

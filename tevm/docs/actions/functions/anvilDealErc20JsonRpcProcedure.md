@@ -8,13 +8,11 @@
 
 > **anvilDealErc20JsonRpcProcedure**(`client`): [`AnvilDealErc20Procedure`](../type-aliases/AnvilDealErc20Procedure.md)
 
-Defined in: tevm-monorepo/packages/actions/types/anvil/anvilDealErc20Procedure.d.ts:1
-
 ## Parameters
 
-### client
-
-[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{ \}\>
+| Parameter | Type |
+| ------ | ------ |
+| `client` | [`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{ \}\> |
 
 ## Returns
 

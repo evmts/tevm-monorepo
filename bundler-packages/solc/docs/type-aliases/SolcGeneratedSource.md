@@ -8,44 +8,14 @@
 
 > **SolcGeneratedSource** = `object`
 
-Defined in: [solcTypes.ts:620](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L620)
+Defined in: [solcTypes.ts:646](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L646)
 
 ## Properties
 
-### ast
-
-> **ast**: `any`
-
-Defined in: [solcTypes.ts:622](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L622)
-
-***
-
-### contents
-
-> **contents**: `string`
-
-Defined in: [solcTypes.ts:625](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L625)
-
-***
-
-### id
-
-> **id**: `number`
-
-Defined in: [solcTypes.ts:628](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L628)
-
-***
-
-### language
-
-> **language**: `string`
-
-Defined in: [solcTypes.ts:629](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L629)
-
-***
-
-### name
-
-> **name**: `string`
-
-Defined in: [solcTypes.ts:630](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L630)
+| Property | Type | Defined in |
+| ------ | ------ | ------ |
+| <a id="ast"></a> `ast` | [`SolcAst`](SolcAst.md) | [solcTypes.ts:648](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L648) |
+| <a id="contents"></a> `contents` | `string` | [solcTypes.ts:651](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L651) |
+| <a id="id"></a> `id` | `number` | [solcTypes.ts:654](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L654) |
+| <a id="language"></a> `language` | `string` | [solcTypes.ts:655](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L655) |
+| <a id="name"></a> `name` | `string` | [solcTypes.ts:656](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L656) |

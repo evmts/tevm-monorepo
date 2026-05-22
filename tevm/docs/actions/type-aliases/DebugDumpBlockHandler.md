@@ -8,13 +8,11 @@
 
 > **DebugDumpBlockHandler** = (`params`) => `Promise`\<[`DebugDumpBlockResult`](DebugDumpBlockResult.md)\>
 
-Defined in: tevm-monorepo/packages/actions/types/debug/DebugHandler.d.ts:8
-
 ## Parameters
 
-### params
-
-[`DebugDumpBlockParams`](DebugDumpBlockParams.md)
+| Parameter | Type |
+| ------ | ------ |
+| `params` | [`DebugDumpBlockParams`](DebugDumpBlockParams.md) |
 
 ## Returns
 

@@ -19,33 +19,12 @@ bytecode for deployable contracts.
 
 ## Parameters
 
-### artifacts
-
-`Artifacts`
-
-Compiled Solidity artifacts
-  containing ABI, bytecode, and other contract information
-
-### moduleType
-
-[`ModuleType`](../type-aliases/ModuleType.md)
-
-The target module format
-  ('cjs', 'dts', 'ts', or 'mjs')
-
-### includeBytecode
-
-`boolean`
-
-Whether to include bytecode in the output,
-  true for script/deployable contracts, false for interface-only contracts
-
-### tevmPackage
-
-`"tevm/contract"` \| `"@tevm/contract"`
-
-Package name to import
-  the createContract function from
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `artifacts` | `Artifacts` | Compiled Solidity artifacts containing ABI, bytecode, and other contract information |
+| `moduleType` | [`ModuleType`](../type-aliases/ModuleType.md) | The target module format ('cjs', 'dts', 'ts', or 'mjs') |
+| `includeBytecode` | `boolean` | Whether to include bytecode in the output, true for script/deployable contracts, false for interface-only contracts |
+| `tevmPackage` | `"tevm/contract"` \| `"@tevm/contract"` | Package name to import the createContract function from |
 
 ## Returns
 

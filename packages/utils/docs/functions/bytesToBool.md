@@ -16,15 +16,10 @@ Decodes a byte array into a boolean.
 
 ## Parameters
 
-### bytes\_
-
-`ByteArray`
-
-### opts?
-
-`BytesToBoolOpts`
-
-Options.
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `bytes_` | `ByteArray` | - |
+| `opts?` | `BytesToBoolOpts` | Options. |
 
 ## Returns
 

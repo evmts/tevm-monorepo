@@ -12,9 +12,9 @@ Defined in: [packages/actions/src/eth/EthHandler.ts:119](https://github.com/evmt
 
 ## Parameters
 
-### request
-
-[`EthFeeHistoryParams`](EthFeeHistoryParams.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`EthFeeHistoryParams`](EthFeeHistoryParams.md) |
 
 ## Returns
 

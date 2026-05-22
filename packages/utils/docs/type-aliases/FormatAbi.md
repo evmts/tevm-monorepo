@@ -14,11 +14,9 @@ Parses JSON ABI into human-readable ABI
 
 ## Type Parameters
 
-### abi
-
-`abi` *extends* [`Abi`](Abi.md) \| readonly `unknown`[]
-
-ABI
+| Type Parameter | Description |
+| ------ | ------ |
+| `abi` *extends* [`Abi`](Abi.md) \| readonly `unknown`[] | ABI |
 
 ## Returns
 

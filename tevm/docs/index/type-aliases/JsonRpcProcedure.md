@@ -8,31 +8,20 @@
 
 > **JsonRpcProcedure**\<`TMethod`, `TParams`, `TResult`, `TErrorCode`\> = (`request`) => `Promise`\<[`JsonRpcResponse`](JsonRpcResponse.md)\<`TMethod`, `TResult`, `TErrorCode`\>\>
 
-Defined in: tevm-monorepo/packages/jsonrpc/types/JsonRpcProcedure.d.ts:3
-
 ## Type Parameters
 
-### TMethod
-
-`TMethod` *extends* `string`
-
-### TParams
-
-`TParams`
-
-### TResult
-
-`TResult`
-
-### TErrorCode
-
-`TErrorCode` *extends* `string` \| `number`
+| Type Parameter |
+| ------ |
+| `TMethod` *extends* `string` |
+| `TParams` |
+| `TResult` |
+| `TErrorCode` *extends* `string` \| `number` |
 
 ## Parameters
 
-### request
-
-[`JsonRpcRequest`](JsonRpcRequest.md)\<`TMethod`, `TParams`\>
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`JsonRpcRequest`](JsonRpcRequest.md)\<`TMethod`, `TParams`\> |
 
 ## Returns
 

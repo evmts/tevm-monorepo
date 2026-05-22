@@ -8,13 +8,11 @@
 
 > **ethCallHandler**(`client`): [`EthCallHandler`](../type-aliases/EthCallHandler.md)
 
-Defined in: tevm-monorepo/packages/actions/types/eth/ethCallHandler.d.ts:1
-
 ## Parameters
 
-### client
-
-[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{ \}\>
+| Parameter | Type |
+| ------ | ------ |
+| `client` | [`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{ \}\> |
 
 ## Returns
 

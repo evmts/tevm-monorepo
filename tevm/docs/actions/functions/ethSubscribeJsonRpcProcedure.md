@@ -8,13 +8,11 @@
 
 > **ethSubscribeJsonRpcProcedure**(`tevmNode`): [`EthSubscribeJsonRpcProcedure`](../type-aliases/EthSubscribeJsonRpcProcedure.md)
 
-Defined in: tevm-monorepo/packages/actions/types/eth/ethSubscribeProcedure.d.ts:1
-
 ## Parameters
 
-### tevmNode
-
-[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{ \}\>
+| Parameter | Type |
+| ------ | ------ |
+| `tevmNode` | [`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{ \}\> |
 
 ## Returns
 

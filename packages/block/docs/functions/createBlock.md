@@ -14,17 +14,10 @@ Creates a block from a block data dictionary
 
 ## Parameters
 
-### blockData
-
-[`BlockData`](../interfaces/BlockData.md)
-
-The block data
-
-### opts
-
-[`BlockOptions`](../interfaces/BlockOptions.md)
-
-Options for the block
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `blockData` | [`BlockData`](../interfaces/BlockData.md) | The block data |
+| `opts` | [`BlockOptions`](../interfaces/BlockOptions.md) | Options for the block |
 
 ## Returns
 

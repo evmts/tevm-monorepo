@@ -14,9 +14,9 @@ JSON-RPC procedure for `anvil_enableTraces`
 
 ## Parameters
 
-### request
-
-[`AnvilEnableTracesJsonRpcRequest`](AnvilEnableTracesJsonRpcRequest.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`AnvilEnableTracesJsonRpcRequest`](AnvilEnableTracesJsonRpcRequest.md) |
 
 ## Returns
 

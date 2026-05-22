@@ -8,14 +8,12 @@
 
 > **ValueOf**\<`T`\> = `T`\[keyof `T`\]
 
-Defined in: [event/EventActionCreator.ts:36](https://github.com/evmts/tevm-monorepo/blob/main/packages/contract/src/event/EventActionCreator.ts#L36)
+Defined in: [event/EventActionCreator.ts:33](https://github.com/evmts/tevm-monorepo/blob/main/packages/contract/src/event/EventActionCreator.ts#L33)
 
 Utility type to get the value type of an object.
 
 ## Type Parameters
 
-### T
-
-`T`
-
-The object type.
+| Type Parameter | Description |
+| ------ | ------ |
+| `T` | The object type. |

@@ -6,8 +6,6 @@
 
 # Interface: AfterBlockEvent
 
-Defined in: tevm-monorepo/packages/vm/types/utils/AfterblockEvent.d.ts:19
-
 Event data emitted after a block has been processed.
 Extends RunBlockResult with the block that was processed.
 
@@ -31,134 +29,15 @@ vm.events.on('afterBlock', (event: AfterBlockEvent) => {
 
 ## Properties
 
-### block
-
-> **block**: [`Block`](../../block/classes/Block.md)
-
-Defined in: tevm-monorepo/packages/vm/types/utils/AfterblockEvent.d.ts:20
-
-***
-
-### gasUsed
-
-> **gasUsed**: `bigint`
-
-Defined in: tevm-monorepo/packages/vm/types/utils/ApplyBlockResult.d.ts:16
-
-The gas used after executing the block
-
-#### Inherited from
-
-[`ApplyBlockResult`](ApplyBlockResult.md).[`gasUsed`](ApplyBlockResult.md#gasused)
-
-***
-
-### logsBloom
-
-> **logsBloom**: `Uint8Array`
-
-Defined in: tevm-monorepo/packages/vm/types/utils/RunBlockResult.d.ts:14
-
-The bloom filter of the LOGs (events) after executing the block
-
-#### Inherited from
-
-[`RunBlockResult`](RunBlockResult.md).[`logsBloom`](RunBlockResult.md#logsbloom)
-
-***
-
-### preimages?
-
-> `optional` **preimages?**: `Map`\<`` `0x${string}` ``, `Uint8Array`\<`ArrayBufferLike`\>\>
-
-Defined in: tevm-monorepo/packages/vm/types/utils/ApplyBlockResult.d.ts:32
-
-Preimages mapping of the touched accounts from the block (see reportPreimages option)
-
-#### Inherited from
-
-[`ApplyBlockResult`](ApplyBlockResult.md).[`preimages`](ApplyBlockResult.md#preimages)
-
-***
-
-### receipts
-
-> **receipts**: [`TxReceipt`](../type-aliases/TxReceipt.md)[]
-
-Defined in: tevm-monorepo/packages/vm/types/utils/ApplyBlockResult.d.ts:24
-
-Receipts generated for transactions in the block
-
-#### Inherited from
-
-[`ApplyBlockResult`](ApplyBlockResult.md).[`receipts`](ApplyBlockResult.md#receipts)
-
-***
-
-### receiptsRoot
-
-> **receiptsRoot**: `Uint8Array`
-
-Defined in: tevm-monorepo/packages/vm/types/utils/ApplyBlockResult.d.ts:20
-
-The receipt root after executing the block
-
-#### Inherited from
-
-[`ApplyBlockResult`](ApplyBlockResult.md).[`receiptsRoot`](ApplyBlockResult.md#receiptsroot)
-
-***
-
-### requests?
-
-> `optional` **requests?**: [`ClRequest`](../../block/classes/ClRequest.md)[]
-
-Defined in: tevm-monorepo/packages/vm/types/utils/RunBlockResult.d.ts:22
-
-Any CL requests that were processed in the course of this block
-
-#### Inherited from
-
-[`RunBlockResult`](RunBlockResult.md).[`requests`](RunBlockResult.md#requests)
-
-***
-
-### requestsRoot?
-
-> `optional` **requestsRoot?**: `Uint8Array`\<`ArrayBufferLike`\>
-
-Defined in: tevm-monorepo/packages/vm/types/utils/RunBlockResult.d.ts:18
-
-The requestsRoot for any CL requests in the block
-
-#### Inherited from
-
-[`RunBlockResult`](RunBlockResult.md).[`requestsRoot`](RunBlockResult.md#requestsroot)
-
-***
-
-### results
-
-> **results**: [`RunTxResult`](RunTxResult.md)[]
-
-Defined in: tevm-monorepo/packages/vm/types/utils/ApplyBlockResult.d.ts:28
-
-Results of executing the transactions in the block
-
-#### Inherited from
-
-[`ApplyBlockResult`](ApplyBlockResult.md).[`results`](ApplyBlockResult.md#results)
-
-***
-
-### stateRoot
-
-> **stateRoot**: `Uint8Array`
-
-Defined in: tevm-monorepo/packages/vm/types/utils/RunBlockResult.d.ts:10
-
-The stateRoot after executing the block
-
-#### Inherited from
-
-[`RunBlockResult`](RunBlockResult.md).[`stateRoot`](RunBlockResult.md#stateroot)
+| Property | Type | Description | Inherited from |
+| ------ | ------ | ------ | ------ |
+| <a id="block"></a> `block` | [`Block`](../../block/classes/Block.md) | - | - |
+| <a id="gasused"></a> `gasUsed` | `bigint` | The gas used after executing the block | [`ApplyBlockResult`](ApplyBlockResult.md).[`gasUsed`](ApplyBlockResult.md#gasused) |
+| <a id="logsbloom"></a> `logsBloom` | `Uint8Array` | The bloom filter of the LOGs (events) after executing the block | [`RunBlockResult`](RunBlockResult.md).[`logsBloom`](RunBlockResult.md#logsbloom) |
+| <a id="preimages"></a> `preimages?` | `Map`\<`` `0x${string}` ``, `Uint8Array`\<`ArrayBufferLike`\>\> | Preimages mapping of the touched accounts from the block (see reportPreimages option) | [`ApplyBlockResult`](ApplyBlockResult.md).[`preimages`](ApplyBlockResult.md#preimages) |
+| <a id="receipts"></a> `receipts` | [`TxReceipt`](../type-aliases/TxReceipt.md)[] | Receipts generated for transactions in the block | [`ApplyBlockResult`](ApplyBlockResult.md).[`receipts`](ApplyBlockResult.md#receipts) |
+| <a id="receiptsroot"></a> `receiptsRoot` | `Uint8Array` | The receipt root after executing the block | [`ApplyBlockResult`](ApplyBlockResult.md).[`receiptsRoot`](ApplyBlockResult.md#receiptsroot) |
+| <a id="requests"></a> `requests?` | [`ClRequest`](../../block/classes/ClRequest.md)[] | Any CL requests that were processed in the course of this block | [`RunBlockResult`](RunBlockResult.md).[`requests`](RunBlockResult.md#requests) |
+| <a id="requestsroot"></a> `requestsRoot?` | `Uint8Array`\<`ArrayBufferLike`\> | The requestsRoot for any CL requests in the block | [`RunBlockResult`](RunBlockResult.md).[`requestsRoot`](RunBlockResult.md#requestsroot) |
+| <a id="results"></a> `results` | [`RunTxResult`](RunTxResult.md)[] | Results of executing the transactions in the block | [`ApplyBlockResult`](ApplyBlockResult.md).[`results`](ApplyBlockResult.md#results) |
+| <a id="stateroot"></a> `stateRoot` | `Uint8Array` | The stateRoot after executing the block | [`RunBlockResult`](RunBlockResult.md).[`stateRoot`](RunBlockResult.md#stateroot) |

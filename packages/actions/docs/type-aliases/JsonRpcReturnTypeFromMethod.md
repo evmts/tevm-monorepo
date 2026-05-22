@@ -14,9 +14,9 @@ Utility type to get the return type given a method name
 
 ## Type Parameters
 
-### TMethod
-
-`TMethod` *extends* keyof [`EthReturnType`](EthReturnType.md) \| keyof [`TevmReturnType`](TevmReturnType.md) \| keyof [`AnvilReturnType`](AnvilReturnType.md) \| keyof [`DebugReturnType`](DebugReturnType.md)
+| Type Parameter |
+| ------ |
+| `TMethod` *extends* keyof [`EthReturnType`](EthReturnType.md) \| keyof [`TevmReturnType`](TevmReturnType.md) \| keyof [`AnvilReturnType`](AnvilReturnType.md) \| keyof [`DebugReturnType`](DebugReturnType.md) |
 
 ## Example
 

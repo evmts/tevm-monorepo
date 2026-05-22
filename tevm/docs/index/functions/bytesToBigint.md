@@ -8,25 +8,16 @@
 
 > **bytesToBigint**(`bytes`, `opts?`): `bigint`
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/viem@2.49.3\_bufferutil@4.1.0\_typescript@6.0.3\_utf-8-validate@5.0.10\_zod@4.4.3/node\_modules/viem/\_types/utils/encoding/fromBytes.d.ts:59
-
 Decodes a byte array into a bigint.
 
 - Docs: https://viem.sh/docs/utilities/fromBytes#bytestobigint
 
 ## Parameters
 
-### bytes
-
-`ByteArray`
-
-Byte array to decode.
-
-### opts?
-
-`BytesToBigIntOpts`
-
-Options.
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `bytes` | `ByteArray` | Byte array to decode. |
+| `opts?` | `BytesToBigIntOpts` | Options. |
 
 ## Returns
 

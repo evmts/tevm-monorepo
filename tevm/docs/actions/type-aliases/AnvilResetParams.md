@@ -8,6 +8,12 @@
 
 > **AnvilResetParams** = `object`
 
-Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilParams.d.ts:75
-
 Params for `anvil_reset` handler
+
+## Properties
+
+| Property | Modifier | Type |
+| ------ | ------ | ------ |
+| <a id="forking"></a> `forking?` | `readonly` | `object` |
+| `forking.blockNumber?` | `readonly` | [`Hex`](Hex.md) |
+| `forking.jsonRpcUrl?` | `readonly` | `string` |

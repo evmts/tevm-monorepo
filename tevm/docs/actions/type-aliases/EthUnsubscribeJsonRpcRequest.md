@@ -8,6 +8,4 @@
 
 > **EthUnsubscribeJsonRpcRequest** = [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"eth_unsubscribe"`, readonly \[[`Hex`](../../index/type-aliases/Hex.md)\]\>
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthJsonRpcRequest.d.ts:241
-
 JSON-RPC request for `eth_unsubscribe` procedure

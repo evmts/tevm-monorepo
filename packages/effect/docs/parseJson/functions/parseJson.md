@@ -14,9 +14,9 @@ Parses a json string
 
 ## Parameters
 
-### jsonStr
-
-`string`
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `jsonStr` | `string` | - |
 
 ## Returns
 

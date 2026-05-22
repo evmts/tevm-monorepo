@@ -8,6 +8,4 @@
 
 > **EthHashrateParams** = [`EmptyParams`](../../index/type-aliases/EmptyParams.md)
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthParams.d.ts:69
-
 Based on the JSON-RPC request for `eth_hashrate` procedure

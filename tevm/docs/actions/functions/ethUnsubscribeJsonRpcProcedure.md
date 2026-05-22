@@ -8,13 +8,11 @@
 
 > **ethUnsubscribeJsonRpcProcedure**(`tevmNode`): [`EthUnsubscribeJsonRpcProcedure`](../type-aliases/EthUnsubscribeJsonRpcProcedure.md)
 
-Defined in: tevm-monorepo/packages/actions/types/eth/ethUnsubscribeProcedure.d.ts:1
-
 ## Parameters
 
-### tevmNode
-
-[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{ \}\>
+| Parameter | Type |
+| ------ | ------ |
+| `tevmNode` | [`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{ \}\> |
 
 ## Returns
 

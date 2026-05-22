@@ -18,22 +18,10 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/viem@2.49.3\_bufferutil@4.1.0\_typ
 
 ## Type Parameters
 
-### abi
-
-`abi` *extends* [`Abi`](Abi.md) \| readonly `unknown`[] = [`Abi`](Abi.md)
-
-### functionName
-
-`functionName` *extends* [`ContractFunctionName`](ContractFunctionName.md)\<`abi`\> \| [`Hex`](Hex.md) \| `undefined` = [`ContractFunctionName`](ContractFunctionName.md)\<`abi`\>
-
-### hasFunctions
-
-`hasFunctions` = `abi` *extends* [`Abi`](Abi.md) ? [`Abi`](Abi.md) *extends* `abi` ? `true` : \[`ExtractAbiFunctions`\<`abi`\>\] *extends* \[`never`\] ? `false` : `true` : `true`
-
-### allArgs
-
-`allArgs` = `ContractFunctionArgs`\<`abi`, `AbiStateMutability`, `functionName` *extends* [`ContractFunctionName`](ContractFunctionName.md)\<`abi`\> ? `functionName` : [`ContractFunctionName`](ContractFunctionName.md)\<`abi`\>\>
-
-### allFunctionNames
-
-`allFunctionNames` = [`ContractFunctionName`](ContractFunctionName.md)\<`abi`\>
+| Type Parameter | Default type |
+| ------ | ------ |
+| `abi` *extends* [`Abi`](Abi.md) \| readonly `unknown`[] | [`Abi`](Abi.md) |
+| `functionName` *extends* [`ContractFunctionName`](ContractFunctionName.md)\<`abi`\> \| [`Hex`](Hex.md) \| `undefined` | [`ContractFunctionName`](ContractFunctionName.md)\<`abi`\> |
+| `hasFunctions` | `abi` *extends* [`Abi`](Abi.md) ? [`Abi`](Abi.md) *extends* `abi` ? `true` : \[`ExtractAbiFunctions`\<`abi`\>\] *extends* \[`never`\] ? `false` : `true` : `true` |
+| `allArgs` | `ContractFunctionArgs`\<`abi`, `AbiStateMutability`, `functionName` *extends* [`ContractFunctionName`](ContractFunctionName.md)\<`abi`\> ? `functionName` : [`ContractFunctionName`](ContractFunctionName.md)\<`abi`\>\> |
+| `allFunctionNames` | [`ContractFunctionName`](ContractFunctionName.md)\<`abi`\> |

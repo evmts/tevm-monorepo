@@ -8,13 +8,11 @@
 
 > **loadConfig**(`configFilePath`): `Effect`\<`ResolvedCompilerConfig`, `LoadConfigError`, `never`\>
 
-Defined in: tevm-monorepo/bundler-packages/config/types/loadConfig.d.ts:23
-
 ## Parameters
 
-### configFilePath
-
-`string`
+| Parameter | Type |
+| ------ | ------ |
+| `configFilePath` | `string` |
 
 ## Returns
 

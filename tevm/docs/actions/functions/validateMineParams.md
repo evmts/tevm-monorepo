@@ -8,13 +8,11 @@
 
 > **validateMineParams**(`action`): [`ValidateMineParamsError`](../type-aliases/ValidateMineParamsError.md)[]
 
-Defined in: tevm-monorepo/packages/actions/types/Mine/validateMineParams.d.ts:1
-
 ## Parameters
 
-### action
-
-[`MineParams`](../type-aliases/MineParams.md)\<`boolean`\>
+| Parameter | Type |
+| ------ | ------ |
+| `action` | [`MineParams`](../type-aliases/MineParams.md)\<`boolean`\> |
 
 ## Returns
 

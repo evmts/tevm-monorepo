@@ -8,7 +8,5 @@
 
 > **EthSimulateV1Result** = [`EthSimulateV1BlockResult`](EthSimulateV1BlockResult.md)[]
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthResult.d.ts:349
-
 JSON-RPC response for `eth_simulateV1` procedure
 Returns an array of block results, each containing call results

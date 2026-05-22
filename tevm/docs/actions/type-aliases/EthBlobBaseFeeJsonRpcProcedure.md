@@ -8,13 +8,11 @@
 
 > **EthBlobBaseFeeJsonRpcProcedure** = (`request`) => `Promise`\<[`EthBlobBaseFeeJsonRpcResponse`](EthBlobBaseFeeJsonRpcResponse.md)\>
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthProcedure.d.ts:4
-
 ## Parameters
 
-### request
-
-[`EthBlobBaseFeeJsonRpcRequest`](EthBlobBaseFeeJsonRpcRequest.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`EthBlobBaseFeeJsonRpcRequest`](EthBlobBaseFeeJsonRpcRequest.md) |
 
 ## Returns
 

@@ -8,36 +8,14 @@
 
 > **EthGetProofParams** = `object`
 
-Defined in: [packages/actions/src/eth/EthParams.ts:344](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L344)
+Defined in: [packages/actions/src/eth/EthParams.ts:351](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L351)
 
 Based on the JSON-RPC request for `eth_getProof` procedure (EIP-1186)
 
 ## Properties
 
-### address
-
-> `readonly` **address**: [`Address`](Address.md)
-
-Defined in: [packages/actions/src/eth/EthParams.ts:348](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L348)
-
-The address of the account to get the proof for
-
-***
-
-### blockTag?
-
-> `readonly` `optional` **blockTag?**: [`BlockParam`](BlockParam.md)
-
-Defined in: [packages/actions/src/eth/EthParams.ts:356](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L356)
-
-The block tag or block number to get the proof at
-
-***
-
-### storageKeys
-
-> `readonly` **storageKeys**: readonly [`Hex`](Hex.md)[]
-
-Defined in: [packages/actions/src/eth/EthParams.ts:352](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L352)
-
-An array of storage keys to get proofs for
+| Property | Modifier | Type | Description | Defined in |
+| ------ | ------ | ------ | ------ | ------ |
+| <a id="address"></a> `address` | `readonly` | [`Address`](Address.md) | The address of the account to get the proof for | [packages/actions/src/eth/EthParams.ts:355](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L355) |
+| <a id="blocktag"></a> `blockTag?` | `readonly` | [`BlockParam`](BlockParam.md) | The block tag or block number to get the proof at | [packages/actions/src/eth/EthParams.ts:363](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L363) |
+| <a id="storagekeys"></a> `storageKeys` | `readonly` | readonly [`Hex`](Hex.md)[] | An array of storage keys to get proofs for | [packages/actions/src/eth/EthParams.ts:359](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L359) |

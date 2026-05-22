@@ -17,9 +17,9 @@ Pass in an initial DB optionally to prepoulate the DB.
 
 ## Parameters
 
-### initialDb?
-
-`Map`\<`Uint8Array`\<`ArrayBufferLike`\>, `Uint8Array`\<`ArrayBufferLike`\>\>
+| Parameter | Type |
+| ------ | ------ |
+| `initialDb?` | `Map`\<`Uint8Array`\<`ArrayBufferLike`\>, `Uint8Array`\<`ArrayBufferLike`\>\> |
 
 ## Returns
 

@@ -8,15 +8,13 @@
 
 > **AnvilSetNonceProcedure** = (`request`) => `Promise`\<[`AnvilSetNonceJsonRpcResponse`](AnvilSetNonceJsonRpcResponse.md)\>
 
-Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilProcedure.d.ts:55
-
 JSON-RPC procedure for `anvil_setNonce`
 
 ## Parameters
 
-### request
-
-[`AnvilSetNonceJsonRpcRequest`](AnvilSetNonceJsonRpcRequest.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`AnvilSetNonceJsonRpcRequest`](AnvilSetNonceJsonRpcRequest.md) |
 
 ## Returns
 

@@ -8,8 +8,6 @@
 
 > **DeepCopy** = () => `Promise`\<`BaseVm`\>
 
-Defined in: tevm-monorepo/packages/vm/types/actions/deepCopy.d.ts:3
-
 ## Returns
 
 `Promise`\<`BaseVm`\>

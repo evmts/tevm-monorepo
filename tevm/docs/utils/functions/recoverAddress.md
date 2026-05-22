@@ -8,27 +8,15 @@
 
 > **recoverAddress**(`params`): `` `0x${string}` ``
 
-Defined in: tevm-monorepo/packages/utils/types/signature.d.ts:54
-
 Recovers the address from a signature
 
 ## Parameters
 
-### params
-
-The parameters
-
-#### hash
-
-`` `0x${string}` ``
-
-The message hash
-
-#### signature
-
-`Signature`
-
-The signature
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `params` | \{ `hash`: `` `0x${string}` ``; `signature`: `Signature`; \} | The parameters |
+| `params.hash` | `` `0x${string}` `` | The message hash |
+| `params.signature` | `Signature` | The signature |
 
 ## Returns
 

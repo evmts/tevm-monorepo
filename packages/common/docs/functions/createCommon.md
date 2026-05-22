@@ -8,8 +8,6 @@
 
 > **createCommon**(`options`): `object`
 
-Defined in: [packages/common/src/createCommon.js:47](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/createCommon.js#L47)
-
 Common is the main representation of chain specific configuration for tevm clients.
 
 createCommon creates a typesafe Common object used by the EVM
@@ -19,9 +17,9 @@ Tevm common extends the [viem chain](https://github.com/wevm/viem/blob/main/src/
 
 ## Parameters
 
-### options
-
-[`CommonOptions`](../type-aliases/CommonOptions.md)
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `options` | [`CommonOptions`](../type-aliases/CommonOptions.md) | - |
 
 ## Returns
 
@@ -30,6 +28,8 @@ Tevm common extends the [viem chain](https://github.com/wevm/viem/blob/main/src/
 > `optional` **blockExplorers?**: `object`
 
 Collection of block explorers
+
+#### Type Declaration
 
 #### Index Signature
 
@@ -50,6 +50,8 @@ Block time in milliseconds.
 > `optional` **contracts?**: `object`
 
 Collection of contracts
+
+#### Type Declaration
 
 #### Index Signature
 
@@ -152,6 +154,8 @@ Function to prepare a transaction request. Runs before the transaction is filled
 > **rpcUrls**: `object`
 
 Collection of RPC endpoints
+
+#### Type Declaration
 
 #### Index Signature
 

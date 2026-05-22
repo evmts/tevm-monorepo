@@ -14,9 +14,9 @@ JSON-RPC procedure for `anvil_increaseTime`
 
 ## Parameters
 
-### request
-
-[`AnvilIncreaseTimeJsonRpcRequest`](AnvilIncreaseTimeJsonRpcRequest.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`AnvilIncreaseTimeJsonRpcRequest`](AnvilIncreaseTimeJsonRpcRequest.md) |
 
 ## Returns
 

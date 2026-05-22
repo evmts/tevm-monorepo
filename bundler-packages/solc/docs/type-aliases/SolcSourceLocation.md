@@ -8,28 +8,12 @@
 
 > **SolcSourceLocation** = `object`
 
-Defined in: [solcTypes.ts:375](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L375)
+Defined in: [solcTypes.ts:401](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L401)
 
 ## Properties
 
-### end
-
-> **end**: `number`
-
-Defined in: [solcTypes.ts:378](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L378)
-
-***
-
-### file
-
-> **file**: `string`
-
-Defined in: [solcTypes.ts:376](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L376)
-
-***
-
-### start
-
-> **start**: `number`
-
-Defined in: [solcTypes.ts:377](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L377)
+| Property | Type | Defined in |
+| ------ | ------ | ------ |
+| <a id="end"></a> `end` | `number` | [solcTypes.ts:404](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L404) |
+| <a id="file"></a> `file` | `string` | [solcTypes.ts:402](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L402) |
+| <a id="start"></a> `start` | `number` | [solcTypes.ts:403](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L403) |

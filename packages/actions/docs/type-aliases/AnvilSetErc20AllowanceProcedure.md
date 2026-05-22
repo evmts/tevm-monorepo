@@ -14,9 +14,9 @@ JSON-RPC procedure for `anvil_setErc20Allowance`
 
 ## Parameters
 
-### request
-
-[`AnvilSetErc20AllowanceJsonRpcRequest`](AnvilSetErc20AllowanceJsonRpcRequest.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`AnvilSetErc20AllowanceJsonRpcRequest`](AnvilSetErc20AllowanceJsonRpcRequest.md) |
 
 ## Returns
 

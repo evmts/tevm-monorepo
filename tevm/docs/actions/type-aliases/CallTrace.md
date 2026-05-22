@@ -8,106 +8,19 @@
 
 > **CallTrace** = `object`
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthResult.d.ts:403
-
 Call trace for V2 debugging
 
 ## Properties
 
-### calls?
-
-> `optional` **calls?**: `CallTrace`[]
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthResult.d.ts:443
-
-Sub-calls made during this call
-
-***
-
-### error?
-
-> `optional` **error?**: `string`
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthResult.d.ts:439
-
-Error message if the call failed
-
-***
-
-### from
-
-> **from**: [`Address`](Address.md)
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthResult.d.ts:411
-
-The sender address
-
-***
-
-### gas
-
-> **gas**: `bigint`
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthResult.d.ts:423
-
-The gas provided
-
-***
-
-### gasUsed
-
-> **gasUsed**: `bigint`
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthResult.d.ts:427
-
-The gas used
-
-***
-
-### input
-
-> **input**: [`Hex`](Hex.md)
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthResult.d.ts:431
-
-The input data
-
-***
-
-### output
-
-> **output**: [`Hex`](Hex.md)
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthResult.d.ts:435
-
-The output/return data
-
-***
-
-### to?
-
-> `optional` **to?**: [`Address`](Address.md)
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthResult.d.ts:415
-
-The recipient address (or created contract address)
-
-***
-
-### type
-
-> **type**: `string`
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthResult.d.ts:407
-
-The type of call (CALL, DELEGATECALL, STATICCALL, CREATE, CREATE2)
-
-***
-
-### value?
-
-> `optional` **value?**: `bigint`
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthResult.d.ts:419
-
-The value transferred
+| Property | Type | Description |
+| ------ | ------ | ------ |
+| <a id="calls"></a> `calls?` | `CallTrace`[] | Sub-calls made during this call |
+| <a id="error"></a> `error?` | `string` | Error message if the call failed |
+| <a id="from"></a> `from` | [`Address`](Address.md) | The sender address |
+| <a id="gas"></a> `gas` | `bigint` | The gas provided |
+| <a id="gasused"></a> `gasUsed` | `bigint` | The gas used |
+| <a id="input"></a> `input` | [`Hex`](Hex.md) | The input data |
+| <a id="output"></a> `output` | [`Hex`](Hex.md) | The output/return data |
+| <a id="to"></a> `to?` | [`Address`](Address.md) | The recipient address (or created contract address) |
+| <a id="type"></a> `type` | `string` | The type of call (CALL, DELEGATECALL, STATICCALL, CREATE, CREATE2) |
+| <a id="value"></a> `value?` | `bigint` | The value transferred |

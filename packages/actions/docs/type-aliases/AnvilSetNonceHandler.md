@@ -12,9 +12,9 @@ Defined in: [packages/actions/src/anvil/AnvilHandler.ts:72](https://github.com/e
 
 ## Parameters
 
-### params
-
-[`AnvilSetNonceParams`](AnvilSetNonceParams.md)
+| Parameter | Type |
+| ------ | ------ |
+| `params` | [`AnvilSetNonceParams`](AnvilSetNonceParams.md) |
 
 ## Returns
 

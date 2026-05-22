@@ -14,9 +14,9 @@ JSON-RPC procedure for `anvil_snapshot`
 
 ## Parameters
 
-### request
-
-[`AnvilSnapshotJsonRpcRequest`](AnvilSnapshotJsonRpcRequest.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`AnvilSnapshotJsonRpcRequest`](AnvilSnapshotJsonRpcRequest.md) |
 
 ## Returns
 

@@ -6,12 +6,8 @@
 
 # Interface: MetaDBManagerOptions
 
-Defined in: zevm/npm/zevm/dist/receipt-manager.d.ts:3
-
 ## Properties
 
-### cache
-
-> **cache**: `Map`\<`` `0x${string}` ``, `Uint8Array`\<`ArrayBufferLike`\>\>
-
-Defined in: zevm/npm/zevm/dist/receipt-manager.d.ts:4
+| Property | Type |
+| ------ | ------ |
+| <a id="cache"></a> `cache` | `Map`\<`` `0x${string}` ``, `Uint8Array`\<`ArrayBufferLike`\>\> |

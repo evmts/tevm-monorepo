@@ -8,13 +8,11 @@
 
 > **clearContractStorage**(`baseState`): (`address`) => `Promise`\<`void`\>
 
-Defined in: tevm-monorepo/packages/state/dist/index.d.ts:385
-
 ## Parameters
 
-### baseState
-
-[`BaseState`](../type-aliases/BaseState.md)
+| Parameter | Type |
+| ------ | ------ |
+| `baseState` | [`BaseState`](../type-aliases/BaseState.md) |
 
 ## Returns
 

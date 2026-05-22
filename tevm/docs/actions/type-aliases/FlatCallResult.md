@@ -8,26 +8,11 @@
 
 > **FlatCallResult** = `object`
 
-Defined in: tevm-monorepo/packages/actions/types/common/FlatCallTraceResult.d.ts:36
-
 Result of a call trace entry
 
 ## Properties
 
-### gasUsed
-
-> **gasUsed**: `bigint`
-
-Defined in: tevm-monorepo/packages/actions/types/common/FlatCallTraceResult.d.ts:38
-
-Gas used
-
-***
-
-### output
-
-> **output**: [`Hex`](Hex.md)
-
-Defined in: tevm-monorepo/packages/actions/types/common/FlatCallTraceResult.d.ts:40
-
-Output data
+| Property | Type | Description |
+| ------ | ------ | ------ |
+| <a id="gasused"></a> `gasUsed` | `bigint` | Gas used |
+| <a id="output"></a> `output` | [`Hex`](Hex.md) | Output data |

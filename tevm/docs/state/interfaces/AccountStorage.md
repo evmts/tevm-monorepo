@@ -6,8 +6,6 @@
 
 # Interface: AccountStorage
 
-Defined in: tevm-monorepo/packages/state/dist/index.d.ts:27
-
 Represents an Ethereum account storage with native bigint values.
 Used for internal state management and account manipulation.
 
@@ -26,48 +24,11 @@ const value: AccountStorage = {
 
 ## Properties
 
-### balance
-
-> **balance**: `bigint`
-
-Defined in: tevm-monorepo/packages/state/dist/index.d.ts:29
-
-***
-
-### codeHash
-
-> **codeHash**: `` `0x${string}` ``
-
-Defined in: tevm-monorepo/packages/state/dist/index.d.ts:31
-
-***
-
-### deployedBytecode?
-
-> `optional` **deployedBytecode?**: `` `0x${string}` ``
-
-Defined in: tevm-monorepo/packages/state/dist/index.d.ts:32
-
-***
-
-### nonce
-
-> **nonce**: `bigint`
-
-Defined in: tevm-monorepo/packages/state/dist/index.d.ts:28
-
-***
-
-### storage?
-
-> `optional` **storage?**: [`StorageDump`](../../common/interfaces/StorageDump.md)
-
-Defined in: tevm-monorepo/packages/state/dist/index.d.ts:33
-
-***
-
-### storageRoot
-
-> **storageRoot**: `` `0x${string}` ``
-
-Defined in: tevm-monorepo/packages/state/dist/index.d.ts:30
+| Property | Type |
+| ------ | ------ |
+| <a id="balance"></a> `balance` | `bigint` |
+| <a id="codehash"></a> `codeHash` | `` `0x${string}` `` |
+| <a id="deployedbytecode"></a> `deployedBytecode?` | `` `0x${string}` `` |
+| <a id="nonce"></a> `nonce` | `bigint` |
+| <a id="storage"></a> `storage?` | [`StorageDump`](../../common/interfaces/StorageDump.md) |
+| <a id="storageroot"></a> `storageRoot` | `` `0x${string}` `` |

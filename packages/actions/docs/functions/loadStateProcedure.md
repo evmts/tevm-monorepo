@@ -10,13 +10,13 @@
 
 Defined in: [packages/actions/src/LoadState/loadStateProcedure.js:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/LoadState/loadStateProcedure.js#L8)
 
-Creates a LoadState JSON-RPC Procedure for handling LoadState requests with the Tevm EVM
+Creates a LoadState JSON-RPC Procedure for handling LoadState requests with the Tevm EVM.
 
 ## Parameters
 
-### client
-
-`TevmNode`\<`"fork"` \| `"normal"`, \{ \}\>
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `client` | `TevmNode`\<`"fork"` \| `"normal"`, \{ \}\> | - |
 
 ## Returns
 

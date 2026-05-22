@@ -12,14 +12,8 @@ Defined in: [packages/jsonrpc/src/JsonRpcResponse.ts:1](https://github.com/evmts
 
 ## Type Parameters
 
-### TMethod
-
-`TMethod` *extends* `string`
-
-### TResult
-
-`TResult`
-
-### TErrorCode
-
-`TErrorCode` *extends* `string` \| `number`
+| Type Parameter |
+| ------ |
+| `TMethod` *extends* `string` |
+| `TResult` |
+| `TErrorCode` *extends* `string` \| `number` |

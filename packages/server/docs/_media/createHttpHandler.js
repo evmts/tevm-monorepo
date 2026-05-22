@@ -7,68 +7,108 @@ import { handleBulkRequest } from './internal/handleBulkRequest.js'
 import { handleError } from './internal/handleError.js'
 import { parseRequest } from './internal/parseRequest.js'
 
+const DEFAULT_MAX_BODY_SIZE = 1024 * 1024
+const DEFAULT_MAX_HEADER_SIZE = 16 * 1024
+const DEFAULT_MAX_BATCH_SIZE = 100
+const DEFAULT_REQUEST_TIMEOUT = 30_000
+
 /**
-/**
-* Creates a Node.js HTTP handler for handling JSON-RPC requests with a Tevm node
-* Any unimplemented methods will be proxied to the given proxyUrl
-* This handler works for any server that supports the Node.js http module
-* @param {import('./Client.js').Client} client
-* @returns {import('http').RequestListener}
-* @throws {never}
-* @example
-* import { createHttpHandler } from 'tevm/server'
-* import { createTevm } from 'tevm'
-* import { createServer } from 'http'
-*
-* const PORT = 8080
-*
-* const tevm = createTevm({
-*   fork: {
-*     transport: http('https://mainnet.optimism.io')({})
-*   }
-* })
-*
-* const server = createServer(
-*   createHttpHandler(tevm)
-* )
-* server.listen(PORT, () => console.log({ listening: PORT }))
-*
-*/
-export const createHttpHandler = (client) => {
-	/**
-	 * @param {import('http').IncomingMessage} req
-	 * @param {import('http').ServerResponse} res
-	 * @returns {Promise<void>}
-	 */
+ * Creates a Node.js HTTP handler for handling JSON-RPC requests with a Tevm node.
+ * Any unimplemented methods will be proxied to the given proxyUrl
+ * This handler works for any server that supports the Node.js http module
+ * @param {import('./Client.js').Client} client
+ * @param {{ compatibility?: boolean; maxBodySize?: number; maxHeaderSize?: number; maxBatchSize?: number; requestTimeout?: number; cors?: boolean }} [options]
+ * @returns {import('http').RequestListener}
+ * @throws {never}
+ * @example
+ * ```ts
+ * const handler = createHttpHandler(client, {
+ *   compatibility: true,
+ *   maxBodySize: 1024 * 1024,
+ *   maxHeaderSize: 16 * 1024,
+ * })
+ * ```
+ */
+export const createHttpHandler = (client, options = {}) => {
+	const {
+		compatibility = false,
+		maxBodySize = DEFAULT_MAX_BODY_SIZE,
+		maxHeaderSize = DEFAULT_MAX_HEADER_SIZE,
+		maxBatchSize = DEFAULT_MAX_BATCH_SIZE,
+		requestTimeout = DEFAULT_REQUEST_TIMEOUT,
+		cors = false,
+	} = options
+
+	/** @param {import('http').IncomingMessage} req */
+	const getHeaderSize = (req) => {
+		if (Array.isArray(req.rawHeaders) && req.rawHeaders.length > 0) {
+			return Buffer.byteLength(req.rawHeaders.join('\r\n'), 'utf8')
+		}
+		return Buffer.byteLength(JSON.stringify(req.headers ?? {}), 'utf8')
+	}
+
 	return async (req, res) => {
-		const body = await getRequestBody(req)
+		if (cors) {
+			res.setHeader('Access-Control-Allow-Origin', '*')
+			res.setHeader('Access-Control-Allow-Headers', 'content-type')
+			res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS')
+			if (req.method === 'OPTIONS') return void res.writeHead(204).end()
+		}
+		if (requestTimeout > 0 && typeof req.setTimeout === 'function') {
+			req.setTimeout(requestTimeout, () => {
+				if (!res.headersSent) res.writeHead(408).end()
+				if (typeof req.destroy === 'function') req.destroy()
+			})
+		}
+		if (compatibility) {
+			const pathname = new URL(req.url ?? '/', 'http://localhost').pathname
+			if (pathname !== '/') return void res.writeHead(404).end()
+			if (req.method !== 'POST') return void res.writeHead(405, { Allow: 'POST' }).end()
+			if (getHeaderSize(req) > maxHeaderSize) return void res.writeHead(431).end()
+
+			const contentType = req.headers['content-type']
+			const parsedContentType = contentType?.split(';')[0]?.trim()?.toLowerCase()
+			if (parsedContentType !== 'application/json') {
+				return void res.writeHead(415).end()
+			}
+		}
+
+		const body = await getRequestBody(req, { maxBodySize })
 		if (body instanceof ReadRequestBodyError) {
+			if (body.shortMessage === 'Request body exceeds configured max body size') {
+				return void res.writeHead(413, { Connection: 'close' }).end()
+			}
+			return handleError(client, body, res)
+		}
+		if (body instanceof InvalidRequestError) {
 			return handleError(client, body, res)
 		}
 
-		const parsedRequest = parseRequest(body)
+		const parsedRequest = parseRequest(body, {
+			allowEmptyBatch: !compatibility,
+			maxBatchSize,
+			requireJsonrpc: compatibility,
+		})
 		if (parsedRequest instanceof InvalidJsonError || parsedRequest instanceof InvalidRequestError) {
 			return handleError(client, parsedRequest, res)
 		}
 
 		if (Array.isArray(parsedRequest)) {
-			const responses = await handleBulkRequest(client, /** @type {any}*/ (parsedRequest))
+			const responses = await handleBulkRequest(client, /** @type {any} */ (parsedRequest), {
+				suppressNotifications: compatibility,
+			})
+			if (compatibility && responses.length === 0) return void res.writeHead(204).end()
 			res.writeHead(200, { 'Content-Type': 'application/json' })
-			res.end(JSON.stringify(responses))
-			return
+			return void res.end(JSON.stringify(responses))
 		}
 
 		const response = await client.transport.tevm
 			.extend(tevmSend())
-			.send(/** @type any*/ (parsedRequest))
-			.catch((e) => {
-				console.log('e', e)
-				return 'code' in e ? e : new InternalError('Unexpeced error', { cause: e })
-			})
+			.send(/** @type any */ (parsedRequest))
+			.catch((e) => ('code' in e ? e : new InternalError('Unexpected error', { cause: e })))
 
-		if ('code' in response && 'message' in response) {
-			return handleError(client, response, res, parsedRequest)
-		}
+		if (compatibility && parsedRequest.id === undefined) return void res.writeHead(204).end()
+		if ('code' in response && 'message' in response) return handleError(client, response, res, parsedRequest)
 		if (
 			response.error?.code === UnsupportedProviderMethodError.code ||
 			response.error?.code === MethodNotFoundError.code
@@ -76,9 +116,7 @@ export const createHttpHandler = (client) => {
 			return handleError(client, response.error, res, parsedRequest)
 		}
 
-		console.log('response', response)
 		res.writeHead(200, { 'Content-Type': 'application/json' })
-		res.end(JSON.stringify(response))
-		return
+		return void res.end(JSON.stringify(response))
 	}
 }

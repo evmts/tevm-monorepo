@@ -12,9 +12,9 @@ Defined in: node\_modules/.pnpm/@ponder+utils@0.2.18\_typescript@6.0.3\_viem@2.4
 
 ## Parameters
 
-### \_transports
-
-`Transport`[]
+| Parameter | Type |
+| ------ | ------ |
+| `_transports` | `Transport`[] |
 
 ## Returns
 

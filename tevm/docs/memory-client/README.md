@@ -80,6 +80,12 @@ Re-exports [TevmContract](../index/type-aliases/TevmContract.md)
 
 ***
 
+### tevmDeal
+
+Re-exports [tevmDeal](../index/variables/tevmDeal.md)
+
+***
+
 ### tevmDeploy
 
 Re-exports [tevmDeploy](../index/functions/tevmDeploy.md)

@@ -12,25 +12,17 @@ Defined in: node\_modules/.pnpm/viem@2.49.3\_bufferutil@4.1.0\_typescript@6.0.3\
 
 ## Type Parameters
 
-### rpcSchema
-
-`rpcSchema` *extends* `RpcSchema` \| `undefined` = `undefined`
-
-### raw
-
-`raw` *extends* `boolean` = `false`
+| Type Parameter | Default type |
+| ------ | ------ |
+| `rpcSchema` *extends* `RpcSchema` \| `undefined` | `undefined` |
+| `raw` *extends* `boolean` | `false` |
 
 ## Parameters
 
-### url?
-
-`string`
-
-URL of the JSON-RPC API. Defaults to the chain's public RPC URL.
-
-### config?
-
-`HttpTransportConfig`\<`rpcSchema`, `raw`\>
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `url?` | `string` | URL of the JSON-RPC API. Defaults to the chain's public RPC URL. |
+| `config?` | `HttpTransportConfig`\<`rpcSchema`, `raw`\> | - |
 
 ## Returns
 

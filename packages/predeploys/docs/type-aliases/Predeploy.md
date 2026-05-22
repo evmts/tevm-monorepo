@@ -14,34 +14,14 @@ Type of predeploy contract for tevm
 
 ## Type Parameters
 
-### TName
-
-`TName` *extends* `string`
-
-### THumanReadableAbi
-
-`THumanReadableAbi` *extends* readonly `string`[]
+| Type Parameter |
+| ------ |
+| `TName` *extends* `string` |
+| `THumanReadableAbi` *extends* readonly `string`[] |
 
 ## Properties
 
-### contract
-
-> `readonly` **contract**: `Contract`\<`TName`, `THumanReadableAbi`, `Address`, `Hex`, `Hex`\>
-
-Defined in: [Predeploy.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/predeploys/src/Predeploy.ts#L8)
-
-***
-
-### predeploy
-
-> `readonly` **predeploy**: () => `object`
-
-Defined in: [Predeploy.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/predeploys/src/Predeploy.ts#L9)
-
-#### Returns
-
-`object`
-
-##### address
-
-> **address**: `EthjsAddress`
+| Property | Modifier | Type | Defined in |
+| ------ | ------ | ------ | ------ |
+| <a id="contract"></a> `contract` | `readonly` | `Contract`\<`TName`, `THumanReadableAbi`, `Address`, `Hex`, `Hex`\> | [Predeploy.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/predeploys/src/Predeploy.ts#L8) |
+| <a id="predeploy"></a> `predeploy` | `readonly` | () => `object` | [Predeploy.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/predeploys/src/Predeploy.ts#L9) |

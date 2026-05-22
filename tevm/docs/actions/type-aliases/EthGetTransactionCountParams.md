@@ -8,22 +8,11 @@
 
 > **EthGetTransactionCountParams** = `object`
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthParams.d.ts:165
-
 Based on the JSON-RPC request for `eth_getTransactionCount` procedure
 
 ## Properties
 
-### address
-
-> `readonly` **address**: [`Address`](Address.md)
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthParams.d.ts:166
-
-***
-
-### blockTag?
-
-> `readonly` `optional` **blockTag?**: [`BlockParam`](../../index/type-aliases/BlockParam.md)
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthParams.d.ts:167
+| Property | Modifier | Type |
+| ------ | ------ | ------ |
+| <a id="address"></a> `address` | `readonly` | [`Address`](Address.md) |
+| <a id="blocktag"></a> `blockTag?` | `readonly` | [`BlockParam`](../../index/type-aliases/BlockParam.md) |

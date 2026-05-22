@@ -8,14 +8,9 @@
 
 > **DerivedRpcSchema**\<`TRpcSchema`, `TRpcSchemaOverride`\> = `TRpcSchemaOverride` *extends* [`RpcSchemaOverride`](RpcSchemaOverride.md) ? \[`TRpcSchemaOverride` & `object`\] : `TRpcSchema`
 
-Defined in: tevm-monorepo/packages/decorators/dist/index.d.ts:291
-
 ## Type Parameters
 
-### TRpcSchema
-
-`TRpcSchema` *extends* [`RpcSchema`](RpcSchema.md) \| `undefined`
-
-### TRpcSchemaOverride
-
-`TRpcSchemaOverride` *extends* [`RpcSchemaOverride`](RpcSchemaOverride.md) \| `undefined`
+| Type Parameter |
+| ------ |
+| `TRpcSchema` *extends* [`RpcSchema`](RpcSchema.md) \| `undefined` |
+| `TRpcSchemaOverride` *extends* [`RpcSchemaOverride`](RpcSchemaOverride.md) \| `undefined` |

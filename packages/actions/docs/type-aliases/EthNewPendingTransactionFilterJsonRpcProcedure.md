@@ -12,9 +12,9 @@ Defined in: [packages/actions/src/eth/EthProcedure.ts:239](https://github.com/ev
 
 ## Parameters
 
-### request
-
-[`EthNewPendingTransactionFilterJsonRpcRequest`](EthNewPendingTransactionFilterJsonRpcRequest.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`EthNewPendingTransactionFilterJsonRpcRequest`](EthNewPendingTransactionFilterJsonRpcRequest.md) |
 
 ## Returns
 

@@ -8,30 +8,14 @@
 
 > **JsonRpcBlockStateCall** = `object`
 
-Defined in: [packages/actions/src/eth/EthJsonRpcRequest.ts:393](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcRequest.ts#L393)
+Defined in: [packages/actions/src/eth/EthJsonRpcRequest.ts:400](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcRequest.ts#L400)
 
 A block of calls for simulateV1
 
 ## Properties
 
-### blockOverrides?
-
-> `optional` **blockOverrides?**: [`JsonRpcBlockOverride`](JsonRpcBlockOverride.md)
-
-Defined in: [packages/actions/src/eth/EthJsonRpcRequest.ts:394](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcRequest.ts#L394)
-
-***
-
-### calls?
-
-> `optional` **calls?**: [`JsonRpcSimulateTransaction`](JsonRpcSimulateTransaction.md)[]
-
-Defined in: [packages/actions/src/eth/EthJsonRpcRequest.ts:396](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcRequest.ts#L396)
-
-***
-
-### stateOverrides?
-
-> `optional` **stateOverrides?**: [`JsonRpcStateOverride`](JsonRpcStateOverride.md)
-
-Defined in: [packages/actions/src/eth/EthJsonRpcRequest.ts:395](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcRequest.ts#L395)
+| Property | Type | Defined in |
+| ------ | ------ | ------ |
+| <a id="blockoverrides"></a> `blockOverrides?` | [`JsonRpcBlockOverride`](JsonRpcBlockOverride.md) | [packages/actions/src/eth/EthJsonRpcRequest.ts:401](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcRequest.ts#L401) |
+| <a id="calls"></a> `calls?` | [`JsonRpcSimulateTransaction`](JsonRpcSimulateTransaction.md)[] | [packages/actions/src/eth/EthJsonRpcRequest.ts:403](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcRequest.ts#L403) |
+| <a id="stateoverrides"></a> `stateOverrides?` | [`JsonRpcStateOverride`](JsonRpcStateOverride.md) | [packages/actions/src/eth/EthJsonRpcRequest.ts:402](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcRequest.ts#L402) |

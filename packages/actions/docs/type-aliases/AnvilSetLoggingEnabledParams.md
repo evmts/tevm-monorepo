@@ -8,16 +8,12 @@
 
 > **AnvilSetLoggingEnabledParams** = `object`
 
-Defined in: [packages/actions/src/anvil/AnvilParams.ts:278](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilParams.ts#L278)
+Defined in: [packages/actions/src/anvil/AnvilParams.ts:283](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilParams.ts#L283)
 
 Params for `anvil_setLoggingEnabled` handler
 
 ## Properties
 
-### enabled
-
-> `readonly` **enabled**: `boolean`
-
-Defined in: [packages/actions/src/anvil/AnvilParams.ts:282](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilParams.ts#L282)
-
-Whether to enable logging
+| Property | Modifier | Type | Description | Defined in |
+| ------ | ------ | ------ | ------ | ------ |
+| <a id="enabled"></a> `enabled` | `readonly` | `boolean` | Whether to enable logging | [packages/actions/src/anvil/AnvilParams.ts:287](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilParams.ts#L287) |

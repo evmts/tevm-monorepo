@@ -8,20 +8,9 @@
 
 > **ProviderMessage** = `object`
 
-Defined in: tevm-monorepo/packages/node/dist/index.d.ts:227
-
 ## Properties
 
-### data
-
-> **data**: `unknown`
-
-Defined in: tevm-monorepo/packages/node/dist/index.d.ts:229
-
-***
-
-### type
-
-> **type**: `string`
-
-Defined in: tevm-monorepo/packages/node/dist/index.d.ts:228
+| Property | Type |
+| ------ | ------ |
+| <a id="data"></a> `data` | `unknown` |
+| <a id="type"></a> `type` | `string` |

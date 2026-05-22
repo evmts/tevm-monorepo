@@ -14,9 +14,9 @@ Creates a Next.js API handler for a Tevm JSON-RPC server
 
 ## Parameters
 
-### client
-
-[`Client`](../type-aliases/Client.md)
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `client` | [`Client`](../type-aliases/Client.md) | - |
 
 ## Returns
 

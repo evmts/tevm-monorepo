@@ -8,28 +8,12 @@
 
 > **SolcMetadataSettings** = `object`
 
-Defined in: [solcTypes.ts:223](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L223)
+Defined in: [solcTypes.ts:231](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L231)
 
 ## Properties
 
-### appendCBOR?
-
-> `optional` **appendCBOR?**: `boolean`
-
-Defined in: [solcTypes.ts:226](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L226)
-
-***
-
-### bytecodeHash?
-
-> `optional` **bytecodeHash?**: `"ipfs"` \| `"bzzr1"` \| `"none"`
-
-Defined in: [solcTypes.ts:233](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L233)
-
-***
-
-### useLiteralContent?
-
-> `optional` **useLiteralContent?**: `boolean`
-
-Defined in: [solcTypes.ts:228](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L228)
+| Property | Type | Defined in |
+| ------ | ------ | ------ |
+| <a id="appendcbor"></a> `appendCBOR?` | `boolean` | [solcTypes.ts:234](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L234) |
+| <a id="bytecodehash"></a> `bytecodeHash?` | `"ipfs"` \| `"bzzr1"` \| `"none"` | [solcTypes.ts:241](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L241) |
+| <a id="useliteralcontent"></a> `useLiteralContent?` | `boolean` | [solcTypes.ts:236](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L236) |

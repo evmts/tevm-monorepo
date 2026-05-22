@@ -8,6 +8,6 @@
 
 > **AnvilSetTimeJsonRpcRequest** = `JsonRpcRequest`\<`"anvil_setTime"`, readonly \[`Hex`\]\>
 
-Defined in: [packages/actions/src/anvil/AnvilJsonRpcRequest.ts:256](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilJsonRpcRequest.ts#L256)
+Defined in: [packages/actions/src/anvil/AnvilJsonRpcRequest.ts:260](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilJsonRpcRequest.ts#L260)
 
 JSON-RPC request for `anvil_setTime` method

@@ -8,23 +8,14 @@
 
 > **ExtractAbiFunctionNames**\<`abi`, `abiStateMutability`\> = `ExtractAbiFunctions`\<`abi`, `abiStateMutability`\>\[`"name"`\]
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/abitype@1.2.4\_typescript@6.0.3\_zod@4.4.3/node\_modules/abitype/dist/types/utils.d.ts:178
-
 Extracts all [AbiFunction](AbiFunction.md) names from [Abi](Abi.md).
 
 ## Type Parameters
 
-### abi
-
-`abi` *extends* [`Abi`](Abi.md)
-
-[Abi](Abi.md) to extract function names from
-
-### abiStateMutability
-
-`abiStateMutability` *extends* `AbiStateMutability` = `AbiStateMutability`
-
-AbiStateMutability to filter by
+| Type Parameter | Default type | Description |
+| ------ | ------ | ------ |
+| `abi` *extends* [`Abi`](Abi.md) | - | [Abi](Abi.md) to extract function names from |
+| `abiStateMutability` *extends* `AbiStateMutability` | `AbiStateMutability` | AbiStateMutability to filter by |
 
 ## Returns
 

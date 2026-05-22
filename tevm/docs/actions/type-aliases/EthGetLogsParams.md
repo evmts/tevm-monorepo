@@ -8,14 +8,10 @@
 
 > **EthGetLogsParams** = `object`
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthParams.d.ts:151
-
 Based on the JSON-RPC request for `eth_getLogs` procedure
 
 ## Properties
 
-### filterParams
-
-> `readonly` **filterParams**: [`FilterParams`](../../index/type-aliases/FilterParams.md)
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthParams.d.ts:152
+| Property | Modifier | Type |
+| ------ | ------ | ------ |
+| <a id="filterparams"></a> `filterParams` | `readonly` | [`FilterParams`](../../index/type-aliases/FilterParams.md) |

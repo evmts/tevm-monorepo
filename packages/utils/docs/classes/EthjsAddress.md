@@ -18,9 +18,9 @@ Defined in: zevm/npm/zevm/dist/util.d.ts:163
 
 #### Parameters
 
-##### bytes
-
-`Uint8Array`
+| Parameter | Type |
+| ------ | ------ |
+| `bytes` | `Uint8Array` |
 
 #### Returns
 
@@ -28,11 +28,9 @@ Defined in: zevm/npm/zevm/dist/util.d.ts:163
 
 ## Properties
 
-### bytes
-
-> **bytes**: `Uint8Array`
-
-Defined in: zevm/npm/zevm/dist/util.d.ts:162
+| Property | Type | Defined in |
+| ------ | ------ | ------ |
+| <a id="bytes"></a> `bytes` | `Uint8Array` | zevm/npm/zevm/dist/util.d.ts:162 |
 
 ## Methods
 
@@ -44,9 +42,9 @@ Defined in: zevm/npm/zevm/dist/util.d.ts:166
 
 #### Parameters
 
-##### address
-
-`Address`
+| Parameter | Type |
+| ------ | ------ |
+| `address` | `Address` |
 
 #### Returns
 
@@ -110,9 +108,9 @@ Defined in: zevm/npm/zevm/dist/util.d.ts:164
 
 #### Parameters
 
-##### str
-
-`string`
+| Parameter | Type |
+| ------ | ------ |
+| `str` | `string` |
 
 #### Returns
 

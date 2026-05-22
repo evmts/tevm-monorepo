@@ -12,9 +12,9 @@ Defined in: [packages/actions/src/eth/EthProcedure.ts:235](https://github.com/ev
 
 ## Parameters
 
-### request
-
-[`EthNewBlockFilterJsonRpcRequest`](EthNewBlockFilterJsonRpcRequest.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`EthNewBlockFilterJsonRpcRequest`](EthNewBlockFilterJsonRpcRequest.md) |
 
 ## Returns
 

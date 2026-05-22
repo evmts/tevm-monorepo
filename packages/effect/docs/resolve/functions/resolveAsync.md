@@ -8,19 +8,16 @@
 
 > **resolveAsync**(`arg0`, `arg1`): `Effect`\<`string`, [`CouldNotResolveImportError`](../classes/CouldNotResolveImportError.md), `never`\>
 
-Defined in: [packages/effect/src/resolve.js:65](https://github.com/evmts/tevm-monorepo/blob/main/packages/effect/src/resolve.js#L65)
+Defined in: [packages/effect/src/resolve.js:66](https://github.com/evmts/tevm-monorepo/blob/main/packages/effect/src/resolve.js#L66)
 
 Effect wrpper around import('node:resolve')
 
 ## Parameters
 
-### arg0
-
-`string`
-
-### arg1
-
-`SyncOpts` & `AsyncOpts`
+| Parameter | Type |
+| ------ | ------ |
+| `arg0` | `string` |
+| `arg1` | `SyncOpts` & `AsyncOpts` |
 
 ## Returns
 

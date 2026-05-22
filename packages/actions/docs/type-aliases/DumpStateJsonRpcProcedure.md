@@ -14,9 +14,9 @@ Procedure for handling tevm_dumpState JSON-RPC requests
 
 ## Parameters
 
-### request
-
-[`DumpStateJsonRpcRequest`](DumpStateJsonRpcRequest.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`DumpStateJsonRpcRequest`](DumpStateJsonRpcRequest.md) |
 
 ## Returns
 

@@ -8,8 +8,6 @@
 
 > **RequestsBytes** = `Uint8Array`[]
 
-Defined in: tevm-monorepo/packages/block/types/types.d.ts:250
-
 Represents serialized consensus layer requests in byte format
 
 Used in the Cancun upgrade (EIP-4788) for including consensus layer data

@@ -16,15 +16,10 @@ Decodes a hex value into a boolean.
 
 ## Parameters
 
-### hex\_
-
-`` `0x${string}` ``
-
-### opts?
-
-`HexToBoolOpts`
-
-Options.
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `hex_` | `` `0x${string}` `` | - |
+| `opts?` | `HexToBoolOpts` | Options. |
 
 ## Returns
 

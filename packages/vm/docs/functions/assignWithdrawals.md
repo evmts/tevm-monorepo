@@ -12,9 +12,9 @@ Defined in: [packages/vm/src/actions/assignWithdrawals.ts:8](https://github.com/
 
 ## Parameters
 
-### vm
-
-`BaseVm`
+| Parameter | Type |
+| ------ | ------ |
+| `vm` | `BaseVm` |
 
 ## Returns
 

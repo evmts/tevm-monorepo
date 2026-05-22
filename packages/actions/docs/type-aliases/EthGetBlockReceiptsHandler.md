@@ -12,9 +12,9 @@ Defined in: [packages/actions/src/eth/EthHandler.ts:173](https://github.com/evmt
 
 ## Parameters
 
-### request
-
-[`EthGetBlockReceiptsParams`](EthGetBlockReceiptsParams.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`EthGetBlockReceiptsParams`](EthGetBlockReceiptsParams.md) |
 
 ## Returns
 

@@ -8,6 +8,4 @@
 
 > **EthNewPendingTransactionFilterResult** = [`Hex`](Hex.md)
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthResult.d.ts:204
-
 JSON-RPC response for `eth_newPendingTransactionFilter` procedure

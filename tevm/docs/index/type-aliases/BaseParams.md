@@ -8,23 +8,16 @@
 
 > **BaseParams**\<`TThrowOnFail`\> = `object`
 
-Defined in: tevm-monorepo/packages/actions/types/common/BaseParams.d.ts:4
-
 The base parameters shared across all actions
 
 ## Type Parameters
 
-### TThrowOnFail
-
-`TThrowOnFail` *extends* `boolean` = `boolean`
+| Type Parameter | Default type |
+| ------ | ------ |
+| `TThrowOnFail` *extends* `boolean` | `boolean` |
 
 ## Properties
 
-### throwOnFail?
-
-> `readonly` `optional` **throwOnFail?**: `TThrowOnFail`
-
-Defined in: tevm-monorepo/packages/actions/types/common/BaseParams.d.ts:9
-
-Whether to throw on errors or return errors as value on the 'errors' property
-Defaults to `true`
+| Property | Modifier | Type | Description |
+| ------ | ------ | ------ | ------ |
+| <a id="throwonfail"></a> `throwOnFail?` | `readonly` | `TThrowOnFail` | Whether to throw on errors or return errors as value on the 'errors' property Defaults to `true` |

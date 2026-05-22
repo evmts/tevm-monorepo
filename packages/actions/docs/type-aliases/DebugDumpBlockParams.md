@@ -14,10 +14,6 @@ Params taken by `debug_dumpBlock` handler
 
 ## Properties
 
-### blockTag
-
-> `readonly` **blockTag**: [`Hex`](Hex.md) \| `Uint8Array` \| `number` \| `bigint` \| [`BlockTag`](BlockTag.md)
-
-Defined in: [packages/actions/src/debug/DebugParams.ts:230](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/DebugParams.ts#L230)
-
-Block number, block hash, or block tag to dump state for
+| Property | Modifier | Type | Description | Defined in |
+| ------ | ------ | ------ | ------ | ------ |
+| <a id="blocktag"></a> `blockTag` | `readonly` | [`Hex`](Hex.md) \| `Uint8Array` \| `number` \| `bigint` \| [`BlockTag`](BlockTag.md) | Block number, block hash, or block tag to dump state for | [packages/actions/src/debug/DebugParams.ts:230](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/DebugParams.ts#L230) |

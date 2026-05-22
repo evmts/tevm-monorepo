@@ -8,13 +8,11 @@
 
 > **EthGetProofHandler** = (`request`) => `Promise`\<[`EthGetProofResult`](EthGetProofResult.md)\>
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthHandler.d.ts:46
-
 ## Parameters
 
-### request
-
-[`EthGetProofParams`](EthGetProofParams.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`EthGetProofParams`](EthGetProofParams.md) |
 
 ## Returns
 

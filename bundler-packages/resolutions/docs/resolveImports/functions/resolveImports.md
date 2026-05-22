@@ -14,25 +14,13 @@ Returns a the import resolutions for the given code
 
 ## Parameters
 
-### absolutePath
-
-`string`
-
-### code
-
-`string`
-
-### remappings
-
-`Record`\<`string`, `string`\>
-
-### libs
-
-readonly `string`[]
-
-### sync
-
-`boolean`
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `absolutePath` | `string` | - |
+| `code` | `string` | - |
+| `remappings` | `Record`\<`string`, `string`\> | - |
+| `libs` | readonly `string`[] | - |
+| `sync` | `boolean` | - |
 
 ## Returns
 

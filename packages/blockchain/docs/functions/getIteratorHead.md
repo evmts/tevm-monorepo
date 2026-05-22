@@ -12,9 +12,9 @@ Defined in: [packages/blockchain/src/actions/getIteratorHead.js:8](https://githu
 
 ## Parameters
 
-### baseChain
-
-`BaseChain`
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `baseChain` | `BaseChain` | - |
 
 ## Returns
 
@@ -24,11 +24,9 @@ Returns the specified iterator head.
 
 ### Parameters
 
-#### name?
-
-`string`
-
-Optional name of the iterator head (default: 'vm')
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `name?` | `string` | Optional name of the iterator head (default: 'vm') |
 
 ### Returns
 

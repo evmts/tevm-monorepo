@@ -8,15 +8,13 @@
 
 > **AnvilSnapshotProcedure** = (`request`) => `Promise`\<[`AnvilSnapshotJsonRpcResponse`](AnvilSnapshotJsonRpcResponse.md)\>
 
-Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilProcedure.d.ts:95
-
 JSON-RPC procedure for `anvil_snapshot`
 
 ## Parameters
 
-### request
-
-[`AnvilSnapshotJsonRpcRequest`](AnvilSnapshotJsonRpcRequest.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`AnvilSnapshotJsonRpcRequest`](AnvilSnapshotJsonRpcRequest.md) |
 
 ## Returns
 

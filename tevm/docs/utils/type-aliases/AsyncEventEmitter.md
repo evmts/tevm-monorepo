@@ -8,13 +8,11 @@
 
 > **AsyncEventEmitter**\<`T`\> = `object`
 
-Defined in: tevm-monorepo/packages/utils/types/index.d.ts:13
-
 ## Type Parameters
 
-### T
-
-`T` *extends* `Record`\<`string`, `any`\> = \{ \}
+| Type Parameter | Default type |
+| ------ | ------ |
+| `T` *extends* `Record`\<`string`, `any`\> | `object` |
 
 ## Methods
 
@@ -22,23 +20,18 @@ Defined in: tevm-monorepo/packages/utils/types/index.d.ts:13
 
 > **emit**\<`K`\>(`event`, ...`args`): `boolean`
 
-Defined in: tevm-monorepo/packages/utils/types/index.d.ts:17
-
 #### Type Parameters
 
-##### K
-
-`K` *extends* `string` \| `number` \| `symbol`
+| Type Parameter |
+| ------ |
+| `K` *extends* `string` \| `number` \| `symbol` |
 
 #### Parameters
 
-##### event
-
-`K`
-
-##### args
-
-...`Parameters`\<`T`\[`K`\]\>
+| Parameter | Type |
+| ------ | ------ |
+| `event` | `K` |
+| ...`args` | `Parameters`\<`T`\[`K`\]\> |
 
 #### Returns
 
@@ -50,23 +43,18 @@ Defined in: tevm-monorepo/packages/utils/types/index.d.ts:17
 
 > **off**\<`K`\>(`event`, `listener`): `void`
 
-Defined in: tevm-monorepo/packages/utils/types/index.d.ts:16
-
 #### Type Parameters
 
-##### K
-
-`K` *extends* `string` \| `number` \| `symbol`
+| Type Parameter |
+| ------ |
+| `K` *extends* `string` \| `number` \| `symbol` |
 
 #### Parameters
 
-##### event
-
-`K`
-
-##### listener
-
-`T`\[`K`\]
+| Parameter | Type |
+| ------ | ------ |
+| `event` | `K` |
+| `listener` | `T`\[`K`\] |
 
 #### Returns
 
@@ -78,23 +66,18 @@ Defined in: tevm-monorepo/packages/utils/types/index.d.ts:16
 
 > **on**\<`K`\>(`event`, `listener`): `void`
 
-Defined in: tevm-monorepo/packages/utils/types/index.d.ts:14
-
 #### Type Parameters
 
-##### K
-
-`K` *extends* `string` \| `number` \| `symbol`
+| Type Parameter |
+| ------ |
+| `K` *extends* `string` \| `number` \| `symbol` |
 
 #### Parameters
 
-##### event
-
-`K`
-
-##### listener
-
-`T`\[`K`\]
+| Parameter | Type |
+| ------ | ------ |
+| `event` | `K` |
+| `listener` | `T`\[`K`\] |
 
 #### Returns
 
@@ -106,23 +89,18 @@ Defined in: tevm-monorepo/packages/utils/types/index.d.ts:14
 
 > **once**\<`K`\>(`event`, `listener`): `void`
 
-Defined in: tevm-monorepo/packages/utils/types/index.d.ts:15
-
 #### Type Parameters
 
-##### K
-
-`K` *extends* `string` \| `number` \| `symbol`
+| Type Parameter |
+| ------ |
+| `K` *extends* `string` \| `number` \| `symbol` |
 
 #### Parameters
 
-##### event
-
-`K`
-
-##### listener
-
-`T`\[`K`\]
+| Parameter | Type |
+| ------ | ------ |
+| `event` | `K` |
+| `listener` | `T`\[`K`\] |
 
 #### Returns
 
@@ -134,19 +112,17 @@ Defined in: tevm-monorepo/packages/utils/types/index.d.ts:15
 
 > **removeAllListeners**\<`K`\>(`event?`): `void`
 
-Defined in: tevm-monorepo/packages/utils/types/index.d.ts:18
-
 #### Type Parameters
 
-##### K
-
-`K` *extends* `string` \| `number` \| `symbol`
+| Type Parameter |
+| ------ |
+| `K` *extends* `string` \| `number` \| `symbol` |
 
 #### Parameters
 
-##### event?
-
-`K`
+| Parameter | Type |
+| ------ | ------ |
+| `event?` | `K` |
 
 #### Returns
 

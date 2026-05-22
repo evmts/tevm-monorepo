@@ -12,19 +12,12 @@ Defined in: node\_modules/.pnpm/@ponder+utils@0.2.18\_typescript@6.0.3\_viem@2.4
 
 ## Parameters
 
-### \_transport
-
-`Transport`
-
-### \{ requestsPerSecond, browser, \}
-
-#### browser?
-
-`boolean`
-
-#### requestsPerSecond
-
-`number`
+| Parameter | Type |
+| ------ | ------ |
+| `_transport` | `Transport` |
+| `{ requestsPerSecond, browser, }` | \{ `browser?`: `boolean`; `requestsPerSecond`: `number`; \} |
+| `{ requestsPerSecond, browser, }.browser?` | `boolean` |
+| `{ requestsPerSecond, browser, }.requestsPerSecond` | `number` |
 
 ## Returns
 

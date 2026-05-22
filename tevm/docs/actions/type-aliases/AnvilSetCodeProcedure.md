@@ -8,15 +8,13 @@
 
 > **AnvilSetCodeProcedure** = (`request`) => `Promise`\<[`AnvilSetCodeJsonRpcResponse`](AnvilSetCodeJsonRpcResponse.md)\>
 
-Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilProcedure.d.ts:51
-
 JSON-RPC procedure for `anvil_setCode`
 
 ## Parameters
 
-### request
-
-[`AnvilSetCodeJsonRpcRequest`](AnvilSetCodeJsonRpcRequest.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`AnvilSetCodeJsonRpcRequest`](AnvilSetCodeJsonRpcRequest.md) |
 
 ## Returns
 

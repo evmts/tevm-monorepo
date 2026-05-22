@@ -12,6 +12,6 @@ Defined in: [eip1193/EIP1193Parameters.ts:10](https://github.com/evmts/tevm-mono
 
 ## Type Parameters
 
-### TRpcSchema
-
-`TRpcSchema` *extends* [`RpcSchema`](RpcSchema.md) \| `undefined` = `undefined`
+| Type Parameter | Default type |
+| ------ | ------ |
+| `TRpcSchema` *extends* [`RpcSchema`](RpcSchema.md) \| `undefined` | `undefined` |

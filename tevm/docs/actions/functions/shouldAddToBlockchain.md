@@ -8,17 +8,12 @@
 
 > **shouldAddToBlockchain**(`params`, `runTxResult`): `boolean`
 
-Defined in: tevm-monorepo/packages/actions/types/Call/shouldCreateTransaction.d.ts:2
-
 ## Parameters
 
-### params
-
-[`CallParams`](../type-aliases/CallParams.md)\<`boolean`\>
-
-### runTxResult
-
-[`RunTxResult`](../../vm/interfaces/RunTxResult.md)
+| Parameter | Type |
+| ------ | ------ |
+| `params` | [`CallParams`](../type-aliases/CallParams.md)\<`boolean`\> |
+| `runTxResult` | [`RunTxResult`](../../vm/interfaces/RunTxResult.md) |
 
 ## Returns
 

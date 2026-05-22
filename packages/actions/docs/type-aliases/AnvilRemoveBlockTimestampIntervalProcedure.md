@@ -14,9 +14,9 @@ JSON-RPC procedure for `anvil_removeBlockTimestampInterval`
 
 ## Parameters
 
-### request
-
-[`AnvilRemoveBlockTimestampIntervalJsonRpcRequest`](AnvilRemoveBlockTimestampIntervalJsonRpcRequest.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`AnvilRemoveBlockTimestampIntervalJsonRpcRequest`](AnvilRemoveBlockTimestampIntervalJsonRpcRequest.md) |
 
 ## Returns
 

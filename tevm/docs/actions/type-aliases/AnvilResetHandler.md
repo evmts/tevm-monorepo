@@ -8,13 +8,11 @@
 
 > **AnvilResetHandler** = (`params`) => `Promise`\<[`AnvilResetResult`](AnvilResetResult.md)\>
 
-Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilHandler.d.ts:7
-
 ## Parameters
 
-### params
-
-[`AnvilResetParams`](AnvilResetParams.md)
+| Parameter | Type |
+| ------ | ------ |
+| `params` | [`AnvilResetParams`](AnvilResetParams.md) |
 
 ## Returns
 

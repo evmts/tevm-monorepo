@@ -12,9 +12,9 @@ Defined in: [packages/actions/src/anvil/AnvilProcedure.ts:86](https://github.com
 
 ## Parameters
 
-### request
-
-[`AnvilSetCoinbaseJsonRpcRequest`](AnvilSetCoinbaseJsonRpcRequest.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`AnvilSetCoinbaseJsonRpcRequest`](AnvilSetCoinbaseJsonRpcRequest.md) |
 
 ## Returns
 

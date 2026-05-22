@@ -8,13 +8,11 @@
 
 > **EthSubscribeJsonRpcProcedure** = (`request`) => `Promise`\<[`EthSubscribeJsonRpcResponse`](EthSubscribeJsonRpcResponse.md)\>
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthProcedure.d.ts:45
-
 ## Parameters
 
-### request
-
-[`EthSubscribeJsonRpcRequest`](EthSubscribeJsonRpcRequest.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`EthSubscribeJsonRpcRequest`](EthSubscribeJsonRpcRequest.md) |
 
 ## Returns
 

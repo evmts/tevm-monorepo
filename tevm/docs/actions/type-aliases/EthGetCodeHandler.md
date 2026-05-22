@@ -8,13 +8,11 @@
 
 > **EthGetCodeHandler** = (`request`) => `Promise`\<[`EthGetCodeResult`](EthGetCodeResult.md)\>
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthHandler.d.ts:18
-
 ## Parameters
 
-### request
-
-[`EthGetCodeParams`](EthGetCodeParams.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`EthGetCodeParams`](EthGetCodeParams.md) |
 
 ## Returns
 

@@ -8,8 +8,6 @@
 
 > **LoadStateResult**\<`ErrorType`\> = `object`
 
-Defined in: tevm-monorepo/packages/actions/types/LoadState/LoadStateResult.d.ts:25
-
 Result of the `tevmLoadState` method.
 
 This type represents the result returned by the `tevmLoadState` method. It includes any errors that might have occurred during the state loading process.
@@ -37,16 +35,12 @@ if (result.errors) {
 
 ## Type Parameters
 
-### ErrorType
-
-`ErrorType` = [`TevmLoadStateError`](TevmLoadStateError.md)
+| Type Parameter | Default type |
+| ------ | ------ |
+| `ErrorType` | [`TevmLoadStateError`](TevmLoadStateError.md) |
 
 ## Properties
 
-### errors?
-
-> `optional` **errors?**: `ErrorType`[]
-
-Defined in: tevm-monorepo/packages/actions/types/LoadState/LoadStateResult.d.ts:29
-
-Description of the exception, if any occurred.
+| Property | Type | Description |
+| ------ | ------ | ------ |
+| <a id="errors"></a> `errors?` | `ErrorType`[] | Description of the exception, if any occurred. |

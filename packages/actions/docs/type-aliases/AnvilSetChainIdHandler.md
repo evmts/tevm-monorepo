@@ -12,9 +12,9 @@ Defined in: [packages/actions/src/anvil/AnvilHandler.ts:76](https://github.com/e
 
 ## Parameters
 
-### params
-
-[`AnvilSetChainIdParams`](AnvilSetChainIdParams.md)
+| Parameter | Type |
+| ------ | ------ |
+| `params` | [`AnvilSetChainIdParams`](AnvilSetChainIdParams.md) |
 
 ## Returns
 

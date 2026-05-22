@@ -8,8 +8,6 @@
 
 > **EvmType**: `object`
 
-Defined in: tevm-monorepo/packages/evm/dist/index.d.ts:185
-
 ## Type Declaration
 
 ### create
@@ -18,9 +16,9 @@ Defined in: tevm-monorepo/packages/evm/dist/index.d.ts:185
 
 #### Parameters
 
-##### options?
-
-`EVMOpts`
+| Parameter | Type |
+| ------ | ------ |
+| `options?` | `EVMOpts` |
 
 #### Returns
 

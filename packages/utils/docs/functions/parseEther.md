@@ -16,13 +16,10 @@ Converts a string representation of ether to numerical wei.
 
 ## Parameters
 
-### ether
-
-`string`
-
-### unit?
-
-`"wei"` \| `"gwei"`
+| Parameter | Type |
+| ------ | ------ |
+| `ether` | `string` |
+| `unit?` | `"wei"` \| `"gwei"` |
 
 ## Returns
 

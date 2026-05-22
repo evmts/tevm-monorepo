@@ -8,84 +8,21 @@
 
 > **SolcContractOutput** = `object`
 
-Defined in: [solcTypes.ts:393](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L393)
+Defined in: [solcTypes.ts:419](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L419)
 
 ## Properties
 
-### abi
-
-> **abi**: `Abi`
-
-Defined in: [solcTypes.ts:395](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L395)
-
-***
-
-### devdoc
-
-> **devdoc**: `any`
-
-Defined in: [solcTypes.ts:409](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L409)
-
-***
-
-### evm
-
-> **evm**: [`SolcEVMOutput`](SolcEVMOutput.md)
-
-Defined in: [solcTypes.ts:418](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L418)
-
-***
-
-### ewasm
-
-> **ewasm**: [`SolcEwasmOutput`](SolcEwasmOutput.md)
-
-Defined in: [solcTypes.ts:421](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L421)
-
-***
-
-### ir
-
-> **ir**: `string`
-
-Defined in: [solcTypes.ts:412](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L412)
-
-***
-
-### metadata
-
-> **metadata**: `string`
-
-Defined in: [solcTypes.ts:398](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L398)
-
-***
-
-### storageLayout
-
-> **storageLayout**: [`SolcStorageLayout`](SolcStorageLayout.md)
-
-Defined in: [solcTypes.ts:415](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L415)
-
-***
-
-### userdoc
-
-> **userdoc**: `object`
-
-Defined in: [solcTypes.ts:401](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L401)
-
-#### kind
-
-> **kind**: `"user"`
-
-#### methods?
-
-> `optional` **methods?**: `Record`\<`string`, \{ `notice`: `string`; \}\>
-
-#### notice?
-
-> `optional` **notice?**: `string`
-
-#### version
-
-> **version**: `number`
+| Property | Type | Defined in |
+| ------ | ------ | ------ |
+| <a id="abi"></a> `abi` | `Abi` | [solcTypes.ts:421](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L421) |
+| <a id="devdoc"></a> `devdoc` | `any` | [solcTypes.ts:435](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L435) |
+| <a id="evm"></a> `evm` | [`SolcEvmOutput`](SolcEvmOutput.md) | [solcTypes.ts:444](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L444) |
+| <a id="ewasm"></a> `ewasm` | [`SolcEwasmOutput`](SolcEwasmOutput.md) | [solcTypes.ts:447](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L447) |
+| <a id="ir"></a> `ir` | `string` | [solcTypes.ts:438](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L438) |
+| <a id="metadata"></a> `metadata` | `string` | [solcTypes.ts:424](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L424) |
+| <a id="storagelayout"></a> `storageLayout` | [`SolcStorageLayout`](SolcStorageLayout.md) | [solcTypes.ts:441](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L441) |
+| <a id="userdoc"></a> `userdoc` | `object` | [solcTypes.ts:427](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L427) |
+| `userdoc.kind` | `"user"` | [solcTypes.ts:429](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L429) |
+| `userdoc.methods?` | `Record`\<`string`, \{ `notice`: `string`; \}\> | [solcTypes.ts:428](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L428) |
+| `userdoc.notice?` | `string` | [solcTypes.ts:430](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L430) |
+| `userdoc.version` | `number` | [solcTypes.ts:431](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L431) |

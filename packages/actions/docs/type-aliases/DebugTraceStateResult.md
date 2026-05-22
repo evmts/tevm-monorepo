@@ -14,6 +14,6 @@ Result from `debug_traceState`
 
 ## Type Parameters
 
-### TStateFilters
-
-`TStateFilters` *extends* readonly [`DebugTraceStateFilter`](DebugTraceStateFilter.md)[] = readonly [`DebugTraceStateFilter`](DebugTraceStateFilter.md)[]
+| Type Parameter | Default type |
+| ------ | ------ |
+| `TStateFilters` *extends* readonly [`DebugTraceStateFilter`](DebugTraceStateFilter.md)[] | readonly [`DebugTraceStateFilter`](DebugTraceStateFilter.md)[] |

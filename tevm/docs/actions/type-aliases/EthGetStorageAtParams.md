@@ -8,30 +8,12 @@
 
 > **EthGetStorageAtParams** = `object`
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthParams.d.ts:157
-
 Based on the JSON-RPC request for `eth_getStorageAt` procedure
 
 ## Properties
 
-### address
-
-> `readonly` **address**: [`Address`](Address.md)
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthParams.d.ts:158
-
-***
-
-### blockTag?
-
-> `readonly` `optional` **blockTag?**: [`BlockParam`](../../index/type-aliases/BlockParam.md)
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthParams.d.ts:160
-
-***
-
-### position
-
-> `readonly` **position**: [`Hex`](Hex.md)
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthParams.d.ts:159
+| Property | Modifier | Type |
+| ------ | ------ | ------ |
+| <a id="address"></a> `address` | `readonly` | [`Address`](Address.md) |
+| <a id="blocktag"></a> `blockTag?` | `readonly` | [`BlockParam`](../../index/type-aliases/BlockParam.md) |
+| <a id="position"></a> `position` | `readonly` | [`Hex`](Hex.md) |

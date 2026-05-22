@@ -12,19 +12,16 @@ Defined in: [tevm-monorepo/packages/state/src/state-types/StateAction.ts:4](http
 
 ## Type Parameters
 
-### T
-
-`T` *extends* keyof [`StateManager`](../interfaces/StateManager.md)
+| Type Parameter |
+| ------ |
+| `T` *extends* keyof [`StateManager`](../interfaces/StateManager.md) |
 
 ## Parameters
 
-### baseState
-
-[`BaseState`](BaseState.md)
-
-### skipFetchingFromFork?
-
-`boolean`
+| Parameter | Type |
+| ------ | ------ |
+| `baseState` | [`BaseState`](BaseState.md) |
+| `skipFetchingFromFork?` | `boolean` |
 
 ## Returns
 

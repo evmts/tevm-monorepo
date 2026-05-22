@@ -8,8 +8,6 @@
 
 > **tevmSend**(): [`Extension`](../../index/type-aliases/Extension.md)\<[`TevmSendApi`](../type-aliases/TevmSendApi.md)\>
 
-Defined in: tevm-monorepo/packages/decorators/dist/index.d.ts:1839
-
 ## Returns
 
 [`Extension`](../../index/type-aliases/Extension.md)\<[`TevmSendApi`](../type-aliases/TevmSendApi.md)\>

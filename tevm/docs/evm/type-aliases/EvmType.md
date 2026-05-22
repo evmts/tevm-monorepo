@@ -8,8 +8,6 @@
 
 > **EvmType** = `Omit`\<`EVM`, `"stateManager"`\> & `object`
 
-Defined in: tevm-monorepo/packages/evm/dist/index.d.ts:185
-
 ## Type Declaration
 
 ### addCustomPrecompile
@@ -18,9 +16,9 @@ Defined in: tevm-monorepo/packages/evm/dist/index.d.ts:185
 
 #### Parameters
 
-##### precompile
-
-[`CustomPrecompile`](CustomPrecompile.md)
+| Parameter | Type |
+| ------ | ------ |
+| `precompile` | [`CustomPrecompile`](CustomPrecompile.md) |
 
 #### Returns
 
@@ -32,9 +30,9 @@ Defined in: tevm-monorepo/packages/evm/dist/index.d.ts:185
 
 #### Parameters
 
-##### precompile
-
-[`CustomPrecompile`](CustomPrecompile.md)
+| Parameter | Type |
+| ------ | ------ |
+| `precompile` | [`CustomPrecompile`](CustomPrecompile.md) |
 
 #### Returns
 

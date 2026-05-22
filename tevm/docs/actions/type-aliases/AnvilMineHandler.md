@@ -8,13 +8,11 @@
 
 > **AnvilMineHandler** = (`params`) => `Promise`\<[`AnvilMineResult`](AnvilMineResult.md)\>
 
-Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilHandler.d.ts:6
-
 ## Parameters
 
-### params
-
-[`AnvilMineParams`](AnvilMineParams.md)
+| Parameter | Type |
+| ------ | ------ |
+| `params` | [`AnvilMineParams`](AnvilMineParams.md) |
 
 ## Returns
 

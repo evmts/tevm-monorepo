@@ -8,16 +8,16 @@
 
 > **anvilResetJsonRpcProcedure**(`node`): [`AnvilResetProcedure`](../type-aliases/AnvilResetProcedure.md)
 
-Defined in: [packages/actions/src/anvil/anvilResetProcedure.js:15](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/anvilResetProcedure.js#L15)
+Defined in: [packages/actions/src/anvil/anvilResetProcedure.js:17](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/anvilResetProcedure.js#L17)
 
 Request handler for anvil_reset JSON-RPC requests.
 If the node is forked, anvil_reset will reset to the forked block.
 
 ## Parameters
 
-### node
-
-`TevmNode`\<`"fork"` \| `"normal"`, \{ \}\>
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `node` | `TevmNode`\<`"fork"` \| `"normal"`, \{ \}\> | - |
 
 ## Returns
 

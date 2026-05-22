@@ -10,22 +10,13 @@ Defined in: [extensions/test-matchers/src/common/types.ts:5](https://github.com/
 
 ## Type Parameters
 
-### TAbi
-
-`TAbi` *extends* `Abi` = `Abi`
+| Type Parameter | Default type |
+| ------ | ------ |
+| `TAbi` *extends* `Abi` | `Abi` |
 
 ## Properties
 
-### abi
-
-> **abi**: `TAbi`
-
-Defined in: [extensions/test-matchers/src/common/types.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/extensions/test-matchers/src/common/types.ts#L6)
-
-***
-
-### address?
-
-> `optional` **address?**: `` `0x${string}` ``
-
-Defined in: [extensions/test-matchers/src/common/types.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/extensions/test-matchers/src/common/types.ts#L7)
+| Property | Type | Defined in |
+| ------ | ------ | ------ |
+| <a id="abi"></a> `abi` | `TAbi` | [extensions/test-matchers/src/common/types.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/extensions/test-matchers/src/common/types.ts#L6) |
+| <a id="address"></a> `address?` | `` `0x${string}` `` | [extensions/test-matchers/src/common/types.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/extensions/test-matchers/src/common/types.ts#L7) |

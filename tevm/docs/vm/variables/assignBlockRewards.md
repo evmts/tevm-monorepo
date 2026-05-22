@@ -8,16 +8,14 @@
 
 > `const` **assignBlockRewards**: (`vm`) => (`block`) => `Promise`\<`void`\>
 
-Defined in: tevm-monorepo/packages/vm/types/actions/assignBlockRewards.d.ts:7
-
 Calculates block rewards for miner and ommers and puts
 the updated balances of their accounts to state.
 
 ## Parameters
 
-### vm
-
-`BaseVm`
+| Parameter | Type |
+| ------ | ------ |
+| `vm` | `BaseVm` |
 
 ## Returns
 

@@ -14,36 +14,15 @@ Handles the creation of a transaction based on the call parameters and execution
 
 ## Parameters
 
-### client
-
-`TevmNode`\<`"fork"` \| `"normal"`, \{ \}\>
-
-The TEVM base client instance.
-
-### params
-
-[`CallParams`](../type-aliases/CallParams.md)\<`boolean`\>
-
-The call parameters.
-
-### executedCall
-
-[`ExecuteCallResult`](../type-aliases/ExecuteCallResult.md)
-
-The result of the executed call.
-
-### evmInput
-
-`EVMRunCallOpts`
-
-The EVM input parameters.
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `client` | `TevmNode`\<`"fork"` \| `"normal"`, \{ \}\> | - |
+| `params` | [`CallParams`](../type-aliases/CallParams.md)\<`boolean`\> | - |
+| `executedCall` | [`ExecuteCallResult`](../type-aliases/ExecuteCallResult.md) | - |
+| `evmInput` | `EVMRunCallOpts` | - |
 
 ## Returns
 
 `Promise`\<\{ `errors?`: `undefined`; `hash`: `` `0x${string}` `` \| `undefined`; \} \| \{ `errors`: [`TevmCallError`](../type-aliases/TevmCallError.md)[]; `hash?`: `undefined`; \}\>
 
-A promise that resolves to the transaction hash or undefined.
-
 ## Throws
-
-Returns errors as values

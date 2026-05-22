@@ -8,12 +8,8 @@
 
 > **ProviderConnectInfo** = `object`
 
-Defined in: tevm-monorepo/packages/node/dist/index.d.ts:224
-
 ## Properties
 
-### chainId
-
-> **chainId**: `string`
-
-Defined in: tevm-monorepo/packages/node/dist/index.d.ts:225
+| Property | Type |
+| ------ | ------ |
+| <a id="chainid"></a> `chainId` | `string` |

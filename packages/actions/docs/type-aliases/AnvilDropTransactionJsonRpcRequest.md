@@ -6,8 +6,8 @@
 
 # Type Alias: AnvilDropTransactionJsonRpcRequest
 
-> **AnvilDropTransactionJsonRpcRequest** = `JsonRpcRequest`\<`"anvil_dropTransaction"`, \[`SerializeToJson`\<[`AnvilDropTransactionParams`](AnvilDropTransactionParams.md)\>\]\>
+> **AnvilDropTransactionJsonRpcRequest** = `JsonRpcRequest`\<`"anvil_dropTransaction"`, readonly \[`Hex`\] \| \[`SerializeToJson`\<[`AnvilDropTransactionParams`](AnvilDropTransactionParams.md)\>\]\>
 
-Defined in: [packages/actions/src/anvil/AnvilJsonRpcRequest.ts:80](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilJsonRpcRequest.ts#L80)
+Defined in: [packages/actions/src/anvil/AnvilJsonRpcRequest.ts:84](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilJsonRpcRequest.ts#L84)
 
 JSON-RPC request for `anvil_dropTransaction` method

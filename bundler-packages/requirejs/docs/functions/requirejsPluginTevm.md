@@ -20,15 +20,10 @@ The plugin implements the RequireJS loader plugin API with `load` and `normalize
 
 ## Parameters
 
-### options?
-
-Plugin configuration options
-
-#### solc?
-
-`SolcVersions` = `defaultSolc.version`
-
-Solidity compiler version to use
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `options?` | \{ `solc?`: `SolcVersions`; \} | Plugin configuration options |
+| `options.solc?` | `SolcVersions` | Solidity compiler version to use |
 
 ## Returns
 

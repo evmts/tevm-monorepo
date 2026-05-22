@@ -8,70 +8,17 @@
 
 > **JsonRpcSimulateV2BlockResult** = `object`
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthJsonRpcResponse.d.ts:348
-
 JSON-RPC response block result for eth_simulateV2 (extends V1)
 
 ## Properties
 
-### baseFeePerGas?
-
-> `optional` **baseFeePerGas?**: [`Hex`](../../index/type-aliases/Hex.md)
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthJsonRpcResponse.d.ts:354
-
-***
-
-### calls
-
-> **calls**: [`JsonRpcSimulateV2CallResult`](JsonRpcSimulateV2CallResult.md)[]
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthJsonRpcResponse.d.ts:356
-
-***
-
-### feeRecipient?
-
-> `optional` **feeRecipient?**: [`Address`](../../index/type-aliases/Address.md)
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthJsonRpcResponse.d.ts:355
-
-***
-
-### gasLimit
-
-> **gasLimit**: [`Hex`](../../index/type-aliases/Hex.md)
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthJsonRpcResponse.d.ts:352
-
-***
-
-### gasUsed
-
-> **gasUsed**: [`Hex`](../../index/type-aliases/Hex.md)
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthJsonRpcResponse.d.ts:353
-
-***
-
-### hash
-
-> **hash**: [`Hex`](../../index/type-aliases/Hex.md)
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthJsonRpcResponse.d.ts:350
-
-***
-
-### number
-
-> **number**: [`Hex`](../../index/type-aliases/Hex.md)
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthJsonRpcResponse.d.ts:349
-
-***
-
-### timestamp
-
-> **timestamp**: [`Hex`](../../index/type-aliases/Hex.md)
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthJsonRpcResponse.d.ts:351
+| Property | Type |
+| ------ | ------ |
+| <a id="basefeepergas"></a> `baseFeePerGas?` | [`Hex`](../../index/type-aliases/Hex.md) |
+| <a id="calls"></a> `calls` | [`JsonRpcSimulateV2CallResult`](JsonRpcSimulateV2CallResult.md)[] |
+| <a id="feerecipient"></a> `feeRecipient?` | [`Address`](../../index/type-aliases/Address.md) |
+| <a id="gaslimit"></a> `gasLimit` | [`Hex`](../../index/type-aliases/Hex.md) |
+| <a id="gasused"></a> `gasUsed` | [`Hex`](../../index/type-aliases/Hex.md) |
+| <a id="hash"></a> `hash` | [`Hex`](../../index/type-aliases/Hex.md) |
+| <a id="number"></a> `number` | [`Hex`](../../index/type-aliases/Hex.md) |
+| <a id="timestamp"></a> `timestamp` | [`Hex`](../../index/type-aliases/Hex.md) |

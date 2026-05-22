@@ -8,16 +8,10 @@
 
 > **AnvilLoadStateParams** = `object`
 
-Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilParams.d.ts:157
-
 Params for `anvil_loadState` handler
 
 ## Properties
 
-### state
-
-> `readonly` **state**: `Record`\<[`Hex`](Hex.md), [`Hex`](Hex.md)\>
-
-Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilParams.d.ts:161
-
-The state to load
+| Property | Modifier | Type | Description |
+| ------ | ------ | ------ | ------ |
+| <a id="state"></a> `state` | `readonly` | `Record`\<[`Hex`](Hex.md), [`Hex`](Hex.md)\> | The state to load |

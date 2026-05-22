@@ -8,44 +8,23 @@
 
 > **DeployHandler** = \<`TThrowOnFail`, `TAbi`, `THasConstructor`, `TAllArgs`\>(`action`) => `Promise`\<[`DeployResult`](DeployResult.md)\>
 
-Defined in: tevm-monorepo/packages/actions/types/Deploy/DeployHandlerType.d.ts:44
-
 Handler for deploying contracts on TEVM.
 This handler is used to deploy a contract by specifying the deployment parameters, ABI, and constructor arguments.
 
 ## Type Parameters
 
-### TThrowOnFail
-
-`TThrowOnFail` *extends* `boolean` = `boolean`
-
-Indicates whether to throw an error on failure.
-
-### TAbi
-
-`TAbi` *extends* [`Abi`](../../index/type-aliases/Abi.md) \| readonly `unknown`[] = [`Abi`](../../index/type-aliases/Abi.md)
-
-The ABI type of the contract.
-
-### THasConstructor
-
-`THasConstructor` = `TAbi` *extends* [`Abi`](../../index/type-aliases/Abi.md) ? [`Abi`](../../index/type-aliases/Abi.md) *extends* `TAbi` ? `true` : \[`Extract`\<`TAbi`\[`number`\], \{ `type`: `"constructor"`; \}\>\] *extends* \[`never`\] ? `false` : `true` : `true`
-
-Indicates whether the contract has a constructor.
-
-### TAllArgs
-
-`TAllArgs` = [`ContractConstructorArgs`](../../utils/type-aliases/ContractConstructorArgs.md)\<`TAbi`\>
-
-The types of the constructor arguments.
+| Type Parameter | Default type | Description |
+| ------ | ------ | ------ |
+| `TThrowOnFail` *extends* `boolean` | `boolean` | Indicates whether to throw an error on failure. |
+| `TAbi` *extends* [`Abi`](../../index/type-aliases/Abi.md) \| readonly `unknown`[] | [`Abi`](../../index/type-aliases/Abi.md) | The ABI type of the contract. |
+| `THasConstructor` | `TAbi` *extends* [`Abi`](../../index/type-aliases/Abi.md) ? [`Abi`](../../index/type-aliases/Abi.md) *extends* `TAbi` ? `true` : \[`Extract`\<`TAbi`\[`number`\], \{ `type`: `"constructor"`; \}\>\] *extends* \[`never`\] ? `false` : `true` : `true` | Indicates whether the contract has a constructor. |
+| `TAllArgs` | [`ContractConstructorArgs`](../../utils/type-aliases/ContractConstructorArgs.md)\<`TAbi`\> | The types of the constructor arguments. |
 
 ## Parameters
 
-### action
-
-[`DeployParams`](DeployParams.md)\<`TThrowOnFail`, `TAbi`, `THasConstructor`, `TAllArgs`\> & [`CallEvents`](CallEvents.md)
-
-The deployment parameters and optional event handlers.
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `action` | [`DeployParams`](DeployParams.md)\<`TThrowOnFail`, `TAbi`, `THasConstructor`, `TAllArgs`\> & [`CallEvents`](CallEvents.md) | The deployment parameters and optional event handlers. |
 
 ## Returns
 

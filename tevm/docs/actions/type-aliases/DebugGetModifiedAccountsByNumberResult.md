@@ -8,6 +8,4 @@
 
 > **DebugGetModifiedAccountsByNumberResult** = [`Hex`](Hex.md)[]
 
-Defined in: tevm-monorepo/packages/actions/types/debug/DebugResult.d.ts:139
-
 Result from `debug_getModifiedAccountsByNumber`

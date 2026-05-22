@@ -21,57 +21,21 @@ Creates a tevm Contract instance from a human readable ABI or JSON ABI.
 
 ## Type Parameters
 
-### TName
-
-`TName` *extends* `string`
-
-The name of the contract
-
-### TAbi
-
-`TAbi` *extends* readonly `string`[] \| `Abi`
-
-The ABI type (either string[] for human readable or Abi for JSON)
-
-### TAddress
-
-`TAddress` *extends* `undefined` \| `Address` = `undefined`
-
-The contract address type (optional)
-
-### TBytecode
-
-`TBytecode` *extends* `undefined` \| `Hex` = `undefined`
-
-The contract bytecode type (optional)
-
-### TDeployedBytecode
-
-`TDeployedBytecode` *extends* `undefined` \| `Hex` = `undefined`
-
-The deployed bytecode type (optional)
-
-### TCode
-
-`TCode` *extends* `undefined` \| `Hex` = `undefined`
-
-The runtime bytecode type (optional)
-
-### THumanReadableAbi
-
-`THumanReadableAbi` *extends* readonly `string`[] = `TAbi` *extends* readonly `string`[] ? `TAbi` : `TAbi` *extends* `Abi` ? `FormatAbi`\<`TAbi`\> : `never`
+| Type Parameter | Default type | Description |
+| ------ | ------ | ------ |
+| `TName` *extends* `string` | - | The name of the contract |
+| `TAbi` *extends* readonly `string`[] \| `Abi` | - | The ABI type (either string[] for human readable or Abi for JSON) |
+| `TAddress` *extends* `undefined` \| `Address` | `undefined` | The contract address type (optional) |
+| `TBytecode` *extends* `undefined` \| `Hex` | `undefined` | The contract bytecode type (optional) |
+| `TDeployedBytecode` *extends* `undefined` \| `Hex` | `undefined` | The deployed bytecode type (optional) |
+| `TCode` *extends* `undefined` \| `Hex` | `undefined` | The runtime bytecode type (optional) |
+| `THumanReadableAbi` *extends* readonly `string`[] | `TAbi` *extends* readonly `string`[] ? `TAbi` : `TAbi` *extends* `Abi` ? `FormatAbi`\<`TAbi`\> : `never` | - |
 
 ## Parameters
 
-### \{
-	name,
-	humanReadableAbi,
-	bytecode,
-	deployedBytecode,
-	code,
-\}
-
-[`CreateContractParams`](CreateContractParams.md)\<`TName`, `TAbi`, `TAddress`, `TBytecode`, `TDeployedBytecode`, `TCode`\>
+| Parameter | Type |
+| ------ | ------ |
+| `{ 	name, 	humanReadableAbi, 	bytecode, 	deployedBytecode, 	code, }` | [`CreateContractParams`](CreateContractParams.md)\<`TName`, `TAbi`, `TAddress`, `TBytecode`, `TDeployedBytecode`, `TCode`\> |
 
 ## Returns
 

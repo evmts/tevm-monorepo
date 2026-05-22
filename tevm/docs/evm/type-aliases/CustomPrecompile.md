@@ -8,8 +8,6 @@
 
 > **CustomPrecompile** = `Exclude`\<`NonNullable`\<[`EVMOpts`](EVMOpts.md)\[`"customPrecompiles"`\]\>, `undefined`\>\[`number`\]
 
-Defined in: tevm-monorepo/packages/evm/dist/index.d.ts:68
-
 Custom precompiles allow you to run arbitrary JavaScript code in the EVM
 
 ## Example

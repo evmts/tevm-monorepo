@@ -12,13 +12,10 @@ Defined in: zevm/npm/zevm/dist/util.d.ts:241
 
 ## Parameters
 
-### url
-
-`string`
-
-### params
-
-`RpcParams`
+| Parameter | Type |
+| ------ | ------ |
+| `url` | `string` |
+| `params` | `RpcParams` |
 
 ## Returns
 

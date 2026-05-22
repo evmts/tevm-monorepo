@@ -7,5 +7,3 @@
 # Type Alias: AnvilLoadStateResult
 
 > **AnvilLoadStateResult** = `null`
-
-Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilResult.d.ts:18

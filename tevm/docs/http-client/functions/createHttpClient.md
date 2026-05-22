@@ -6,16 +6,14 @@
 
 # Function: createHttpClient()
 
-> **createHttpClient**(`__namedParameters`): [`HttpClient`](../type-aliases/HttpClient.md)
-
-Defined in: tevm-monorepo/packages/http-client/types/createHttpClient.d.ts:1
+> **createHttpClient**(`__namedParameters`): [`HttpClient`](../interfaces/HttpClient.md)
 
 ## Parameters
 
-### \_\_namedParameters
-
-[`HttpClientOptions`](../type-aliases/HttpClientOptions.md)
+| Parameter | Type |
+| ------ | ------ |
+| `__namedParameters` | [`HttpClientOptions`](../type-aliases/HttpClientOptions.md) |
 
 ## Returns
 
-[`HttpClient`](../type-aliases/HttpClient.md)
+[`HttpClient`](../interfaces/HttpClient.md)

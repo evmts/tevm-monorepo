@@ -22,9 +22,9 @@ Defined in: zevm/npm/zevm/dist/statemanager.d.ts:75
 
 #### Parameters
 
-##### opts
-
-`CacheOpts`
+| Parameter | Type |
+| ------ | ------ |
+| `opts` | `CacheOpts` |
 
 #### Returns
 
@@ -36,63 +36,14 @@ Defined in: zevm/npm/zevm/dist/statemanager.d.ts:75
 
 ## Properties
 
-### \_checkpoints
-
-> **\_checkpoints**: `number`
-
-Defined in: zevm/npm/zevm/dist/statemanager.d.ts:66
-
-#### Inherited from
-
-`Cache._checkpoints`
-
-***
-
-### \_diffCache
-
-> **\_diffCache**: `Map`\<`string`, `AccountCacheElement` \| `undefined`\>[]
-
-Defined in: zevm/npm/zevm/dist/statemanager.d.ts:74
-
-***
-
-### \_lruCache
-
-> **\_lruCache**: `SimpleLRUCache`\<`string`, `AccountCacheElement`\> \| `undefined`
-
-Defined in: zevm/npm/zevm/dist/statemanager.d.ts:72
-
-***
-
-### \_orderedMapCache
-
-> **\_orderedMapCache**: `SimpleOrderedMap`\<`string`, `AccountCacheElement`\> \| `undefined`
-
-Defined in: zevm/npm/zevm/dist/statemanager.d.ts:73
-
-***
-
-### \_stats
-
-> **\_stats**: `CacheStats`
-
-Defined in: zevm/npm/zevm/dist/statemanager.d.ts:67
-
-#### Inherited from
-
-`Cache._stats`
-
-***
-
-### DEBUG
-
-> `protected` `readonly` **DEBUG**: `false` = `false`
-
-Defined in: zevm/npm/zevm/dist/statemanager.d.ts:68
-
-#### Inherited from
-
-`Cache.DEBUG`
+| Property | Modifier | Type | Default value | Inherited from | Defined in |
+| ------ | ------ | ------ | ------ | ------ | ------ |
+| <a id="_checkpoints"></a> `_checkpoints` | `public` | `number` | `undefined` | `Cache._checkpoints` | zevm/npm/zevm/dist/statemanager.d.ts:66 |
+| <a id="_diffcache"></a> `_diffCache` | `public` | `Map`\<`string`, `AccountCacheElement` \| `undefined`\>[] | `undefined` | - | zevm/npm/zevm/dist/statemanager.d.ts:74 |
+| <a id="_lrucache"></a> `_lruCache` | `public` | `SimpleLRUCache`\<`string`, `AccountCacheElement`\> \| `undefined` | `undefined` | - | zevm/npm/zevm/dist/statemanager.d.ts:72 |
+| <a id="_orderedmapcache"></a> `_orderedMapCache` | `public` | `SimpleOrderedMap`\<`string`, `AccountCacheElement`\> \| `undefined` | `undefined` | - | zevm/npm/zevm/dist/statemanager.d.ts:73 |
+| <a id="_stats"></a> `_stats` | `public` | `CacheStats` | `undefined` | `Cache._stats` | zevm/npm/zevm/dist/statemanager.d.ts:67 |
+| <a id="debug"></a> `DEBUG` | `readonly` | `false` | `false` | `Cache.DEBUG` | zevm/npm/zevm/dist/statemanager.d.ts:68 |
 
 ## Methods
 
@@ -104,9 +55,9 @@ Defined in: zevm/npm/zevm/dist/statemanager.d.ts:69
 
 #### Parameters
 
-##### \_message
-
-`string`
+| Parameter | Type |
+| ------ | ------ |
+| `_message` | `string` |
 
 #### Returns
 
@@ -126,9 +77,9 @@ Defined in: zevm/npm/zevm/dist/statemanager.d.ts:76
 
 #### Parameters
 
-##### cacheKeyHex
-
-`string`
+| Parameter | Type |
+| ------ | ------ |
+| `cacheKeyHex` | `string` |
 
 #### Returns
 
@@ -180,9 +131,9 @@ Defined in: zevm/npm/zevm/dist/statemanager.d.ts:79
 
 #### Parameters
 
-##### address
-
-`Address`
+| Parameter | Type |
+| ------ | ------ |
+| `address` | `Address` |
 
 #### Returns
 
@@ -210,9 +161,9 @@ Defined in: zevm/npm/zevm/dist/statemanager.d.ts:78
 
 #### Parameters
 
-##### address
-
-`Address`
+| Parameter | Type |
+| ------ | ------ |
+| `address` | `Address` |
 
 #### Returns
 
@@ -228,17 +179,11 @@ Defined in: zevm/npm/zevm/dist/statemanager.d.ts:77
 
 #### Parameters
 
-##### address
-
-`Address`
-
-##### account
-
-`Account` \| `undefined`
-
-##### couldBePartialAccount?
-
-`boolean`
+| Parameter | Type |
+| ------ | ------ |
+| `address` | `Address` |
+| `account` | `Account` \| `undefined` |
+| `couldBePartialAccount?` | `boolean` |
 
 #### Returns
 
@@ -278,9 +223,9 @@ Defined in: zevm/npm/zevm/dist/statemanager.d.ts:85
 
 #### Parameters
 
-##### reset?
-
-`boolean`
+| Parameter | Type |
+| ------ | ------ |
+| `reset?` | `boolean` |
 
 #### Returns
 

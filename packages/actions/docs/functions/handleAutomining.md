@@ -16,25 +16,12 @@ Runs the mining logic if the client is set to automine
 
 ## Parameters
 
-### client
-
-`TevmNode`\<`"fork"` \| `"normal"`, \{ \}\>
-
-### txHash?
-
-`` `0x${string}` ``
-
-### \_reserved?
-
-`boolean` = `false`
-
-Reserved parameter for backwards compatibility
-
-### mineAllTx?
-
-`boolean` = `true`
-
-Whether to mine all transactions in the pool
+| Parameter | Type | Default value | Description |
+| ------ | ------ | ------ | ------ |
+| `client` | `TevmNode`\<`"fork"` \| `"normal"`, \{ \}\> | `undefined` | - |
+| `txHash?` | `` `0x${string}` `` | `undefined` | - |
+| `_reserved?` | `boolean` | `false` | Reserved parameter for backwards compatibility |
+| `mineAllTx?` | `boolean` | `true` | Whether to mine all transactions in the pool |
 
 ## Returns
 

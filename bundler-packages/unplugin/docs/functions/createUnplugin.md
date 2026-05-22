@@ -12,19 +12,16 @@ Defined in: node\_modules/.pnpm/unplugin@3.0.0/node\_modules/unplugin/dist/index
 
 ## Type Parameters
 
-### UserOptions
-
-`UserOptions`
-
-### Nested
-
-`Nested` *extends* `boolean` = `boolean`
+| Type Parameter | Default type |
+| ------ | ------ |
+| `UserOptions` | - |
+| `Nested` *extends* `boolean` | `boolean` |
 
 ## Parameters
 
-### factory
-
-`UnpluginFactory`\<`UserOptions`, `Nested`\>
+| Parameter | Type |
+| ------ | ------ |
+| `factory` | `UnpluginFactory`\<`UserOptions`, `Nested`\> |
 
 ## Returns
 

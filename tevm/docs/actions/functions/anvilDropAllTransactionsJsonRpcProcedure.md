@@ -8,13 +8,11 @@
 
 > **anvilDropAllTransactionsJsonRpcProcedure**(`client`): [`AnvilDropAllTransactionsProcedure`](../type-aliases/AnvilDropAllTransactionsProcedure.md)
 
-Defined in: tevm-monorepo/packages/actions/types/anvil/anvilDropAllTransactionsProcedure.d.ts:1
-
 ## Parameters
 
-### client
-
-[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{ \}\>
+| Parameter | Type |
+| ------ | ------ |
+| `client` | [`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{ \}\> |
 
 ## Returns
 

@@ -28,32 +28,14 @@ const error: MyCustomError = {
 
 ## Type Parameters
 
-### TName
-
-`TName` *extends* `string`
-
-The string literal type that identifies this error
+| Type Parameter | Description |
+| ------ | ------ |
+| `TName` *extends* `string` | The string literal type that identifies this error |
 
 ## Properties
 
-### \_tag
-
-> **\_tag**: `TName`
-
-Defined in: [TypedError.ts:18](https://github.com/evmts/tevm-monorepo/blob/main/packages/precompiles/src/TypedError.ts#L18)
-
-***
-
-### message
-
-> **message**: `string`
-
-Defined in: [TypedError.ts:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/precompiles/src/TypedError.ts#L20)
-
-***
-
-### name
-
-> **name**: `TName`
-
-Defined in: [TypedError.ts:19](https://github.com/evmts/tevm-monorepo/blob/main/packages/precompiles/src/TypedError.ts#L19)
+| Property | Type | Defined in |
+| ------ | ------ | ------ |
+| <a id="_tag"></a> `_tag` | `TName` | [TypedError.ts:18](https://github.com/evmts/tevm-monorepo/blob/main/packages/precompiles/src/TypedError.ts#L18) |
+| <a id="message"></a> `message` | `string` | [TypedError.ts:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/precompiles/src/TypedError.ts#L20) |
+| <a id="name"></a> `name` | `TName` | [TypedError.ts:19](https://github.com/evmts/tevm-monorepo/blob/main/packages/precompiles/src/TypedError.ts#L19) |

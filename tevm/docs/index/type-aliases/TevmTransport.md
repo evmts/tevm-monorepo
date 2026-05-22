@@ -8,45 +8,29 @@
 
 > **TevmTransport**\<`TName`\> = \<`TChain`\>(`{ chain, pollingInterval, retryCount, timeout, }`) => `object`
 
-Defined in: tevm-monorepo/packages/memory-client/types/TevmTransport.d.ts:17
-
 A type representing a custom TEVM Transport for viem.
 
 ## Type Parameters
 
-### TName
-
-`TName` *extends* `string` = `string`
-
-The name of the transport.
+| Type Parameter | Default type | Description |
+| ------ | ------ | ------ |
+| `TName` *extends* `string` | `string` | The name of the transport. |
 
 ## Type Parameters
 
-### TChain
-
-`TChain` *extends* `Chain` \| `undefined` = `Chain`
-
-The blockchain configuration.
+| Type Parameter | Default type | Description |
+| ------ | ------ | ------ |
+| `TChain` *extends* `Chain` \| `undefined` | `Chain` | The blockchain configuration. |
 
 ## Parameters
 
-### \{ chain, pollingInterval, retryCount, timeout, \}
-
-#### chain?
-
-`TChain`
-
-#### pollingInterval?
-
-`ClientConfig`\[`"pollingInterval"`\]
-
-#### retryCount?
-
-`TransportConfig`\[`"retryCount"`\]
-
-#### timeout?
-
-`TransportConfig`\[`"timeout"`\]
+| Parameter | Type |
+| ------ | ------ |
+| `{ chain, pollingInterval, retryCount, timeout, }` | \{ `chain?`: `TChain`; `pollingInterval?`: `ClientConfig`\[`"pollingInterval"`\]; `retryCount?`: `TransportConfig`\[`"retryCount"`\]; `timeout?`: `TransportConfig`\[`"timeout"`\]; \} |
+| `{ chain, pollingInterval, retryCount, timeout, }.chain?` | `TChain` |
+| `{ chain, pollingInterval, retryCount, timeout, }.pollingInterval?` | `ClientConfig`\[`"pollingInterval"`\] |
+| `{ chain, pollingInterval, retryCount, timeout, }.retryCount?` | `TransportConfig`\[`"retryCount"`\] |
+| `{ chain, pollingInterval, retryCount, timeout, }.timeout?` | `TransportConfig`\[`"timeout"`\] |
 
 ## Returns
 
@@ -65,6 +49,8 @@ The configured TEVM transport.
 ### value
 
 > **value**: `object`
+
+#### Type Declaration
 
 #### value.tevm
 

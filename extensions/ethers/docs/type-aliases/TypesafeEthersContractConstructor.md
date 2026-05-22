@@ -6,28 +6,40 @@
 
 # Type Alias: TypesafeEthersContractConstructor
 
-> **TypesafeEthersContractConstructor** = \<`TAbi`\>(`target`, `abi`, `runner?`, `_deployTx?`) => `BaseContract` & \{ \[TFunctionName in string\]: BaseContractMethod\<\{ \[key in string \| number \| symbol\]: \{ \[key in string \| number \| symbol\]: AbiParameterToPrimitiveType\<(...)\[(...)\]\[key\], AbiParameterKind\> \}\[key\] \} & any\[\], \{ \[key in string \| number \| symbol\]: \{ \[key in string \| number \| symbol\]: AbiParameterToPrimitiveType\<(...)\[(...)\]\[key\], AbiParameterKind\> \}\[key\] \}\[0\], \{ \[key in string \| number \| symbol\]: \{ \[key in string \| number \| symbol\]: AbiParameterToPrimitiveType\<(...)\[(...)\]\[key\], AbiParameterKind\> \}\[key\] \}\[0\]\> \} & \{ \[TFunctionName in string\]: BaseContractMethod\<\{ \[key in string \| number \| symbol\]: \{ \[key in string \| number \| symbol\]: AbiParameterToPrimitiveType\<(...)\[(...)\]\[key\], AbiParameterKind\> \}\[key\] \} & any\[\], \{ \[key in string \| number \| symbol\]: \{ \[key in string \| number \| symbol\]: AbiParameterToPrimitiveType\<(...)\[(...)\]\[key\], AbiParameterKind\> \}\[key\] \}\[0\], ContractTransactionResponse\> \} & `object` & `Contract`
+> **TypesafeEthersContractConstructor** = \{\<`TAbi`\>(`target`, `abi`, `runner?`, `_deployTx?`): `BaseContract` & \{ \[TFunctionName in string\]: BaseContractMethod\<\{ \[key in string \| number \| symbol\]: \{ \[key in string \| number \| symbol\]: AbiParameterToPrimitiveType\<(...)\[(...)\]\[key\], AbiParameterKind\> \}\[key\] \} & any\[\], EthersFunctionOutput\<TAbi, TFunctionName\>, EthersFunctionOutput\<TAbi, TFunctionName\>\> \} & \{ \[TFunctionName in string\]: BaseContractMethod\<\{ \[key in string \| number \| symbol\]: \{ \[key in string \| number \| symbol\]: AbiParameterToPrimitiveType\<(...)\[(...)\]\[key\], AbiParameterKind\> \}\[key\] \} & any\[\], EthersFunctionOutput\<TAbi, TFunctionName\>, ContractTransactionResponse\> \} & `object` & `Contract`; (`target`, `abi`, `runner?`, `_deployTx?`): `Contract`; \}
 
 Defined in: [extensions/ethers/src/contract/Contract.d.ts:18](https://github.com/evmts/tevm-monorepo/blob/main/extensions/ethers/src/contract/Contract.d.ts#L18)
 
-## Parameters
+## Call Signature
 
-### target
+> **new TypesafeEthersContractConstructor**\<`TAbi`\>(`target`, `abi`, `runner?`, `_deployTx?`): `BaseContract` & \{ \[TFunctionName in string\]: BaseContractMethod\<\{ \[key in string \| number \| symbol\]: \{ \[key in string \| number \| symbol\]: AbiParameterToPrimitiveType\<(...)\[(...)\]\[key\], AbiParameterKind\> \}\[key\] \} & any\[\], EthersFunctionOutput\<TAbi, TFunctionName\>, EthersFunctionOutput\<TAbi, TFunctionName\>\> \} & \{ \[TFunctionName in string\]: BaseContractMethod\<\{ \[key in string \| number \| symbol\]: \{ \[key in string \| number \| symbol\]: AbiParameterToPrimitiveType\<(...)\[(...)\]\[key\], AbiParameterKind\> \}\[key\] \} & any\[\], EthersFunctionOutput\<TAbi, TFunctionName\>, ContractTransactionResponse\> \} & `object` & `Contract`
 
-`string` \| `Addressable`
+### Parameters
 
-### abi
+| Parameter | Type |
+| ------ | ------ |
+| `target` | `string` \| `Addressable` |
+| `abi` | `TAbi` \| \{ `fragments`: `TAbi`; \} |
+| `runner?` | `ContractRunner` \| `null` |
+| `_deployTx?` | `TransactionResponse` \| `null` |
 
-`TAbi` \| \{ `fragments`: `TAbi`; \}
+### Returns
 
-### runner?
+`BaseContract` & \{ \[TFunctionName in string\]: BaseContractMethod\<\{ \[key in string \| number \| symbol\]: \{ \[key in string \| number \| symbol\]: AbiParameterToPrimitiveType\<(...)\[(...)\]\[key\], AbiParameterKind\> \}\[key\] \} & any\[\], EthersFunctionOutput\<TAbi, TFunctionName\>, EthersFunctionOutput\<TAbi, TFunctionName\>\> \} & \{ \[TFunctionName in string\]: BaseContractMethod\<\{ \[key in string \| number \| symbol\]: \{ \[key in string \| number \| symbol\]: AbiParameterToPrimitiveType\<(...)\[(...)\]\[key\], AbiParameterKind\> \}\[key\] \} & any\[\], EthersFunctionOutput\<TAbi, TFunctionName\>, ContractTransactionResponse\> \} & `object` & `Contract`
 
-`ContractRunner` \| `null`
+## Call Signature
 
-### \_deployTx?
+> **new TypesafeEthersContractConstructor**(`target`, `abi`, `runner?`, `_deployTx?`): `Contract`
 
-`TransactionResponse` \| `null`
+### Parameters
 
-## Returns
+| Parameter | Type |
+| ------ | ------ |
+| `target` | `string` \| `Addressable` |
+| `abi` | `InterfaceAbi` \| `Interface` |
+| `runner?` | `ContractRunner` \| `null` |
+| `_deployTx?` | `TransactionResponse` \| `null` |
 
-`BaseContract` & \{ \[TFunctionName in string\]: BaseContractMethod\<\{ \[key in string \| number \| symbol\]: \{ \[key in string \| number \| symbol\]: AbiParameterToPrimitiveType\<(...)\[(...)\]\[key\], AbiParameterKind\> \}\[key\] \} & any\[\], \{ \[key in string \| number \| symbol\]: \{ \[key in string \| number \| symbol\]: AbiParameterToPrimitiveType\<(...)\[(...)\]\[key\], AbiParameterKind\> \}\[key\] \}\[0\], \{ \[key in string \| number \| symbol\]: \{ \[key in string \| number \| symbol\]: AbiParameterToPrimitiveType\<(...)\[(...)\]\[key\], AbiParameterKind\> \}\[key\] \}\[0\]\> \} & \{ \[TFunctionName in string\]: BaseContractMethod\<\{ \[key in string \| number \| symbol\]: \{ \[key in string \| number \| symbol\]: AbiParameterToPrimitiveType\<(...)\[(...)\]\[key\], AbiParameterKind\> \}\[key\] \} & any\[\], \{ \[key in string \| number \| symbol\]: \{ \[key in string \| number \| symbol\]: AbiParameterToPrimitiveType\<(...)\[(...)\]\[key\], AbiParameterKind\> \}\[key\] \}\[0\], ContractTransactionResponse\> \} & `object` & `Contract`
+### Returns
+
+`Contract`

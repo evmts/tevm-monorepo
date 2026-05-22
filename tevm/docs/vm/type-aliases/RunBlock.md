@@ -8,13 +8,11 @@
 
 > **RunBlock** = (`opts`) => `Promise`\<[`RunBlockResult`](../interfaces/RunBlockResult.md)\>
 
-Defined in: tevm-monorepo/packages/vm/types/actions/runBlock.d.ts:3
-
 ## Parameters
 
-### opts
-
-[`RunBlockOpts`](../interfaces/RunBlockOpts.md)
+| Parameter | Type |
+| ------ | ------ |
+| `opts` | [`RunBlockOpts`](../interfaces/RunBlockOpts.md) |
 
 ## Returns
 

@@ -8,13 +8,11 @@
 
 > **anvilImpersonateAccountJsonRpcProcedure**(`client`): [`AnvilImpersonateAccountProcedure`](../type-aliases/AnvilImpersonateAccountProcedure.md)
 
-Defined in: tevm-monorepo/packages/actions/types/anvil/anvilImpersonateAccountProcedure.d.ts:1
-
 ## Parameters
 
-### client
-
-[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{ \}\>
+| Parameter | Type |
+| ------ | ------ |
+| `client` | [`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{ \}\> |
 
 ## Returns
 

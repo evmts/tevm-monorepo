@@ -8,116 +8,20 @@
 
 > **FlatTraceEntry** = `object`
 
-Defined in: tevm-monorepo/packages/actions/types/common/FlatCallTraceResult.d.ts:56
-
 A single trace entry in the flat trace array
 
 ## Properties
 
-### action
-
-> **action**: [`FlatCallAction`](FlatCallAction.md) \| [`FlatCreateAction`](FlatCreateAction.md)
-
-Defined in: tevm-monorepo/packages/actions/types/common/FlatCallTraceResult.d.ts:58
-
-Action details
-
-***
-
-### blockHash?
-
-> `optional` **blockHash?**: [`Hex`](Hex.md)
-
-Defined in: tevm-monorepo/packages/actions/types/common/FlatCallTraceResult.d.ts:60
-
-Block hash where the transaction occurred
-
-***
-
-### blockNumber?
-
-> `optional` **blockNumber?**: `bigint`
-
-Defined in: tevm-monorepo/packages/actions/types/common/FlatCallTraceResult.d.ts:62
-
-Block number where the transaction occurred
-
-***
-
-### error?
-
-> `optional` **error?**: `string`
-
-Defined in: tevm-monorepo/packages/actions/types/common/FlatCallTraceResult.d.ts:64
-
-Error message if the call failed
-
-***
-
-### result
-
-> **result**: [`FlatCallResult`](FlatCallResult.md) \| [`FlatCreateResult`](FlatCreateResult.md) \| `null`
-
-Defined in: tevm-monorepo/packages/actions/types/common/FlatCallTraceResult.d.ts:68
-
-Result of the action (null if call failed)
-
-***
-
-### revertReason?
-
-> `optional` **revertReason?**: `string`
-
-Defined in: tevm-monorepo/packages/actions/types/common/FlatCallTraceResult.d.ts:66
-
-Revert reason if the call reverted
-
-***
-
-### subtraces
-
-> **subtraces**: `number`
-
-Defined in: tevm-monorepo/packages/actions/types/common/FlatCallTraceResult.d.ts:70
-
-Number of child traces
-
-***
-
-### traceAddress
-
-> **traceAddress**: `number`[]
-
-Defined in: tevm-monorepo/packages/actions/types/common/FlatCallTraceResult.d.ts:72
-
-Position in the trace tree as an array of indices
-
-***
-
-### transactionHash?
-
-> `optional` **transactionHash?**: [`Hex`](Hex.md)
-
-Defined in: tevm-monorepo/packages/actions/types/common/FlatCallTraceResult.d.ts:74
-
-Transaction hash
-
-***
-
-### transactionPosition?
-
-> `optional` **transactionPosition?**: `number`
-
-Defined in: tevm-monorepo/packages/actions/types/common/FlatCallTraceResult.d.ts:76
-
-Transaction index in the block
-
-***
-
-### type
-
-> **type**: `"call"` \| `"create"` \| `"suicide"`
-
-Defined in: tevm-monorepo/packages/actions/types/common/FlatCallTraceResult.d.ts:78
-
-Type of trace: "call" or "create"
+| Property | Type | Description |
+| ------ | ------ | ------ |
+| <a id="action"></a> `action` | [`FlatCallAction`](FlatCallAction.md) \| [`FlatCreateAction`](FlatCreateAction.md) | Action details |
+| <a id="blockhash"></a> `blockHash?` | [`Hex`](Hex.md) | Block hash where the transaction occurred |
+| <a id="blocknumber"></a> `blockNumber?` | `bigint` | Block number where the transaction occurred |
+| <a id="error"></a> `error?` | `string` | Error message if the call failed |
+| <a id="result"></a> `result` | [`FlatCallResult`](FlatCallResult.md) \| [`FlatCreateResult`](FlatCreateResult.md) \| `null` | Result of the action (null if call failed) |
+| <a id="revertreason"></a> `revertReason?` | `string` | Revert reason if the call reverted |
+| <a id="subtraces"></a> `subtraces` | `number` | Number of child traces |
+| <a id="traceaddress"></a> `traceAddress` | `number`[] | Position in the trace tree as an array of indices |
+| <a id="transactionhash"></a> `transactionHash?` | [`Hex`](Hex.md) | Transaction hash |
+| <a id="transactionposition"></a> `transactionPosition?` | `number` | Transaction index in the block |
+| <a id="type"></a> `type` | `"call"` \| `"create"` \| `"suicide"` | Type of trace: "call" or "create" |

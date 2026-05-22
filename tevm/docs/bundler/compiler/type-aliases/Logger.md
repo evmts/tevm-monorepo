@@ -8,6 +8,4 @@
 
 > **Logger** = `Logger`
 
-Defined in: tevm-monorepo/bundler-packages/compiler/types/src/index.d.ts:18
-
 ./types.ts

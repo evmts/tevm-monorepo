@@ -10,8 +10,6 @@ Defined in: zevm/npm/zevm/dist/receipt-manager.d.ts:3
 
 ## Properties
 
-### cache
-
-> **cache**: `Map`\<`` `0x${string}` ``, `Uint8Array`\<`ArrayBufferLike`\>\>
-
-Defined in: zevm/npm/zevm/dist/receipt-manager.d.ts:4
+| Property | Type | Defined in |
+| ------ | ------ | ------ |
+| <a id="cache"></a> `cache` | `Map`\<`` `0x${string}` ``, `Uint8Array`\<`ArrayBufferLike`\>\> | zevm/npm/zevm/dist/receipt-manager.d.ts:4 |

@@ -8,19 +8,13 @@
 
 > **callHandler**(`client`, `__namedParameters?`): [`CallHandler`](../type-aliases/CallHandler.md)
 
-Defined in: tevm-monorepo/packages/actions/types/Call/callHandler.d.ts:1
-
 ## Parameters
 
-### client
-
-[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{ \}\>
-
-### \_\_namedParameters?
-
-#### throwOnFail?
-
-`boolean`
+| Parameter | Type |
+| ------ | ------ |
+| `client` | [`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{ \}\> |
+| `__namedParameters?` | \{ `throwOnFail?`: `boolean`; \} |
+| `__namedParameters.throwOnFail?` | `boolean` |
 
 ## Returns
 

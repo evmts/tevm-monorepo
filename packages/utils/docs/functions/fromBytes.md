@@ -17,23 +17,16 @@ Decodes a byte array into a UTF-8 string, hex value, number, bigint or boolean.
 
 ## Type Parameters
 
-### to
-
-`to` *extends* `"string"` \| `"number"` \| `"bigint"` \| `"boolean"` \| `"hex"`
+| Type Parameter |
+| ------ |
+| `to` *extends* `"string"` \| `"number"` \| `"bigint"` \| `"boolean"` \| `"hex"` |
 
 ## Parameters
 
-### bytes
-
-`ByteArray`
-
-Byte array to decode.
-
-### toOrOpts
-
-`FromBytesParameters`\<`to`\>
-
-Type to convert to or options.
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `bytes` | `ByteArray` | Byte array to decode. |
+| `toOrOpts` | `FromBytesParameters`\<`to`\> | Type to convert to or options. |
 
 ## Returns
 

@@ -14,13 +14,10 @@ Typesafe wrapper around solc.compile
 
 ## Parameters
 
-### solc
-
-`any`
-
-### input
-
-[`SolcInputDescription`](../type-aliases/SolcInputDescription.md)
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `solc` | `any` | - |
+| `input` | [`SolcInputDescription`](../type-aliases/SolcInputDescription.md)\<[`SolcLanguage`](../type-aliases/SolcLanguage.md)\> | - |
 
 ## Returns
 

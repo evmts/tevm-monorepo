@@ -8,46 +8,13 @@
 
 > **AnvilSetErc20AllowanceParams** = `object`
 
-Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilParams.d.ts:191
-
 Params for `anvil_setErc20Allowance` handler
 
 ## Properties
 
-### amount
-
-> `readonly` **amount**: `bigint`
-
-Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilParams.d.ts:207
-
-The allowance amount to set
-
-***
-
-### erc20
-
-> `readonly` **erc20**: [`Address`](Address.md)
-
-Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilParams.d.ts:195
-
-The address of the ERC20 token
-
-***
-
-### owner
-
-> `readonly` **owner**: [`Address`](Address.md)
-
-Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilParams.d.ts:199
-
-The owner of the tokens
-
-***
-
-### spender
-
-> `readonly` **spender**: [`Address`](Address.md)
-
-Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilParams.d.ts:203
-
-The spender to set the allowance for
+| Property | Modifier | Type | Description |
+| ------ | ------ | ------ | ------ |
+| <a id="amount"></a> `amount` | `readonly` | `bigint` | The allowance amount to set |
+| <a id="erc20"></a> `erc20` | `readonly` | [`Address`](Address.md) | The address of the ERC20 token |
+| <a id="owner"></a> `owner` | `readonly` | [`Address`](Address.md) | The owner of the tokens |
+| <a id="spender"></a> `spender` | `readonly` | [`Address`](Address.md) | The spender to set the allowance for |

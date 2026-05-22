@@ -8,14 +8,10 @@
 
 > **JsonRpcClient** = `object`
 
-Defined in: tevm-monorepo/packages/jsonrpc/types/JsonRpcClient.d.ts:5
-
 A client for making JsonRpc requests over http
 
 ## Properties
 
-### request
-
-> **request**: [`JsonRpcProcedure`](JsonRpcProcedure.md)\<`string`, `unknown`, `unknown`, `string` \| `number`\>
-
-Defined in: tevm-monorepo/packages/jsonrpc/types/JsonRpcClient.d.ts:6
+| Property | Type |
+| ------ | ------ |
+| <a id="request"></a> `request` | [`JsonRpcProcedure`](JsonRpcProcedure.md)\<`string`, `unknown`, `unknown`, `string` \| `number`\> |

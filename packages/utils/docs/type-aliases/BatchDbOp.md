@@ -12,10 +12,7 @@ Defined in: zevm/npm/zevm/dist/util.d.ts:41
 
 ## Type Parameters
 
-### TKey
-
-`TKey` *extends* `Uint8Array` \| `string` \| `number` = `Uint8Array`
-
-### TValue
-
-`TValue` *extends* `Uint8Array` \| `string` \| [`DbObject`](DbObject.md) = `Uint8Array`
+| Type Parameter | Default type |
+| ------ | ------ |
+| `TKey` *extends* `Uint8Array` \| `string` \| `number` | `Uint8Array` |
+| `TValue` *extends* `Uint8Array` \| `string` \| [`DbObject`](DbObject.md) | `Uint8Array` |

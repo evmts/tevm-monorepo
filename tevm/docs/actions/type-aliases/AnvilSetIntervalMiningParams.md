@@ -8,16 +8,10 @@
 
 > **AnvilSetIntervalMiningParams** = `object`
 
-Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilParams.d.ts:49
-
 Params for `anvil_setIntervalMining` handler
 
 ## Properties
 
-### interval
-
-> `readonly` **interval**: `number`
-
-Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilParams.d.ts:53
-
-The mining interval in seconds. Set to 0 to disable interval mining.
+| Property | Modifier | Type | Description |
+| ------ | ------ | ------ | ------ |
+| <a id="interval"></a> `interval` | `readonly` | `number` | The mining interval in seconds. Set to 0 to disable interval mining. |

@@ -9,8 +9,16 @@
 ## Type Aliases
 
 - [~~BaseClientOptions~~](type-aliases/BaseClientOptions.md)
+- [ExExEvent](type-aliases/ExExEvent.md)
+- [ExExHook](type-aliases/ExExHook.md)
 - [FilterLog](type-aliases/FilterLog.md)
 - [IntervalMining](type-aliases/IntervalMining.md)
+- [SnapshotMetadata](type-aliases/SnapshotMetadata.md)
+- [TevmSnapshot](type-aliases/TevmSnapshot.md)
+
+## Functions
+
+- [createIntervalMiner](functions/createIntervalMiner.md)
 
 ## References
 

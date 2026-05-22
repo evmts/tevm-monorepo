@@ -8,49 +8,20 @@
 
 > **CreateContractParams**\<`TName`, `TAbi`, `TAddress`, `TBytecode`, `TDeployedBytecode`, `TCode`\> = \{ `abi?`: `never`; `address?`: `TAddress`; `bytecode?`: `TBytecode`; `code?`: `TCode`; `deployedBytecode?`: `TDeployedBytecode`; `humanReadableAbi`: `TAbi` *extends* readonly `string`[] ? `TAbi` : [`FormatAbi`](FormatAbi.md)\<`TAbi`\>; `name?`: `TName`; \} \| \{ `abi`: `TAbi` *extends* readonly `string`[] ? [`ParseAbi`](ParseAbi.md)\<`TAbi`\> : `TAbi` *extends* [`Abi`](Abi.md) ? `TAbi` : `never`; `address?`: `TAddress`; `bytecode?`: `TBytecode`; `code?`: `TCode`; `deployedBytecode?`: `TDeployedBytecode`; `humanReadableAbi?`: `never`; `name?`: `TName`; \}
 
-Defined in: tevm-monorepo/packages/contract/types/CreateContractParams.d.ts:47
-
 Parameters for creating a [Contract](Contract.md) instance.
 This type allows for two mutually exclusive ways of specifying the ABI:
 either as a human-readable ABI or as a JSON ABI.
 
 ## Type Parameters
 
-### TName
-
-`TName` *extends* `string` \| `undefined` \| `never`
-
-The name of the contract (optional)
-
-### TAbi
-
-`TAbi` *extends* readonly `string`[] \| [`Abi`](Abi.md)
-
-The ABI type (either string[] for human readable or Abi for JSON)
-
-### TAddress
-
-`TAddress` *extends* `undefined` \| [`Address`](Address.md) \| `never`
-
-The contract address type (optional)
-
-### TBytecode
-
-`TBytecode` *extends* `undefined` \| [`Hex`](Hex.md) \| `never`
-
-The contract creation bytecode type (optional)
-
-### TDeployedBytecode
-
-`TDeployedBytecode` *extends* `undefined` \| [`Hex`](Hex.md) \| `never`
-
-The deployed bytecode type (optional)
-
-### TCode
-
-`TCode` *extends* `undefined` \| [`Hex`](Hex.md) \| `never`
-
-The runtime bytecode type (optional)
+| Type Parameter | Description |
+| ------ | ------ |
+| `TName` *extends* `string` \| `undefined` \| `never` | The name of the contract (optional) |
+| `TAbi` *extends* readonly `string`[] \| [`Abi`](Abi.md) | The ABI type (either string[] for human readable or Abi for JSON) |
+| `TAddress` *extends* `undefined` \| [`Address`](Address.md) \| `never` | The contract address type (optional) |
+| `TBytecode` *extends* `undefined` \| [`Hex`](Hex.md) \| `never` | The contract creation bytecode type (optional) |
+| `TDeployedBytecode` *extends* `undefined` \| [`Hex`](Hex.md) \| `never` | The deployed bytecode type (optional) |
+| `TCode` *extends* `undefined` \| [`Hex`](Hex.md) \| `never` | The runtime bytecode type (optional) |
 
 ## Union Members
 

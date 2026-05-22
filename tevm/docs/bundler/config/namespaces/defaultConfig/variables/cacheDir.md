@@ -7,5 +7,3 @@
 # Variable: cacheDir
 
 > **cacheDir**: `string`
-
-Defined in: tevm-monorepo/bundler-packages/config/types/config/withDefaults.d.ts:7

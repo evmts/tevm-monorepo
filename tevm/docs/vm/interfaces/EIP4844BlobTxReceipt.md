@@ -6,8 +6,6 @@
 
 # Interface: EIP4844BlobTxReceipt
 
-Defined in: tevm-monorepo/packages/vm/types/utils/EIP4844BlobTxReceipt.d.ts:19
-
 Transaction receipt format for EIP-4844 blob transactions.
 Extends PostByzantiumTxReceipt with additional blob gas information.
 
@@ -32,82 +30,11 @@ const receipt: EIP4844BlobTxReceipt = {
 
 ## Properties
 
-### bitvector
-
-> **bitvector**: `Uint8Array`
-
-Defined in: tevm-monorepo/packages/vm/types/utils/BaseTxReceipt.d.ts:13
-
-Bloom bitvector
-
-#### Inherited from
-
-[`PostByzantiumTxReceipt`](PostByzantiumTxReceipt.md).[`bitvector`](PostByzantiumTxReceipt.md#bitvector)
-
-***
-
-### blobGasPrice
-
-> **blobGasPrice**: `bigint`
-
-Defined in: tevm-monorepo/packages/vm/types/utils/EIP4844BlobTxReceipt.d.ts:33
-
-blob gas price for block transaction was included in
-
-Note: This valus is not included in the `receiptRLP` used for encoding the `receiptsRoot` in a block
-and is only provided as part of receipt metadata.
-
-***
-
-### blobGasUsed
-
-> **blobGasUsed**: `bigint`
-
-Defined in: tevm-monorepo/packages/vm/types/utils/EIP4844BlobTxReceipt.d.ts:26
-
-blob gas consumed by a transaction
-
-Note: This value is not included in the receiptRLP used for encoding the receiptsRoot in a block
-and is only provided as part of receipt metadata.
-
-***
-
-### cumulativeBlockGasUsed
-
-> **cumulativeBlockGasUsed**: `bigint`
-
-Defined in: tevm-monorepo/packages/vm/types/utils/BaseTxReceipt.d.ts:9
-
-Cumulative gas used in the block including this tx
-
-#### Inherited from
-
-[`PostByzantiumTxReceipt`](PostByzantiumTxReceipt.md).[`cumulativeBlockGasUsed`](PostByzantiumTxReceipt.md#cumulativeblockgasused)
-
-***
-
-### logs
-
-> **logs**: [`EthjsLog`](../../utils/type-aliases/EthjsLog.md)[]
-
-Defined in: tevm-monorepo/packages/vm/types/utils/BaseTxReceipt.d.ts:17
-
-Logs emitted
-
-#### Inherited from
-
-[`PostByzantiumTxReceipt`](PostByzantiumTxReceipt.md).[`logs`](PostByzantiumTxReceipt.md#logs)
-
-***
-
-### status
-
-> **status**: `0` \| `1`
-
-Defined in: tevm-monorepo/packages/vm/types/utils/PostByzantiumTxReceipt.d.ts:10
-
-Status of transaction, `1` if successful, `0` if an exception occurred
-
-#### Inherited from
-
-[`PostByzantiumTxReceipt`](PostByzantiumTxReceipt.md).[`status`](PostByzantiumTxReceipt.md#status)
+| Property | Type | Description | Inherited from |
+| ------ | ------ | ------ | ------ |
+| <a id="bitvector"></a> `bitvector` | `Uint8Array` | Bloom bitvector | [`PostByzantiumTxReceipt`](PostByzantiumTxReceipt.md).[`bitvector`](PostByzantiumTxReceipt.md#bitvector) |
+| <a id="blobgasprice"></a> `blobGasPrice` | `bigint` | blob gas price for block transaction was included in Note: This valus is not included in the `receiptRLP` used for encoding the `receiptsRoot` in a block and is only provided as part of receipt metadata. | - |
+| <a id="blobgasused"></a> `blobGasUsed` | `bigint` | blob gas consumed by a transaction Note: This value is not included in the receiptRLP used for encoding the receiptsRoot in a block and is only provided as part of receipt metadata. | - |
+| <a id="cumulativeblockgasused"></a> `cumulativeBlockGasUsed` | `bigint` | Cumulative gas used in the block including this tx | [`PostByzantiumTxReceipt`](PostByzantiumTxReceipt.md).[`cumulativeBlockGasUsed`](PostByzantiumTxReceipt.md#cumulativeblockgasused) |
+| <a id="logs"></a> `logs` | [`EthjsLog`](../../utils/type-aliases/EthjsLog.md)[] | Logs emitted | [`PostByzantiumTxReceipt`](PostByzantiumTxReceipt.md).[`logs`](PostByzantiumTxReceipt.md#logs) |
+| <a id="status"></a> `status` | `0` \| `1` | Status of transaction, `1` if successful, `0` if an exception occurred | [`PostByzantiumTxReceipt`](PostByzantiumTxReceipt.md).[`status`](PostByzantiumTxReceipt.md#status) |

@@ -12,15 +12,15 @@ Defined in: [packages/node/src/Extension.ts:3](https://github.com/evmts/tevm-mon
 
 ## Type Parameters
 
-### TExtended
-
-`TExtended`
+| Type Parameter |
+| ------ |
+| `TExtended` |
 
 ## Parameters
 
-### client
-
-[`TevmNode`](TevmNode.md)
+| Parameter | Type |
+| ------ | ------ |
+| `client` | [`TevmNode`](TevmNode.md) |
 
 ## Returns
 

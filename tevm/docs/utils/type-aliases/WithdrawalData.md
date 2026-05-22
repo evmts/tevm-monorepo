@@ -8,36 +8,11 @@
 
 > **WithdrawalData** = `object`
 
-Defined in: zevm/npm/zevm/dist/util.d.ts:99
-
 ## Properties
 
-### address
-
-> **address**: [`AddressLike`](AddressLike.md)
-
-Defined in: zevm/npm/zevm/dist/util.d.ts:102
-
-***
-
-### amount
-
-> **amount**: [`BigIntLike`](BigIntLike.md)
-
-Defined in: zevm/npm/zevm/dist/util.d.ts:103
-
-***
-
-### index
-
-> **index**: [`BigIntLike`](BigIntLike.md)
-
-Defined in: zevm/npm/zevm/dist/util.d.ts:100
-
-***
-
-### validatorIndex
-
-> **validatorIndex**: [`BigIntLike`](BigIntLike.md)
-
-Defined in: zevm/npm/zevm/dist/util.d.ts:101
+| Property | Type |
+| ------ | ------ |
+| <a id="address"></a> `address` | [`AddressLike`](AddressLike.md) |
+| <a id="amount"></a> `amount` | [`BigIntLike`](BigIntLike.md) |
+| <a id="index"></a> `index` | [`BigIntLike`](BigIntLike.md) |
+| <a id="validatorindex"></a> `validatorIndex` | [`BigIntLike`](BigIntLike.md) |

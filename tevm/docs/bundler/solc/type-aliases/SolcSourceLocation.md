@@ -8,28 +8,10 @@
 
 > **SolcSourceLocation** = `object`
 
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:114
-
 ## Properties
 
-### end
-
-> **end**: `number`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:117
-
-***
-
-### file
-
-> **file**: `string`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:115
-
-***
-
-### start
-
-> **start**: `number`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:116
+| Property | Type |
+| ------ | ------ |
+| <a id="end"></a> `end` | `number` |
+| <a id="file"></a> `file` | `string` |
+| <a id="start"></a> `start` | `number` |

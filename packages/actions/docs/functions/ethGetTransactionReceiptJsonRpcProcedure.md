@@ -12,9 +12,9 @@ Defined in: [packages/actions/src/eth/ethGetTransactionReceiptProcedure.js:8](ht
 
 ## Parameters
 
-### client
-
-`TevmNode`\<`"fork"` \| `"normal"`, \{ \}\>
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `client` | `TevmNode`\<`"fork"` \| `"normal"`, \{ \}\> | - |
 
 ## Returns
 

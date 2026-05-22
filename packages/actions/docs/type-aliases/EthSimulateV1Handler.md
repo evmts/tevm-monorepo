@@ -12,9 +12,9 @@ Defined in: [packages/actions/src/eth/EthHandler.ts:215](https://github.com/evmt
 
 ## Parameters
 
-### request
-
-[`EthSimulateV1Params`](EthSimulateV1Params.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`EthSimulateV1Params`](EthSimulateV1Params.md) |
 
 ## Returns
 

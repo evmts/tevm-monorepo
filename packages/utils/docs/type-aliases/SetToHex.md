@@ -14,6 +14,6 @@ A helper type that converts a set to a hex string.
 
 ## Type Parameters
 
-### T
-
-`T`
+| Type Parameter |
+| ------ |
+| `T` |

@@ -8,13 +8,11 @@
 
 > **EthSendRawTransactionHandler** = (`request`) => `Promise`\<[`EthSendRawTransactionResult`](EthSendRawTransactionResult.md)\>
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthHandler.d.ts:35
-
 ## Parameters
 
-### request
-
-[`EthSendRawTransactionParams`](EthSendRawTransactionParams.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`EthSendRawTransactionParams`](EthSendRawTransactionParams.md) |
 
 ## Returns
 

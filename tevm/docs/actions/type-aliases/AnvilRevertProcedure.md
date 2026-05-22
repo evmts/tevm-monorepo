@@ -8,15 +8,13 @@
 
 > **AnvilRevertProcedure** = (`request`) => `Promise`\<[`AnvilRevertJsonRpcResponse`](AnvilRevertJsonRpcResponse.md)\>
 
-Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilProcedure.d.ts:99
-
 JSON-RPC procedure for `anvil_revert`
 
 ## Parameters
 
-### request
-
-[`AnvilRevertJsonRpcRequest`](AnvilRevertJsonRpcRequest.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`AnvilRevertJsonRpcRequest`](AnvilRevertJsonRpcRequest.md) |
 
 ## Returns
 

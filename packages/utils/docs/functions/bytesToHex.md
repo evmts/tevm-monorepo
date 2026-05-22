@@ -16,17 +16,10 @@ Encodes a bytes array into a hex string
 
 ## Parameters
 
-### value
-
-`ByteArray`
-
-Value to encode.
-
-### opts?
-
-`BytesToHexOpts`
-
-Options.
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `value` | `ByteArray` | Value to encode. |
+| `opts?` | `BytesToHexOpts` | Options. |
 
 ## Returns
 

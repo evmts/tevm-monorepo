@@ -8,6 +8,4 @@
 
 > **DumpStateJsonRpcResponse** = [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"tevm_dumpState"`, `SerializeToJson`\<\{ `state`: [`ParameterizedTevmState`](../../state/type-aliases/ParameterizedTevmState.md); \}\>, [`TevmDumpStateError`](TevmDumpStateError.md)\[`"code"`\]\>
 
-Defined in: tevm-monorepo/packages/actions/types/DumpState/DumpStateJsonRpcResponse.d.ts:8
-
 The response to the `tevm_dumpState` JSON-RPC request.

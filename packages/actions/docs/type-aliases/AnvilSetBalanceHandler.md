@@ -12,9 +12,9 @@ Defined in: [packages/actions/src/anvil/AnvilHandler.ts:68](https://github.com/e
 
 ## Parameters
 
-### params
-
-[`AnvilSetBalanceParams`](AnvilSetBalanceParams.md)
+| Parameter | Type |
+| ------ | ------ |
+| `params` | [`AnvilSetBalanceParams`](AnvilSetBalanceParams.md) |
 
 ## Returns
 

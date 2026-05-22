@@ -8,36 +8,13 @@
 
 > **SolcFunctionDebugData** = `object`
 
-Defined in: [solcTypes.ts:613](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L613)
+Defined in: [solcTypes.ts:639](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L639)
 
 ## Properties
 
-### entryPoint?
-
-> `optional` **entryPoint?**: `number`
-
-Defined in: [solcTypes.ts:614](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L614)
-
-***
-
-### id?
-
-> `optional` **id?**: `number` \| `null`
-
-Defined in: [solcTypes.ts:615](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L615)
-
-***
-
-### parameterSlots?
-
-> `optional` **parameterSlots?**: `number`
-
-Defined in: [solcTypes.ts:616](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L616)
-
-***
-
-### returnSlots?
-
-> `optional` **returnSlots?**: `number`
-
-Defined in: [solcTypes.ts:617](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L617)
+| Property | Type | Defined in |
+| ------ | ------ | ------ |
+| <a id="entrypoint"></a> `entryPoint?` | `number` | [solcTypes.ts:640](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L640) |
+| <a id="id"></a> `id?` | `number` \| `null` | [solcTypes.ts:641](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L641) |
+| <a id="parameterslots"></a> `parameterSlots?` | `number` | [solcTypes.ts:642](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L642) |
+| <a id="returnslots"></a> `returnSlots?` | `number` | [solcTypes.ts:643](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L643) |

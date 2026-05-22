@@ -14,17 +14,11 @@ Will fork a given block number and save the state roots to state manager
 
 ## Parameters
 
-### client
-
-`TevmNode`\<`"fork"` \| `"normal"`, \{ \}\>
-
-### block
-
-`Block`
-
-### executeBlock?
-
-`boolean` = `false`
+| Parameter | Type | Default value | Description |
+| ------ | ------ | ------ | ------ |
+| `client` | `TevmNode`\<`"fork"` \| `"normal"`, \{ \}\> | `undefined` | - |
+| `block` | `Block` | `undefined` | - |
+| `executeBlock?` | `boolean` | `false` | - |
 
 ## Returns
 

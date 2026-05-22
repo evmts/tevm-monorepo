@@ -12,9 +12,9 @@ Defined in: [packages/actions/src/debug/DebugHandler.ts:48](https://github.com/e
 
 ## Parameters
 
-### params
-
-[`DebugDumpBlockParams`](DebugDumpBlockParams.md)
+| Parameter | Type |
+| ------ | ------ |
+| `params` | [`DebugDumpBlockParams`](DebugDumpBlockParams.md) |
 
 ## Returns
 

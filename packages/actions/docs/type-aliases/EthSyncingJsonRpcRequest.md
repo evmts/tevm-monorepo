@@ -8,6 +8,6 @@
 
 > **EthSyncingJsonRpcRequest** = `JsonRpcRequest`\<`"eth_syncing"`, readonly \[\]\>
 
-Defined in: [packages/actions/src/eth/EthJsonRpcRequest.ts:302](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcRequest.ts#L302)
+Defined in: [packages/actions/src/eth/EthJsonRpcRequest.ts:309](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcRequest.ts#L309)
 
 JSON-RPC request for `eth_syncing` procedure

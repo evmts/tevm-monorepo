@@ -14,8 +14,6 @@ The parameters for the `tevm_loadState` method
 
 ## Properties
 
-### state
-
-> **state**: `SerializeToJson`\<`ParameterizedTevmState`\>
-
-Defined in: [packages/actions/src/LoadState/LoadStateJsonRpcRequest.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/LoadState/LoadStateJsonRpcRequest.ts#L9)
+| Property | Type | Defined in |
+| ------ | ------ | ------ |
+| <a id="state"></a> `state` | `SerializeToJson`\<`ParameterizedTevmState`\> | [packages/actions/src/LoadState/LoadStateJsonRpcRequest.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/LoadState/LoadStateJsonRpcRequest.ts#L9) |

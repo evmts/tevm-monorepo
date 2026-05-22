@@ -12,9 +12,9 @@ Defined in: [packages/actions/src/eth/EthProcedure.ts:131](https://github.com/ev
 
 ## Parameters
 
-### request
-
-[`EthFeeHistoryJsonRpcRequest`](EthFeeHistoryJsonRpcRequest.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`EthFeeHistoryJsonRpcRequest`](EthFeeHistoryJsonRpcRequest.md) |
 
 ## Returns
 

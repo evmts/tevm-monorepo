@@ -8,13 +8,11 @@
 
 > **EthSignTransactionHandler** = (`request`) => `Promise`\<[`EthSignTransactionResult`](EthSignTransactionResult.md)\>
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthHandler.d.ts:38
-
 ## Parameters
 
-### request
-
-[`EthSignTransactionParams`](EthSignTransactionParams.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`EthSignTransactionParams`](EthSignTransactionParams.md) |
 
 ## Returns
 

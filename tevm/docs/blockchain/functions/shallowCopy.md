@@ -8,13 +8,11 @@
 
 > **shallowCopy**(`baseChain`): () => `BaseChain`
 
-Defined in: tevm-monorepo/packages/blockchain/types/actions/shallowCopy.d.ts:1
-
 ## Parameters
 
-### baseChain
-
-`BaseChain`
+| Parameter | Type |
+| ------ | ------ |
+| `baseChain` | `BaseChain` |
 
 ## Returns
 

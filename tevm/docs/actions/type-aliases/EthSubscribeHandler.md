@@ -8,13 +8,11 @@
 
 > **EthSubscribeHandler** = (`request`) => `Promise`\<[`EthSubscribeResult`](EthSubscribeResult.md)\>
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthHandler.d.ts:44
-
 ## Parameters
 
-### request
-
-[`EthSubscribeParams`](EthSubscribeParams.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`EthSubscribeParams`](EthSubscribeParams.md) |
 
 ## Returns
 

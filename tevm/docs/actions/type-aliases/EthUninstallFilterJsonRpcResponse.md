@@ -8,6 +8,4 @@
 
 > **EthUninstallFilterJsonRpcResponse** = [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"eth_uninstallFilter"`, `boolean`, `string` \| `number`\>
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthJsonRpcResponse.d.ts:212
-
 JSON-RPC response for `eth_uninstallFilter` procedure

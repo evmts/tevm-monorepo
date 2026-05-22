@@ -8,15 +8,13 @@
 
 > **AnvilSetTimeProcedure** = (`request`) => `Promise`\<[`AnvilSetTimeJsonRpcResponse`](AnvilSetTimeJsonRpcResponse.md)\>
 
-Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilProcedure.d.ts:143
-
 JSON-RPC procedure for `anvil_setTime`
 
 ## Parameters
 
-### request
-
-[`AnvilSetTimeJsonRpcRequest`](AnvilSetTimeJsonRpcRequest.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`AnvilSetTimeJsonRpcRequest`](AnvilSetTimeJsonRpcRequest.md) |
 
 ## Returns
 

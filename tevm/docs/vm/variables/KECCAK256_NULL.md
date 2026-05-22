@@ -7,5 +7,3 @@
 # Variable: KECCAK256\_NULL
 
 > `const` **KECCAK256\_NULL**: `ByteArray`
-
-Defined in: tevm-monorepo/packages/vm/types/actions/constants.d.ts:1

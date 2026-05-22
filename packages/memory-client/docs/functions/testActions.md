@@ -12,17 +12,16 @@ Defined in: node\_modules/.pnpm/viem@2.49.3\_bufferutil@4.1.0\_typescript@6.0.3\
 
 ## Type Parameters
 
-### mode
-
-`mode` *extends* `TestClientMode`
+| Type Parameter |
+| ------ |
+| `mode` *extends* `TestClientMode` |
 
 ## Parameters
 
-### \_\_namedParameters
-
-#### mode
-
-`mode`
+| Parameter | Type |
+| ------ | ------ |
+| `__namedParameters` | \{ `mode`: `mode`; \} |
+| `__namedParameters.mode` | `mode` |
 
 ## Returns
 

@@ -12,17 +12,14 @@ Defined in: [packages/actions/src/Call/callHandlerOpts.js:18](https://github.com
 
 **`Internal`**
 
-Parses user-provided params into EVM call options
+Parses user-provided params into EVM call options.
 
 ## Parameters
 
-### client
-
-`TevmNode`\<`"fork"` \| `"normal"`, \{ \}\>
-
-### params
-
-[`CallParams`](../type-aliases/CallParams.md)\<`boolean`\>
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `client` | `TevmNode`\<`"fork"` \| `"normal"`, \{ \}\> | - |
+| `params` | [`CallParams`](../type-aliases/CallParams.md)\<`boolean`\> | - |
 
 ## Returns
 

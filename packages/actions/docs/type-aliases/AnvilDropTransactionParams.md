@@ -8,16 +8,12 @@
 
 > **AnvilDropTransactionParams** = `object`
 
-Defined in: [packages/actions/src/anvil/AnvilParams.ts:99](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilParams.ts#L99)
+Defined in: [packages/actions/src/anvil/AnvilParams.ts:104](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilParams.ts#L104)
 
 Params for `anvil_dropTransaction` handler
 
 ## Properties
 
-### transactionHash
-
-> `readonly` **transactionHash**: [`Hex`](Hex.md)
-
-Defined in: [packages/actions/src/anvil/AnvilParams.ts:103](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilParams.ts#L103)
-
-The transaction hash
+| Property | Modifier | Type | Description | Defined in |
+| ------ | ------ | ------ | ------ | ------ |
+| <a id="transactionhash"></a> `transactionHash` | `readonly` | [`Hex`](Hex.md) | The transaction hash | [packages/actions/src/anvil/AnvilParams.ts:108](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilParams.ts#L108) |

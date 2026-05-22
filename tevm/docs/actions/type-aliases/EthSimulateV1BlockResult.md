@@ -8,76 +8,16 @@
 
 > **EthSimulateV1BlockResult** = `object`
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthResult.d.ts:315
-
 Result of a simulated block containing multiple call results
 
 ## Properties
 
-### baseFeePerGas?
-
-> `optional` **baseFeePerGas?**: `bigint`
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthResult.d.ts:339
-
-The base fee per gas for the block
-
-***
-
-### calls
-
-> **calls**: [`EthSimulateV1CallResult`](EthSimulateV1CallResult.md)[]
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthResult.d.ts:343
-
-Results of the simulated calls in this block
-
-***
-
-### gasLimit
-
-> **gasLimit**: `bigint`
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthResult.d.ts:331
-
-The gas limit of the block
-
-***
-
-### gasUsed
-
-> **gasUsed**: `bigint`
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthResult.d.ts:335
-
-The gas used in the block
-
-***
-
-### hash
-
-> **hash**: [`Hex`](Hex.md)
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthResult.d.ts:323
-
-The block hash
-
-***
-
-### number
-
-> **number**: `bigint`
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthResult.d.ts:319
-
-The block number
-
-***
-
-### timestamp
-
-> **timestamp**: `bigint`
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthResult.d.ts:327
-
-The timestamp of the block
+| Property | Type | Description |
+| ------ | ------ | ------ |
+| <a id="basefeepergas"></a> `baseFeePerGas?` | `bigint` | The base fee per gas for the block |
+| <a id="calls"></a> `calls` | [`EthSimulateV1CallResult`](EthSimulateV1CallResult.md)[] | Results of the simulated calls in this block |
+| <a id="gaslimit"></a> `gasLimit` | `bigint` | The gas limit of the block |
+| <a id="gasused"></a> `gasUsed` | `bigint` | The gas used in the block |
+| <a id="hash"></a> `hash` | [`Hex`](Hex.md) | The block hash |
+| <a id="number"></a> `number` | `bigint` | The block number |
+| <a id="timestamp"></a> `timestamp` | `bigint` | The timestamp of the block |

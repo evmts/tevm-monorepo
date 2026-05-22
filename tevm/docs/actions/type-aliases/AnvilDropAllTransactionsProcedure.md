@@ -8,15 +8,13 @@
 
 > **AnvilDropAllTransactionsProcedure** = (`request`) => `Promise`\<[`AnvilDropAllTransactionsJsonRpcResponse`](AnvilDropAllTransactionsJsonRpcResponse.md)\>
 
-Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilProcedure.d.ts:87
-
 JSON-RPC procedure for `anvil_dropAllTransactions`
 
 ## Parameters
 
-### request
-
-[`AnvilDropAllTransactionsJsonRpcRequest`](AnvilDropAllTransactionsJsonRpcRequest.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`AnvilDropAllTransactionsJsonRpcRequest`](AnvilDropAllTransactionsJsonRpcRequest.md) |
 
 ## Returns
 

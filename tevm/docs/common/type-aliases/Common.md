@@ -8,13 +8,11 @@
 
 > **Common** = `Prettify`\<`ViemChain` & `object`\>
 
-Defined in: tevm-monorepo/packages/common/types/Common.d.ts:26
-
 Common is the main representation of chain specific configuration for tevm clients.
 
-Tevm specific chain configuration wrapping a viem chain and ZEVM common
+Tevm specific chain configuration wrapping a viem chain and ZEVM common.
 Common contains the common configuration set between all chains such as fee information, hardfork information, eip information, predeployed contracts, default block explorers and more.
-Extends the Viem Chain type with the ZEVM-backed Common instance used by the VM
+Extends the Viem Chain type with the ZEVM-backed Common instance used by the VM.
 
 ## Example
 

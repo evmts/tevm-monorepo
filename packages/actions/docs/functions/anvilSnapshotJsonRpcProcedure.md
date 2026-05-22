@@ -8,16 +8,16 @@
 
 > **anvilSnapshotJsonRpcProcedure**(`client`): [`AnvilSnapshotProcedure`](../type-aliases/AnvilSnapshotProcedure.md)
 
-Defined in: [packages/actions/src/anvil/anvilSnapshotProcedure.js:23](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/anvilSnapshotProcedure.js#L23)
+Defined in: [packages/actions/src/anvil/anvilSnapshotProcedure.js:25](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/anvilSnapshotProcedure.js#L25)
 
 Request handler for anvil_snapshot JSON-RPC requests.
 Snapshots the current state and returns a unique snapshot ID.
 
 ## Parameters
 
-### client
-
-`TevmNode`\<`"fork"` \| `"normal"`, \{ \}\>
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `client` | `TevmNode`\<`"fork"` \| `"normal"`, \{ \}\> | - |
 
 ## Returns
 

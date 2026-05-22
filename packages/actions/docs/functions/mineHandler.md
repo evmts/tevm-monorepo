@@ -12,17 +12,11 @@ Defined in: [packages/actions/src/Mine/mineHandler.js:16](https://github.com/evm
 
 ## Parameters
 
-### client
-
-`TevmNode`\<`"fork"` \| `"normal"`, \{ \}\>
-
-### options?
-
-#### throwOnFail?
-
-`boolean`
-
-whether to default to throwing or not when errors occur
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `client` | `TevmNode`\<`"fork"` \| `"normal"`, \{ \}\> | - |
+| `options?` | \{ `throwOnFail?`: `boolean`; \} | - |
+| `options.throwOnFail?` | `boolean` | whether to default to throwing or not when errors occur |
 
 ## Returns
 

@@ -16,161 +16,30 @@
 
 ## Type Parameters
 
-### T
-
-`T` *extends* [`TransactionType`](../type-aliases/TransactionType.md) = [`TransactionType`](../type-aliases/TransactionType.md)
+| Type Parameter | Default type |
+| ------ | ------ |
+| `T` *extends* [`TransactionType`](../type-aliases/TransactionType.md) | [`TransactionType`](../type-aliases/TransactionType.md) |
 
 ## Properties
 
-### accessList
-
-> `readonly` **accessList**: `AccessListBytes`
-
-#### Inherited from
-
-[`EIP4844CompatibleTx`](EIP4844CompatibleTx.md).[`accessList`](EIP4844CompatibleTx.md#accesslist)
-
-***
-
-### cache
-
-> `readonly` **cache**: `TransactionCache`
-
-#### Inherited from
-
-[`EIP4844CompatibleTx`](EIP4844CompatibleTx.md).[`cache`](EIP4844CompatibleTx.md#cache)
-
-***
-
-### chainId
-
-> `readonly` **chainId**: `bigint`
-
-#### Inherited from
-
-[`EIP4844CompatibleTx`](EIP4844CompatibleTx.md).[`chainId`](EIP4844CompatibleTx.md#chainid)
-
-***
-
-### common
-
-> `readonly` **common**: `Common`
-
-#### Inherited from
-
-[`EIP4844CompatibleTx`](EIP4844CompatibleTx.md).[`common`](EIP4844CompatibleTx.md#common)
-
-***
-
-### data
-
-> `readonly` **data**: `Uint8Array`
-
-#### Inherited from
-
-[`EIP4844CompatibleTx`](EIP4844CompatibleTx.md).[`data`](EIP4844CompatibleTx.md#data)
-
-***
-
-### gasLimit
-
-> `readonly` **gasLimit**: `bigint`
-
-#### Inherited from
-
-[`EIP4844CompatibleTx`](EIP4844CompatibleTx.md).[`gasLimit`](EIP4844CompatibleTx.md#gaslimit)
-
-***
-
-### maxFeePerGas
-
-> `readonly` **maxFeePerGas**: `bigint`
-
-***
-
-### maxPriorityFeePerGas
-
-> `readonly` **maxPriorityFeePerGas**: `bigint`
-
-***
-
-### nonce
-
-> `readonly` **nonce**: `bigint`
-
-#### Inherited from
-
-[`EIP4844CompatibleTx`](EIP4844CompatibleTx.md).[`nonce`](EIP4844CompatibleTx.md#nonce)
-
-***
-
-### r?
-
-> `readonly` `optional` **r?**: `bigint`
-
-#### Inherited from
-
-[`EIP4844CompatibleTx`](EIP4844CompatibleTx.md).[`r`](EIP4844CompatibleTx.md#r)
-
-***
-
-### s?
-
-> `readonly` `optional` **s?**: `bigint`
-
-#### Inherited from
-
-[`EIP4844CompatibleTx`](EIP4844CompatibleTx.md).[`s`](EIP4844CompatibleTx.md#s)
-
-***
-
-### to?
-
-> `readonly` `optional` **to?**: `Address`
-
-#### Inherited from
-
-[`EIP4844CompatibleTx`](EIP4844CompatibleTx.md).[`to`](EIP4844CompatibleTx.md#to)
-
-***
-
-### txOptions
-
-> **txOptions**: [`TxOptions`](TxOptions.md)
-
-#### Inherited from
-
-[`EIP4844CompatibleTx`](EIP4844CompatibleTx.md).[`txOptions`](EIP4844CompatibleTx.md#txoptions)
-
-***
-
-### type
-
-> **type**: [`TransactionType`](../type-aliases/TransactionType.md)
-
-#### Inherited from
-
-[`EIP4844CompatibleTx`](EIP4844CompatibleTx.md).[`type`](EIP4844CompatibleTx.md#type)
-
-***
-
-### v?
-
-> `readonly` `optional` **v?**: `bigint`
-
-#### Inherited from
-
-[`EIP4844CompatibleTx`](EIP4844CompatibleTx.md).[`v`](EIP4844CompatibleTx.md#v)
-
-***
-
-### value
-
-> `readonly` **value**: `bigint`
-
-#### Inherited from
-
-[`EIP4844CompatibleTx`](EIP4844CompatibleTx.md).[`value`](EIP4844CompatibleTx.md#value)
+| Property | Modifier | Type | Inherited from |
+| ------ | ------ | ------ | ------ |
+| <a id="accesslist"></a> `accessList` | `readonly` | `AccessListBytes` | [`EIP4844CompatibleTx`](EIP4844CompatibleTx.md).[`accessList`](EIP4844CompatibleTx.md#accesslist) |
+| <a id="cache"></a> `cache` | `readonly` | `TransactionCache` | [`EIP4844CompatibleTx`](EIP4844CompatibleTx.md).[`cache`](EIP4844CompatibleTx.md#cache) |
+| <a id="chainid"></a> `chainId` | `readonly` | `bigint` | [`EIP4844CompatibleTx`](EIP4844CompatibleTx.md).[`chainId`](EIP4844CompatibleTx.md#chainid) |
+| <a id="common"></a> `common` | `readonly` | `Common` | [`EIP4844CompatibleTx`](EIP4844CompatibleTx.md).[`common`](EIP4844CompatibleTx.md#common) |
+| <a id="data"></a> `data` | `readonly` | `Uint8Array` | [`EIP4844CompatibleTx`](EIP4844CompatibleTx.md).[`data`](EIP4844CompatibleTx.md#data) |
+| <a id="gaslimit"></a> `gasLimit` | `readonly` | `bigint` | [`EIP4844CompatibleTx`](EIP4844CompatibleTx.md).[`gasLimit`](EIP4844CompatibleTx.md#gaslimit) |
+| <a id="maxfeepergas"></a> `maxFeePerGas` | `readonly` | `bigint` | - |
+| <a id="maxpriorityfeepergas"></a> `maxPriorityFeePerGas` | `readonly` | `bigint` | - |
+| <a id="nonce"></a> `nonce` | `readonly` | `bigint` | [`EIP4844CompatibleTx`](EIP4844CompatibleTx.md).[`nonce`](EIP4844CompatibleTx.md#nonce) |
+| <a id="r"></a> `r?` | `readonly` | `bigint` | [`EIP4844CompatibleTx`](EIP4844CompatibleTx.md).[`r`](EIP4844CompatibleTx.md#r) |
+| <a id="s"></a> `s?` | `readonly` | `bigint` | [`EIP4844CompatibleTx`](EIP4844CompatibleTx.md).[`s`](EIP4844CompatibleTx.md#s) |
+| <a id="to"></a> `to?` | `readonly` | `Address` | [`EIP4844CompatibleTx`](EIP4844CompatibleTx.md).[`to`](EIP4844CompatibleTx.md#to) |
+| <a id="txoptions"></a> `txOptions` | `public` | [`TxOptions`](TxOptions.md) | [`EIP4844CompatibleTx`](EIP4844CompatibleTx.md).[`txOptions`](EIP4844CompatibleTx.md#txoptions) |
+| <a id="type"></a> `type` | `public` | [`TransactionType`](../type-aliases/TransactionType.md) | [`EIP4844CompatibleTx`](EIP4844CompatibleTx.md).[`type`](EIP4844CompatibleTx.md#type) |
+| <a id="v"></a> `v?` | `readonly` | `bigint` | [`EIP4844CompatibleTx`](EIP4844CompatibleTx.md).[`v`](EIP4844CompatibleTx.md#v) |
+| <a id="value"></a> `value` | `readonly` | `bigint` | [`EIP4844CompatibleTx`](EIP4844CompatibleTx.md).[`value`](EIP4844CompatibleTx.md#value) |
 
 ## Methods
 
@@ -180,21 +49,12 @@
 
 #### Parameters
 
-##### v
-
-`bigint`
-
-##### r
-
-`bigint` \| `Uint8Array`\<`ArrayBufferLike`\>
-
-##### s
-
-`bigint` \| `Uint8Array`\<`ArrayBufferLike`\>
-
-##### convertV?
-
-`boolean`
+| Parameter | Type |
+| ------ | ------ |
+| `v` | `bigint` |
+| `r` | `bigint` \| `Uint8Array`\<`ArrayBufferLike`\> |
+| `s` | `bigint` \| `Uint8Array`\<`ArrayBufferLike`\> |
+| `convertV?` | `boolean` |
 
 #### Returns
 
@@ -422,13 +282,10 @@
 
 #### Parameters
 
-##### privateKey
-
-`Uint8Array`
-
-##### extraEntropy?
-
-`boolean` \| `Uint8Array`\<`ArrayBufferLike`\>
+| Parameter | Type |
+| ------ | ------ |
+| `privateKey` | `Uint8Array` |
+| `extraEntropy?` | `boolean` \| `Uint8Array`\<`ArrayBufferLike`\> |
 
 #### Returns
 
@@ -446,9 +303,9 @@
 
 #### Parameters
 
-##### capability
-
-`number`
+| Parameter | Type |
+| ------ | ------ |
+| `capability` | `number` |
 
 #### Returns
 

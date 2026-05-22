@@ -14,16 +14,7 @@ Based on the JSON-RPC request for `eth_getTransactionCount` procedure
 
 ## Properties
 
-### address
-
-> `readonly` **address**: [`Address`](Address.md)
-
-Defined in: [packages/actions/src/eth/EthParams.ts:184](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L184)
-
-***
-
-### blockTag?
-
-> `readonly` `optional` **blockTag?**: [`BlockParam`](BlockParam.md)
-
-Defined in: [packages/actions/src/eth/EthParams.ts:185](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L185)
+| Property | Modifier | Type | Defined in |
+| ------ | ------ | ------ | ------ |
+| <a id="address"></a> `address` | `readonly` | [`Address`](Address.md) | [packages/actions/src/eth/EthParams.ts:184](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L184) |
+| <a id="blocktag"></a> `blockTag?` | `readonly` | [`BlockParam`](BlockParam.md) | [packages/actions/src/eth/EthParams.ts:185](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L185) |

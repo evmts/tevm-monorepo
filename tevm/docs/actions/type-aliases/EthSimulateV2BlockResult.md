@@ -8,87 +8,18 @@
 
 > **EthSimulateV2BlockResult** = `object`
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthResult.d.ts:470
-
 Result of a simulated block containing multiple call results (V2)
 Extends V1 with streamlined output
 
 ## Properties
 
-### baseFeePerGas?
-
-> `optional` **baseFeePerGas?**: `bigint`
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthResult.d.ts:494
-
-The base fee per gas for the block
-
-***
-
-### calls
-
-> **calls**: [`EthSimulateV2CallResult`](EthSimulateV2CallResult.md)[]
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthResult.d.ts:502
-
-Results of the simulated calls in this block
-
-***
-
-### feeRecipient?
-
-> `optional` **feeRecipient?**: [`Address`](Address.md)
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthResult.d.ts:498
-
-The fee recipient (coinbase)
-
-***
-
-### gasLimit
-
-> **gasLimit**: `bigint`
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthResult.d.ts:486
-
-The gas limit of the block
-
-***
-
-### gasUsed
-
-> **gasUsed**: `bigint`
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthResult.d.ts:490
-
-The gas used in the block
-
-***
-
-### hash
-
-> **hash**: [`Hex`](Hex.md)
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthResult.d.ts:478
-
-The block hash
-
-***
-
-### number
-
-> **number**: `bigint`
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthResult.d.ts:474
-
-The block number
-
-***
-
-### timestamp
-
-> **timestamp**: `bigint`
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthResult.d.ts:482
-
-The timestamp of the block
+| Property | Type | Description |
+| ------ | ------ | ------ |
+| <a id="basefeepergas"></a> `baseFeePerGas?` | `bigint` | The base fee per gas for the block |
+| <a id="calls"></a> `calls` | [`EthSimulateV2CallResult`](EthSimulateV2CallResult.md)[] | Results of the simulated calls in this block |
+| <a id="feerecipient"></a> `feeRecipient?` | [`Address`](Address.md) | The fee recipient (coinbase) |
+| <a id="gaslimit"></a> `gasLimit` | `bigint` | The gas limit of the block |
+| <a id="gasused"></a> `gasUsed` | `bigint` | The gas used in the block |
+| <a id="hash"></a> `hash` | [`Hex`](Hex.md) | The block hash |
+| <a id="number"></a> `number` | `bigint` | The block number |
+| <a id="timestamp"></a> `timestamp` | `bigint` | The timestamp of the block |

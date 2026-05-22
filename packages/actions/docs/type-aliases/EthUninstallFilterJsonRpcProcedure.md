@@ -12,9 +12,9 @@ Defined in: [packages/actions/src/eth/EthProcedure.ts:243](https://github.com/ev
 
 ## Parameters
 
-### request
-
-[`EthUninstallFilterJsonRpcRequest`](EthUninstallFilterJsonRpcRequest.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`EthUninstallFilterJsonRpcRequest`](EthUninstallFilterJsonRpcRequest.md) |
 
 ## Returns
 

@@ -12,9 +12,9 @@ Defined in: [packages/actions/src/eth/ethNewFilterHandler.js:16](https://github.
 
 ## Parameters
 
-### tevmNode
-
-`TevmNode`\<`"fork"` \| `"normal"`, \{ \}\>
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `tevmNode` | `TevmNode`\<`"fork"` \| `"normal"`, \{ \}\> | - |
 
 ## Returns
 

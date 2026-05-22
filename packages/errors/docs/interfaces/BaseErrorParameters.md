@@ -8,48 +8,11 @@
 
 ## Properties
 
-### cause?
-
-> `optional` **cause?**: `unknown`
-
-The cause of the error.
-
-***
-
-### details?
-
-> `optional` **details?**: `string`
-
-Details of the error.
-
-***
-
-### docsBaseUrl?
-
-> `optional` **docsBaseUrl?**: `string`
-
-Base URL for the documentation.
-
-***
-
-### docsPath?
-
-> `optional` **docsPath?**: `string`
-
-Path to the documentation.
-
-***
-
-### docsSlug?
-
-> `optional` **docsSlug?**: `string`
-
-Slug for the documentation.
-
-***
-
-### metaMessages?
-
-> `optional` **metaMessages?**: `string`[]
-
-Additional meta messages.
+| Property | Type |
+| ------ | ------ |
+| <a id="cause"></a> `cause?` | `unknown` |
+| <a id="details"></a> `details?` | `string` |
+| <a id="docsbaseurl"></a> `docsBaseUrl?` | `string` |
+| <a id="docspath"></a> `docsPath?` | `string` |
+| <a id="docsslug"></a> `docsSlug?` | `string` |
+| <a id="metamessages"></a> `metaMessages?` | `string`[] |

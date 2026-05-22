@@ -8,6 +8,4 @@
 
 > **EthMaxPriorityFeePerGasParams** = [`EmptyParams`](../../index/type-aliases/EmptyParams.md)
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthParams.d.ts:77
-
 Based on the JSON-RPC request for `eth_maxPriorityFeePerGas` procedure

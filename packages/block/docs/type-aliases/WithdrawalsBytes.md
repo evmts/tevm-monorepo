@@ -8,7 +8,7 @@
 
 > **WithdrawalsBytes** = `Uint8Array`[]
 
-Defined in: [packages/block/src/types.ts:233](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L233)
+Defined in: [packages/block/src/types.ts:236](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L236)
 
 Represents the raw byte representation of Ethereum withdrawal objects
 

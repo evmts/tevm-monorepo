@@ -12,10 +12,7 @@ Defined in: [tevm-monorepo/packages/utils/src/MemoryDb.ts:3](https://github.com/
 
 ## Type Parameters
 
-### TKey
-
-`TKey` *extends* `string` \| `number` \| `Uint8Array` = `Uint8Array`
-
-### TValue
-
-`TValue` *extends* `string` \| `Uint8Array` \| `Uint8Array` \| `string` \| [`DbObject`](DbObject.md) = `Uint8Array`
+| Type Parameter | Default type |
+| ------ | ------ |
+| `TKey` *extends* `string` \| `number` \| `Uint8Array` | `Uint8Array` |
+| `TValue` *extends* `string` \| `Uint8Array` \| `Uint8Array` \| `string` \| [`DbObject`](DbObject.md) | `Uint8Array` |

@@ -27,29 +27,12 @@ An optional CREATE2 salt, if deploying with CREATE2 for a predictable contract a
 
 ## Type Parameters
 
-### TThrowOnFail
-
-`TThrowOnFail` *extends* `boolean` = `boolean`
-
-Indicates whether the function should throw on failure.
-
-### TAbi
-
-`TAbi` *extends* `Abi` \| readonly `unknown`[] = `Abi`
-
-The ABI type, typically including constructor definitions.
-
-### THasConstructor
-
-`THasConstructor` = `TAbi` *extends* `Abi` ? `Abi` *extends* `TAbi` ? `true` : \[`Extract`\<`TAbi`\[`number`\], \{ `type`: `"constructor"`; \}\>\] *extends* \[`never`\] ? `false` : `true` : `true`
-
-Determines whether the ABI includes a constructor.
-
-### TAllArgs
-
-`TAllArgs` = `ContractConstructorArgs`\<`TAbi`\>
-
-Types of the constructor arguments for the deployment.
+| Type Parameter | Default type | Description |
+| ------ | ------ | ------ |
+| `TThrowOnFail` *extends* `boolean` | `boolean` | Indicates whether the function should throw on failure. |
+| `TAbi` *extends* `Abi` \| readonly `unknown`[] | `Abi` | The ABI type, typically including constructor definitions. |
+| `THasConstructor` | `TAbi` *extends* `Abi` ? `Abi` *extends* `TAbi` ? `true` : \[`Extract`\<`TAbi`\[`number`\], \{ `type`: `"constructor"`; \}\>\] *extends* \[`never`\] ? `false` : `true` : `true` | Determines whether the ABI includes a constructor. |
+| `TAllArgs` | `ContractConstructorArgs`\<`TAbi`\> | Types of the constructor arguments for the deployment. |
 
 ## Example
 

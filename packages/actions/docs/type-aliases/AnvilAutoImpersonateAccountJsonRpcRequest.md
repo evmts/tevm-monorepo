@@ -8,6 +8,6 @@
 
 > **AnvilAutoImpersonateAccountJsonRpcRequest** = `JsonRpcRequest`\<`"anvil_autoImpersonateAccount"`, readonly \[`boolean`\]\>
 
-Defined in: [packages/actions/src/anvil/AnvilJsonRpcRequest.ts:30](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilJsonRpcRequest.ts#L30)
+Defined in: [packages/actions/src/anvil/AnvilJsonRpcRequest.ts:31](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilJsonRpcRequest.ts#L31)
 
 JSON-RPC request for `anvil_autoImpersonateAccount` method

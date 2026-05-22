@@ -12,150 +12,23 @@ Defined in: [createOptimisticHandler.ts:62](https://github.com/evmts/tevm-monore
 
 ## Type Parameters
 
-### TConfig
-
-`TConfig` *extends* `StoreConfig` = `StoreConfig`
+| Type Parameter | Default type |
+| ------ | ------ |
+| `TConfig` *extends* `StoreConfig` | `StoreConfig` |
 
 ## Properties
 
-### \_
-
-> **\_**: `object`
-
-Defined in: [createOptimisticHandler.ts:74](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/mud/src/createOptimisticHandler.ts#L74)
-
-#### cleanup
-
-> **cleanup**: () => `Promise`\<`void`\>
-
-##### Returns
-
-`Promise`\<`void`\>
-
-#### internalClient
-
-> **internalClient**: `MemoryClient`
-
-#### optimisticClient
-
-> **optimisticClient**: `MemoryClient`
-
-#### optimisticStoreSubscribers
-
-> **optimisticStoreSubscribers**: `StoreSubscribers`
-
-#### optimisticTableSubscribers
-
-> **optimisticTableSubscribers**: `TableSubscribers`
-
-***
-
-### getOptimisticRecord
-
-> **getOptimisticRecord**: \<`TTable`, `TDefaultValue`\>(`args`) => `GetRecordResult`\<`TTable`, `TDefaultValue`\>
-
-Defined in: [createOptimisticHandler.ts:64](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/mud/src/createOptimisticHandler.ts#L64)
-
-#### Type Parameters
-
-##### TTable
-
-`TTable` *extends* `Table`
-
-##### TDefaultValue
-
-`TDefaultValue` *extends* `Omit`\<`TableRecord`\<`TTable`\>, keyof `Key`\<`TTable`\>\> \| `undefined` = `undefined`
-
-#### Parameters
-
-##### args
-
-`Omit`\<`GetRecordArgs`\<`TTable`, `TDefaultValue`\>, `"stash"`\>
-
-#### Returns
-
-`GetRecordResult`\<`TTable`, `TDefaultValue`\>
-
-***
-
-### getOptimisticRecords
-
-> **getOptimisticRecords**: \<`TTable`\>(`args`) => `GetRecordsResult`\<`TTable`\>
-
-Defined in: [createOptimisticHandler.ts:70](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/mud/src/createOptimisticHandler.ts#L70)
-
-#### Type Parameters
-
-##### TTable
-
-`TTable` *extends* `Table`
-
-#### Parameters
-
-##### args
-
-`Omit`\<`GetRecordsArgs`\<`TTable`\>, `"stash"`\>
-
-#### Returns
-
-`GetRecordsResult`\<`TTable`\>
-
-***
-
-### getOptimisticState
-
-> **getOptimisticState**: () => `State`\<`TConfig`\>
-
-Defined in: [createOptimisticHandler.ts:63](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/mud/src/createOptimisticHandler.ts#L63)
-
-#### Returns
-
-`State`\<`TConfig`\>
-
-***
-
-### subscribeOptimisticState
-
-> **subscribeOptimisticState**: (`args`) => `Unsubscribe`
-
-Defined in: [createOptimisticHandler.ts:71](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/mud/src/createOptimisticHandler.ts#L71)
-
-#### Parameters
-
-##### args
-
-###### subscriber
-
-`StoreUpdatesSubscriber`
-
-#### Returns
-
-`Unsubscribe`
-
-***
-
-### subscribeTx
-
-> **subscribeTx**: (`args`) => `Unsubscribe`
-
-Defined in: [createOptimisticHandler.ts:72](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/mud/src/createOptimisticHandler.ts#L72)
-
-#### Parameters
-
-##### args
-
-###### subscriber
-
-[`TxStatusSubscriber`](TxStatusSubscriber.md)
-
-#### Returns
-
-`Unsubscribe`
-
-***
-
-### syncAdapter
-
-> **syncAdapter**: `SyncAdapter`
-
-Defined in: [createOptimisticHandler.ts:73](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/mud/src/createOptimisticHandler.ts#L73)
+| Property | Type | Defined in |
+| ------ | ------ | ------ |
+| <a id="_"></a> `_` | `object` | [createOptimisticHandler.ts:74](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/mud/src/createOptimisticHandler.ts#L74) |
+| `_.cleanup` | () => `Promise`\<`void`\> | [createOptimisticHandler.ts:79](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/mud/src/createOptimisticHandler.ts#L79) |
+| `_.internalClient` | `MemoryClient` | [createOptimisticHandler.ts:76](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/mud/src/createOptimisticHandler.ts#L76) |
+| `_.optimisticClient` | `MemoryClient` | [createOptimisticHandler.ts:75](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/mud/src/createOptimisticHandler.ts#L75) |
+| `_.optimisticStoreSubscribers` | `StoreSubscribers` | [createOptimisticHandler.ts:77](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/mud/src/createOptimisticHandler.ts#L77) |
+| `_.optimisticTableSubscribers` | `TableSubscribers` | [createOptimisticHandler.ts:78](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/mud/src/createOptimisticHandler.ts#L78) |
+| <a id="getoptimisticrecord"></a> `getOptimisticRecord` | \<`TTable`, `TDefaultValue`\>(`args`) => `GetRecordResult`\<`TTable`, `TDefaultValue`\> | [createOptimisticHandler.ts:64](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/mud/src/createOptimisticHandler.ts#L64) |
+| <a id="getoptimisticrecords"></a> `getOptimisticRecords` | \<`TTable`\>(`args`) => `GetRecordsResult`\<`TTable`\> | [createOptimisticHandler.ts:70](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/mud/src/createOptimisticHandler.ts#L70) |
+| <a id="getoptimisticstate"></a> `getOptimisticState` | () => `State`\<`TConfig`\> | [createOptimisticHandler.ts:63](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/mud/src/createOptimisticHandler.ts#L63) |
+| <a id="subscribeoptimisticstate"></a> `subscribeOptimisticState` | (`args`) => `Unsubscribe` | [createOptimisticHandler.ts:71](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/mud/src/createOptimisticHandler.ts#L71) |
+| <a id="subscribetx"></a> `subscribeTx` | (`args`) => `Unsubscribe` | [createOptimisticHandler.ts:72](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/mud/src/createOptimisticHandler.ts#L72) |
+| <a id="syncadapter"></a> `syncAdapter` | `SyncAdapter` | [createOptimisticHandler.ts:73](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/mud/src/createOptimisticHandler.ts#L73) |

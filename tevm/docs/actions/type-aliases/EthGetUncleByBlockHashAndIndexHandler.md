@@ -8,13 +8,11 @@
 
 > **EthGetUncleByBlockHashAndIndexHandler** = (`request`) => `Promise`\<[`EthGetUncleByBlockHashAndIndexResult`](EthGetUncleByBlockHashAndIndexResult.md)\>
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthHandler.d.ts:31
-
 ## Parameters
 
-### request
-
-[`EthGetUncleByBlockHashAndIndexParams`](EthGetUncleByBlockHashAndIndexParams.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`EthGetUncleByBlockHashAndIndexParams`](EthGetUncleByBlockHashAndIndexParams.md) |
 
 ## Returns
 

@@ -8,23 +8,14 @@
 
 > **setLengthLeft**(`msg`, `length`, `opts?`): `Uint8Array`
 
-Defined in: zevm/npm/zevm/dist/util.d.ts:141
-
 ## Parameters
 
-### msg
-
-`Uint8Array`
-
-### length
-
-`number`
-
-### opts?
-
-#### allowTruncate?
-
-`boolean`
+| Parameter | Type |
+| ------ | ------ |
+| `msg` | `Uint8Array` |
+| `length` | `number` |
+| `opts?` | \{ `allowTruncate?`: `boolean`; \} |
+| `opts.allowTruncate?` | `boolean` |
 
 ## Returns
 

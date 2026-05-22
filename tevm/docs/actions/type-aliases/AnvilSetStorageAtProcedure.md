@@ -8,15 +8,13 @@
 
 > **AnvilSetStorageAtProcedure** = (`request`) => `Promise`\<[`AnvilSetStorageAtJsonRpcResponse`](AnvilSetStorageAtJsonRpcResponse.md)\>
 
-Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilProcedure.d.ts:59
-
 JSON-RPC procedure for `anvil_setStorageAt`
 
 ## Parameters
 
-### request
-
-[`AnvilSetStorageAtJsonRpcRequest`](AnvilSetStorageAtJsonRpcRequest.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`AnvilSetStorageAtJsonRpcRequest`](AnvilSetStorageAtJsonRpcRequest.md) |
 
 ## Returns
 

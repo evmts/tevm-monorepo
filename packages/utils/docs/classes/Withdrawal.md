@@ -18,21 +18,12 @@ Defined in: zevm/npm/zevm/dist/util.d.ts:228
 
 #### Parameters
 
-##### index
-
-`bigint`
-
-##### validatorIndex
-
-`bigint`
-
-##### address
-
-[`EthjsAddress`](EthjsAddress.md)
-
-##### amount
-
-`bigint`
+| Parameter | Type |
+| ------ | ------ |
+| `index` | `bigint` |
+| `validatorIndex` | `bigint` |
+| `address` | [`EthjsAddress`](EthjsAddress.md) |
+| `amount` | `bigint` |
 
 #### Returns
 
@@ -40,35 +31,12 @@ Defined in: zevm/npm/zevm/dist/util.d.ts:228
 
 ## Properties
 
-### address
-
-> `readonly` **address**: [`EthjsAddress`](EthjsAddress.md)
-
-Defined in: zevm/npm/zevm/dist/util.d.ts:226
-
-***
-
-### amount
-
-> `readonly` **amount**: `bigint`
-
-Defined in: zevm/npm/zevm/dist/util.d.ts:227
-
-***
-
-### index
-
-> `readonly` **index**: `bigint`
-
-Defined in: zevm/npm/zevm/dist/util.d.ts:224
-
-***
-
-### validatorIndex
-
-> `readonly` **validatorIndex**: `bigint`
-
-Defined in: zevm/npm/zevm/dist/util.d.ts:225
+| Property | Modifier | Type | Defined in |
+| ------ | ------ | ------ | ------ |
+| <a id="address"></a> `address` | `readonly` | [`EthjsAddress`](EthjsAddress.md) | zevm/npm/zevm/dist/util.d.ts:226 |
+| <a id="amount"></a> `amount` | `readonly` | `bigint` | zevm/npm/zevm/dist/util.d.ts:227 |
+| <a id="index"></a> `index` | `readonly` | `bigint` | zevm/npm/zevm/dist/util.d.ts:224 |
+| <a id="validatorindex"></a> `validatorIndex` | `readonly` | `bigint` | zevm/npm/zevm/dist/util.d.ts:225 |
 
 ## Methods
 
@@ -132,9 +100,9 @@ Defined in: zevm/npm/zevm/dist/util.d.ts:229
 
 #### Parameters
 
-##### withdrawalData
-
-[`WithdrawalData`](../type-aliases/WithdrawalData.md)
+| Parameter | Type |
+| ------ | ------ |
+| `withdrawalData` | [`WithdrawalData`](../type-aliases/WithdrawalData.md) |
 
 #### Returns
 

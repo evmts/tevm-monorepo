@@ -8,15 +8,13 @@
 
 > **AnvilSetChainIdProcedure** = (`request`) => `Promise`\<[`AnvilSetChainIdJsonRpcResponse`](AnvilSetChainIdJsonRpcResponse.md)\>
 
-Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilProcedure.d.ts:63
-
 JSON-RPC procedure for `anvil_setChainId`
 
 ## Parameters
 
-### request
-
-[`AnvilSetChainIdJsonRpcRequest`](AnvilSetChainIdJsonRpcRequest.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`AnvilSetChainIdJsonRpcRequest`](AnvilSetChainIdJsonRpcRequest.md) |
 
 ## Returns
 

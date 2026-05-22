@@ -8,8 +8,6 @@
 
 > **TevmContractError** = [`TevmCallError`](TevmCallError.md)
 
-Defined in: tevm-monorepo/packages/actions/types/Contract/TevmContractError.d.ts:37
-
 TEVM Contract Error type.
 
 This type represents all errors that can occur during a TEVM contract call.

@@ -8,25 +8,22 @@
 
 > **definePredeploy**\<`TName`, `THumanReadableAbi`\>(`contract`): [`Predeploy`](../type-aliases/Predeploy.md)\<`TName`, `THumanReadableAbi`\>
 
-Defined in: [definePredeploy.js:27](https://github.com/evmts/tevm-monorepo/blob/main/packages/predeploys/src/definePredeploy.js#L27)
+Defined in: [definePredeploy.js:26](https://github.com/evmts/tevm-monorepo/blob/main/packages/predeploys/src/definePredeploy.js#L26)
 
 Defines a predeploy contract to use in the tevm vm
 
 ## Type Parameters
 
-### TName
-
-`TName` *extends* `string`
-
-### THumanReadableAbi
-
-`THumanReadableAbi` *extends* readonly `string`[]
+| Type Parameter |
+| ------ |
+| `TName` *extends* `string` |
+| `THumanReadableAbi` *extends* readonly `string`[] |
 
 ## Parameters
 
-### contract
-
-`Contract`\<`TName`, `THumanReadableAbi`, `` `0x${string}` ``, `` `0x${string}` ``, `` `0x${string}` ``\>
+| Parameter | Type |
+| ------ | ------ |
+| `contract` | `Contract`\<`TName`, `THumanReadableAbi`, `` `0x${string}` ``, `` `0x${string}` ``, `` `0x${string}` ``\> |
 
 ## Returns
 

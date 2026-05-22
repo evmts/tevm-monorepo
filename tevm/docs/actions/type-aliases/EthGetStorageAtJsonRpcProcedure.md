@@ -8,13 +8,11 @@
 
 > **EthGetStorageAtJsonRpcProcedure** = (`request`) => `Promise`\<[`EthGetStorageAtJsonRpcResponse`](EthGetStorageAtJsonRpcResponse.md)\>
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthProcedure.d.ts:23
-
 ## Parameters
 
-### request
-
-[`EthGetStorageAtJsonRpcRequest`](EthGetStorageAtJsonRpcRequest.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`EthGetStorageAtJsonRpcRequest`](EthGetStorageAtJsonRpcRequest.md) |
 
 ## Returns
 

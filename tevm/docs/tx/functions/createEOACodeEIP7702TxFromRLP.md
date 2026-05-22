@@ -15,13 +15,10 @@ accessList, signatureYParity, signatureR, signatureS])`
 
 ## Parameters
 
-### serialized
-
-`Uint8Array`
-
-### opts?
-
-[`TxOptions`](../interfaces/TxOptions.md)
+| Parameter | Type |
+| ------ | ------ |
+| `serialized` | `Uint8Array` |
+| `opts?` | [`TxOptions`](../interfaces/TxOptions.md) |
 
 ## Returns
 

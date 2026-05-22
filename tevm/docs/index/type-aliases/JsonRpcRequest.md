@@ -8,8 +8,6 @@
 
 > **JsonRpcRequest**\<`TMethod`, `TParams`\> = `object` & `TParams` *extends* readonly \[\] ? `object` : `object`
 
-Defined in: tevm-monorepo/packages/jsonrpc/types/JsonRpcRequest.d.ts:4
-
 Helper type for creating JSON-RPC request types
 
 ## Type Declaration
@@ -28,10 +26,7 @@ Helper type for creating JSON-RPC request types
 
 ## Type Parameters
 
-### TMethod
-
-`TMethod` *extends* `string`
-
-### TParams
-
-`TParams`
+| Type Parameter |
+| ------ |
+| `TMethod` *extends* `string` |
+| `TParams` |

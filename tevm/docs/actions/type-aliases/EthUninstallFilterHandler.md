@@ -8,13 +8,11 @@
 
 > **EthUninstallFilterHandler** = (`request`) => `Promise`\<[`EthUninstallFilterResult`](EthUninstallFilterResult.md)\>
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthHandler.d.ts:43
-
 ## Parameters
 
-### request
-
-[`EthUninstallFilterParams`](EthUninstallFilterParams.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`EthUninstallFilterParams`](EthUninstallFilterParams.md) |
 
 ## Returns
 

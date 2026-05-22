@@ -8,36 +8,12 @@
 
 > **StorageProof** = `object`
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthResult.d.ts:222
-
 Storage proof for a single storage slot
 
 ## Properties
 
-### key
-
-> **key**: [`Hex`](Hex.md)
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthResult.d.ts:226
-
-The key of the storage slot
-
-***
-
-### proof
-
-> **proof**: [`Hex`](Hex.md)[]
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthResult.d.ts:234
-
-The merkle proof for this storage slot
-
-***
-
-### value
-
-> **value**: [`Hex`](Hex.md)
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthResult.d.ts:230
-
-The value of the storage slot
+| Property | Type | Description |
+| ------ | ------ | ------ |
+| <a id="key"></a> `key` | [`Hex`](Hex.md) | The key of the storage slot |
+| <a id="proof"></a> `proof` | [`Hex`](Hex.md)[] | The merkle proof for this storage slot |
+| <a id="value"></a> `value` | [`Hex`](Hex.md) | The value of the storage slot |

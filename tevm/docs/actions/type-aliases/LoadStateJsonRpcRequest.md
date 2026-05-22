@@ -8,6 +8,4 @@
 
 > **LoadStateJsonRpcRequest** = [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"tevm_loadState"`, \[[`SerializedParams`](SerializedParams.md)\]\>
 
-Defined in: tevm-monorepo/packages/actions/types/LoadState/LoadStateJsonRpcRequest.d.ts:13
-
 The JSON-RPC request for the `tevm_loadState` method

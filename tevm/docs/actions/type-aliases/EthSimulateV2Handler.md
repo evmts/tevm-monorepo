@@ -8,13 +8,11 @@
 
 > **EthSimulateV2Handler** = (`request`) => `Promise`\<[`EthSimulateV2Result`](EthSimulateV2Result.md)\>
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthHandler.d.ts:48
-
 ## Parameters
 
-### request
-
-[`EthSimulateV2Params`](EthSimulateV2Params.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`EthSimulateV2Params`](EthSimulateV2Params.md) |
 
 ## Returns
 

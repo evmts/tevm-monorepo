@@ -14,304 +14,43 @@ A mapping of `eth_*` method names to their request type
 
 ## Properties
 
-### eth\_accounts
-
-> **eth\_accounts**: [`EthAccountsJsonRpcRequest`](EthAccountsJsonRpcRequest.md)
-
-Defined in: [packages/actions/src/tevm-request-handler/EthRequestType.ts:55](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/EthRequestType.ts#L55)
-
-***
-
-### eth\_blockNumber
-
-> **eth\_blockNumber**: [`EthBlockNumberJsonRpcRequest`](EthBlockNumberJsonRpcRequest.md)
-
-Defined in: [packages/actions/src/tevm-request-handler/EthRequestType.ts:60](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/EthRequestType.ts#L60)
-
-***
-
-### eth\_call
-
-> **eth\_call**: [`EthCallJsonRpcRequest`](EthCallJsonRpcRequest.md)
-
-Defined in: [packages/actions/src/tevm-request-handler/EthRequestType.ts:46](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/EthRequestType.ts#L46)
-
-***
-
-### eth\_chainId
-
-> **eth\_chainId**: [`EthChainIdJsonRpcRequest`](EthChainIdJsonRpcRequest.md)
-
-Defined in: [packages/actions/src/tevm-request-handler/EthRequestType.ts:51](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/EthRequestType.ts#L51)
-
-***
-
-### eth\_coinbase
-
-> **eth\_coinbase**: [`EthCoinbaseJsonRpcRequest`](EthCoinbaseJsonRpcRequest.md)
-
-Defined in: [packages/actions/src/tevm-request-handler/EthRequestType.ts:56](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/EthRequestType.ts#L56)
-
-***
-
-### eth\_estimateGas
-
-> **eth\_estimateGas**: [`EthEstimateGasJsonRpcRequest`](EthEstimateGasJsonRpcRequest.md)
-
-Defined in: [packages/actions/src/tevm-request-handler/EthRequestType.ts:61](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/EthRequestType.ts#L61)
-
-***
-
-### eth\_gasPrice
-
-> **eth\_gasPrice**: [`EthGasPriceJsonRpcRequest`](EthGasPriceJsonRpcRequest.md)
-
-Defined in: [packages/actions/src/tevm-request-handler/EthRequestType.ts:47](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/EthRequestType.ts#L47)
-
-***
-
-### eth\_getBalance
-
-> **eth\_getBalance**: [`EthGetBalanceJsonRpcRequest`](EthGetBalanceJsonRpcRequest.md)
-
-Defined in: [packages/actions/src/tevm-request-handler/EthRequestType.ts:59](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/EthRequestType.ts#L59)
-
-***
-
-### eth\_getBlockByHash
-
-> **eth\_getBlockByHash**: [`EthGetBlockByHashJsonRpcRequest`](EthGetBlockByHashJsonRpcRequest.md)
-
-Defined in: [packages/actions/src/tevm-request-handler/EthRequestType.ts:64](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/EthRequestType.ts#L64)
-
-***
-
-### eth\_getBlockByNumber
-
-> **eth\_getBlockByNumber**: [`EthGetBlockByNumberJsonRpcRequest`](EthGetBlockByNumberJsonRpcRequest.md)
-
-Defined in: [packages/actions/src/tevm-request-handler/EthRequestType.ts:69](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/EthRequestType.ts#L69)
-
-***
-
-### eth\_getBlockTransactionCountByHash
-
-> **eth\_getBlockTransactionCountByHash**: [`EthGetBlockTransactionCountByHashJsonRpcRequest`](EthGetBlockTransactionCountByHashJsonRpcRequest.md)
-
-Defined in: [packages/actions/src/tevm-request-handler/EthRequestType.ts:80](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/EthRequestType.ts#L80)
-
-***
-
-### eth\_getBlockTransactionCountByNumber
-
-> **eth\_getBlockTransactionCountByNumber**: [`EthGetBlockTransactionCountByNumberJsonRpcRequest`](EthGetBlockTransactionCountByNumberJsonRpcRequest.md)
-
-Defined in: [packages/actions/src/tevm-request-handler/EthRequestType.ts:81](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/EthRequestType.ts#L81)
-
-***
-
-### eth\_getCode
-
-> **eth\_getCode**: [`EthGetCodeJsonRpcRequest`](EthGetCodeJsonRpcRequest.md)
-
-Defined in: [packages/actions/src/tevm-request-handler/EthRequestType.ts:52](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/EthRequestType.ts#L52)
-
-***
-
-### eth\_getFilterChanges
-
-> **eth\_getFilterChanges**: [`EthGetFilterChangesJsonRpcRequest`](EthGetFilterChangesJsonRpcRequest.md)
-
-Defined in: [packages/actions/src/tevm-request-handler/EthRequestType.ts:70](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/EthRequestType.ts#L70)
-
-***
-
-### eth\_getFilterLogs
-
-> **eth\_getFilterLogs**: [`EthGetFilterLogsJsonRpcRequest`](EthGetFilterLogsJsonRpcRequest.md)
-
-Defined in: [packages/actions/src/tevm-request-handler/EthRequestType.ts:63](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/EthRequestType.ts#L63)
-
-***
-
-### eth\_getLogs
-
-> **eth\_getLogs**: [`EthGetLogsJsonRpcRequest`](EthGetLogsJsonRpcRequest.md)
-
-Defined in: [packages/actions/src/tevm-request-handler/EthRequestType.ts:53](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/EthRequestType.ts#L53)
-
-***
-
-### eth\_getStorageAt
-
-> **eth\_getStorageAt**: [`EthGetStorageAtJsonRpcRequest`](EthGetStorageAtJsonRpcRequest.md)
-
-Defined in: [packages/actions/src/tevm-request-handler/EthRequestType.ts:62](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/EthRequestType.ts#L62)
-
-***
-
-### eth\_getTransactionByBlockHashAndIndex
-
-> **eth\_getTransactionByBlockHashAndIndex**: [`EthGetTransactionByBlockHashAndIndexJsonRpcRequest`](EthGetTransactionByBlockHashAndIndexJsonRpcRequest.md)
-
-Defined in: [packages/actions/src/tevm-request-handler/EthRequestType.ts:82](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/EthRequestType.ts#L82)
-
-***
-
-### eth\_getTransactionByBlockNumberAndIndex
-
-> **eth\_getTransactionByBlockNumberAndIndex**: [`EthGetTransactionByBlockNumberAndIndexJsonRpcRequest`](EthGetTransactionByBlockNumberAndIndexJsonRpcRequest.md)
-
-Defined in: [packages/actions/src/tevm-request-handler/EthRequestType.ts:83](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/EthRequestType.ts#L83)
-
-***
-
-### eth\_getTransactionByHash
-
-> **eth\_getTransactionByHash**: [`EthGetTransactionByHashJsonRpcRequest`](EthGetTransactionByHashJsonRpcRequest.md)
-
-Defined in: [packages/actions/src/tevm-request-handler/EthRequestType.ts:73](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/EthRequestType.ts#L73)
-
-***
-
-### eth\_getTransactionCount
-
-> **eth\_getTransactionCount**: [`EthGetTransactionCountJsonRpcRequest`](EthGetTransactionCountJsonRpcRequest.md)
-
-Defined in: [packages/actions/src/tevm-request-handler/EthRequestType.ts:72](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/EthRequestType.ts#L72)
-
-***
-
-### eth\_getTransactionReceipt
-
-> **eth\_getTransactionReceipt**: [`EthGetTransactionReceiptJsonRpcRequest`](EthGetTransactionReceiptJsonRpcRequest.md)
-
-Defined in: [packages/actions/src/tevm-request-handler/EthRequestType.ts:74](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/EthRequestType.ts#L74)
-
-***
-
-### eth\_getUncleByBlockHashAndIndex
-
-> **eth\_getUncleByBlockHashAndIndex**: [`EthGetUncleByBlockHashAndIndexJsonRpcRequest`](EthGetUncleByBlockHashAndIndexJsonRpcRequest.md)
-
-Defined in: [packages/actions/src/tevm-request-handler/EthRequestType.ts:77](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/EthRequestType.ts#L77)
-
-***
-
-### eth\_getUncleByBlockNumberAndIndex
-
-> **eth\_getUncleByBlockNumberAndIndex**: [`EthGetUncleByBlockNumberAndIndexJsonRpcRequest`](EthGetUncleByBlockNumberAndIndexJsonRpcRequest.md)
-
-Defined in: [packages/actions/src/tevm-request-handler/EthRequestType.ts:79](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/EthRequestType.ts#L79)
-
-***
-
-### eth\_getUncleCountByBlockHash
-
-> **eth\_getUncleCountByBlockHash**: [`EthGetUncleCountByBlockHashJsonRpcRequest`](EthGetUncleCountByBlockHashJsonRpcRequest.md)
-
-Defined in: [packages/actions/src/tevm-request-handler/EthRequestType.ts:75](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/EthRequestType.ts#L75)
-
-***
-
-### eth\_getUncleCountByBlockNumber
-
-> **eth\_getUncleCountByBlockNumber**: [`EthGetUncleCountByBlockNumberJsonRpcRequest`](EthGetUncleCountByBlockNumberJsonRpcRequest.md)
-
-Defined in: [packages/actions/src/tevm-request-handler/EthRequestType.ts:76](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/EthRequestType.ts#L76)
-
-***
-
-### eth\_hashrate
-
-> **eth\_hashrate**: [`EthHashrateJsonRpcRequest`](EthHashrateJsonRpcRequest.md)
-
-Defined in: [packages/actions/src/tevm-request-handler/EthRequestType.ts:57](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/EthRequestType.ts#L57)
-
-***
-
-### eth\_mining
-
-> **eth\_mining**: [`EthMiningJsonRpcRequest`](EthMiningJsonRpcRequest.md)
-
-Defined in: [packages/actions/src/tevm-request-handler/EthRequestType.ts:50](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/EthRequestType.ts#L50)
-
-***
-
-### eth\_newBlockFilter
-
-> **eth\_newBlockFilter**: [`EthNewBlockFilterJsonRpcRequest`](EthNewBlockFilterJsonRpcRequest.md)
-
-Defined in: [packages/actions/src/tevm-request-handler/EthRequestType.ts:49](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/EthRequestType.ts#L49)
-
-***
-
-### eth\_newFilter
-
-> **eth\_newFilter**: [`EthNewFilterJsonRpcRequest`](EthNewFilterJsonRpcRequest.md)
-
-Defined in: [packages/actions/src/tevm-request-handler/EthRequestType.ts:58](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/EthRequestType.ts#L58)
-
-***
-
-### eth\_newPendingTransactionFilter
-
-> **eth\_newPendingTransactionFilter**: [`EthNewPendingTransactionFilterJsonRpcRequest`](EthNewPendingTransactionFilterJsonRpcRequest.md)
-
-Defined in: [packages/actions/src/tevm-request-handler/EthRequestType.ts:78](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/EthRequestType.ts#L78)
-
-***
-
-### eth\_protocolVersion
-
-> **eth\_protocolVersion**: [`EthProtocolVersionJsonRpcRequest`](EthProtocolVersionJsonRpcRequest.md)
-
-Defined in: [packages/actions/src/tevm-request-handler/EthRequestType.ts:65](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/EthRequestType.ts#L65)
-
-***
-
-### eth\_sendRawTransaction
-
-> **eth\_sendRawTransaction**: [`EthSendRawTransactionJsonRpcRequest`](EthSendRawTransactionJsonRpcRequest.md)
-
-Defined in: [packages/actions/src/tevm-request-handler/EthRequestType.ts:71](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/EthRequestType.ts#L71)
-
-***
-
-### eth\_sendTransaction
-
-> **eth\_sendTransaction**: [`EthSendTransactionJsonRpcRequest`](EthSendTransactionJsonRpcRequest.md)
-
-Defined in: [packages/actions/src/tevm-request-handler/EthRequestType.ts:66](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/EthRequestType.ts#L66)
-
-***
-
-### eth\_sign
-
-> **eth\_sign**: [`EthSignJsonRpcRequest`](EthSignJsonRpcRequest.md)
-
-Defined in: [packages/actions/src/tevm-request-handler/EthRequestType.ts:48](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/EthRequestType.ts#L48)
-
-***
-
-### eth\_signTransaction
-
-> **eth\_signTransaction**: [`EthSignTransactionJsonRpcRequest`](EthSignTransactionJsonRpcRequest.md)
-
-Defined in: [packages/actions/src/tevm-request-handler/EthRequestType.ts:67](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/EthRequestType.ts#L67)
-
-***
-
-### eth\_syncing
-
-> **eth\_syncing**: [`EthSyncingJsonRpcRequest`](EthSyncingJsonRpcRequest.md)
-
-Defined in: [packages/actions/src/tevm-request-handler/EthRequestType.ts:54](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/EthRequestType.ts#L54)
-
-***
-
-### eth\_uninstallFilter
-
-> **eth\_uninstallFilter**: [`EthUninstallFilterJsonRpcRequest`](EthUninstallFilterJsonRpcRequest.md)
-
-Defined in: [packages/actions/src/tevm-request-handler/EthRequestType.ts:68](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/EthRequestType.ts#L68)
+| Property | Type | Defined in |
+| ------ | ------ | ------ |
+| <a id="eth_accounts"></a> `eth_accounts` | [`EthAccountsJsonRpcRequest`](EthAccountsJsonRpcRequest.md) | [packages/actions/src/tevm-request-handler/EthRequestType.ts:55](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/EthRequestType.ts#L55) |
+| <a id="eth_blocknumber"></a> `eth_blockNumber` | [`EthBlockNumberJsonRpcRequest`](EthBlockNumberJsonRpcRequest.md) | [packages/actions/src/tevm-request-handler/EthRequestType.ts:60](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/EthRequestType.ts#L60) |
+| <a id="eth_call"></a> `eth_call` | [`EthCallJsonRpcRequest`](EthCallJsonRpcRequest.md) | [packages/actions/src/tevm-request-handler/EthRequestType.ts:46](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/EthRequestType.ts#L46) |
+| <a id="eth_chainid"></a> `eth_chainId` | [`EthChainIdJsonRpcRequest`](EthChainIdJsonRpcRequest.md) | [packages/actions/src/tevm-request-handler/EthRequestType.ts:51](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/EthRequestType.ts#L51) |
+| <a id="eth_coinbase"></a> `eth_coinbase` | [`EthCoinbaseJsonRpcRequest`](EthCoinbaseJsonRpcRequest.md) | [packages/actions/src/tevm-request-handler/EthRequestType.ts:56](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/EthRequestType.ts#L56) |
+| <a id="eth_estimategas"></a> `eth_estimateGas` | [`EthEstimateGasJsonRpcRequest`](EthEstimateGasJsonRpcRequest.md) | [packages/actions/src/tevm-request-handler/EthRequestType.ts:61](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/EthRequestType.ts#L61) |
+| <a id="eth_gasprice"></a> `eth_gasPrice` | [`EthGasPriceJsonRpcRequest`](EthGasPriceJsonRpcRequest.md) | [packages/actions/src/tevm-request-handler/EthRequestType.ts:47](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/EthRequestType.ts#L47) |
+| <a id="eth_getbalance"></a> `eth_getBalance` | [`EthGetBalanceJsonRpcRequest`](EthGetBalanceJsonRpcRequest.md) | [packages/actions/src/tevm-request-handler/EthRequestType.ts:59](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/EthRequestType.ts#L59) |
+| <a id="eth_getblockbyhash"></a> `eth_getBlockByHash` | [`EthGetBlockByHashJsonRpcRequest`](EthGetBlockByHashJsonRpcRequest.md) | [packages/actions/src/tevm-request-handler/EthRequestType.ts:64](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/EthRequestType.ts#L64) |
+| <a id="eth_getblockbynumber"></a> `eth_getBlockByNumber` | [`EthGetBlockByNumberJsonRpcRequest`](EthGetBlockByNumberJsonRpcRequest.md) | [packages/actions/src/tevm-request-handler/EthRequestType.ts:69](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/EthRequestType.ts#L69) |
+| <a id="eth_getblocktransactioncountbyhash"></a> `eth_getBlockTransactionCountByHash` | [`EthGetBlockTransactionCountByHashJsonRpcRequest`](EthGetBlockTransactionCountByHashJsonRpcRequest.md) | [packages/actions/src/tevm-request-handler/EthRequestType.ts:80](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/EthRequestType.ts#L80) |
+| <a id="eth_getblocktransactioncountbynumber"></a> `eth_getBlockTransactionCountByNumber` | [`EthGetBlockTransactionCountByNumberJsonRpcRequest`](EthGetBlockTransactionCountByNumberJsonRpcRequest.md) | [packages/actions/src/tevm-request-handler/EthRequestType.ts:81](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/EthRequestType.ts#L81) |
+| <a id="eth_getcode"></a> `eth_getCode` | [`EthGetCodeJsonRpcRequest`](EthGetCodeJsonRpcRequest.md) | [packages/actions/src/tevm-request-handler/EthRequestType.ts:52](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/EthRequestType.ts#L52) |
+| <a id="eth_getfilterchanges"></a> `eth_getFilterChanges` | [`EthGetFilterChangesJsonRpcRequest`](EthGetFilterChangesJsonRpcRequest.md) | [packages/actions/src/tevm-request-handler/EthRequestType.ts:70](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/EthRequestType.ts#L70) |
+| <a id="eth_getfilterlogs"></a> `eth_getFilterLogs` | [`EthGetFilterLogsJsonRpcRequest`](EthGetFilterLogsJsonRpcRequest.md) | [packages/actions/src/tevm-request-handler/EthRequestType.ts:63](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/EthRequestType.ts#L63) |
+| <a id="eth_getlogs"></a> `eth_getLogs` | [`EthGetLogsJsonRpcRequest`](EthGetLogsJsonRpcRequest.md) | [packages/actions/src/tevm-request-handler/EthRequestType.ts:53](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/EthRequestType.ts#L53) |
+| <a id="eth_getstorageat"></a> `eth_getStorageAt` | [`EthGetStorageAtJsonRpcRequest`](EthGetStorageAtJsonRpcRequest.md) | [packages/actions/src/tevm-request-handler/EthRequestType.ts:62](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/EthRequestType.ts#L62) |
+| <a id="eth_gettransactionbyblockhashandindex"></a> `eth_getTransactionByBlockHashAndIndex` | [`EthGetTransactionByBlockHashAndIndexJsonRpcRequest`](EthGetTransactionByBlockHashAndIndexJsonRpcRequest.md) | [packages/actions/src/tevm-request-handler/EthRequestType.ts:82](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/EthRequestType.ts#L82) |
+| <a id="eth_gettransactionbyblocknumberandindex"></a> `eth_getTransactionByBlockNumberAndIndex` | [`EthGetTransactionByBlockNumberAndIndexJsonRpcRequest`](EthGetTransactionByBlockNumberAndIndexJsonRpcRequest.md) | [packages/actions/src/tevm-request-handler/EthRequestType.ts:83](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/EthRequestType.ts#L83) |
+| <a id="eth_gettransactionbyhash"></a> `eth_getTransactionByHash` | [`EthGetTransactionByHashJsonRpcRequest`](EthGetTransactionByHashJsonRpcRequest.md) | [packages/actions/src/tevm-request-handler/EthRequestType.ts:73](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/EthRequestType.ts#L73) |
+| <a id="eth_gettransactioncount"></a> `eth_getTransactionCount` | [`EthGetTransactionCountJsonRpcRequest`](EthGetTransactionCountJsonRpcRequest.md) | [packages/actions/src/tevm-request-handler/EthRequestType.ts:72](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/EthRequestType.ts#L72) |
+| <a id="eth_gettransactionreceipt"></a> `eth_getTransactionReceipt` | [`EthGetTransactionReceiptJsonRpcRequest`](EthGetTransactionReceiptJsonRpcRequest.md) | [packages/actions/src/tevm-request-handler/EthRequestType.ts:74](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/EthRequestType.ts#L74) |
+| <a id="eth_getunclebyblockhashandindex"></a> `eth_getUncleByBlockHashAndIndex` | [`EthGetUncleByBlockHashAndIndexJsonRpcRequest`](EthGetUncleByBlockHashAndIndexJsonRpcRequest.md) | [packages/actions/src/tevm-request-handler/EthRequestType.ts:77](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/EthRequestType.ts#L77) |
+| <a id="eth_getunclebyblocknumberandindex"></a> `eth_getUncleByBlockNumberAndIndex` | [`EthGetUncleByBlockNumberAndIndexJsonRpcRequest`](EthGetUncleByBlockNumberAndIndexJsonRpcRequest.md) | [packages/actions/src/tevm-request-handler/EthRequestType.ts:79](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/EthRequestType.ts#L79) |
+| <a id="eth_getunclecountbyblockhash"></a> `eth_getUncleCountByBlockHash` | [`EthGetUncleCountByBlockHashJsonRpcRequest`](EthGetUncleCountByBlockHashJsonRpcRequest.md) | [packages/actions/src/tevm-request-handler/EthRequestType.ts:75](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/EthRequestType.ts#L75) |
+| <a id="eth_getunclecountbyblocknumber"></a> `eth_getUncleCountByBlockNumber` | [`EthGetUncleCountByBlockNumberJsonRpcRequest`](EthGetUncleCountByBlockNumberJsonRpcRequest.md) | [packages/actions/src/tevm-request-handler/EthRequestType.ts:76](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/EthRequestType.ts#L76) |
+| <a id="eth_hashrate"></a> `eth_hashrate` | [`EthHashrateJsonRpcRequest`](EthHashrateJsonRpcRequest.md) | [packages/actions/src/tevm-request-handler/EthRequestType.ts:57](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/EthRequestType.ts#L57) |
+| <a id="eth_mining"></a> `eth_mining` | [`EthMiningJsonRpcRequest`](EthMiningJsonRpcRequest.md) | [packages/actions/src/tevm-request-handler/EthRequestType.ts:50](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/EthRequestType.ts#L50) |
+| <a id="eth_newblockfilter"></a> `eth_newBlockFilter` | [`EthNewBlockFilterJsonRpcRequest`](EthNewBlockFilterJsonRpcRequest.md) | [packages/actions/src/tevm-request-handler/EthRequestType.ts:49](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/EthRequestType.ts#L49) |
+| <a id="eth_newfilter"></a> `eth_newFilter` | [`EthNewFilterJsonRpcRequest`](EthNewFilterJsonRpcRequest.md) | [packages/actions/src/tevm-request-handler/EthRequestType.ts:58](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/EthRequestType.ts#L58) |
+| <a id="eth_newpendingtransactionfilter"></a> `eth_newPendingTransactionFilter` | [`EthNewPendingTransactionFilterJsonRpcRequest`](EthNewPendingTransactionFilterJsonRpcRequest.md) | [packages/actions/src/tevm-request-handler/EthRequestType.ts:78](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/EthRequestType.ts#L78) |
+| <a id="eth_protocolversion"></a> `eth_protocolVersion` | [`EthProtocolVersionJsonRpcRequest`](EthProtocolVersionJsonRpcRequest.md) | [packages/actions/src/tevm-request-handler/EthRequestType.ts:65](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/EthRequestType.ts#L65) |
+| <a id="eth_sendrawtransaction"></a> `eth_sendRawTransaction` | [`EthSendRawTransactionJsonRpcRequest`](EthSendRawTransactionJsonRpcRequest.md) | [packages/actions/src/tevm-request-handler/EthRequestType.ts:71](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/EthRequestType.ts#L71) |
+| <a id="eth_sendtransaction"></a> `eth_sendTransaction` | [`EthSendTransactionJsonRpcRequest`](EthSendTransactionJsonRpcRequest.md) | [packages/actions/src/tevm-request-handler/EthRequestType.ts:66](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/EthRequestType.ts#L66) |
+| <a id="eth_sign"></a> `eth_sign` | [`EthSignJsonRpcRequest`](EthSignJsonRpcRequest.md) | [packages/actions/src/tevm-request-handler/EthRequestType.ts:48](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/EthRequestType.ts#L48) |
+| <a id="eth_signtransaction"></a> `eth_signTransaction` | [`EthSignTransactionJsonRpcRequest`](EthSignTransactionJsonRpcRequest.md) | [packages/actions/src/tevm-request-handler/EthRequestType.ts:67](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/EthRequestType.ts#L67) |
+| <a id="eth_syncing"></a> `eth_syncing` | [`EthSyncingJsonRpcRequest`](EthSyncingJsonRpcRequest.md) | [packages/actions/src/tevm-request-handler/EthRequestType.ts:54](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/EthRequestType.ts#L54) |
+| <a id="eth_uninstallfilter"></a> `eth_uninstallFilter` | [`EthUninstallFilterJsonRpcRequest`](EthUninstallFilterJsonRpcRequest.md) | [packages/actions/src/tevm-request-handler/EthRequestType.ts:68](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/EthRequestType.ts#L68) |

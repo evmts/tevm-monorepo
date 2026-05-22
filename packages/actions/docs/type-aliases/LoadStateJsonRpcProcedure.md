@@ -15,9 +15,9 @@ Procedure for handling tevm_loadState JSON-RPC requests
 
 ## Parameters
 
-### request
-
-[`LoadStateJsonRpcRequest`](LoadStateJsonRpcRequest.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`LoadStateJsonRpcRequest`](LoadStateJsonRpcRequest.md) |
 
 ## Returns
 

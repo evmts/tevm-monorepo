@@ -6,66 +6,15 @@
 
 # Interface: ApplyBlockResult
 
-Defined in: tevm-monorepo/packages/vm/types/utils/ApplyBlockResult.d.ts:8
-
 Result of [applyBlock](../variables/applyBlock.md)
 
 ## Properties
 
-### bloom
-
-> **bloom**: [`Bloom`](../../utils/classes/Bloom.md)
-
-Defined in: tevm-monorepo/packages/vm/types/utils/ApplyBlockResult.d.ts:12
-
-The Bloom filter
-
-***
-
-### gasUsed
-
-> **gasUsed**: `bigint`
-
-Defined in: tevm-monorepo/packages/vm/types/utils/ApplyBlockResult.d.ts:16
-
-The gas used after executing the block
-
-***
-
-### preimages?
-
-> `optional` **preimages?**: `Map`\<`` `0x${string}` ``, `Uint8Array`\<`ArrayBufferLike`\>\>
-
-Defined in: tevm-monorepo/packages/vm/types/utils/ApplyBlockResult.d.ts:32
-
-Preimages mapping of the touched accounts from the block (see reportPreimages option)
-
-***
-
-### receipts
-
-> **receipts**: [`TxReceipt`](../type-aliases/TxReceipt.md)[]
-
-Defined in: tevm-monorepo/packages/vm/types/utils/ApplyBlockResult.d.ts:24
-
-Receipts generated for transactions in the block
-
-***
-
-### receiptsRoot
-
-> **receiptsRoot**: `Uint8Array`
-
-Defined in: tevm-monorepo/packages/vm/types/utils/ApplyBlockResult.d.ts:20
-
-The receipt root after executing the block
-
-***
-
-### results
-
-> **results**: [`RunTxResult`](RunTxResult.md)[]
-
-Defined in: tevm-monorepo/packages/vm/types/utils/ApplyBlockResult.d.ts:28
-
-Results of executing the transactions in the block
+| Property | Type | Description |
+| ------ | ------ | ------ |
+| <a id="bloom"></a> `bloom` | [`Bloom`](../../utils/classes/Bloom.md) | The Bloom filter |
+| <a id="gasused"></a> `gasUsed` | `bigint` | The gas used after executing the block |
+| <a id="preimages"></a> `preimages?` | `Map`\<`` `0x${string}` ``, `Uint8Array`\<`ArrayBufferLike`\>\> | Preimages mapping of the touched accounts from the block (see reportPreimages option) |
+| <a id="receipts"></a> `receipts` | [`TxReceipt`](../type-aliases/TxReceipt.md)[] | Receipts generated for transactions in the block |
+| <a id="receiptsroot"></a> `receiptsRoot` | `Uint8Array` | The receipt root after executing the block |
+| <a id="results"></a> `results` | [`RunTxResult`](RunTxResult.md)[] | Results of executing the transactions in the block |

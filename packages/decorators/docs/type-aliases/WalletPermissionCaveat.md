@@ -31,16 +31,7 @@ const expirationCaveat: WalletPermissionCaveat = {
 
 ## Properties
 
-### type
-
-> **type**: `string`
-
-Defined in: [eip1193/WalletPermissionCaveat.ts:26](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/WalletPermissionCaveat.ts#L26)
-
-***
-
-### value
-
-> **value**: `any`
-
-Defined in: [eip1193/WalletPermissionCaveat.ts:27](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/WalletPermissionCaveat.ts#L27)
+| Property | Type | Defined in |
+| ------ | ------ | ------ |
+| <a id="type"></a> `type` | `string` | [eip1193/WalletPermissionCaveat.ts:26](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/WalletPermissionCaveat.ts#L26) |
+| <a id="value"></a> `value` | `any` | [eip1193/WalletPermissionCaveat.ts:27](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/WalletPermissionCaveat.ts#L27) |

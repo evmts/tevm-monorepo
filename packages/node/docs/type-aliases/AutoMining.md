@@ -25,8 +25,6 @@ const value: AutoMining = {
 
 ## Properties
 
-### type
-
-> **type**: `"auto"`
-
-Defined in: [packages/node/src/MiningConfig.ts:32](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/MiningConfig.ts#L32)
+| Property | Type | Defined in |
+| ------ | ------ | ------ |
+| <a id="type"></a> `type` | `"auto"` | [packages/node/src/MiningConfig.ts:32](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/MiningConfig.ts#L32) |

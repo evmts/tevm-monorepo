@@ -15,9 +15,9 @@ corresponding to `address` to reference this.
 
 ## Parameters
 
-### baseState
-
-[`BaseState`](../type-aliases/BaseState.md)
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `baseState` | [`BaseState`](../type-aliases/BaseState.md) | - |
 
 ## Returns
 

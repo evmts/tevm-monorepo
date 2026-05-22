@@ -8,13 +8,11 @@
 
 > **AnvilGetAutomineHandler** = (`params`) => `Promise`\<[`AnvilGetAutomineResult`](AnvilGetAutomineResult.md)\>
 
-Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilHandler.d.ts:5
-
 ## Parameters
 
-### params
-
-[`AnvilGetAutomineParams`](AnvilGetAutomineParams.md)
+| Parameter | Type |
+| ------ | ------ |
+| `params` | [`AnvilGetAutomineParams`](AnvilGetAutomineParams.md) |
 
 ## Returns
 

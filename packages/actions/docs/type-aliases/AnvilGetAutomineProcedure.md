@@ -14,9 +14,9 @@ JSON-RPC procedure for `anvil_getAutomine`
 
 ## Parameters
 
-### request
-
-[`AnvilGetAutomineJsonRpcRequest`](AnvilGetAutomineJsonRpcRequest.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`AnvilGetAutomineJsonRpcRequest`](AnvilGetAutomineJsonRpcRequest.md) |
 
 ## Returns
 

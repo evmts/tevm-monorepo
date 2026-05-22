@@ -8,78 +8,18 @@
 
 > **CallTraceResult** = `object`
 
-Defined in: tevm-monorepo/packages/actions/types/common/CallTraceResult.d.ts:6
-
 Result from `debug_*` with `callTracer`
 
 ## Properties
 
-### calls?
-
-> `optional` **calls?**: [`TraceCall`](../../index/type-aliases/TraceCall.md)[]
-
-Defined in: tevm-monorepo/packages/actions/types/common/CallTraceResult.d.ts:15
-
-***
-
-### from
-
-> **from**: [`Address`](Address.md)
-
-Defined in: tevm-monorepo/packages/actions/types/common/CallTraceResult.d.ts:8
-
-***
-
-### gas
-
-> **gas**: `bigint`
-
-Defined in: tevm-monorepo/packages/actions/types/common/CallTraceResult.d.ts:11
-
-***
-
-### gasUsed
-
-> **gasUsed**: `bigint`
-
-Defined in: tevm-monorepo/packages/actions/types/common/CallTraceResult.d.ts:12
-
-***
-
-### input
-
-> **input**: [`Hex`](Hex.md)
-
-Defined in: tevm-monorepo/packages/actions/types/common/CallTraceResult.d.ts:13
-
-***
-
-### output
-
-> **output**: [`Hex`](Hex.md)
-
-Defined in: tevm-monorepo/packages/actions/types/common/CallTraceResult.d.ts:14
-
-***
-
-### to
-
-> **to**: [`Address`](Address.md)
-
-Defined in: tevm-monorepo/packages/actions/types/common/CallTraceResult.d.ts:9
-
-***
-
-### type
-
-> **type**: [`TraceType`](TraceType.md)
-
-Defined in: tevm-monorepo/packages/actions/types/common/CallTraceResult.d.ts:7
-
-***
-
-### value
-
-> **value**: `bigint`
-
-Defined in: tevm-monorepo/packages/actions/types/common/CallTraceResult.d.ts:10
+| Property | Type |
+| ------ | ------ |
+| <a id="calls"></a> `calls?` | [`TraceCall`](../../index/type-aliases/TraceCall.md)[] |
+| <a id="from"></a> `from` | [`Address`](Address.md) |
+| <a id="gas"></a> `gas` | `bigint` |
+| <a id="gasused"></a> `gasUsed` | `bigint` |
+| <a id="input"></a> `input` | [`Hex`](Hex.md) |
+| <a id="output"></a> `output` | [`Hex`](Hex.md) |
+| <a id="to"></a> `to` | [`Address`](Address.md) |
+| <a id="type"></a> `type` | [`TraceType`](TraceType.md) |
+| <a id="value"></a> `value` | `bigint` |

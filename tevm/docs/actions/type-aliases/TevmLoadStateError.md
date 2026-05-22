@@ -8,8 +8,6 @@
 
 > **TevmLoadStateError** = [`InternalError`](../../errors/classes/InternalError.md)
 
-Defined in: tevm-monorepo/packages/actions/types/LoadState/TevmLoadStateError.d.ts:25
-
 Error type for `tevmLoadState`.
 
 This type represents the possible errors that can occur during the execution of the `tevmLoadState` method.

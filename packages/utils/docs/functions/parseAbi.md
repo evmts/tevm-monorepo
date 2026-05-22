@@ -14,17 +14,15 @@ Parses human-readable ABI into JSON [Abi](../type-aliases/Abi.md)
 
 ## Type Parameters
 
-### signatures
-
-`signatures` *extends* readonly `string`[]
-
-Human-Readable ABI
+| Type Parameter | Description |
+| ------ | ------ |
+| `signatures` *extends* readonly `string`[] | Human-Readable ABI |
 
 ## Parameters
 
-### signatures
-
-`signatures`\[`"length"`\] *extends* `0` ? \[`"Error: At least one signature required"`\] : `Signatures`\<`signatures`\> *extends* `signatures` ? `signatures` : `Signatures`\<`signatures`\>
+| Parameter | Type |
+| ------ | ------ |
+| `signatures` | `signatures`\[`"length"`\] *extends* `0` ? \[`"Error: At least one signature required"`\] : `Signatures`\<`signatures`\> *extends* `signatures` ? `signatures` : `Signatures`\<`signatures`\> |
 
 ## Returns
 

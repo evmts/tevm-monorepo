@@ -8,13 +8,11 @@
 
 > **getForkClient**(`__namedParameters`): `object`
 
-Defined in: tevm-monorepo/packages/state/dist/index.d.ts:466
-
 ## Parameters
 
-### \_\_namedParameters
-
-[`BaseState`](../type-aliases/BaseState.md)
+| Parameter | Type |
+| ------ | ------ |
+| `__namedParameters` | [`BaseState`](../type-aliases/BaseState.md) |
 
 ## Returns
 
@@ -29,6 +27,8 @@ The Account of the Client.
 > `optional` **batch?**: `object`
 
 Flags for batch settings.
+
+#### Type Declaration
 
 #### batch.multicall?
 
@@ -93,9 +93,9 @@ Executes a new message call immediately without submitting a transaction to the 
 
 #### Parameters
 
-##### parameters
-
-`CallParameters`\<`Chain` \| `undefined`\>
+| Parameter | Type |
+| ------ | ------ |
+| `parameters` | `CallParameters`\<`Chain` \| `undefined`\> |
 
 #### Returns
 
@@ -136,7 +136,7 @@ const data = await client.call({
 
 \{ `request?`: (`parameters`) => `Promise`\<`` `0x${string}` ``\>; \}
 
-##### request?
+###### request?
 
 > `optional` **request?**: (`parameters`) => `Promise`\<`` `0x${string}` ``\>
 
@@ -144,9 +144,9 @@ A function that will be called to make the offchain CCIP lookup request.
 
 ###### Parameters
 
-###### parameters
-
-`CcipRequestParameters`
+| Parameter | Type |
+| ------ | ------ |
+| `parameters` | `CcipRequestParameters` |
 
 ###### Returns
 
@@ -173,9 +173,9 @@ Creates an EIP-2930 access list that you can include in a transaction.
 
 #### Parameters
 
-##### parameters
-
-`CreateAccessListParameters`\<`Chain` \| `undefined`\>
+| Parameter | Type |
+| ------ | ------ |
+| `parameters` | `CreateAccessListParameters`\<`Chain` \| `undefined`\> |
 
 #### Returns
 
@@ -239,37 +239,20 @@ Creates a Filter to retrieve event logs that can be used with [`getFilterChanges
 
 #### Type Parameters
 
-##### abi
-
-`abi` *extends* [`Abi`](../../index/type-aliases/Abi.md) \| readonly `unknown`[]
-
-##### eventName
-
-`eventName` *extends* `string` \| `undefined`
-
-##### args
-
-`args` *extends* readonly `unknown`[] \| `Record`\<`string`, `unknown`\> \| `undefined`
-
-##### strict
-
-`strict` *extends* `boolean` \| `undefined` = `undefined`
-
-##### fromBlock
-
-`fromBlock` *extends* `bigint` \| [`BlockTag`](../../index/type-aliases/BlockTag.md) \| `undefined` = `undefined`
-
-##### toBlock
-
-`toBlock` *extends* `bigint` \| [`BlockTag`](../../index/type-aliases/BlockTag.md) \| `undefined` = `undefined`
+| Type Parameter | Default type |
+| ------ | ------ |
+| `abi` *extends* [`Abi`](../../index/type-aliases/Abi.md) \| readonly `unknown`[] | - |
+| `eventName` *extends* `string` \| `undefined` | - |
+| `args` *extends* readonly `unknown`[] \| `Record`\<`string`, `unknown`\> \| `undefined` | - |
+| `strict` *extends* `boolean` \| `undefined` | `undefined` |
+| `fromBlock` *extends* `bigint` \| [`BlockTag`](../../index/type-aliases/BlockTag.md) \| `undefined` | `undefined` |
+| `toBlock` *extends* `bigint` \| [`BlockTag`](../../index/type-aliases/BlockTag.md) \| `undefined` | `undefined` |
 
 #### Parameters
 
-##### args
-
-`CreateContractEventFilterParameters`\<`abi`, `eventName`, `args`, `strict`, `fromBlock`, `toBlock`\>
-
-CreateContractEventFilterParameters
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `args` | `CreateContractEventFilterParameters`\<`abi`, `eventName`, `args`, `strict`, `fromBlock`, `toBlock`\> | CreateContractEventFilterParameters |
 
 #### Returns
 
@@ -303,41 +286,21 @@ Creates a [`Filter`](https://viem.sh/docs/glossary/types#filter) to listen for n
 
 #### Type Parameters
 
-##### abiEvent
-
-`abiEvent` *extends* [`AbiEvent`](../../index/type-aliases/AbiEvent.md) \| `undefined` = `undefined`
-
-##### abiEvents
-
-`abiEvents` *extends* readonly `unknown`[] \| readonly [`AbiEvent`](../../index/type-aliases/AbiEvent.md)[] \| `undefined` = `abiEvent` *extends* [`AbiEvent`](../../index/type-aliases/AbiEvent.md) ? \[`abiEvent`\] : `undefined`
-
-##### strict
-
-`strict` *extends* `boolean` \| `undefined` = `undefined`
-
-##### fromBlock
-
-`fromBlock` *extends* `bigint` \| [`BlockTag`](../../index/type-aliases/BlockTag.md) \| `undefined` = `undefined`
-
-##### toBlock
-
-`toBlock` *extends* `bigint` \| [`BlockTag`](../../index/type-aliases/BlockTag.md) \| `undefined` = `undefined`
-
-##### _EventName
-
-`_EventName` *extends* `string` \| `undefined` = `MaybeAbiEventName`\<`abiEvent`\>
-
-##### _Args
-
-`_Args` *extends* readonly `unknown`[] \| `Record`\<`string`, `unknown`\> \| `undefined` = `undefined`
+| Type Parameter | Default type |
+| ------ | ------ |
+| `abiEvent` *extends* [`AbiEvent`](../../index/type-aliases/AbiEvent.md) \| `undefined` | `undefined` |
+| `abiEvents` *extends* readonly `unknown`[] \| readonly [`AbiEvent`](../../index/type-aliases/AbiEvent.md)[] \| `undefined` | `abiEvent` *extends* [`AbiEvent`](../../index/type-aliases/AbiEvent.md) ? \[`abiEvent`\] : `undefined` |
+| `strict` *extends* `boolean` \| `undefined` | `undefined` |
+| `fromBlock` *extends* `bigint` \| [`BlockTag`](../../index/type-aliases/BlockTag.md) \| `undefined` | `undefined` |
+| `toBlock` *extends* `bigint` \| [`BlockTag`](../../index/type-aliases/BlockTag.md) \| `undefined` | `undefined` |
+| `_EventName` *extends* `string` \| `undefined` | `MaybeAbiEventName`\<`abiEvent`\> |
+| `_Args` *extends* readonly `unknown`[] \| `Record`\<`string`, `unknown`\> \| `undefined` | `undefined` |
 
 #### Parameters
 
-##### args?
-
-[`CreateEventFilterParameters`](../../index/type-aliases/CreateEventFilterParameters.md)\<`abiEvent`, `abiEvents`, `strict`, `fromBlock`, `toBlock`, `_EventName`, `_Args`\>
-
-[CreateEventFilterParameters](../../index/type-aliases/CreateEventFilterParameters.md)
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `args?` | [`CreateEventFilterParameters`](../../index/type-aliases/CreateEventFilterParameters.md)\<`abiEvent`, `abiEvents`, `strict`, `fromBlock`, `toBlock`, `_EventName`, `_Args`\> | [CreateEventFilterParameters](../../index/type-aliases/CreateEventFilterParameters.md) |
 
 #### Returns
 
@@ -405,29 +368,18 @@ Estimates the gas required to successfully execute a contract write function cal
 
 #### Type Parameters
 
-##### chain
-
-`chain` *extends* `Chain` \| `undefined`
-
-##### abi
-
-`abi` *extends* [`Abi`](../../index/type-aliases/Abi.md) \| readonly `unknown`[]
-
-##### functionName
-
-`functionName` *extends* `string`
-
-##### args
-
-`args` *extends* `unknown`
+| Type Parameter |
+| ------ |
+| `chain` *extends* `Chain` \| `undefined` |
+| `abi` *extends* [`Abi`](../../index/type-aliases/Abi.md) \| readonly `unknown`[] |
+| `functionName` *extends* `string` |
+| `args` *extends* `unknown` |
 
 #### Parameters
 
-##### args
-
-`EstimateContractGasParameters`\<`abi`, `functionName`, `args`, `chain`\>
-
-EstimateContractGasParameters
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `args` | `EstimateContractGasParameters`\<`abi`, `functionName`, `args`, `chain`\> | EstimateContractGasParameters |
 
 #### Returns
 
@@ -468,19 +420,16 @@ in the next block.
 
 #### Type Parameters
 
-##### chainOverride
-
-`chainOverride` *extends* `Chain` \| `undefined` = `undefined`
-
-##### type
-
-`type` *extends* `FeeValuesType` = `"eip1559"`
+| Type Parameter | Default type |
+| ------ | ------ |
+| `chainOverride` *extends* `Chain` \| `undefined` | `undefined` |
+| `type` *extends* `FeeValuesType` | `"eip1559"` |
 
 #### Parameters
 
-##### args?
-
-`EstimateFeesPerGasParameters`\<`Chain` \| `undefined`, `chainOverride`, `type`\>
+| Parameter | Type |
+| ------ | ------ |
+| `args?` | `EstimateFeesPerGasParameters`\<`Chain` \| `undefined`, `chainOverride`, `type`\> |
 
 #### Returns
 
@@ -513,11 +462,9 @@ Estimates the gas necessary to complete a transaction without submitting it to t
 
 #### Parameters
 
-##### args
-
-`EstimateGasParameters`\<`Chain` \| `undefined`\>
-
-EstimateGasParameters
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `args` | `EstimateGasParameters`\<`Chain` \| `undefined`\> | EstimateGasParameters |
 
 #### Returns
 
@@ -553,17 +500,16 @@ to be included in the next block.
 
 #### Type Parameters
 
-##### chainOverride
-
-`chainOverride` *extends* `Chain` \| `undefined` = `undefined`
+| Type Parameter | Default type |
+| ------ | ------ |
+| `chainOverride` *extends* `Chain` \| `undefined` | `undefined` |
 
 #### Parameters
 
-##### args?
-
-###### chain
-
-`chainOverride` \| `null`
+| Parameter | Type |
+| ------ | ------ |
+| `args?` | \{ `chain`: `chainOverride` \| `null`; \} |
+| `args.chain?` | `chainOverride` \| `null` |
 
 #### Returns
 
@@ -597,15 +543,15 @@ Default block tag to use for RPC requests.
 
 #### Type Parameters
 
-##### client
-
-`client` *extends* `object` & `ExactPartial`\<`ExtendableProtectedActions`\<`Transport`, `Chain` \| `undefined`, `undefined`\>\>
+| Type Parameter |
+| ------ |
+| `client` *extends* `object` & `ExactPartial`\<`ExtendableProtectedActions`\<`Transport`, `Chain` \| `undefined`, `undefined`\>\> |
 
 #### Parameters
 
-##### fn
-
-(`client`) => `client`
+| Parameter | Type |
+| ------ | ------ |
+| `fn` | (`client`) => `client` |
 
 #### Returns
 
@@ -621,19 +567,16 @@ Fills a transaction request with the necessary fields to be signed over.
 
 #### Type Parameters
 
-##### chainOverride
-
-`chainOverride` *extends* `Chain` \| `undefined` = `undefined`
-
-##### accountOverride
-
-`accountOverride` *extends* `` `0x${string}` `` \| [`Account`](../../index/type-aliases/Account.md) \| `undefined` = `undefined`
+| Type Parameter | Default type |
+| ------ | ------ |
+| `chainOverride` *extends* `Chain` \| `undefined` | `undefined` |
+| `accountOverride` *extends* `` `0x${string}` `` \| [`Account`](../../index/type-aliases/Account.md) \| `undefined` | `undefined` |
 
 #### Parameters
 
-##### args
-
-`FillTransactionParameters`\<`Chain` \| `undefined`, [`Account`](../../index/type-aliases/Account.md) \| `undefined`, `chainOverride`, `accountOverride`\>
+| Parameter | Type |
+| ------ | ------ |
+| `args` | `FillTransactionParameters`\<`Chain` \| `undefined`, [`Account`](../../index/type-aliases/Account.md) \| `undefined`, `chainOverride`, `accountOverride`\> |
 
 #### Returns
 
@@ -669,11 +612,9 @@ Returns the balance of an address in wei.
 
 #### Parameters
 
-##### args
-
-`GetBalanceParameters`
-
-GetBalanceParameters
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `args` | `GetBalanceParameters` | GetBalanceParameters |
 
 #### Returns
 
@@ -753,21 +694,16 @@ Returns information about a block at a block number, hash, or tag.
 
 #### Type Parameters
 
-##### includeTransactions
-
-`includeTransactions` *extends* `boolean` = `false`
-
-##### blockTag
-
-`blockTag` *extends* [`BlockTag`](../../index/type-aliases/BlockTag.md) = `"latest"`
+| Type Parameter | Default type |
+| ------ | ------ |
+| `includeTransactions` *extends* `boolean` | `false` |
+| `blockTag` *extends* [`BlockTag`](../../index/type-aliases/BlockTag.md) | `"latest"` |
 
 #### Parameters
 
-##### args?
-
-`GetBlockParameters`\<`includeTransactions`, `blockTag`\>
-
-GetBlockParameters
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `args?` | `GetBlockParameters`\<`includeTransactions`, `blockTag`\> | GetBlockParameters |
 
 #### Returns
 
@@ -800,11 +736,9 @@ Returns the number of the most recent block seen.
 
 #### Parameters
 
-##### args?
-
-`GetBlockNumberParameters`
-
-GetBlockNumberParameters
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `args?` | `GetBlockNumberParameters` | GetBlockNumberParameters |
 
 #### Returns
 
@@ -839,11 +773,9 @@ Returns the number of Transactions at a block number, hash, or tag.
 
 #### Parameters
 
-##### args?
-
-`GetBlockTransactionCountParameters`
-
-GetBlockTransactionCountParameters
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `args?` | `GetBlockTransactionCountParameters` | GetBlockTransactionCountParameters |
 
 #### Returns
 
@@ -870,9 +802,9 @@ const count = await client.getBlockTransactionCount()
 
 #### Parameters
 
-##### args
-
-`GetCodeParameters`
+| Parameter | Type |
+| ------ | ------ |
+| `args` | `GetCodeParameters` |
 
 #### Returns
 
@@ -922,11 +854,9 @@ Retrieves the bytecode at an address.
 
 #### Parameters
 
-##### args
-
-`GetCodeParameters`
-
-GetBytecodeParameters
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `args` | `GetCodeParameters` | GetBytecodeParameters |
 
 #### Returns
 
@@ -960,31 +890,19 @@ Returns a list of event logs emitted by a contract.
 
 #### Type Parameters
 
-##### abi
-
-`abi` *extends* [`Abi`](../../index/type-aliases/Abi.md) \| readonly `unknown`[]
-
-##### eventName
-
-`eventName` *extends* `string` \| `undefined` = `undefined`
-
-##### strict
-
-`strict` *extends* `boolean` \| `undefined` = `undefined`
-
-##### fromBlock
-
-`fromBlock` *extends* `bigint` \| [`BlockTag`](../../index/type-aliases/BlockTag.md) \| `undefined` = `undefined`
-
-##### toBlock
-
-`toBlock` *extends* `bigint` \| [`BlockTag`](../../index/type-aliases/BlockTag.md) \| `undefined` = `undefined`
+| Type Parameter | Default type |
+| ------ | ------ |
+| `abi` *extends* [`Abi`](../../index/type-aliases/Abi.md) \| readonly `unknown`[] | - |
+| `eventName` *extends* `string` \| `undefined` | `undefined` |
+| `strict` *extends* `boolean` \| `undefined` | `undefined` |
+| `fromBlock` *extends* `bigint` \| [`BlockTag`](../../index/type-aliases/BlockTag.md) \| `undefined` | `undefined` |
+| `toBlock` *extends* `bigint` \| [`BlockTag`](../../index/type-aliases/BlockTag.md) \| `undefined` | `undefined` |
 
 #### Parameters
 
-##### args
-
-`GetContractEventsParameters`\<`abi`, `eventName`, `strict`, `fromBlock`, `toBlock`\>
+| Parameter | Type |
+| ------ | ------ |
+| `args` | `GetContractEventsParameters`\<`abi`, `eventName`, `strict`, `fromBlock`, `toBlock`\> |
 
 #### Returns
 
@@ -1020,11 +938,9 @@ Returns the address that an account has delegated to via EIP-7702.
 
 #### Parameters
 
-##### args
-
-`GetDelegationParameters`
-
-GetDelegationParameters
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `args` | `GetDelegationParameters` | GetDelegationParameters |
 
 #### Returns
 
@@ -1055,9 +971,9 @@ Reads the EIP-712 domain from a contract, based on the ERC-5267 specification.
 
 #### Parameters
 
-##### args
-
-`GetEip712DomainParameters`
+| Parameter | Type |
+| ------ | ------ |
+| `args` | `GetEip712DomainParameters` |
 
 #### Returns
 
@@ -1102,71 +1018,16 @@ Gets address for ENS name.
 
 #### Parameters
 
-##### args
-
-GetEnsAddressParameters
-
-###### blockNumber?
-
-`bigint`
-
-The balance of the account at a block number.
-
-###### blockTag?
-
-[`BlockTag`](../../index/type-aliases/BlockTag.md)
-
-The balance of the account at a block tag.
-
-**Default**
-
-```ts
-'latest'
-```
-
-###### coinType?
-
-`bigint`
-
-ENSIP-9 compliant coinType (chain) to get ENS address for.
-
-To get the `coinType` for a chain id, use the `toCoinType` function:
-```ts
-import { toCoinType } from 'viem'
-import { base } from 'viem/chains'
-
-const coinType = toCoinType(base.id)
-```
-
-**Default**
-
-```ts
-60n
-```
-
-###### gatewayUrls?
-
-`string`[]
-
-Universal Resolver gateway URLs to use for resolving CCIP-read requests.
-
-###### name
-
-`string`
-
-Name to get the address for.
-
-###### strict?
-
-`boolean`
-
-Whether or not to throw errors propagated from the ENS Universal Resolver Contract.
-
-###### universalResolverAddress?
-
-`` `0x${string}` ``
-
-Address of ENS Universal Resolver Contract.
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `args` | \{ `blockNumber?`: `bigint`; `blockTag?`: [`BlockTag`](../../index/type-aliases/BlockTag.md); `coinType?`: `bigint`; `gatewayUrls?`: `string`[]; `name`: `string`; `strict?`: `boolean`; `universalResolverAddress?`: `` `0x${string}` ``; \} | GetEnsAddressParameters |
+| `args.blockNumber?` | `bigint` | The balance of the account at a block number. |
+| `args.blockTag?` | [`BlockTag`](../../index/type-aliases/BlockTag.md) | The balance of the account at a block tag. **Default** `'latest'` |
+| `args.coinType?` | `bigint` | ENSIP-9 compliant coinType (chain) to get ENS address for. To get the `coinType` for a chain id, use the `toCoinType` function: `import { toCoinType } from 'viem' import { base } from 'viem/chains' const coinType = toCoinType(base.id)` **Default** `60n` |
+| `args.gatewayUrls?` | `string`[] | Universal Resolver gateway URLs to use for resolving CCIP-read requests. |
+| `args.name` | `string` | Name to get the address for. |
+| `args.strict?` | `boolean` | Whether or not to throw errors propagated from the ENS Universal Resolver Contract. |
+| `args.universalResolverAddress?` | `` `0x${string}` `` | Address of ENS Universal Resolver Contract. |
 
 #### Returns
 
@@ -1208,57 +1069,16 @@ Gets the avatar of an ENS name.
 
 #### Parameters
 
-##### args
-
-GetEnsAvatarParameters
-
-###### assetGatewayUrls?
-
-`AssetGatewayUrls`
-
-Gateway urls to resolve IPFS and/or Arweave assets.
-
-###### blockNumber?
-
-`bigint`
-
-The balance of the account at a block number.
-
-###### blockTag?
-
-[`BlockTag`](../../index/type-aliases/BlockTag.md)
-
-The balance of the account at a block tag.
-
-**Default**
-
-```ts
-'latest'
-```
-
-###### gatewayUrls?
-
-`string`[]
-
-Universal Resolver gateway URLs to use for resolving CCIP-read requests.
-
-###### name
-
-`string`
-
-ENS name to get Text for.
-
-###### strict?
-
-`boolean`
-
-Whether or not to throw errors propagated from the ENS Universal Resolver Contract.
-
-###### universalResolverAddress?
-
-`` `0x${string}` ``
-
-Address of ENS Universal Resolver Contract.
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `args` | \{ `assetGatewayUrls?`: `AssetGatewayUrls`; `blockNumber?`: `bigint`; `blockTag?`: [`BlockTag`](../../index/type-aliases/BlockTag.md); `gatewayUrls?`: `string`[]; `name`: `string`; `strict?`: `boolean`; `universalResolverAddress?`: `` `0x${string}` ``; \} | GetEnsAvatarParameters |
+| `args.assetGatewayUrls?` | `AssetGatewayUrls` | Gateway urls to resolve IPFS and/or Arweave assets. |
+| `args.blockNumber?` | `bigint` | The balance of the account at a block number. |
+| `args.blockTag?` | [`BlockTag`](../../index/type-aliases/BlockTag.md) | The balance of the account at a block tag. **Default** `'latest'` |
+| `args.gatewayUrls?` | `string`[] | Universal Resolver gateway URLs to use for resolving CCIP-read requests. |
+| `args.name` | `string` | ENS name to get Text for. |
+| `args.strict?` | `boolean` | Whether or not to throw errors propagated from the ENS Universal Resolver Contract. |
+| `args.universalResolverAddress?` | `` `0x${string}` `` | Address of ENS Universal Resolver Contract. |
 
 #### Returns
 
@@ -1300,71 +1120,16 @@ Gets primary name for specified address.
 
 #### Parameters
 
-##### args
-
-GetEnsNameParameters
-
-###### address
-
-`` `0x${string}` ``
-
-Address to get ENS name for.
-
-###### blockNumber?
-
-`bigint`
-
-The balance of the account at a block number.
-
-###### blockTag?
-
-[`BlockTag`](../../index/type-aliases/BlockTag.md)
-
-The balance of the account at a block tag.
-
-**Default**
-
-```ts
-'latest'
-```
-
-###### coinType?
-
-`bigint`
-
-ENSIP-9 compliant coinType (chain) to get ENS name for.
-
-To get the `coinType` for a chain id, use the `toCoinType` function:
-```ts
-import { toCoinType } from 'viem'
-import { base } from 'viem/chains'
-
-const coinType = toCoinType(base.id)
-```
-
-**Default**
-
-```ts
-60n
-```
-
-###### gatewayUrls?
-
-`string`[]
-
-Universal Resolver gateway URLs to use for resolving CCIP-read requests.
-
-###### strict?
-
-`boolean`
-
-Whether or not to throw errors propagated from the ENS Universal Resolver Contract.
-
-###### universalResolverAddress?
-
-`` `0x${string}` ``
-
-Address of ENS Universal Resolver Contract.
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `args` | \{ `address`: `` `0x${string}` ``; `blockNumber?`: `bigint`; `blockTag?`: [`BlockTag`](../../index/type-aliases/BlockTag.md); `coinType?`: `bigint`; `gatewayUrls?`: `string`[]; `strict?`: `boolean`; `universalResolverAddress?`: `` `0x${string}` ``; \} | GetEnsNameParameters |
+| `args.address` | `` `0x${string}` `` | Address to get ENS name for. |
+| `args.blockNumber?` | `bigint` | The balance of the account at a block number. |
+| `args.blockTag?` | [`BlockTag`](../../index/type-aliases/BlockTag.md) | The balance of the account at a block tag. **Default** `'latest'` |
+| `args.coinType?` | `bigint` | ENSIP-9 compliant coinType (chain) to get ENS name for. To get the `coinType` for a chain id, use the `toCoinType` function: `import { toCoinType } from 'viem' import { base } from 'viem/chains' const coinType = toCoinType(base.id)` **Default** `60n` |
+| `args.gatewayUrls?` | `string`[] | Universal Resolver gateway URLs to use for resolving CCIP-read requests. |
+| `args.strict?` | `boolean` | Whether or not to throw errors propagated from the ENS Universal Resolver Contract. |
+| `args.universalResolverAddress?` | `` `0x${string}` `` | Address of ENS Universal Resolver Contract. |
 
 #### Returns
 
@@ -1403,39 +1168,13 @@ Gets resolver for ENS name.
 
 #### Parameters
 
-##### args
-
-GetEnsResolverParameters
-
-###### blockNumber?
-
-`bigint`
-
-The balance of the account at a block number.
-
-###### blockTag?
-
-[`BlockTag`](../../index/type-aliases/BlockTag.md)
-
-The balance of the account at a block tag.
-
-**Default**
-
-```ts
-'latest'
-```
-
-###### name
-
-`string`
-
-Name to get the address for.
-
-###### universalResolverAddress?
-
-`` `0x${string}` ``
-
-Address of ENS Universal Resolver Contract.
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `args` | \{ `blockNumber?`: `bigint`; `blockTag?`: [`BlockTag`](../../index/type-aliases/BlockTag.md); `name`: `string`; `universalResolverAddress?`: `` `0x${string}` ``; \} | GetEnsResolverParameters |
+| `args.blockNumber?` | `bigint` | The balance of the account at a block number. |
+| `args.blockTag?` | [`BlockTag`](../../index/type-aliases/BlockTag.md) | The balance of the account at a block tag. **Default** `'latest'` |
+| `args.name` | `string` | Name to get the address for. |
+| `args.universalResolverAddress?` | `` `0x${string}` `` | Address of ENS Universal Resolver Contract. |
 
 #### Returns
 
@@ -1477,57 +1216,16 @@ Gets a text record for specified ENS name.
 
 #### Parameters
 
-##### args
-
-GetEnsTextParameters
-
-###### blockNumber?
-
-`bigint`
-
-The balance of the account at a block number.
-
-###### blockTag?
-
-[`BlockTag`](../../index/type-aliases/BlockTag.md)
-
-The balance of the account at a block tag.
-
-**Default**
-
-```ts
-'latest'
-```
-
-###### gatewayUrls?
-
-`string`[]
-
-Universal Resolver gateway URLs to use for resolving CCIP-read requests.
-
-###### key
-
-`string`
-
-Text record to retrieve.
-
-###### name
-
-`string`
-
-ENS name to get Text for.
-
-###### strict?
-
-`boolean`
-
-Whether or not to throw errors propagated from the ENS Universal Resolver Contract.
-
-###### universalResolverAddress?
-
-`` `0x${string}` ``
-
-Address of ENS Universal Resolver Contract.
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `args` | \{ `blockNumber?`: `bigint`; `blockTag?`: [`BlockTag`](../../index/type-aliases/BlockTag.md); `gatewayUrls?`: `string`[]; `key`: `string`; `name`: `string`; `strict?`: `boolean`; `universalResolverAddress?`: `` `0x${string}` ``; \} | GetEnsTextParameters |
+| `args.blockNumber?` | `bigint` | The balance of the account at a block number. |
+| `args.blockTag?` | [`BlockTag`](../../index/type-aliases/BlockTag.md) | The balance of the account at a block tag. **Default** `'latest'` |
+| `args.gatewayUrls?` | `string`[] | Universal Resolver gateway URLs to use for resolving CCIP-read requests. |
+| `args.key` | `string` | Text record to retrieve. |
+| `args.name` | `string` | ENS name to get Text for. |
+| `args.strict?` | `boolean` | Whether or not to throw errors propagated from the ENS Universal Resolver Contract. |
+| `args.universalResolverAddress?` | `` `0x${string}` `` | Address of ENS Universal Resolver Contract. |
 
 #### Returns
 
@@ -1570,11 +1268,9 @@ Returns a collection of historical gas information.
 
 #### Parameters
 
-##### args
-
-`GetFeeHistoryParameters`
-
-GetFeeHistoryParameters
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `args` | `GetFeeHistoryParameters` | GetFeeHistoryParameters |
 
 #### Returns
 
@@ -1609,37 +1305,20 @@ Returns a list of logs or hashes based on a [Filter](/docs/glossary/terms#filter
 
 #### Type Parameters
 
-##### filterType
-
-`filterType` *extends* `FilterType`
-
-##### abi
-
-`abi` *extends* [`Abi`](../../index/type-aliases/Abi.md) \| readonly `unknown`[] \| `undefined`
-
-##### eventName
-
-`eventName` *extends* `string` \| `undefined`
-
-##### strict
-
-`strict` *extends* `boolean` \| `undefined` = `undefined`
-
-##### fromBlock
-
-`fromBlock` *extends* `bigint` \| [`BlockTag`](../../index/type-aliases/BlockTag.md) \| `undefined` = `undefined`
-
-##### toBlock
-
-`toBlock` *extends* `bigint` \| [`BlockTag`](../../index/type-aliases/BlockTag.md) \| `undefined` = `undefined`
+| Type Parameter | Default type |
+| ------ | ------ |
+| `filterType` *extends* `FilterType` | - |
+| `abi` *extends* [`Abi`](../../index/type-aliases/Abi.md) \| readonly `unknown`[] \| `undefined` | - |
+| `eventName` *extends* `string` \| `undefined` | - |
+| `strict` *extends* `boolean` \| `undefined` | `undefined` |
+| `fromBlock` *extends* `bigint` \| [`BlockTag`](../../index/type-aliases/BlockTag.md) \| `undefined` | `undefined` |
+| `toBlock` *extends* `bigint` \| [`BlockTag`](../../index/type-aliases/BlockTag.md) \| `undefined` | `undefined` |
 
 #### Parameters
 
-##### args
-
-`GetFilterChangesParameters`\<`filterType`, `abi`, `eventName`, `strict`, `fromBlock`, `toBlock`\>
-
-GetFilterChangesParameters
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `args` | `GetFilterChangesParameters`\<`filterType`, `abi`, `eventName`, `strict`, `fromBlock`, `toBlock`\> | GetFilterChangesParameters |
 
 #### Returns
 
@@ -1734,33 +1413,19 @@ Returns a list of event logs since the filter was created.
 
 #### Type Parameters
 
-##### abi
-
-`abi` *extends* [`Abi`](../../index/type-aliases/Abi.md) \| readonly `unknown`[] \| `undefined`
-
-##### eventName
-
-`eventName` *extends* `string` \| `undefined`
-
-##### strict
-
-`strict` *extends* `boolean` \| `undefined` = `undefined`
-
-##### fromBlock
-
-`fromBlock` *extends* `bigint` \| [`BlockTag`](../../index/type-aliases/BlockTag.md) \| `undefined` = `undefined`
-
-##### toBlock
-
-`toBlock` *extends* `bigint` \| [`BlockTag`](../../index/type-aliases/BlockTag.md) \| `undefined` = `undefined`
+| Type Parameter | Default type |
+| ------ | ------ |
+| `abi` *extends* [`Abi`](../../index/type-aliases/Abi.md) \| readonly `unknown`[] \| `undefined` | - |
+| `eventName` *extends* `string` \| `undefined` | - |
+| `strict` *extends* `boolean` \| `undefined` | `undefined` |
+| `fromBlock` *extends* `bigint` \| [`BlockTag`](../../index/type-aliases/BlockTag.md) \| `undefined` | `undefined` |
+| `toBlock` *extends* `bigint` \| [`BlockTag`](../../index/type-aliases/BlockTag.md) \| `undefined` | `undefined` |
 
 #### Parameters
 
-##### args
-
-`GetFilterLogsParameters`\<`abi`, `eventName`, `strict`, `fromBlock`, `toBlock`\>
-
-GetFilterLogsParameters
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `args` | `GetFilterLogsParameters`\<`abi`, `eventName`, `strict`, `fromBlock`, `toBlock`\> | GetFilterLogsParameters |
 
 #### Returns
 
@@ -1829,33 +1494,19 @@ Returns a list of event logs matching the provided parameters.
 
 #### Type Parameters
 
-##### abiEvent
-
-`abiEvent` *extends* [`AbiEvent`](../../index/type-aliases/AbiEvent.md) \| `undefined` = `undefined`
-
-##### abiEvents
-
-`abiEvents` *extends* readonly `unknown`[] \| readonly [`AbiEvent`](../../index/type-aliases/AbiEvent.md)[] \| `undefined` = `abiEvent` *extends* [`AbiEvent`](../../index/type-aliases/AbiEvent.md) ? \[`abiEvent`\] : `undefined`
-
-##### strict
-
-`strict` *extends* `boolean` \| `undefined` = `undefined`
-
-##### fromBlock
-
-`fromBlock` *extends* `bigint` \| [`BlockTag`](../../index/type-aliases/BlockTag.md) \| `undefined` = `undefined`
-
-##### toBlock
-
-`toBlock` *extends* `bigint` \| [`BlockTag`](../../index/type-aliases/BlockTag.md) \| `undefined` = `undefined`
+| Type Parameter | Default type |
+| ------ | ------ |
+| `abiEvent` *extends* [`AbiEvent`](../../index/type-aliases/AbiEvent.md) \| `undefined` | `undefined` |
+| `abiEvents` *extends* readonly `unknown`[] \| readonly [`AbiEvent`](../../index/type-aliases/AbiEvent.md)[] \| `undefined` | `abiEvent` *extends* [`AbiEvent`](../../index/type-aliases/AbiEvent.md) ? \[`abiEvent`\] : `undefined` |
+| `strict` *extends* `boolean` \| `undefined` | `undefined` |
+| `fromBlock` *extends* `bigint` \| [`BlockTag`](../../index/type-aliases/BlockTag.md) \| `undefined` | `undefined` |
+| `toBlock` *extends* `bigint` \| [`BlockTag`](../../index/type-aliases/BlockTag.md) \| `undefined` | `undefined` |
 
 #### Parameters
 
-##### args?
-
-`GetLogsParameters`\<`abiEvent`, `abiEvents`, `strict`, `fromBlock`, `toBlock`\>
-
-GetLogsParameters
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `args?` | `GetLogsParameters`\<`abiEvent`, `abiEvents`, `strict`, `fromBlock`, `toBlock`\> | GetLogsParameters |
 
 #### Returns
 
@@ -1888,9 +1539,9 @@ Returns the account and storage values of the specified account including the Me
 
 #### Parameters
 
-##### args
-
-`GetProofParameters`
+| Parameter | Type |
+| ------ | ------ |
+| `args` | `GetProofParameters` |
 
 #### Returns
 
@@ -1925,11 +1576,9 @@ Returns the value from a storage slot at a given address.
 
 #### Parameters
 
-##### args
-
-`GetStorageAtParameters`
-
-GetStorageAtParameters
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `args` | `GetStorageAtParameters` | GetStorageAtParameters |
 
 #### Returns
 
@@ -1966,17 +1615,15 @@ Returns information about a [Transaction](https://viem.sh/docs/glossary/terms#tr
 
 #### Type Parameters
 
-##### blockTag
-
-`blockTag` *extends* [`BlockTag`](../../index/type-aliases/BlockTag.md) = `"latest"`
+| Type Parameter | Default type |
+| ------ | ------ |
+| `blockTag` *extends* [`BlockTag`](../../index/type-aliases/BlockTag.md) | `"latest"` |
 
 #### Parameters
 
-##### args
-
-`GetTransactionParameters`\<`blockTag`\>
-
-GetTransactionParameters
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `args` | `GetTransactionParameters`\<`blockTag`\> | GetTransactionParameters |
 
 #### Returns
 
@@ -2011,11 +1658,9 @@ Returns the number of blocks passed (confirmations) since the transaction was pr
 
 #### Parameters
 
-##### args
-
-`GetTransactionConfirmationsParameters`\<`Chain` \| `undefined`\>
-
-GetTransactionConfirmationsParameters
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `args` | `GetTransactionConfirmationsParameters`\<`Chain` \| `undefined`\> | GetTransactionConfirmationsParameters |
 
 #### Returns
 
@@ -2049,11 +1694,9 @@ Returns the number of [Transactions](https://viem.sh/docs/glossary/terms#transac
 
 #### Parameters
 
-##### args
-
-`GetTransactionCountParameters`
-
-GetTransactionCountParameters
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `args` | `GetTransactionCountParameters` | GetTransactionCountParameters |
 
 #### Returns
 
@@ -2088,11 +1731,9 @@ Returns the [Transaction Receipt](https://viem.sh/docs/glossary/terms#transactio
 
 #### Parameters
 
-##### args
-
-`GetTransactionReceiptParameters`
-
-GetTransactionReceiptParameters
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `args` | `GetTransactionReceiptParameters` | GetTransactionReceiptParameters |
 
 #### Returns
 
@@ -2131,21 +1772,16 @@ Similar to [`readContract`](https://viem.sh/docs/contract/readContract), but bat
 
 #### Type Parameters
 
-##### contracts
-
-`contracts` *extends* readonly `unknown`[]
-
-##### allowFailure
-
-`allowFailure` *extends* `boolean` = `true`
+| Type Parameter | Default type |
+| ------ | ------ |
+| `contracts` *extends* readonly `unknown`[] | - |
+| `allowFailure` *extends* `boolean` | `true` |
 
 #### Parameters
 
-##### args
-
-`MulticallParameters`\<`contracts`, `allowFailure`\>
-
-MulticallParameters
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `args` | `MulticallParameters`\<`contracts`, `allowFailure`\> | MulticallParameters |
 
 #### Returns
 
@@ -2207,25 +1843,17 @@ Prepares a transaction request for signing.
 
 #### Type Parameters
 
-##### request
-
-`request` *extends* `Omit`\<\{ `accessList?`: `undefined`; `authorizationList?`: `undefined`; `blobs?`: `undefined`; `blobVersionedHashes?`: `undefined`; `data?`: `` `0x${string}` ``; `from?`: `` `0x${string}` ``; `gas?`: `bigint`; `gasPrice?`: `bigint`; `kzg?`: `undefined`; `maxFeePerBlobGas?`: `undefined`; `maxFeePerGas?`: `undefined`; `maxPriorityFeePerGas?`: `undefined`; `nonce?`: `number`; `sidecars?`: `undefined`; `to?`: `` `0x${string}` `` \| `null`; `type?`: `"legacy"`; `value?`: `bigint`; \}, `"from"`\> \| `Omit`\<\{ `accessList?`: `AccessList`; `authorizationList?`: `undefined`; `blobs?`: `undefined`; `blobVersionedHashes?`: `undefined`; `data?`: `` `0x${string}` ``; `from?`: `` `0x${string}` ``; `gas?`: `bigint`; `gasPrice?`: `bigint`; `kzg?`: `undefined`; `maxFeePerBlobGas?`: `undefined`; `maxFeePerGas?`: `undefined`; `maxPriorityFeePerGas?`: `undefined`; `nonce?`: `number`; `sidecars?`: `undefined`; `to?`: `` `0x${string}` `` \| `null`; `type?`: `"eip2930"`; `value?`: `bigint`; \}, `"from"`\> \| `Omit`\<\{ `accessList?`: `AccessList`; `authorizationList?`: `undefined`; `blobs?`: `undefined`; `blobVersionedHashes?`: `undefined`; `data?`: `` `0x${string}` ``; `from?`: `` `0x${string}` ``; `gas?`: `bigint`; `gasPrice?`: `undefined`; `kzg?`: `undefined`; `maxFeePerBlobGas?`: `undefined`; `maxFeePerGas?`: `bigint`; `maxPriorityFeePerGas?`: `bigint`; `nonce?`: `number`; `sidecars?`: `undefined`; `to?`: `` `0x${string}` `` \| `null`; `type?`: `"eip1559"`; `value?`: `bigint`; \}, `"from"`\> \| `Omit`\<\{ `accessList?`: `AccessList`; `authorizationList?`: `undefined`; `blobs?`: readonly `` `0x${string}` ``[] \| readonly `ByteArray`[]; `blobVersionedHashes`: readonly `` `0x${string}` ``[]; `data?`: `` `0x${string}` ``; `from?`: `` `0x${string}` ``; `gas?`: `bigint`; `gasPrice?`: `undefined`; `kzg?`: `undefined`; `maxFeePerBlobGas?`: `bigint`; `maxFeePerGas?`: `bigint`; `maxPriorityFeePerGas?`: `bigint`; `nonce?`: `number`; `sidecars?`: readonly `BlobSidecar`\<`` `0x${string}` ``\>[]; `to`: `` `0x${string}` `` \| `null`; `type?`: `"eip4844"`; `value?`: `bigint`; \}, `"from"`\> \| `Omit`\<\{ `accessList?`: `AccessList`; `authorizationList?`: `undefined`; `blobs`: readonly `` `0x${string}` ``[] \| readonly `ByteArray`[]; `blobVersionedHashes?`: readonly `` `0x${string}` ``[]; `data?`: `` `0x${string}` ``; `from?`: `` `0x${string}` ``; `gas?`: `bigint`; `gasPrice?`: `undefined`; `kzg?`: `Kzg`; `maxFeePerBlobGas?`: `bigint`; `maxFeePerGas?`: `bigint`; `maxPriorityFeePerGas?`: `bigint`; `nonce?`: `number`; `sidecars?`: readonly `BlobSidecar`\<`` `0x${string}` ``\>[]; `to`: `` `0x${string}` `` \| `null`; `type?`: `"eip4844"`; `value?`: `bigint`; \}, `"from"`\> \| `Omit`\<\{ `accessList?`: `AccessList`; `authorizationList?`: `AuthorizationList`\<`number`, `boolean`\>; `blobs?`: `undefined`; `blobVersionedHashes?`: `undefined`; `data?`: `` `0x${string}` ``; `from?`: `` `0x${string}` ``; `gas?`: `bigint`; `gasPrice?`: `undefined`; `kzg?`: `undefined`; `maxFeePerBlobGas?`: `undefined`; `maxFeePerGas?`: `bigint`; `maxPriorityFeePerGas?`: `bigint`; `nonce?`: `number`; `sidecars?`: `undefined`; `to?`: `` `0x${string}` `` \| `null`; `type?`: `"eip7702"`; `value?`: `bigint`; \}, `"from"`\> & `object` & `object`
-
-##### chainOverride
-
-`chainOverride` *extends* `Chain` \| `undefined` = `undefined`
-
-##### accountOverride
-
-`accountOverride` *extends* `` `0x${string}` `` \| [`Account`](../../index/type-aliases/Account.md) \| `undefined` = `undefined`
+| Type Parameter | Default type |
+| ------ | ------ |
+| `request` *extends* `Omit`\<\{ `accessList?`: `undefined`; `authorizationList?`: `undefined`; `blobs?`: `undefined`; `blobVersionedHashes?`: `undefined`; `data?`: `` `0x${string}` ``; `from?`: `` `0x${string}` ``; `gas?`: `bigint`; `gasPrice?`: `bigint`; `kzg?`: `undefined`; `maxFeePerBlobGas?`: `undefined`; `maxFeePerGas?`: `undefined`; `maxPriorityFeePerGas?`: `undefined`; `nonce?`: `number`; `sidecars?`: `undefined`; `to?`: `` `0x${string}` `` \| `null`; `type?`: `"legacy"`; `value?`: `bigint`; \}, `"from"`\> \| `Omit`\<\{ `accessList?`: `AccessList`; `authorizationList?`: `undefined`; `blobs?`: `undefined`; `blobVersionedHashes?`: `undefined`; `data?`: `` `0x${string}` ``; `from?`: `` `0x${string}` ``; `gas?`: `bigint`; `gasPrice?`: `bigint`; `kzg?`: `undefined`; `maxFeePerBlobGas?`: `undefined`; `maxFeePerGas?`: `undefined`; `maxPriorityFeePerGas?`: `undefined`; `nonce?`: `number`; `sidecars?`: `undefined`; `to?`: `` `0x${string}` `` \| `null`; `type?`: `"eip2930"`; `value?`: `bigint`; \}, `"from"`\> \| `Omit`\<\{ `accessList?`: `AccessList`; `authorizationList?`: `undefined`; `blobs?`: `undefined`; `blobVersionedHashes?`: `undefined`; `data?`: `` `0x${string}` ``; `from?`: `` `0x${string}` ``; `gas?`: `bigint`; `gasPrice?`: `undefined`; `kzg?`: `undefined`; `maxFeePerBlobGas?`: `undefined`; `maxFeePerGas?`: `bigint`; `maxPriorityFeePerGas?`: `bigint`; `nonce?`: `number`; `sidecars?`: `undefined`; `to?`: `` `0x${string}` `` \| `null`; `type?`: `"eip1559"`; `value?`: `bigint`; \}, `"from"`\> \| `Omit`\<\{ `accessList?`: `AccessList`; `authorizationList?`: `undefined`; `blobs?`: readonly `` `0x${string}` ``[] \| readonly `ByteArray`[]; `blobVersionedHashes`: readonly `` `0x${string}` ``[]; `data?`: `` `0x${string}` ``; `from?`: `` `0x${string}` ``; `gas?`: `bigint`; `gasPrice?`: `undefined`; `kzg?`: `undefined`; `maxFeePerBlobGas?`: `bigint`; `maxFeePerGas?`: `bigint`; `maxPriorityFeePerGas?`: `bigint`; `nonce?`: `number`; `sidecars?`: readonly `BlobSidecar`\<`` `0x${string}` ``\>[]; `to`: `` `0x${string}` `` \| `null`; `type?`: `"eip4844"`; `value?`: `bigint`; \}, `"from"`\> \| `Omit`\<\{ `accessList?`: `AccessList`; `authorizationList?`: `undefined`; `blobs`: readonly `` `0x${string}` ``[] \| readonly `ByteArray`[]; `blobVersionedHashes?`: readonly `` `0x${string}` ``[]; `data?`: `` `0x${string}` ``; `from?`: `` `0x${string}` ``; `gas?`: `bigint`; `gasPrice?`: `undefined`; `kzg?`: `Kzg`; `maxFeePerBlobGas?`: `bigint`; `maxFeePerGas?`: `bigint`; `maxPriorityFeePerGas?`: `bigint`; `nonce?`: `number`; `sidecars?`: readonly `BlobSidecar`\<`` `0x${string}` ``\>[]; `to`: `` `0x${string}` `` \| `null`; `type?`: `"eip4844"`; `value?`: `bigint`; \}, `"from"`\> \| `Omit`\<\{ `accessList?`: `AccessList`; `authorizationList?`: `AuthorizationList`\<`number`, `boolean`\>; `blobs?`: `undefined`; `blobVersionedHashes?`: `undefined`; `data?`: `` `0x${string}` ``; `from?`: `` `0x${string}` ``; `gas?`: `bigint`; `gasPrice?`: `undefined`; `kzg?`: `undefined`; `maxFeePerBlobGas?`: `undefined`; `maxFeePerGas?`: `bigint`; `maxPriorityFeePerGas?`: `bigint`; `nonce?`: `number`; `sidecars?`: `undefined`; `to?`: `` `0x${string}` `` \| `null`; `type?`: `"eip7702"`; `value?`: `bigint`; \}, `"from"`\> & `object` & `object` | - |
+| `chainOverride` *extends* `Chain` \| `undefined` | `undefined` |
+| `accountOverride` *extends* `` `0x${string}` `` \| [`Account`](../../index/type-aliases/Account.md) \| `undefined` | `undefined` |
 
 #### Parameters
 
-##### args
-
-`PrepareTransactionRequestParameters`\<`Chain` \| `undefined`, [`Account`](../../index/type-aliases/Account.md) \| `undefined`, `chainOverride`, `accountOverride`, `request`\>
-
-PrepareTransactionRequestParameters
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `args` | `PrepareTransactionRequestParameters`\<`Chain` \| `undefined`, [`Account`](../../index/type-aliases/Account.md) \| `undefined`, `chainOverride`, `accountOverride`, `request`\> | PrepareTransactionRequestParameters |
 
 #### Returns
 
@@ -2278,25 +1906,17 @@ Calls a read-only function on a contract, and returns the response.
 
 #### Type Parameters
 
-##### abi
-
-`abi` *extends* [`Abi`](../../index/type-aliases/Abi.md) \| readonly `unknown`[]
-
-##### functionName
-
-`functionName` *extends* `string`
-
-##### args
-
-`args` *extends* `unknown`
+| Type Parameter |
+| ------ |
+| `abi` *extends* [`Abi`](../../index/type-aliases/Abi.md) \| readonly `unknown`[] |
+| `functionName` *extends* `string` |
+| `args` *extends* `unknown` |
 
 #### Parameters
 
-##### args
-
-`ReadContractParameters`\<`abi`, `functionName`, `args`\>
-
-ReadContractParameters
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `args` | `ReadContractParameters`\<`abi`, `functionName`, `args`\> | ReadContractParameters |
 
 #### Returns
 
@@ -2347,9 +1967,9 @@ Sends a **signed** transaction to the network
 
 #### Parameters
 
-##### args
-
-`SendRawTransactionParameters`
+| Parameter | Type |
+| ------ | ------ |
+| `args` | `SendRawTransactionParameters` |
 
 #### Returns
 
@@ -2385,9 +2005,9 @@ Sends a **signed** transaction to the network
 
 #### Parameters
 
-##### args
-
-`SendRawTransactionSyncParameters`
+| Parameter | Type |
+| ------ | ------ |
+| `args` | `SendRawTransactionSyncParameters` |
 
 #### Returns
 
@@ -2418,15 +2038,15 @@ const receipt = await client.sendRawTransactionSync({
 
 #### Type Parameters
 
-##### calls
-
-`calls` *extends* readonly `unknown`[]
+| Type Parameter |
+| ------ |
+| `calls` *extends* readonly `unknown`[] |
 
 #### Parameters
 
-##### args
-
-`SimulateBlocksParameters`\<`calls`\>
+| Parameter | Type |
+| ------ | ------ |
+| `args` | `SimulateBlocksParameters`\<`calls`\> |
 
 #### Returns
 
@@ -2444,15 +2064,15 @@ Simulates a set of calls on block(s) with optional block and state overrides.
 
 #### Type Parameters
 
-##### calls
-
-`calls` *extends* readonly `unknown`[]
+| Type Parameter |
+| ------ |
+| `calls` *extends* readonly `unknown`[] |
 
 #### Parameters
 
-##### args
-
-`SimulateBlocksParameters`\<`calls`\>
+| Parameter | Type |
+| ------ | ------ |
+| `args` | `SimulateBlocksParameters`\<`calls`\> |
 
 #### Returns
 
@@ -2504,15 +2124,15 @@ Simulates a set of calls.
 
 #### Type Parameters
 
-##### calls
-
-`calls` *extends* readonly `unknown`[]
+| Type Parameter |
+| ------ |
+| `calls` *extends* readonly `unknown`[] |
 
 #### Parameters
 
-##### args
-
-`SimulateCallsParameters`\<`calls`\>
+| Parameter | Type |
+| ------ | ------ |
+| `args` | `SimulateCallsParameters`\<`calls`\> |
 
 #### Returns
 
@@ -2557,33 +2177,19 @@ Simulates/validates a contract interaction. This is useful for retrieving **retu
 
 #### Type Parameters
 
-##### abi
-
-`abi` *extends* [`Abi`](../../index/type-aliases/Abi.md) \| readonly `unknown`[]
-
-##### functionName
-
-`functionName` *extends* `string`
-
-##### args
-
-`args` *extends* `unknown`
-
-##### chainOverride
-
-`chainOverride` *extends* `Chain` \| `undefined`
-
-##### accountOverride
-
-`accountOverride` *extends* `` `0x${string}` `` \| [`Account`](../../index/type-aliases/Account.md) \| `undefined` = `undefined`
+| Type Parameter | Default type |
+| ------ | ------ |
+| `abi` *extends* [`Abi`](../../index/type-aliases/Abi.md) \| readonly `unknown`[] | - |
+| `functionName` *extends* `string` | - |
+| `args` *extends* `unknown` | - |
+| `chainOverride` *extends* `Chain` \| `undefined` | - |
+| `accountOverride` *extends* `` `0x${string}` `` \| [`Account`](../../index/type-aliases/Account.md) \| `undefined` | `undefined` |
 
 #### Parameters
 
-##### args
-
-`SimulateContractParameters`\<`abi`, `functionName`, `args`, `Chain` \| `undefined`, `chainOverride`, `accountOverride`\>
-
-SimulateContractParameters
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `args` | `SimulateContractParameters`\<`abi`, `functionName`, `args`, `Chain` \| `undefined`, `chainOverride`, `accountOverride`\> | SimulateContractParameters |
 
 #### Returns
 
@@ -2649,11 +2255,9 @@ Destroys a Filter that was created from one of the following Actions:
 
 #### Parameters
 
-##### args
-
-`UninstallFilterParameters`
-
-UninstallFilterParameters
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `args` | `UninstallFilterParameters` | UninstallFilterParameters |
 
 #### Returns
 
@@ -2683,9 +2287,9 @@ Verify that a hash was signed by the provided address.
 
 #### Parameters
 
-##### args
-
-`VerifyHashParameters`
+| Parameter | Type |
+| ------ | ------ |
+| `args` | `VerifyHashParameters` |
 
 #### Returns
 
@@ -2705,83 +2309,21 @@ Compatible with Smart Contract Accounts & Externally Owned Accounts via [ERC-649
 
 #### Parameters
 
-##### args
-
-###### address
-
-`` `0x${string}` ``
-
-The address that signed the original message.
-
-###### blockNumber?
-
-`bigint`
-
-The balance of the account at a block number.
-
-###### blockTag?
-
-[`BlockTag`](../../index/type-aliases/BlockTag.md)
-
-The balance of the account at a block tag.
-
-**Default**
-
-```ts
-'latest'
-```
-
-###### chain?
-
-`Chain` \| `null`
-
-The chain to use.
-
-###### erc6492VerifierAddress?
-
-`` `0x${string}` ``
-
-The address of the ERC-6492 signature verifier contract.
-
-###### factory?
-
-`` `0x${string}` ``
-
-###### factoryData?
-
-`` `0x${string}` ``
-
-###### message
-
-`SignableMessage`
-
-The message to be verified.
-
-###### mode?
-
-`"auto"` \| `string` & `object` \| `"eoa"`
-
-Chooses which verification path to try first before falling back.
-
-###### multicallAddress?
-
-`` `0x${string}` ``
-
-Multicall3 address for ERC-8010 verification.
-
-###### signature
-
-`` `0x${string}` `` \| `Signature` \| `ByteArray`
-
-The signature that was generated by signing the message with the address's private key.
-
-###### universalSignatureVerifierAddress?
-
-`` `0x${string}` ``
-
-**Deprecated**
-
-use `erc6492VerifierAddress` instead.
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `args` | \{ `address`: `` `0x${string}` ``; `blockNumber?`: `bigint`; `blockTag?`: [`BlockTag`](../../index/type-aliases/BlockTag.md); `chain?`: `Chain` \| `null`; `erc6492VerifierAddress?`: `` `0x${string}` ``; `factory?`: `` `0x${string}` ``; `factoryData?`: `` `0x${string}` ``; `message`: `SignableMessage`; `mode?`: `"auto"` \| `string` & `object` \| `"eoa"`; `multicallAddress?`: `` `0x${string}` ``; `signature`: `` `0x${string}` `` \| `Signature` \| `ByteArray`; `universalSignatureVerifierAddress?`: `` `0x${string}` ``; \} | - |
+| `args.address` | `` `0x${string}` `` | The address that signed the original message. |
+| `args.blockNumber?` | `bigint` | The balance of the account at a block number. |
+| `args.blockTag?` | [`BlockTag`](../../index/type-aliases/BlockTag.md) | The balance of the account at a block tag. **Default** `'latest'` |
+| `args.chain?` | `Chain` \| `null` | The chain to use. |
+| `args.erc6492VerifierAddress?` | `` `0x${string}` `` | The address of the ERC-6492 signature verifier contract. |
+| `args.factory?` | `` `0x${string}` `` | - |
+| `args.factoryData?` | `` `0x${string}` `` | - |
+| `args.message` | `SignableMessage` | The message to be verified. |
+| `args.mode?` | `"auto"` \| `string` & `object` \| `"eoa"` | Chooses which verification path to try first before falling back. |
+| `args.multicallAddress?` | `` `0x${string}` `` | Multicall3 address for ERC-8010 verification. |
+| `args.signature` | `` `0x${string}` `` \| `Signature` \| `ByteArray` | The signature that was generated by signing the message with the address's private key. |
+| `args.universalSignatureVerifierAddress?` | `` `0x${string}` `` | **Deprecated** use `erc6492VerifierAddress` instead. |
 
 #### Returns
 
@@ -2801,73 +2343,18 @@ Compatible with Smart Contract Accounts & Externally Owned Accounts via [ERC-649
 
 #### Parameters
 
-##### args
-
-###### address?
-
-`` `0x${string}` ``
-
-Ethereum address to check against.
-
-###### blockNumber?
-
-`bigint`
-
-The balance of the account at a block number.
-
-###### blockTag?
-
-[`BlockTag`](../../index/type-aliases/BlockTag.md)
-
-The balance of the account at a block tag.
-
-**Default**
-
-```ts
-'latest'
-```
-
-###### domain?
-
-`string`
-
-[RFC 3986](https://www.rfc-editor.org/rfc/rfc3986) authority to check against.
-
-###### message
-
-`string`
-
-EIP-4361 formatted message.
-
-###### nonce?
-
-`string`
-
-Random string to check against.
-
-###### scheme?
-
-`string`
-
-[RFC 3986](https://www.rfc-editor.org/rfc/rfc3986#section-3.1) URI scheme to check against.
-
-###### signature
-
-`` `0x${string}` ``
-
-Signature to check against.
-
-###### time?
-
-`Date`
-
-Current time to check optional `expirationTime` and `notBefore` fields.
-
-**Default**
-
-```ts
-new Date()
-```
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `args` | \{ `address?`: `` `0x${string}` ``; `blockNumber?`: `bigint`; `blockTag?`: [`BlockTag`](../../index/type-aliases/BlockTag.md); `domain?`: `string`; `message`: `string`; `nonce?`: `string`; `scheme?`: `string`; `signature`: `` `0x${string}` ``; `time?`: `Date`; \} | - |
+| `args.address?` | `` `0x${string}` `` | Ethereum address to check against. |
+| `args.blockNumber?` | `bigint` | The balance of the account at a block number. |
+| `args.blockTag?` | [`BlockTag`](../../index/type-aliases/BlockTag.md) | The balance of the account at a block tag. **Default** `'latest'` |
+| `args.domain?` | `string` | [RFC 3986](https://www.rfc-editor.org/rfc/rfc3986) authority to check against. |
+| `args.message` | `string` | EIP-4361 formatted message. |
+| `args.nonce?` | `string` | Random string to check against. |
+| `args.scheme?` | `string` | [RFC 3986](https://www.rfc-editor.org/rfc/rfc3986#section-3.1) URI scheme to check against. |
+| `args.signature` | `` `0x${string}` `` | Signature to check against. |
+| `args.time?` | `Date` | Current time to check optional `expirationTime` and `notBefore` fields. **Default** `new Date()` |
 
 #### Returns
 
@@ -2885,9 +2372,9 @@ Verify that typed data was signed by the provided address.
 
 #### Parameters
 
-##### args
-
-`VerifyTypedDataParameters`
+| Parameter | Type |
+| ------ | ------ |
+| `args` | `VerifyTypedDataParameters` |
 
 #### Returns
 
@@ -2912,11 +2399,9 @@ Waits for the [Transaction](https://viem.sh/docs/glossary/terms#transaction) to 
 
 #### Parameters
 
-##### args
-
-`WaitForTransactionReceiptParameters`\<`Chain` \| `undefined`\>
-
-WaitForTransactionReceiptParameters
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `args` | `WaitForTransactionReceiptParameters`\<`Chain` \| `undefined`\> | WaitForTransactionReceiptParameters |
 
 #### Returns
 
@@ -2965,11 +2450,9 @@ Watches and returns incoming block numbers.
 
 #### Parameters
 
-##### args
-
-`WatchBlockNumberParameters`
-
-WatchBlockNumberParameters
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `args` | `WatchBlockNumberParameters` | WatchBlockNumberParameters |
 
 #### Returns
 
@@ -3006,21 +2489,16 @@ Watches and returns information for incoming blocks.
 
 #### Type Parameters
 
-##### includeTransactions
-
-`includeTransactions` *extends* `boolean` = `false`
-
-##### blockTag
-
-`blockTag` *extends* [`BlockTag`](../../index/type-aliases/BlockTag.md) = `"latest"`
+| Type Parameter | Default type |
+| ------ | ------ |
+| `includeTransactions` *extends* `boolean` | `false` |
+| `blockTag` *extends* [`BlockTag`](../../index/type-aliases/BlockTag.md) | `"latest"` |
 
 #### Parameters
 
-##### args
-
-`WatchBlocksParameters`\<`Transport`, `Chain` \| `undefined`, `includeTransactions`, `blockTag`\>
-
-WatchBlocksParameters
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `args` | `WatchBlocksParameters`\<`Transport`, `Chain` \| `undefined`, `includeTransactions`, `blockTag`\> | WatchBlocksParameters |
 
 #### Returns
 
@@ -3053,25 +2531,17 @@ Watches and returns emitted contract event logs.
 
 #### Type Parameters
 
-##### abi
-
-`abi` *extends* [`Abi`](../../index/type-aliases/Abi.md) \| readonly `unknown`[]
-
-##### eventName
-
-`eventName` *extends* `string`
-
-##### strict
-
-`strict` *extends* `boolean` \| `undefined` = `undefined`
+| Type Parameter | Default type |
+| ------ | ------ |
+| `abi` *extends* [`Abi`](../../index/type-aliases/Abi.md) \| readonly `unknown`[] | - |
+| `eventName` *extends* `string` | - |
+| `strict` *extends* `boolean` \| `undefined` | `undefined` |
 
 #### Parameters
 
-##### args
-
-`WatchContractEventParameters`\<`abi`, `eventName`, `strict`, `Transport`\>
-
-WatchContractEventParameters
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `args` | `WatchContractEventParameters`\<`abi`, `eventName`, `strict`, `Transport`\> | WatchContractEventParameters |
 
 #### Returns
 
@@ -3120,25 +2590,17 @@ Watches and returns emitted [Event Logs](https://viem.sh/docs/glossary/terms#eve
 
 #### Type Parameters
 
-##### abiEvent
-
-`abiEvent` *extends* [`AbiEvent`](../../index/type-aliases/AbiEvent.md) \| `undefined` = `undefined`
-
-##### abiEvents
-
-`abiEvents` *extends* readonly `unknown`[] \| readonly [`AbiEvent`](../../index/type-aliases/AbiEvent.md)[] \| `undefined` = `abiEvent` *extends* [`AbiEvent`](../../index/type-aliases/AbiEvent.md) ? \[`abiEvent`\] : `undefined`
-
-##### strict
-
-`strict` *extends* `boolean` \| `undefined` = `undefined`
+| Type Parameter | Default type |
+| ------ | ------ |
+| `abiEvent` *extends* [`AbiEvent`](../../index/type-aliases/AbiEvent.md) \| `undefined` | `undefined` |
+| `abiEvents` *extends* readonly `unknown`[] \| readonly [`AbiEvent`](../../index/type-aliases/AbiEvent.md)[] \| `undefined` | `abiEvent` *extends* [`AbiEvent`](../../index/type-aliases/AbiEvent.md) ? \[`abiEvent`\] : `undefined` |
+| `strict` *extends* `boolean` \| `undefined` | `undefined` |
 
 #### Parameters
 
-##### args
-
-`WatchEventParameters`\<`abiEvent`, `abiEvents`, `strict`, `Transport`\>
-
-WatchEventParameters
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `args` | `WatchEventParameters`\<`abiEvent`, `abiEvents`, `strict`, `Transport`\> | WatchEventParameters |
 
 #### Returns
 
@@ -3182,11 +2644,9 @@ Watches and returns pending transaction hashes.
 
 #### Parameters
 
-##### args
-
-`WatchPendingTransactionsParameters`\<`Transport`\>
-
-WatchPendingTransactionsParameters
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `args` | `WatchPendingTransactionsParameters`\<`Transport`\> | WatchPendingTransactionsParameters |
 
 #### Returns
 

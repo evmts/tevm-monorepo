@@ -8,76 +8,16 @@
 
 > **EipNotEnabledErrorParameters** = `object`
 
-Defined in: tevm-monorepo/packages/errors/types/common/EipNotEnabledError.d.ts:56
-
 Parameters for constructing a [EipNotEnabledError](../classes/EipNotEnabledError.md).
 
 ## Properties
 
-### cause?
-
-> `optional` **cause?**: [`ExecutionError`](../classes/ExecutionError.md) \| `EVMError`
-
-Defined in: tevm-monorepo/packages/errors/types/common/EipNotEnabledError.d.ts:76
-
-- The cause of the error.
-
-***
-
-### details?
-
-> `optional` **details?**: `string`
-
-Defined in: tevm-monorepo/packages/errors/types/common/EipNotEnabledError.d.ts:80
-
-- Details of the error.
-
-***
-
-### docsBaseUrl?
-
-> `optional` **docsBaseUrl?**: `string`
-
-Defined in: tevm-monorepo/packages/errors/types/common/EipNotEnabledError.d.ts:60
-
-- Base URL for the documentation.
-
-***
-
-### docsPath?
-
-> `optional` **docsPath?**: `string`
-
-Defined in: tevm-monorepo/packages/errors/types/common/EipNotEnabledError.d.ts:64
-
-- Path to the documentation.
-
-***
-
-### docsSlug?
-
-> `optional` **docsSlug?**: `string`
-
-Defined in: tevm-monorepo/packages/errors/types/common/EipNotEnabledError.d.ts:68
-
-- Slug for the documentation.
-
-***
-
-### meta?
-
-> `optional` **meta?**: `object`
-
-Defined in: tevm-monorepo/packages/errors/types/common/EipNotEnabledError.d.ts:84
-
-- Optional object containing additional information about the error.
-
-***
-
-### metaMessages?
-
-> `optional` **metaMessages?**: `string`[]
-
-Defined in: tevm-monorepo/packages/errors/types/common/EipNotEnabledError.d.ts:72
-
-- Additional meta messages.
+| Property | Type |
+| ------ | ------ |
+| <a id="cause"></a> `cause?` | [`ExecutionError`](../classes/ExecutionError.md) \| `EVMError` |
+| <a id="details"></a> `details?` | `string` |
+| <a id="docsbaseurl"></a> `docsBaseUrl?` | `string` |
+| <a id="docspath"></a> `docsPath?` | `string` |
+| <a id="docsslug"></a> `docsSlug?` | `string` |
+| <a id="meta"></a> `meta?` | `object` |
+| <a id="metamessages"></a> `metaMessages?` | `string`[] |

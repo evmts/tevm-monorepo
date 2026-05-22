@@ -12,9 +12,9 @@ Defined in: [packages/actions/src/eth/EthProcedure.ts:113](https://github.com/ev
 
 ## Parameters
 
-### request
-
-[`EthCallJsonRpcRequest`](EthCallJsonRpcRequest.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`EthCallJsonRpcRequest`](EthCallJsonRpcRequest.md) |
 
 ## Returns
 

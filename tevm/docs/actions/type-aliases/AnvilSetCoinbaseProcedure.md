@@ -8,13 +8,11 @@
 
 > **AnvilSetCoinbaseProcedure** = (`request`) => `Promise`\<[`AnvilSetCoinbaseJsonRpcResponse`](AnvilSetCoinbaseJsonRpcResponse.md)\>
 
-Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilProcedure.d.ts:3
-
 ## Parameters
 
-### request
-
-[`AnvilSetCoinbaseJsonRpcRequest`](AnvilSetCoinbaseJsonRpcRequest.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`AnvilSetCoinbaseJsonRpcRequest`](AnvilSetCoinbaseJsonRpcRequest.md) |
 
 ## Returns
 

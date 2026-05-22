@@ -8,13 +8,11 @@
 
 > **EthCallHandler** = (`request`) => `Promise`\<[`EthCallResult`](EthCallResult.md)\>
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthHandler.d.ts:5
-
 ## Parameters
 
-### request
-
-[`EthCallParams`](EthCallParams.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`EthCallParams`](EthCallParams.md) |
 
 ## Returns
 

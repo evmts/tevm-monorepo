@@ -8,20 +8,9 @@
 
 > **SolcDebugSettings** = `object`
 
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:58
-
 ## Properties
 
-### debugInfo?
-
-> `optional` **debugInfo?**: (`"location"` \| `"snippet"` \| `"*"`)[]
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:60
-
-***
-
-### revertStrings?
-
-> `optional` **revertStrings?**: `"default"` \| `"strip"` \| `"debug"` \| `"verboseDebug"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:59
+| Property | Type |
+| ------ | ------ |
+| <a id="debuginfo"></a> `debugInfo?` | (`"location"` \| `"snippet"` \| `"*"`)[] |
+| <a id="revertstrings"></a> `revertStrings?` | `"default"` \| `"strip"` \| `"debug"` \| `"verboseDebug"` |

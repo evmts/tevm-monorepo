@@ -665,6 +665,8 @@
 - [MuxTraceResult](type-aliases/MuxTraceResult.md)
 - [MuxTracerType](type-aliases/MuxTracerType.md)
 - [NetworkConfig](type-aliases/NetworkConfig.md)
+- [RpcMethodMatrixEntry](type-aliases/RpcMethodMatrixEntry.md)
+- [RpcMethodStatus](type-aliases/RpcMethodStatus.md)
 - [SerializedParams](type-aliases/SerializedParams.md)
 - [SetAccountHandler](type-aliases/SetAccountHandler.md)
 - [SetAccountJsonRpcProcedure](type-aliases/SetAccountJsonRpcProcedure.md)
@@ -702,7 +704,15 @@
 
 ## Variables
 
+- [blockedMethodGroups](variables/blockedMethodGroups.md)
+- [buildRpcMethodMatrix](variables/buildRpcMethodMatrix.md)
 - [debugTraceStateFilters](variables/debugTraceStateFilters.md)
+- [intentionallyUnsupportedRuntimeMethods](variables/intentionallyUnsupportedRuntimeMethods.md)
+- [isBlockedMethod](variables/isBlockedMethod.md)
+- [rpcMethodMatrix](variables/rpcMethodMatrix.md)
+- [rpcMethodStatusByMethod](variables/rpcMethodStatusByMethod.md)
+- [rpcNamespacePolicy](variables/rpcNamespacePolicy.md)
+- [typedButMissingMethods](variables/typedButMissingMethods.md)
 - [zAbi](variables/zAbi.md)
 - [zAddress](variables/zAddress.md)
 - [zBaseCallParams](variables/zBaseCallParams.md)
@@ -757,6 +767,7 @@
 - [anvilSetNextBlockBaseFeePerGasJsonRpcProcedure](functions/anvilSetNextBlockBaseFeePerGasJsonRpcProcedure.md)
 - [anvilSetNextBlockTimestampJsonRpcProcedure](functions/anvilSetNextBlockTimestampJsonRpcProcedure.md)
 - [anvilSetNonceJsonRpcProcedure](functions/anvilSetNonceJsonRpcProcedure.md)
+- [anvilSetPrevRandaoJsonRpcProcedure](functions/anvilSetPrevRandaoJsonRpcProcedure.md)
 - [anvilSetRpcUrlJsonRpcProcedure](functions/anvilSetRpcUrlJsonRpcProcedure.md)
 - [anvilSetStorageAtJsonRpcProcedure](functions/anvilSetStorageAtJsonRpcProcedure.md)
 - [anvilSetTimeJsonRpcProcedure](functions/anvilSetTimeJsonRpcProcedure.md)

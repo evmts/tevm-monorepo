@@ -8,13 +8,11 @@
 
 > **ethSubscribeHandler**(`tevmNode`): [`EthSubscribeHandler`](../type-aliases/EthSubscribeHandler.md)
 
-Defined in: tevm-monorepo/packages/actions/types/eth/ethSubscribeHandler.d.ts:1
-
 ## Parameters
 
-### tevmNode
-
-[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{ \}\>
+| Parameter | Type |
+| ------ | ------ |
+| `tevmNode` | [`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{ \}\> |
 
 ## Returns
 

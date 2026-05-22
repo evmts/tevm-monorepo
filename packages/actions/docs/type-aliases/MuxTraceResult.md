@@ -17,13 +17,10 @@ Each key in the result corresponds to a tracer name, and the value is that trace
 
 ## Type Parameters
 
-### TTracers
-
-`TTracers` *extends* readonly [`MuxTracerType`](MuxTracerType.md)[] = readonly [`MuxTracerType`](MuxTracerType.md)[]
-
-### TDiffMode
-
-`TDiffMode` *extends* `boolean` = `boolean`
+| Type Parameter | Default type |
+| ------ | ------ |
+| `TTracers` *extends* readonly [`MuxTracerType`](MuxTracerType.md)[] | readonly [`MuxTracerType`](MuxTracerType.md)[] |
+| `TDiffMode` *extends* `boolean` | `boolean` |
 
 ## Example
 

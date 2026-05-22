@@ -8,12 +8,10 @@
 
 > **DebugTraceStateResult**\<`TStateFilters`\> = `TStateFilters`\[`"length"`\] *extends* `0` ? [`DebugTraceStateObject`](DebugTraceStateObject.md) : `UnionToIntersection`\<`{ [I in keyof TStateFilters]: GetPath<DebugTraceStateObject, TStateFilters[I] & string> }`\[keyof `TStateFilters`\]\>
 
-Defined in: tevm-monorepo/packages/actions/types/debug/DebugResult.d.ts:91
-
 Result from `debug_traceState`
 
 ## Type Parameters
 
-### TStateFilters
-
-`TStateFilters` *extends* readonly [`DebugTraceStateFilter`](DebugTraceStateFilter.md)[] = readonly [`DebugTraceStateFilter`](DebugTraceStateFilter.md)[]
+| Type Parameter | Default type |
+| ------ | ------ |
+| `TStateFilters` *extends* readonly [`DebugTraceStateFilter`](DebugTraceStateFilter.md)[] | readonly [`DebugTraceStateFilter`](DebugTraceStateFilter.md)[] |

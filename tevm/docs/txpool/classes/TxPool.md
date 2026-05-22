@@ -6,97 +6,48 @@
 
 # Class: TxPool
 
-Defined in: zevm/npm/zevm/dist/txpool.d.ts:43
+Tevm txpool facade.
+
+ZEVM's pool handles the storage and nonce ordering, while this facade broadens
+fee classification to all fee-market-shaped transactions, including EIP-7702.
+
+## Extends
+
+- `TxPool`
 
 ## Constructors
 
 ### Constructor
 
-> **new TxPool**(`__namedParameters`): `TxPool`
-
-Defined in: zevm/npm/zevm/dist/txpool.d.ts:60
+> **new TxPool**(...`args`): `TxPool`
 
 #### Parameters
 
-##### \_\_namedParameters
-
-`TxPoolOptions`
+| Parameter | Type |
+| ------ | ------ |
+| ...`args` | \[[`TxPoolOptions`](../interfaces/TxPoolOptions.md)\] |
 
 #### Returns
 
 `TxPool`
 
+#### Overrides
+
+`ZevmTxPool.constructor`
+
 ## Properties
 
-### BLOCKS\_BEFORE\_TARGET\_HEIGHT\_ACTIVATION
-
-> **BLOCKS\_BEFORE\_TARGET\_HEIGHT\_ACTIVATION**: `number`
-
-Defined in: zevm/npm/zevm/dist/txpool.d.ts:57
-
-***
-
-### HANDLED\_CLEANUP\_TIME\_LIMIT
-
-> **HANDLED\_CLEANUP\_TIME\_LIMIT**: `number`
-
-Defined in: zevm/npm/zevm/dist/txpool.d.ts:59
-
-***
-
-### pool
-
-> **pool**: `Map`\<`string`, `TxPoolObject`[]\>
-
-Defined in: zevm/npm/zevm/dist/txpool.d.ts:51
-
-***
-
-### POOLED\_STORAGE\_TIME\_LIMIT
-
-> **POOLED\_STORAGE\_TIME\_LIMIT**: `number`
-
-Defined in: zevm/npm/zevm/dist/txpool.d.ts:58
-
-***
-
-### running
-
-> **running**: `boolean`
-
-Defined in: zevm/npm/zevm/dist/txpool.d.ts:48
-
-***
-
-### txsByHash
-
-> **txsByHash**: `Map`\<`string`, `TxPoolTransaction`\>
-
-Defined in: zevm/npm/zevm/dist/txpool.d.ts:53
-
-***
-
-### txsByNonce
-
-> **txsByNonce**: `Map`\<`string`, `Map`\<`bigint`, `TxPoolTransaction`\>\>
-
-Defined in: zevm/npm/zevm/dist/txpool.d.ts:54
-
-***
-
-### txsInNonceOrder
-
-> **txsInNonceOrder**: `Map`\<`string`, `TxPoolTransaction`[]\>
-
-Defined in: zevm/npm/zevm/dist/txpool.d.ts:52
-
-***
-
-### txsInPool
-
-> **txsInPool**: `number`
-
-Defined in: zevm/npm/zevm/dist/txpool.d.ts:55
+| Property | Type | Inherited from |
+| ------ | ------ | ------ |
+| <a id="blocks_before_target_height_activation"></a> `BLOCKS_BEFORE_TARGET_HEIGHT_ACTIVATION` | `number` | `ZevmTxPool.BLOCKS_BEFORE_TARGET_HEIGHT_ACTIVATION` |
+| <a id="handled_cleanup_time_limit"></a> `HANDLED_CLEANUP_TIME_LIMIT` | `number` | `ZevmTxPool.HANDLED_CLEANUP_TIME_LIMIT` |
+| <a id="pool"></a> `pool` | `Map`\<`string`, [`TxPoolObject`](../type-aliases/TxPoolObject.md)[]\> | `ZevmTxPool.pool` |
+| <a id="pooled_storage_time_limit"></a> `POOLED_STORAGE_TIME_LIMIT` | `number` | `ZevmTxPool.POOLED_STORAGE_TIME_LIMIT` |
+| <a id="running"></a> `running` | `boolean` | `ZevmTxPool.running` |
+| <a id="txsbyhash"></a> `txsByHash` | `Map`\<`string`, [`TxPoolTransaction`](../type-aliases/TxPoolTransaction.md)\> | `ZevmTxPool.txsByHash` |
+| <a id="txsbynonce"></a> `txsByNonce` | `Map`\<`string`, `Map`\<`bigint`, [`TxPoolTransaction`](../type-aliases/TxPoolTransaction.md)\>\> | `ZevmTxPool.txsByNonce` |
+| <a id="txsinnonceorder"></a> `txsInNonceOrder` | `Map`\<`string`, [`TxPoolTransaction`](../type-aliases/TxPoolTransaction.md)[]\> | `ZevmTxPool.txsInNonceOrder` |
+| <a id="txsinpool"></a> `txsInPool` | `number` | `ZevmTxPool.txsInPool` |
 
 ## Methods
 
@@ -104,11 +55,13 @@ Defined in: zevm/npm/zevm/dist/txpool.d.ts:55
 
 > **\_logPoolStats**(): `void`
 
-Defined in: zevm/npm/zevm/dist/txpool.d.ts:91
-
 #### Returns
 
 `void`
+
+#### Inherited from
+
+`ZevmTxPool._logPoolStats`
 
 ***
 
@@ -116,25 +69,21 @@ Defined in: zevm/npm/zevm/dist/txpool.d.ts:91
 
 > **add**(`tx`, `requireSignature?`, `skipBalance?`): `Promise`\<`TxPoolAddResult`\>
 
-Defined in: zevm/npm/zevm/dist/txpool.d.ts:67
-
 #### Parameters
 
-##### tx
-
-`TxPoolTransaction`
-
-##### requireSignature?
-
-`boolean`
-
-##### skipBalance?
-
-`boolean`
+| Parameter | Type |
+| ------ | ------ |
+| `tx` | [`TxPoolTransaction`](../type-aliases/TxPoolTransaction.md) |
+| `requireSignature?` | `boolean` |
+| `skipBalance?` | `boolean` |
 
 #### Returns
 
 `Promise`\<`TxPoolAddResult`\>
+
+#### Inherited from
+
+`ZevmTxPool.add`
 
 ***
 
@@ -142,17 +91,19 @@ Defined in: zevm/npm/zevm/dist/txpool.d.ts:67
 
 > **addUnverified**(`tx`): `Promise`\<`TxPoolAddResult`\>
 
-Defined in: zevm/npm/zevm/dist/txpool.d.ts:66
-
 #### Parameters
 
-##### tx
-
-`TxPoolTransaction`
+| Parameter | Type |
+| ------ | ------ |
+| `tx` | [`TxPoolTransaction`](../type-aliases/TxPoolTransaction.md) |
 
 #### Returns
 
 `Promise`\<`TxPoolAddResult`\>
+
+#### Inherited from
+
+`ZevmTxPool.addUnverified`
 
 ***
 
@@ -160,11 +111,13 @@ Defined in: zevm/npm/zevm/dist/txpool.d.ts:66
 
 > **cleanup**(): `void`
 
-Defined in: zevm/npm/zevm/dist/txpool.d.ts:72
-
 #### Returns
 
 `void`
+
+#### Overrides
+
+`ZevmTxPool.cleanup`
 
 ***
 
@@ -172,11 +125,13 @@ Defined in: zevm/npm/zevm/dist/txpool.d.ts:72
 
 > **clear**(): `Promise`\<`void`\>
 
-Defined in: zevm/npm/zevm/dist/txpool.d.ts:89
-
 #### Returns
 
 `Promise`\<`void`\>
+
+#### Inherited from
+
+`ZevmTxPool.clear`
 
 ***
 
@@ -184,11 +139,13 @@ Defined in: zevm/npm/zevm/dist/txpool.d.ts:89
 
 > **close**(): `void`
 
-Defined in: zevm/npm/zevm/dist/txpool.d.ts:88
-
 #### Returns
 
 `void`
+
+#### Inherited from
+
+`ZevmTxPool.close`
 
 ***
 
@@ -196,17 +153,19 @@ Defined in: zevm/npm/zevm/dist/txpool.d.ts:88
 
 > **deepCopy**(`opt`): `TxPool`
 
-Defined in: zevm/npm/zevm/dist/txpool.d.ts:61
-
 #### Parameters
 
-##### opt
-
-`TxPoolOptions`
+| Parameter | Type |
+| ------ | ------ |
+| `opt` | [`TxPoolOptions`](../interfaces/TxPoolOptions.md) |
 
 #### Returns
 
 `TxPool`
+
+#### Inherited from
+
+`ZevmTxPool.deepCopy`
 
 ***
 
@@ -214,65 +173,73 @@ Defined in: zevm/npm/zevm/dist/txpool.d.ts:61
 
 #### Call Signature
 
-> **getByHash**(`txHashes`): `TxPoolTransaction` \| `null`
-
-Defined in: zevm/npm/zevm/dist/txpool.d.ts:68
+> **getByHash**(`txHashes`): [`TxPoolTransaction`](../type-aliases/TxPoolTransaction.md) \| `null`
 
 ##### Parameters
 
-###### txHashes
-
-`string`
+| Parameter | Type |
+| ------ | ------ |
+| `txHashes` | `string` |
 
 ##### Returns
 
-`TxPoolTransaction` \| `null`
+[`TxPoolTransaction`](../type-aliases/TxPoolTransaction.md) \| `null`
+
+##### Inherited from
+
+`ZevmTxPool.getByHash`
 
 #### Call Signature
 
-> **getByHash**(`txHashes`): `TxPoolTransaction`[]
-
-Defined in: zevm/npm/zevm/dist/txpool.d.ts:69
+> **getByHash**(`txHashes`): [`TxPoolTransaction`](../type-aliases/TxPoolTransaction.md)[]
 
 ##### Parameters
 
-###### txHashes
-
-readonly `Uint8Array`\<`ArrayBufferLike`\>[]
+| Parameter | Type |
+| ------ | ------ |
+| `txHashes` | readonly `Uint8Array`\<`ArrayBufferLike`\>[] |
 
 ##### Returns
 
-`TxPoolTransaction`[]
+[`TxPoolTransaction`](../type-aliases/TxPoolTransaction.md)[]
+
+##### Inherited from
+
+`ZevmTxPool.getByHash`
 
 ***
 
 ### getBySenderAddress()
 
-> **getBySenderAddress**(`address`): `Promise`\<`TxPoolObject`[]\>
-
-Defined in: zevm/npm/zevm/dist/txpool.d.ts:75
+> **getBySenderAddress**(`address`): `Promise`\<[`TxPoolObject`](../type-aliases/TxPoolObject.md)[]\>
 
 #### Parameters
 
-##### address
-
-[`EthjsAddress`](../../utils/classes/EthjsAddress.md)
+| Parameter | Type |
+| ------ | ------ |
+| `address` | [`EthjsAddress`](../../utils/classes/EthjsAddress.md) |
 
 #### Returns
 
-`Promise`\<`TxPoolObject`[]\>
+`Promise`\<[`TxPoolObject`](../type-aliases/TxPoolObject.md)[]\>
+
+#### Inherited from
+
+`ZevmTxPool.getBySenderAddress`
 
 ***
 
 ### getPendingTransactions()
 
-> **getPendingTransactions**(): `Promise`\<`TxPoolTransaction`[]\>
-
-Defined in: zevm/npm/zevm/dist/txpool.d.ts:76
+> **getPendingTransactions**(): `Promise`\<[`TxPoolTransaction`](../type-aliases/TxPoolTransaction.md)[]\>
 
 #### Returns
 
-`Promise`\<`TxPoolTransaction`[]\>
+`Promise`\<[`TxPoolTransaction`](../type-aliases/TxPoolTransaction.md)[]\>
+
+#### Inherited from
+
+`ZevmTxPool.getPendingTransactions`
 
 ***
 
@@ -280,17 +247,19 @@ Defined in: zevm/npm/zevm/dist/txpool.d.ts:76
 
 > **getTransactionStatus**(`txHash`): `Promise`\<`"pending"` \| `"mined"` \| `"unknown"`\>
 
-Defined in: zevm/npm/zevm/dist/txpool.d.ts:77
-
 #### Parameters
 
-##### txHash
-
-`string`
+| Parameter | Type |
+| ------ | ------ |
+| `txHash` | `string` |
 
 #### Returns
 
 `Promise`\<`"pending"` \| `"mined"` \| `"unknown"`\>
+
+#### Inherited from
+
+`ZevmTxPool.getTransactionStatus`
 
 ***
 
@@ -298,11 +267,13 @@ Defined in: zevm/npm/zevm/dist/txpool.d.ts:77
 
 > **logStats**(): `void`
 
-Defined in: zevm/npm/zevm/dist/txpool.d.ts:90
-
 #### Returns
 
 `void`
+
+#### Inherited from
+
+`ZevmTxPool.logStats`
 
 ***
 
@@ -310,21 +281,20 @@ Defined in: zevm/npm/zevm/dist/txpool.d.ts:90
 
 > **on**(`event`, `callback`): () => `void`
 
-Defined in: zevm/npm/zevm/dist/txpool.d.ts:79
-
 #### Parameters
 
-##### event
-
-`"txadded"` \| `"txremoved"`
-
-##### callback
-
-(`hash`) => `void`
+| Parameter | Type |
+| ------ | ------ |
+| `event` | `"txadded"` \| `"txremoved"` |
+| `callback` | (`hash`) => `void` |
 
 #### Returns
 
 () => `void`
+
+#### Inherited from
+
+`ZevmTxPool.on`
 
 ***
 
@@ -332,17 +302,19 @@ Defined in: zevm/npm/zevm/dist/txpool.d.ts:79
 
 > **onBlockAdded**(`block`): `Promise`\<`void`\>
 
-Defined in: zevm/npm/zevm/dist/txpool.d.ts:81
-
 #### Parameters
 
-##### block
-
-`TxPoolBlock`
+| Parameter | Type |
+| ------ | ------ |
+| `block` | [`TxPoolBlock`](../type-aliases/TxPoolBlock.md) |
 
 #### Returns
 
 `Promise`\<`void`\>
+
+#### Inherited from
+
+`ZevmTxPool.onBlockAdded`
 
 ***
 
@@ -350,21 +322,20 @@ Defined in: zevm/npm/zevm/dist/txpool.d.ts:81
 
 > **onChainReorganization**(`removedBlocks`, `addedBlocks`): `Promise`\<`void`\>
 
-Defined in: zevm/npm/zevm/dist/txpool.d.ts:82
-
 #### Parameters
 
-##### removedBlocks
-
-`TxPoolBlock`[]
-
-##### addedBlocks
-
-`TxPoolBlock`[]
+| Parameter | Type |
+| ------ | ------ |
+| `removedBlocks` | [`TxPoolBlock`](../type-aliases/TxPoolBlock.md)[] |
+| `addedBlocks` | [`TxPoolBlock`](../type-aliases/TxPoolBlock.md)[] |
 
 #### Returns
 
 `Promise`\<`void`\>
+
+#### Inherited from
+
+`ZevmTxPool.onChainReorganization`
 
 ***
 
@@ -372,11 +343,13 @@ Defined in: zevm/npm/zevm/dist/txpool.d.ts:82
 
 > **open**(): `boolean`
 
-Defined in: zevm/npm/zevm/dist/txpool.d.ts:62
-
 #### Returns
 
 `boolean`
+
+#### Inherited from
+
+`ZevmTxPool.open`
 
 ***
 
@@ -384,17 +357,19 @@ Defined in: zevm/npm/zevm/dist/txpool.d.ts:62
 
 > **removeByHash**(`txHash`): `void`
 
-Defined in: zevm/npm/zevm/dist/txpool.d.ts:70
-
 #### Parameters
 
-##### txHash
-
-`string`
+| Parameter | Type |
+| ------ | ------ |
+| `txHash` | `string` |
 
 #### Returns
 
 `void`
+
+#### Inherited from
+
+`ZevmTxPool.removeByHash`
 
 ***
 
@@ -402,17 +377,19 @@ Defined in: zevm/npm/zevm/dist/txpool.d.ts:70
 
 > **removeNewBlockTxs**(`newBlocks`): `void`
 
-Defined in: zevm/npm/zevm/dist/txpool.d.ts:71
-
 #### Parameters
 
-##### newBlocks
-
-`TxPoolBlock`[]
+| Parameter | Type |
+| ------ | ------ |
+| `newBlocks` | [`TxPoolBlock`](../type-aliases/TxPoolBlock.md)[] |
 
 #### Returns
 
 `void`
+
+#### Inherited from
+
+`ZevmTxPool.removeNewBlockTxs`
 
 ***
 
@@ -420,11 +397,13 @@ Defined in: zevm/npm/zevm/dist/txpool.d.ts:71
 
 > **start**(): `boolean`
 
-Defined in: zevm/npm/zevm/dist/txpool.d.ts:63
-
 #### Returns
 
 `boolean`
+
+#### Inherited from
+
+`ZevmTxPool.start`
 
 ***
 
@@ -432,32 +411,32 @@ Defined in: zevm/npm/zevm/dist/txpool.d.ts:63
 
 > **stop**(): `boolean`
 
-Defined in: zevm/npm/zevm/dist/txpool.d.ts:87
-
 #### Returns
 
 `boolean`
+
+#### Inherited from
+
+`ZevmTxPool.stop`
 
 ***
 
 ### txsByPriceAndNonce()
 
-> **txsByPriceAndNonce**(`__namedParameters?`): `Promise`\<`TxPoolTransaction`[]\>
-
-Defined in: zevm/npm/zevm/dist/txpool.d.ts:83
+> **txsByPriceAndNonce**(`__namedParameters?`): `Promise`\<[`TxPoolTransaction`](../type-aliases/TxPoolTransaction.md)[]\>
 
 #### Parameters
 
-##### \_\_namedParameters?
-
-###### allowedBlobs?
-
-`number`
-
-###### baseFee?
-
-`bigint`
+| Parameter | Type |
+| ------ | ------ |
+| `__namedParameters?` | \{ `allowedBlobs?`: `number`; `baseFee?`: `bigint`; \} |
+| `__namedParameters.allowedBlobs?` | `number` |
+| `__namedParameters.baseFee?` | `bigint` |
 
 #### Returns
 
-`Promise`\<`TxPoolTransaction`[]\>
+`Promise`\<[`TxPoolTransaction`](../type-aliases/TxPoolTransaction.md)[]\>
+
+#### Inherited from
+
+`ZevmTxPool.txsByPriceAndNonce`

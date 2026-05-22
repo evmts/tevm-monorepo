@@ -8,36 +8,12 @@
 
 > **SolcOutput** = `object`
 
-Defined in: [solcTypes.ts:330](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L330)
+Defined in: [solcTypes.ts:355](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L355)
 
 ## Properties
 
-### contracts
-
-> **contracts**: `object`
-
-Defined in: [solcTypes.ts:342](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L342)
-
-#### Index Signature
-
-\[`sourceFile`: `string`\]: `object`
-
-***
-
-### errors?
-
-> `optional` **errors?**: [`SolcErrorEntry`](SolcErrorEntry.md)[]
-
-Defined in: [solcTypes.ts:332](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L332)
-
-***
-
-### sources
-
-> **sources**: `object`
-
-Defined in: [solcTypes.ts:336](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L336)
-
-#### Index Signature
-
-\[`sourceFile`: `string`\]: [`SolcSourceEntry`](SolcSourceEntry.md)
+| Property | Type | Defined in |
+| ------ | ------ | ------ |
+| <a id="contracts"></a> `contracts?` | `object` | [solcTypes.ts:368](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L368) |
+| <a id="errors"></a> `errors?` | [`SolcErrorEntry`](SolcErrorEntry.md)[] | [solcTypes.ts:357](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L357) |
+| <a id="sources"></a> `sources` | `object` | [solcTypes.ts:361](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L361) |

@@ -16,17 +16,10 @@ Decodes a hex string into a number.
 
 ## Parameters
 
-### hex
-
-`` `0x${string}` ``
-
-Hex value to decode.
-
-### opts?
-
-`HexToBigIntOpts`
-
-Options.
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `hex` | `` `0x${string}` `` | Hex value to decode. |
+| `opts?` | `HexToBigIntOpts` | Options. |
 
 ## Returns
 

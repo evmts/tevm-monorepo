@@ -14,19 +14,16 @@ Defined in: zevm/npm/zevm/dist/util.d.ts:155
 
 ### Type Parameters
 
-#### T
-
-`T` *extends* [`TypeOutput`](../type-aliases/TypeOutput.md)
+| Type Parameter |
+| ------ |
+| `T` *extends* [`TypeOutput`](../type-aliases/TypeOutput.md) |
 
 ### Parameters
 
-#### input
-
-`null`
-
-#### outputType
-
-`T`
+| Parameter | Type |
+| ------ | ------ |
+| `input` | `null` |
+| `outputType` | `T` |
 
 ### Returns
 
@@ -40,19 +37,16 @@ Defined in: zevm/npm/zevm/dist/util.d.ts:156
 
 ### Type Parameters
 
-#### T
-
-`T` *extends* [`TypeOutput`](../type-aliases/TypeOutput.md)
+| Type Parameter |
+| ------ |
+| `T` *extends* [`TypeOutput`](../type-aliases/TypeOutput.md) |
 
 ### Parameters
 
-#### input
-
-`undefined`
-
-#### outputType
-
-`T`
+| Parameter | Type |
+| ------ | ------ |
+| `input` | `undefined` |
+| `outputType` | `T` |
 
 ### Returns
 
@@ -66,19 +60,16 @@ Defined in: zevm/npm/zevm/dist/util.d.ts:157
 
 ### Type Parameters
 
-#### T
-
-`T` *extends* [`TypeOutput`](../type-aliases/TypeOutput.md)
+| Type Parameter |
+| ------ |
+| `T` *extends* [`TypeOutput`](../type-aliases/TypeOutput.md) |
 
 ### Parameters
 
-#### input
-
-`ToBytesInputTypes`
-
-#### outputType
-
-`T`
+| Parameter | Type |
+| ------ | ------ |
+| `input` | `ToBytesInputTypes` |
+| `outputType` | `T` |
 
 ### Returns
 

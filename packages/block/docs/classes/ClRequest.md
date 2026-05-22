@@ -35,13 +35,10 @@ Defined in: [packages/block/src/ClRequest.ts:71](https://github.com/evmts/tevm-m
 
 #### Parameters
 
-##### type
-
-`number`
-
-##### bytes
-
-`Uint8Array`
+| Parameter | Type |
+| ------ | ------ |
+| `type` | `number` |
+| `bytes` | `Uint8Array` |
 
 #### Returns
 
@@ -49,27 +46,10 @@ Defined in: [packages/block/src/ClRequest.ts:71](https://github.com/evmts/tevm-m
 
 ## Properties
 
-### bytes
-
-> **bytes**: `Uint8Array`
-
-Defined in: [packages/block/src/ClRequest.ts:70](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/ClRequest.ts#L70)
-
-#### Implementation of
-
-`CLRequestType.bytes`
-
-***
-
-### type
-
-> **type**: `number`
-
-Defined in: [packages/block/src/ClRequest.ts:69](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/ClRequest.ts#L69)
-
-#### Implementation of
-
-`CLRequestType.type`
+| Property | Type | Defined in |
+| ------ | ------ | ------ |
+| <a id="bytes"></a> `bytes` | `Uint8Array` | [packages/block/src/ClRequest.ts:70](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/ClRequest.ts#L70) |
+| <a id="type"></a> `type` | `number` | [packages/block/src/ClRequest.ts:69](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/ClRequest.ts#L69) |
 
 ## Methods
 
@@ -77,7 +57,7 @@ Defined in: [packages/block/src/ClRequest.ts:69](https://github.com/evmts/tevm-m
 
 > **serialize**(): `Uint8Array`\<`ArrayBufferLike`\>
 
-Defined in: [packages/block/src/ClRequest.ts:77](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/ClRequest.ts#L77)
+Defined in: [packages/block/src/ClRequest.ts:80](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/ClRequest.ts#L80)
 
 #### Returns
 

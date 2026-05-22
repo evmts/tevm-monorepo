@@ -14,20 +14,7 @@ Params taken by `debug_getModifiedAccountsByHash` handler
 
 ## Properties
 
-### endBlockHash?
-
-> `readonly` `optional` **endBlockHash?**: [`Hex`](Hex.md) \| `Uint8Array`
-
-Defined in: [packages/actions/src/debug/DebugParams.ts:258](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/DebugParams.ts#L258)
-
-Ending block hash (optional)
-
-***
-
-### startBlockHash
-
-> `readonly` **startBlockHash**: [`Hex`](Hex.md) \| `Uint8Array`
-
-Defined in: [packages/actions/src/debug/DebugParams.ts:254](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/DebugParams.ts#L254)
-
-Starting block hash
+| Property | Modifier | Type | Description | Defined in |
+| ------ | ------ | ------ | ------ | ------ |
+| <a id="endblockhash"></a> `endBlockHash?` | `readonly` | [`Hex`](Hex.md) \| `Uint8Array` | Ending block hash (optional) | [packages/actions/src/debug/DebugParams.ts:258](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/DebugParams.ts#L258) |
+| <a id="startblockhash"></a> `startBlockHash` | `readonly` | [`Hex`](Hex.md) \| `Uint8Array` | Starting block hash | [packages/actions/src/debug/DebugParams.ts:254](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/DebugParams.ts#L254) |

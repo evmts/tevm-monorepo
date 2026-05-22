@@ -8,58 +8,17 @@
 
 > **JsonRpcSimulateCallResult** = `object`
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthJsonRpcResponse.d.ts:271
-
 JSON-RPC response call result for eth_simulateV1
 
 ## Properties
 
-### error?
-
-> `optional` **error?**: `object`
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthJsonRpcResponse.d.ts:276
-
-#### code
-
-> **code**: `number`
-
-#### data?
-
-> `optional` **data?**: [`Hex`](../../index/type-aliases/Hex.md)
-
-#### message
-
-> **message**: `string`
-
-***
-
-### gasUsed
-
-> **gasUsed**: [`Hex`](../../index/type-aliases/Hex.md)
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthJsonRpcResponse.d.ts:274
-
-***
-
-### logs
-
-> **logs**: `SerializeToJson`\<[`FilterLog`](FilterLog.md)\>[]
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthJsonRpcResponse.d.ts:273
-
-***
-
-### returnData
-
-> **returnData**: [`Hex`](../../index/type-aliases/Hex.md)
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthJsonRpcResponse.d.ts:272
-
-***
-
-### status
-
-> **status**: [`Hex`](../../index/type-aliases/Hex.md)
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthJsonRpcResponse.d.ts:275
+| Property | Type |
+| ------ | ------ |
+| <a id="error"></a> `error?` | `object` |
+| `error.code` | `number` |
+| `error.data?` | [`Hex`](../../index/type-aliases/Hex.md) |
+| `error.message` | `string` |
+| <a id="gasused"></a> `gasUsed` | [`Hex`](../../index/type-aliases/Hex.md) |
+| <a id="logs"></a> `logs` | `SerializeToJson`\<[`FilterLog`](FilterLog.md)\>[] |
+| <a id="returndata"></a> `returnData` | [`Hex`](../../index/type-aliases/Hex.md) |
+| <a id="status"></a> `status` | [`Hex`](../../index/type-aliases/Hex.md) |

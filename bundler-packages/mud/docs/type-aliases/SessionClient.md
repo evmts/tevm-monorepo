@@ -22,9 +22,9 @@ Defined in: [types.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/bundle
 
 #### Parameters
 
-##### args
-
-`WriteContractParameters`
+| Parameter | Type |
+| ------ | ------ |
+| `args` | `WriteContractParameters` |
 
 #### Returns
 

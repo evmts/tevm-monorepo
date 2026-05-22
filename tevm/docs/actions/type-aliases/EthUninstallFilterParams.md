@@ -8,14 +8,10 @@
 
 > **EthUninstallFilterParams** = `object`
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthParams.d.ts:317
-
 Based on the JSON-RPC request for `eth_uninstallFilter` procedure
 
 ## Properties
 
-### filterId
-
-> `readonly` **filterId**: [`Hex`](Hex.md)
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthParams.d.ts:318
+| Property | Modifier | Type |
+| ------ | ------ | ------ |
+| <a id="filterid"></a> `filterId` | `readonly` | [`Hex`](Hex.md) |

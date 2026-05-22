@@ -36,40 +36,9 @@ const value: ForkOptions = {
 
 ## Properties
 
-### blockTag?
-
-> `optional` **blockTag?**: `bigint` \| `BlockTag`
-
-Defined in: [tevm-monorepo/packages/state/src/state-types/ForkOptions.ts:31](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/ForkOptions.ts#L31)
-
-***
-
-### chainId?
-
-> `optional` **chainId?**: `number`
-
-Defined in: [tevm-monorepo/packages/state/src/state-types/ForkOptions.ts:47](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/ForkOptions.ts#L47)
-
-Optional chain ID override.
-When set, this chain ID will be used instead of the one fetched from the fork RPC.
-This is useful to avoid wallet confusion (e.g., MetaMask) when the same chain ID
-is used for both the fork and the original network.
-
-#### Example
-
-```typescript
-const client = createMemoryClient({
-  fork: {
-    transport: http('https://mainnet.optimism.io'),
-    chainId: 1337, // Override Optimism's chain ID (10) with a custom one
-  },
-})
-```
-
-***
-
-### transport
-
-> **transport**: \{ `request`: `EIP1193RequestFn`\<`any`\>; \} \| `Transport`
-
-Defined in: [tevm-monorepo/packages/state/src/state-types/ForkOptions.ts:30](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/ForkOptions.ts#L30)
+| Property | Type | Description | Defined in |
+| ------ | ------ | ------ | ------ |
+| <a id="blockhash"></a> `blockHash?` | `` `0x${string}` `` | - | [tevm-monorepo/packages/state/src/state-types/ForkOptions.ts:32](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/ForkOptions.ts#L32) |
+| <a id="blocktag"></a> `blockTag?` | `bigint` \| `BlockTag` | - | [tevm-monorepo/packages/state/src/state-types/ForkOptions.ts:31](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/ForkOptions.ts#L31) |
+| <a id="chainid"></a> `chainId?` | `number` | Optional chain ID override. When set, this chain ID will be used instead of the one fetched from the fork RPC. This is useful to avoid wallet confusion (e.g., MetaMask) when the same chain ID is used for both the fork and the original network. **Example** `const client = createMemoryClient({ fork: { transport: http('https://mainnet.optimism.io'), chainId: 1337, // Override Optimism's chain ID (10) with a custom one }, })` | [tevm-monorepo/packages/state/src/state-types/ForkOptions.ts:48](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/ForkOptions.ts#L48) |
+| <a id="transport"></a> `transport` | \{ `request`: `EIP1193RequestFn`\<`any`\>; \} \| `Transport` | - | [tevm-monorepo/packages/state/src/state-types/ForkOptions.ts:30](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/ForkOptions.ts#L30) |

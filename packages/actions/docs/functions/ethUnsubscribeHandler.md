@@ -15,9 +15,9 @@ This handler removes the subscription and cleans up any associated event listene
 
 ## Parameters
 
-### tevmNode
-
-`TevmNode`\<`"fork"` \| `"normal"`, \{ \}\>
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `tevmNode` | `TevmNode`\<`"fork"` \| `"normal"`, \{ \}\> | - |
 
 ## Returns
 

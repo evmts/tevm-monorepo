@@ -12,9 +12,9 @@ Defined in: [packages/actions/src/anvil/AnvilHandler.ts:60](https://github.com/e
 
 ## Parameters
 
-### params
-
-[`AnvilGetAutomineParams`](AnvilGetAutomineParams.md)
+| Parameter | Type |
+| ------ | ------ |
+| `params` | [`AnvilGetAutomineParams`](AnvilGetAutomineParams.md) |
 
 ## Returns
 

@@ -8,7 +8,7 @@
 
 > **getContractCode**(`baseState`, `skipFetchingFromFork?`): (`address`) => `Promise`\<`Uint8Array`\<`ArrayBufferLike`\>\>
 
-Defined in: [tevm-monorepo/packages/state/src/actions/getContractCode.js:23](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/getContractCode.js#L23)
+Defined in: [tevm-monorepo/packages/state/src/actions/getContractCode.js:24](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/getContractCode.js#L24)
 
 Gets the code corresponding to the provided `address`.
 Returns an empty `Uint8Array` if the account has no associated code.
@@ -21,13 +21,10 @@ When running in fork mode:
 
 ## Parameters
 
-### baseState
-
-[`BaseState`](../type-aliases/BaseState.md)
-
-### skipFetchingFromFork?
-
-`boolean` = `false`
+| Parameter | Type | Default value | Description |
+| ------ | ------ | ------ | ------ |
+| `baseState` | [`BaseState`](../type-aliases/BaseState.md) | `undefined` | - |
+| `skipFetchingFromFork?` | `boolean` | `false` | - |
 
 ## Returns
 

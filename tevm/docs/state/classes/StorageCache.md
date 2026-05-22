@@ -6,8 +6,6 @@
 
 # Class: StorageCache
 
-Defined in: zevm/npm/zevm/dist/statemanager.d.ts:88
-
 ## Extends
 
 - `Cache`
@@ -18,13 +16,11 @@ Defined in: zevm/npm/zevm/dist/statemanager.d.ts:88
 
 > **new StorageCache**(`opts`): `StorageCache`
 
-Defined in: zevm/npm/zevm/dist/statemanager.d.ts:92
-
 #### Parameters
 
-##### opts
-
-`CacheOpts`
+| Parameter | Type |
+| ------ | ------ |
+| `opts` | `CacheOpts` |
 
 #### Returns
 
@@ -36,63 +32,14 @@ Defined in: zevm/npm/zevm/dist/statemanager.d.ts:92
 
 ## Properties
 
-### \_checkpoints
-
-> **\_checkpoints**: `number`
-
-Defined in: zevm/npm/zevm/dist/statemanager.d.ts:66
-
-#### Inherited from
-
-`Cache._checkpoints`
-
-***
-
-### \_diffCache
-
-> **\_diffCache**: `Map`\<`string`, `DiffStorageCacheMap`\>[]
-
-Defined in: zevm/npm/zevm/dist/statemanager.d.ts:91
-
-***
-
-### \_lruCache
-
-> **\_lruCache**: `SimpleLRUCache`\<`string`, `StorageCacheMap`\> \| `undefined`
-
-Defined in: zevm/npm/zevm/dist/statemanager.d.ts:89
-
-***
-
-### \_orderedMapCache
-
-> **\_orderedMapCache**: `SimpleOrderedMap`\<`string`, `StorageCacheMap`\> \| `undefined`
-
-Defined in: zevm/npm/zevm/dist/statemanager.d.ts:90
-
-***
-
-### \_stats
-
-> **\_stats**: `CacheStats`
-
-Defined in: zevm/npm/zevm/dist/statemanager.d.ts:67
-
-#### Inherited from
-
-`Cache._stats`
-
-***
-
-### DEBUG
-
-> `protected` `readonly` **DEBUG**: `false` = `false`
-
-Defined in: zevm/npm/zevm/dist/statemanager.d.ts:68
-
-#### Inherited from
-
-`Cache.DEBUG`
+| Property | Modifier | Type | Default value | Inherited from |
+| ------ | ------ | ------ | ------ | ------ |
+| <a id="_checkpoints"></a> `_checkpoints` | `public` | `number` | `undefined` | `Cache._checkpoints` |
+| <a id="_diffcache"></a> `_diffCache` | `public` | `Map`\<`string`, `DiffStorageCacheMap`\>[] | `undefined` | - |
+| <a id="_lrucache"></a> `_lruCache` | `public` | `SimpleLRUCache`\<`string`, `StorageCacheMap`\> \| `undefined` | `undefined` | - |
+| <a id="_orderedmapcache"></a> `_orderedMapCache` | `public` | `SimpleOrderedMap`\<`string`, `StorageCacheMap`\> \| `undefined` | `undefined` | - |
+| <a id="_stats"></a> `_stats` | `public` | `CacheStats` | `undefined` | `Cache._stats` |
+| <a id="debug"></a> `DEBUG` | `readonly` | `false` | `false` | `Cache.DEBUG` |
 
 ## Methods
 
@@ -100,13 +47,11 @@ Defined in: zevm/npm/zevm/dist/statemanager.d.ts:68
 
 > **\_debug**(`_message`): `void`
 
-Defined in: zevm/npm/zevm/dist/statemanager.d.ts:69
-
 #### Parameters
 
-##### \_message
-
-`string`
+| Parameter | Type |
+| ------ | ------ |
+| `_message` | `string` |
 
 #### Returns
 
@@ -122,17 +67,12 @@ Defined in: zevm/npm/zevm/dist/statemanager.d.ts:69
 
 > **\_saveCachePreState**(`addressHex`, `keyHex`): `void`
 
-Defined in: zevm/npm/zevm/dist/statemanager.d.ts:93
-
 #### Parameters
 
-##### addressHex
-
-`string`
-
-##### keyHex
-
-`string`
+| Parameter | Type |
+| ------ | ------ |
+| `addressHex` | `string` |
+| `keyHex` | `string` |
 
 #### Returns
 
@@ -144,8 +84,6 @@ Defined in: zevm/npm/zevm/dist/statemanager.d.ts:93
 
 > **checkpoint**(): `void`
 
-Defined in: zevm/npm/zevm/dist/statemanager.d.ts:101
-
 #### Returns
 
 `void`
@@ -155,8 +93,6 @@ Defined in: zevm/npm/zevm/dist/statemanager.d.ts:101
 ### clear()
 
 > **clear**(): `void`
-
-Defined in: zevm/npm/zevm/dist/statemanager.d.ts:104
 
 #### Returns
 
@@ -168,13 +104,11 @@ Defined in: zevm/npm/zevm/dist/statemanager.d.ts:104
 
 > **clearStorage**(`address`): `void`
 
-Defined in: zevm/npm/zevm/dist/statemanager.d.ts:97
-
 #### Parameters
 
-##### address
-
-[`EthjsAddress`](../../utils/classes/EthjsAddress.md)
+| Parameter | Type |
+| ------ | ------ |
+| `address` | [`EthjsAddress`](../../utils/classes/EthjsAddress.md) |
 
 #### Returns
 
@@ -186,8 +120,6 @@ Defined in: zevm/npm/zevm/dist/statemanager.d.ts:97
 
 > **commit**(): `void`
 
-Defined in: zevm/npm/zevm/dist/statemanager.d.ts:100
-
 #### Returns
 
 `void`
@@ -198,17 +130,12 @@ Defined in: zevm/npm/zevm/dist/statemanager.d.ts:100
 
 > **del**(`address`, `key`): `void`
 
-Defined in: zevm/npm/zevm/dist/statemanager.d.ts:96
-
 #### Parameters
 
-##### address
-
-[`EthjsAddress`](../../utils/classes/EthjsAddress.md)
-
-##### key
-
-`Uint8Array`
+| Parameter | Type |
+| ------ | ------ |
+| `address` | [`EthjsAddress`](../../utils/classes/EthjsAddress.md) |
+| `key` | `Uint8Array` |
 
 #### Returns
 
@@ -220,13 +147,11 @@ Defined in: zevm/npm/zevm/dist/statemanager.d.ts:96
 
 > **dump**(`address`): `StorageCacheMap` \| `undefined`
 
-Defined in: zevm/npm/zevm/dist/statemanager.d.ts:105
-
 #### Parameters
 
-##### address
-
-[`EthjsAddress`](../../utils/classes/EthjsAddress.md)
+| Parameter | Type |
+| ------ | ------ |
+| `address` | [`EthjsAddress`](../../utils/classes/EthjsAddress.md) |
 
 #### Returns
 
@@ -238,8 +163,6 @@ Defined in: zevm/npm/zevm/dist/statemanager.d.ts:105
 
 > **flush**(): \[`string`, `string`, `Uint8Array`\<`ArrayBufferLike`\> \| `undefined`\][]
 
-Defined in: zevm/npm/zevm/dist/statemanager.d.ts:98
-
 #### Returns
 
 \[`string`, `string`, `Uint8Array`\<`ArrayBufferLike`\> \| `undefined`\][]
@@ -250,17 +173,12 @@ Defined in: zevm/npm/zevm/dist/statemanager.d.ts:98
 
 > **get**(`address`, `key`): `Uint8Array`\<`ArrayBufferLike`\> \| `undefined`
 
-Defined in: zevm/npm/zevm/dist/statemanager.d.ts:95
-
 #### Parameters
 
-##### address
-
-[`EthjsAddress`](../../utils/classes/EthjsAddress.md)
-
-##### key
-
-`Uint8Array`
+| Parameter | Type |
+| ------ | ------ |
+| `address` | [`EthjsAddress`](../../utils/classes/EthjsAddress.md) |
+| `key` | `Uint8Array` |
 
 #### Returns
 
@@ -272,21 +190,13 @@ Defined in: zevm/npm/zevm/dist/statemanager.d.ts:95
 
 > **put**(`address`, `key`, `value`): `void`
 
-Defined in: zevm/npm/zevm/dist/statemanager.d.ts:94
-
 #### Parameters
 
-##### address
-
-[`EthjsAddress`](../../utils/classes/EthjsAddress.md)
-
-##### key
-
-`Uint8Array`
-
-##### value
-
-`Uint8Array`
+| Parameter | Type |
+| ------ | ------ |
+| `address` | [`EthjsAddress`](../../utils/classes/EthjsAddress.md) |
+| `key` | `Uint8Array` |
+| `value` | `Uint8Array` |
 
 #### Returns
 
@@ -298,8 +208,6 @@ Defined in: zevm/npm/zevm/dist/statemanager.d.ts:94
 
 > **revert**(): `void`
 
-Defined in: zevm/npm/zevm/dist/statemanager.d.ts:99
-
 #### Returns
 
 `void`
@@ -309,8 +217,6 @@ Defined in: zevm/npm/zevm/dist/statemanager.d.ts:99
 ### size()
 
 > **size**(): `number`
-
-Defined in: zevm/npm/zevm/dist/statemanager.d.ts:102
 
 #### Returns
 
@@ -322,13 +228,11 @@ Defined in: zevm/npm/zevm/dist/statemanager.d.ts:102
 
 > **stats**(`reset?`): `CacheStats`
 
-Defined in: zevm/npm/zevm/dist/statemanager.d.ts:103
-
 #### Parameters
 
-##### reset?
-
-`boolean`
+| Parameter | Type |
+| ------ | ------ |
+| `reset?` | `boolean` |
 
 #### Returns
 

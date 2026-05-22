@@ -8,16 +8,10 @@
 
 > **EthUnsubscribeParams** = `object`
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthParams.d.ts:356
-
 Based on the JSON-RPC request for `eth_unsubscribe` procedure
 
 ## Properties
 
-### subscriptionId
-
-> `readonly` **subscriptionId**: [`Hex`](Hex.md)
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthParams.d.ts:360
-
-The subscription ID to unsubscribe from
+| Property | Modifier | Type | Description |
+| ------ | ------ | ------ | ------ |
+| <a id="subscriptionid"></a> `subscriptionId` | `readonly` | [`Hex`](Hex.md) | The subscription ID to unsubscribe from |

@@ -12,9 +12,9 @@ Defined in: [packages/actions/src/eth/EthHandler.ts:197](https://github.com/evmt
 
 ## Parameters
 
-### request
-
-[`EthSyncingParams`](EthSyncingParams.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`EthSyncingParams`](EthSyncingParams.md) |
 
 ## Returns
 

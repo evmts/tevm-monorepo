@@ -8,76 +8,16 @@
 
 > **InvalidBytesSizeErrorParameters** = `object`
 
-Defined in: tevm-monorepo/packages/errors/types/data/InvalidByteSizeError.d.ts:64
-
 Parameters for constructing an [InvalidBytesSizeError](../classes/InvalidBytesSizeError.md).
 
 ## Properties
 
-### cause?
-
-> `optional` **cause?**: [`InternalError`](../classes/InternalError.md) \| `EVMError`
-
-Defined in: tevm-monorepo/packages/errors/types/data/InvalidByteSizeError.d.ts:84
-
-- The cause of the error.
-
-***
-
-### details?
-
-> `optional` **details?**: `string`
-
-Defined in: tevm-monorepo/packages/errors/types/data/InvalidByteSizeError.d.ts:88
-
-- Details of the error.
-
-***
-
-### docsBaseUrl?
-
-> `optional` **docsBaseUrl?**: `string`
-
-Defined in: tevm-monorepo/packages/errors/types/data/InvalidByteSizeError.d.ts:68
-
-- Base URL for the documentation.
-
-***
-
-### docsPath?
-
-> `optional` **docsPath?**: `string`
-
-Defined in: tevm-monorepo/packages/errors/types/data/InvalidByteSizeError.d.ts:72
-
-- Path to the documentation.
-
-***
-
-### docsSlug?
-
-> `optional` **docsSlug?**: `string`
-
-Defined in: tevm-monorepo/packages/errors/types/data/InvalidByteSizeError.d.ts:76
-
-- Slug for the documentation.
-
-***
-
-### meta?
-
-> `optional` **meta?**: `object`
-
-Defined in: tevm-monorepo/packages/errors/types/data/InvalidByteSizeError.d.ts:92
-
-- Optional object containing additional information about the error.
-
-***
-
-### metaMessages?
-
-> `optional` **metaMessages?**: `string`[]
-
-Defined in: tevm-monorepo/packages/errors/types/data/InvalidByteSizeError.d.ts:80
-
-- Additional meta messages.
+| Property | Type |
+| ------ | ------ |
+| <a id="cause"></a> `cause?` | [`InternalError`](../classes/InternalError.md) \| `EVMError` |
+| <a id="details"></a> `details?` | `string` |
+| <a id="docsbaseurl"></a> `docsBaseUrl?` | `string` |
+| <a id="docspath"></a> `docsPath?` | `string` |
+| <a id="docsslug"></a> `docsSlug?` | `string` |
+| <a id="meta"></a> `meta?` | `object` |
+| <a id="metamessages"></a> `metaMessages?` | `string`[] |

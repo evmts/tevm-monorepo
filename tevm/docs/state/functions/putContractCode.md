@@ -8,13 +8,11 @@
 
 > **putContractCode**(`baseState`): (`address`, `value`) => `Promise`\<`void`\>
 
-Defined in: tevm-monorepo/packages/state/dist/index.d.ts:503
-
 ## Parameters
 
-### baseState
-
-[`BaseState`](../type-aliases/BaseState.md)
+| Parameter | Type |
+| ------ | ------ |
+| `baseState` | [`BaseState`](../type-aliases/BaseState.md) |
 
 ## Returns
 

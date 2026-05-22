@@ -14,6 +14,6 @@ Infers the the first argument of a class
 
 ## Type Parameters
 
-### T
-
-`T`
+| Type Parameter |
+| ------ |
+| `T` |

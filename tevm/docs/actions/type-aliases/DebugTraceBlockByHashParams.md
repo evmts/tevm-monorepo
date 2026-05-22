@@ -8,8 +8,6 @@
 
 > **DebugTraceBlockByHashParams**\<`TTracer`, `TDiffMode`\> = [`TraceParams`](TraceParams.md)\<`TTracer`, `TDiffMode`\> & `object`
 
-Defined in: tevm-monorepo/packages/actions/types/debug/DebugParams.d.ts:89
-
 Params taken by `debug_traceBlockByHash` handler
 
 ## Type Declaration
@@ -22,10 +20,7 @@ Block hash to trace
 
 ## Type Parameters
 
-### TTracer
-
-`TTracer` *extends* `"callTracer"` \| `"prestateTracer"` \| `"4byteTracer"` \| `"flatCallTracer"` \| `"muxTracer"` \| `undefined` = `"callTracer"` \| `"prestateTracer"` \| `"4byteTracer"` \| `"flatCallTracer"` \| `"muxTracer"` \| `undefined`
-
-### TDiffMode
-
-`TDiffMode` *extends* `boolean` = `boolean`
+| Type Parameter | Default type |
+| ------ | ------ |
+| `TTracer` *extends* `"callTracer"` \| `"prestateTracer"` \| `"4byteTracer"` \| `"flatCallTracer"` \| `"muxTracer"` \| `undefined` | `"callTracer"` \| `"prestateTracer"` \| `"4byteTracer"` \| `"flatCallTracer"` \| `"muxTracer"` \| `undefined` |
+| `TDiffMode` *extends* `boolean` | `boolean` |

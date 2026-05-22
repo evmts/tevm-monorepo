@@ -18,7 +18,6 @@
 ## Variables
 
 - [contractUriPattern](variables/contractUriPattern.md)
-- [knownChains](variables/knownChains.md)
 
 ## Functions
 

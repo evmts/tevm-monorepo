@@ -8,6 +8,4 @@
 
 > **AnvilSnapshotJsonRpcResponse** = [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"anvil_snapshot"`, `SerializeToJson`\<[`AnvilSnapshotResult`](AnvilSnapshotResult.md)\>, `AnvilError`\>
 
-Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilJsonRpcResponse.d.ts:133
-
 JSON-RPC response for `anvil_snapshot` procedure

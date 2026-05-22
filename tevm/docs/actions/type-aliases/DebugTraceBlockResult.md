@@ -8,21 +8,16 @@
 
 > **DebugTraceBlockResult**\<`TTracer`, `TDiffMode`\> = `object`[]
 
-Defined in: tevm-monorepo/packages/actions/types/debug/DebugResult.d.ts:26
-
 Result from `debug_traceBlock`.
 
 Returns an array of transaction traces
 
 ## Type Parameters
 
-### TTracer
-
-`TTracer` *extends* `"callTracer"` \| `"prestateTracer"` \| `"4byteTracer"` \| `"flatCallTracer"` \| `"muxTracer"` \| `undefined` = `"callTracer"` \| `"prestateTracer"` \| `"4byteTracer"` \| `"flatCallTracer"` \| `"muxTracer"` \| `undefined`
-
-### TDiffMode
-
-`TDiffMode` *extends* `boolean` = `boolean`
+| Type Parameter | Default type |
+| ------ | ------ |
+| `TTracer` *extends* `"callTracer"` \| `"prestateTracer"` \| `"4byteTracer"` \| `"flatCallTracer"` \| `"muxTracer"` \| `undefined` | `"callTracer"` \| `"prestateTracer"` \| `"4byteTracer"` \| `"flatCallTracer"` \| `"muxTracer"` \| `undefined` |
+| `TDiffMode` *extends* `boolean` | `boolean` |
 
 ## Type Declaration
 

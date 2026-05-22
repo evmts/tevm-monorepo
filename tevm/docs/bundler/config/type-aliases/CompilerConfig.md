@@ -7,5 +7,3 @@
 # Type Alias: CompilerConfig
 
 > **CompilerConfig** = `CompilerConfig`
-
-Defined in: tevm-monorepo/bundler-packages/config/types/index.d.ts:4

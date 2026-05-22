@@ -12,9 +12,9 @@ Defined in: [packages/vm/src/actions/runBlock.ts:11](https://github.com/evmts/te
 
 ## Parameters
 
-### opts
-
-[`RunBlockOpts`](../interfaces/RunBlockOpts.md)
+| Parameter | Type |
+| ------ | ------ |
+| `opts` | [`RunBlockOpts`](../interfaces/RunBlockOpts.md) |
 
 ## Returns
 

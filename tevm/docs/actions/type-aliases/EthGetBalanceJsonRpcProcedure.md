@@ -8,13 +8,11 @@
 
 > **EthGetBalanceJsonRpcProcedure** = (`request`) => `Promise`\<[`EthGetBalanceJsonRpcResponse`](EthGetBalanceJsonRpcResponse.md)\>
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthProcedure.d.ts:14
-
 ## Parameters
 
-### request
-
-[`EthGetBalanceJsonRpcRequest`](EthGetBalanceJsonRpcRequest.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`EthGetBalanceJsonRpcRequest`](EthGetBalanceJsonRpcRequest.md) |
 
 ## Returns
 

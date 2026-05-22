@@ -8,20 +8,9 @@
 
 > **SolcSourceEntry** = `object`
 
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:122
-
 ## Properties
 
-### ast
-
-> **ast**: `any`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:124
-
-***
-
-### id
-
-> **id**: `number`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:123
+| Property | Type |
+| ------ | ------ |
+| <a id="ast"></a> `ast` | [`SolcAst`](SolcAst.md) |
+| <a id="id"></a> `id` | `number` |

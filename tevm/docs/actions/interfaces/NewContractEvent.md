@@ -6,26 +6,11 @@
 
 # Interface: NewContractEvent
 
-Defined in: tevm-monorepo/packages/actions/types/common/CallEvents.d.ts:6
-
 Event emitted when a new contract is created
 
 ## Properties
 
-### address
-
-> **address**: [`Address`](../../address/classes/Address.md)
-
-Defined in: tevm-monorepo/packages/actions/types/common/CallEvents.d.ts:8
-
-Address of the newly created contract
-
-***
-
-### code
-
-> **code**: `Uint8Array`
-
-Defined in: tevm-monorepo/packages/actions/types/common/CallEvents.d.ts:10
-
-Deployed contract bytecode
+| Property | Type | Description |
+| ------ | ------ | ------ |
+| <a id="address"></a> `address` | [`Address`](../../address/classes/Address.md) | Address of the newly created contract |
+| <a id="code"></a> `code` | `Uint8Array` | Deployed contract bytecode |

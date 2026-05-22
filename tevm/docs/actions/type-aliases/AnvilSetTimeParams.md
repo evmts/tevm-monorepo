@@ -8,16 +8,10 @@
 
 > **AnvilSetTimeParams** = `object`
 
-Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilParams.d.ts:324
-
 Params for `anvil_setTime` handler
 
 ## Properties
 
-### timestamp
-
-> `readonly` **timestamp**: `bigint`
-
-Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilParams.d.ts:328
-
-The timestamp to set
+| Property | Modifier | Type | Description |
+| ------ | ------ | ------ | ------ |
+| <a id="timestamp"></a> `timestamp` | `readonly` | `bigint` | The timestamp to set |

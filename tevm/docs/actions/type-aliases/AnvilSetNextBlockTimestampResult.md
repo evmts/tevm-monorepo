@@ -7,5 +7,3 @@
 # Type Alias: AnvilSetNextBlockTimestampResult
 
 > **AnvilSetNextBlockTimestampResult** = `null`
-
-Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilResult.d.ts:68

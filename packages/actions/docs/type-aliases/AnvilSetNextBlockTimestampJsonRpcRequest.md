@@ -8,6 +8,6 @@
 
 > **AnvilSetNextBlockTimestampJsonRpcRequest** = `JsonRpcRequest`\<`"anvil_setNextBlockTimestamp"`, readonly \[`Hex`\]\>
 
-Defined in: [packages/actions/src/anvil/AnvilJsonRpcRequest.ts:248](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilJsonRpcRequest.ts#L248)
+Defined in: [packages/actions/src/anvil/AnvilJsonRpcRequest.ts:252](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilJsonRpcRequest.ts#L252)
 
 JSON-RPC request for `anvil_setNextBlockTimestamp` method

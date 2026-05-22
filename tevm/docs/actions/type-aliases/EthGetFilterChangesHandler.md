@@ -8,13 +8,11 @@
 
 > **EthGetFilterChangesHandler** = (`request`) => `Promise`\<[`EthGetFilterChangesResult`](EthGetFilterChangesResult.md)\>
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthHandler.d.ts:19
-
 ## Parameters
 
-### request
-
-[`EthGetFilterChangesParams`](EthGetFilterChangesParams.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`EthGetFilterChangesParams`](EthGetFilterChangesParams.md) |
 
 ## Returns
 

@@ -8,17 +8,13 @@
 
 > **valuesArrayToHeaderData**(`values`): [`HeaderData`](../interfaces/HeaderData.md)
 
-Defined in: tevm-monorepo/packages/block/types/helpers.d.ts:22
-
 Converts a BlockHeaderBytes array to a HeaderData object
 
 ## Parameters
 
-### values
-
-[`BlockHeaderBytes`](../type-aliases/BlockHeaderBytes.md)
-
-Array of raw header bytes containing block header fields
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `values` | [`BlockHeaderBytes`](../type-aliases/BlockHeaderBytes.md) | Array of raw header bytes containing block header fields |
 
 ## Returns
 

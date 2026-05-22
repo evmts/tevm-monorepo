@@ -8,37 +8,13 @@
 
 > **EthSimulateV2BlockStateCall** = `object`
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthParams.d.ts:462
-
 A block of calls to simulate with optional block and state overrides (V2)
 Extends V1 with additional tracing options
 
 ## Properties
 
-### blockOverrides?
-
-> `readonly` `optional` **blockOverrides?**: [`BlockOverrideSet`](BlockOverrideSet.md)
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthParams.d.ts:466
-
-Block header fields to override for this simulated block
-
-***
-
-### calls
-
-> `readonly` **calls**: readonly [`EthSimulateV2Call`](EthSimulateV2Call.md)[]
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthParams.d.ts:474
-
-Calls to simulate in this block
-
-***
-
-### stateOverrides?
-
-> `readonly` `optional` **stateOverrides?**: [`StateOverrideSet`](StateOverrideSet.md)
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthParams.d.ts:470
-
-State to override before executing this block's calls
+| Property | Modifier | Type | Description |
+| ------ | ------ | ------ | ------ |
+| <a id="blockoverrides"></a> `blockOverrides?` | `readonly` | [`BlockOverrideSet`](BlockOverrideSet.md) | Block header fields to override for this simulated block |
+| <a id="calls"></a> `calls` | `readonly` | readonly [`EthSimulateV2Call`](EthSimulateV2Call.md)[] | Calls to simulate in this block |
+| <a id="stateoverrides"></a> `stateOverrides?` | `readonly` | [`StateOverrideSet`](StateOverrideSet.md) | State to override before executing this block's calls |

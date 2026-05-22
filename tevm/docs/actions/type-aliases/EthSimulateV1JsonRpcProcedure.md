@@ -8,13 +8,11 @@
 
 > **EthSimulateV1JsonRpcProcedure** = (`request`) => `Promise`\<[`EthSimulateV1JsonRpcResponse`](EthSimulateV1JsonRpcResponse.md)\>
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthProcedure.d.ts:49
-
 ## Parameters
 
-### request
-
-[`EthSimulateV1JsonRpcRequest`](EthSimulateV1JsonRpcRequest.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`EthSimulateV1JsonRpcRequest`](EthSimulateV1JsonRpcRequest.md) |
 
 ## Returns
 

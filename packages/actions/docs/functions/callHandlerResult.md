@@ -12,27 +12,16 @@ Defined in: [packages/actions/src/Call/callHandlerResult.js:14](https://github.c
 
 **`Internal`**
 
-Creates a CallHandler for handling call params with the Tevm EVM
+Creates a CallHandler for handling call params with the Tevm EVM.
 
 ## Parameters
 
-### evmResult
-
-`RunTxResult` & `EVMResult`
-
-### txHash
-
-`` `0x${string}` `` \| `undefined`
-
-### trace
-
-[`TraceResult`](../type-aliases/TraceResult.md) \| `undefined`
-
-### accessList
-
-`Map`\<`string`, `Set`\<`string`\>\> \| `undefined`
-
-returned by the evm
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `evmResult` | `RunTxResult` & `EVMResult` | - |
+| `txHash` | `` `0x${string}` `` \| `undefined` | - |
+| `trace` | [`TraceResult`](../type-aliases/TraceResult.md) \| `undefined` | - |
+| `accessList` | `Map`\<`string`, `Set`\<`string`\>\> \| `undefined` | returned by the evm |
 
 ## Returns
 

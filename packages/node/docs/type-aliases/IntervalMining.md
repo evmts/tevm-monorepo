@@ -32,18 +32,7 @@ const manualValue: IntervalMining = {
 
 ## Properties
 
-### blockTime
-
-> **blockTime**: `number`
-
-Defined in: [packages/node/src/MiningConfig.ts:58](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/MiningConfig.ts#L58)
-
-The block time in seconds. When set to 0, blocks are only mined manually via anvil_mine.
-
-***
-
-### type
-
-> **type**: `"interval"`
-
-Defined in: [packages/node/src/MiningConfig.ts:54](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/MiningConfig.ts#L54)
+| Property | Type | Description | Defined in |
+| ------ | ------ | ------ | ------ |
+| <a id="blocktime"></a> `blockTime` | `number` | The block time in seconds. When set to 0, blocks are only mined manually via anvil_mine. | [packages/node/src/MiningConfig.ts:58](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/MiningConfig.ts#L58) |
+| <a id="type"></a> `type` | `"interval"` | - | [packages/node/src/MiningConfig.ts:54](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/MiningConfig.ts#L54) |

@@ -8,13 +8,11 @@
 
 > **EthChainIdJsonRpcProcedure** = (`request`) => `Promise`\<[`EthChainIdJsonRpcResponse`](EthChainIdJsonRpcResponse.md)\>
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthProcedure.d.ts:7
-
 ## Parameters
 
-### request
-
-[`EthChainIdJsonRpcRequest`](EthChainIdJsonRpcRequest.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`EthChainIdJsonRpcRequest`](EthChainIdJsonRpcRequest.md) |
 
 ## Returns
 

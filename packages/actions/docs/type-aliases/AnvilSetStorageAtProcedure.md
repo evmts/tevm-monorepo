@@ -14,9 +14,9 @@ JSON-RPC procedure for `anvil_setStorageAt`
 
 ## Parameters
 
-### request
-
-[`AnvilSetStorageAtJsonRpcRequest`](AnvilSetStorageAtJsonRpcRequest.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`AnvilSetStorageAtJsonRpcRequest`](AnvilSetStorageAtJsonRpcRequest.md) |
 
 ## Returns
 

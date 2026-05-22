@@ -53,7 +53,6 @@
 - [getContractCode](functions/getContractCode.md)
 - [getContractStorage](functions/getContractStorage.md)
 - [getForkBlockTag](functions/getForkBlockTag.md)
-- [getForkClient](functions/getForkClient.md)
 - [getProof](functions/getProof.md)
 - [getStateRoot](functions/getStateRoot.md)
 - [hasStateRoot](functions/hasStateRoot.md)

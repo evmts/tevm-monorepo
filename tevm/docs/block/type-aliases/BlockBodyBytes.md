@@ -8,8 +8,6 @@
 
 > **BlockBodyBytes** = \[[`TransactionsBytes`](TransactionsBytes.md), [`UncleHeadersBytes`](UncleHeadersBytes.md), [`WithdrawalsBytes`](WithdrawalsBytes.md)?, `Uint8Array`?\]
 
-Defined in: tevm-monorepo/packages/block/types/types.d.ts:368
-
 Represents the serialized form of an Ethereum block body
 
 Contains all block components except the header. The structure is:

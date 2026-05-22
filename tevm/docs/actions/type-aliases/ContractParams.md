@@ -8,31 +8,17 @@
 
 > **ContractParams**\<`TAbi`, `TFunctionName`, `TThrowOnFail`\> = [`EncodeFunctionDataParameters`](../../index/type-aliases/EncodeFunctionDataParameters.md)\<`TAbi`, `TFunctionName`\> & [`BaseCallParams`](BaseCallParams.md)\<`TThrowOnFail`\> & \{ `code?`: [`Hex`](../../index/type-aliases/Hex.md); `deployedBytecode?`: [`Hex`](../../index/type-aliases/Hex.md); `to`: [`Address`](Address.md); \} \| \{ `code`: [`Hex`](../../index/type-aliases/Hex.md); `deployedBytecode?`: [`Hex`](../../index/type-aliases/Hex.md); `to?`: [`Address`](Address.md); \} \| \{ `code?`: [`Hex`](../../index/type-aliases/Hex.md); `deployedBytecode`: [`Hex`](../../index/type-aliases/Hex.md); `to?`: [`Address`](Address.md); \}
 
-Defined in: tevm-monorepo/packages/actions/types/Contract/ContractParams.d.ts:41
-
 Parameters to execute a call on a contract with TEVM.
 
 This type combines the parameters required for encoding function data with additional call parameters.
 
 ## Type Parameters
 
-### TAbi
-
-`TAbi` *extends* [`Abi`](Abi.md) \| readonly `unknown`[] = [`Abi`](Abi.md)
-
-The ABI type.
-
-### TFunctionName
-
-`TFunctionName` *extends* [`ContractFunctionName`](../../index/type-aliases/ContractFunctionName.md)\<`TAbi`\> = [`ContractFunctionName`](../../index/type-aliases/ContractFunctionName.md)\<`TAbi`\>
-
-The function name type from the ABI.
-
-### TThrowOnFail
-
-`TThrowOnFail` *extends* `boolean` = `boolean`
-
-The type indicating whether to throw on failure.
+| Type Parameter | Default type | Description |
+| ------ | ------ | ------ |
+| `TAbi` *extends* [`Abi`](Abi.md) \| readonly `unknown`[] | [`Abi`](Abi.md) | The ABI type. |
+| `TFunctionName` *extends* [`ContractFunctionName`](../../index/type-aliases/ContractFunctionName.md)\<`TAbi`\> | [`ContractFunctionName`](../../index/type-aliases/ContractFunctionName.md)\<`TAbi`\> | The function name type from the ABI. |
+| `TThrowOnFail` *extends* `boolean` | `boolean` | The type indicating whether to throw on failure. |
 
 ## Example
 

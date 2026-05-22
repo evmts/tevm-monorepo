@@ -15,9 +15,9 @@ This handler is for use with a low-level TEVM `TevmNode`, unlike `tevmGetAccount
 
 ## Parameters
 
-### params
-
-[`GetAccountParams`](GetAccountParams.md)
+| Parameter | Type |
+| ------ | ------ |
+| `params` | [`GetAccountParams`](GetAccountParams.md) |
 
 ## Returns
 

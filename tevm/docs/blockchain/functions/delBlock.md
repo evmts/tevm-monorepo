@@ -8,13 +8,11 @@
 
 > **delBlock**(`baseChain`): (`blockHash`) => `Promise`\<`void`\>
 
-Defined in: tevm-monorepo/packages/blockchain/types/actions/delBlock.d.ts:1
-
 ## Parameters
 
-### baseChain
-
-`BaseChain`
+| Parameter | Type |
+| ------ | ------ |
+| `baseChain` | `BaseChain` |
 
 ## Returns
 
@@ -25,11 +23,9 @@ deleted and any encountered heads are set to the parent block.
 
 ### Parameters
 
-#### blockHash
-
-`Uint8Array`
-
-The hash of the block to be deleted
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `blockHash` | `Uint8Array` | The hash of the block to be deleted |
 
 ### Returns
 

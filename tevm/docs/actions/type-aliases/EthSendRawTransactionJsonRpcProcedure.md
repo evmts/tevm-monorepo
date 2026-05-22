@@ -8,13 +8,11 @@
 
 > **EthSendRawTransactionJsonRpcProcedure** = (`request`) => `Promise`\<[`EthSendRawTransactionJsonRpcResponse`](EthSendRawTransactionJsonRpcResponse.md)\>
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthProcedure.d.ts:36
-
 ## Parameters
 
-### request
-
-[`EthSendRawTransactionJsonRpcRequest`](EthSendRawTransactionJsonRpcRequest.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`EthSendRawTransactionJsonRpcRequest`](EthSendRawTransactionJsonRpcRequest.md) |
 
 ## Returns
 

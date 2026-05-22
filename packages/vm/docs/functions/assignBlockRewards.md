@@ -15,9 +15,9 @@ the updated balances of their accounts to state.
 
 ## Parameters
 
-### vm
-
-`BaseVm`
+| Parameter | Type |
+| ------ | ------ |
+| `vm` | `BaseVm` |
 
 ## Returns
 

@@ -15,29 +15,12 @@ This type provides a way to create type-safe read actions for contract methods.
 
 ## Type Parameters
 
-### THumanReadableAbi
-
-`THumanReadableAbi` *extends* readonly `string`[]
-
-The human-readable ABI of the contract.
-
-### TAddress
-
-`TAddress` *extends* `Address` \| `undefined`
-
-The address of the contract (optional).
-
-### TCode
-
-`TCode` *extends* `Hex` \| `undefined`
-
-The runtime bytecode of the contract (optional).
-
-### TAddressArgs
-
-`TAddressArgs` = `TAddress` *extends* `undefined` ? `object` : `object`
-
-Additional arguments for the address (derived from TAddress).
+| Type Parameter | Default type | Description |
+| ------ | ------ | ------ |
+| `THumanReadableAbi` *extends* readonly `string`[] | - | The human-readable ABI of the contract. |
+| `TAddress` *extends* `Address` \| `undefined` | - | The address of the contract (optional). |
+| `TCode` *extends* `Hex` \| `undefined` | - | The runtime bytecode of the contract (optional). |
+| `TAddressArgs` | `TAddress` *extends* `undefined` ? `object` : `object` | Additional arguments for the address (derived from TAddress). |
 
 ## Example
 

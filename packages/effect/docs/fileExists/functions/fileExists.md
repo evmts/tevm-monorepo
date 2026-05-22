@@ -16,11 +16,9 @@ Checks if a file exists at the given path
 
 ## Parameters
 
-### path
-
-`string`
-
-path to check
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `path` | `string` | path to check |
 
 ## Returns
 

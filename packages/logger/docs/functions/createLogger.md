@@ -15,9 +15,9 @@ Wraps [pino](https://github.com/pinojs/pino/blob/master/docs/api.md)
 
 ## Parameters
 
-### options
-
-[`LogOptions`](../type-aliases/LogOptions.md)
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `options` | [`LogOptions`](../type-aliases/LogOptions.md) | - |
 
 ## Returns
 

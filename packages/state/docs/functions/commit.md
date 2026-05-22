@@ -15,13 +15,10 @@ last call to checkpoint.
 
 ## Parameters
 
-### baseState
-
-[`BaseState`](../type-aliases/BaseState.md)
-
-### skipFetchingFromFork?
-
-`boolean`
+| Parameter | Type |
+| ------ | ------ |
+| `baseState` | [`BaseState`](../type-aliases/BaseState.md) |
+| `skipFetchingFromFork?` | `boolean` |
 
 ## Returns
 
@@ -31,15 +28,9 @@ Commits the current state.
 
 ### Parameters
 
-#### createNewStateRoot?
-
-`boolean`
-
-**`Experimental`**
-
-Whether to create a new state root
-Defaults to true.
-This api is not stable
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `createNewStateRoot?` | `boolean` | **`Experimental`** Whether to create a new state root Defaults to true. This api is not stable |
 
 ### Returns
 

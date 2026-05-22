@@ -14,11 +14,9 @@ Extracts the difficulty value from block header data
 
 ## Parameters
 
-### headerData
-
-[`HeaderData`](../interfaces/HeaderData.md)
-
-The header data object to extract difficulty from
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `headerData` | [`HeaderData`](../interfaces/HeaderData.md) | The header data object to extract difficulty from |
 
 ## Returns
 

@@ -14,9 +14,9 @@ JSON-RPC procedure for `anvil_setIntervalMining`
 
 ## Parameters
 
-### request
-
-[`AnvilSetIntervalMiningJsonRpcRequest`](AnvilSetIntervalMiningJsonRpcRequest.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`AnvilSetIntervalMiningJsonRpcRequest`](AnvilSetIntervalMiningJsonRpcRequest.md) |
 
 ## Returns
 

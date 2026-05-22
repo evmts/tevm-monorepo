@@ -6,12 +6,10 @@
 
 # Type Alias: TestRpcSchema\<TMode\>
 
-> **TestRpcSchema**\<`TMode`\> = \[`object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`\]
-
-Defined in: tevm-monorepo/packages/decorators/dist/index.d.ts:946
+> **TestRpcSchema**\<`TMode`\> = \[`object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`\]
 
 ## Type Parameters
 
-### TMode
-
-`TMode` *extends* `string`
+| Type Parameter |
+| ------ |
+| `TMode` *extends* `string` |

@@ -6,33 +6,20 @@
 
 # Class: Withdrawal
 
-Defined in: zevm/npm/zevm/dist/util.d.ts:223
-
 ## Constructors
 
 ### Constructor
 
 > **new Withdrawal**(`index`, `validatorIndex`, `address`, `amount`): `Withdrawal`
 
-Defined in: zevm/npm/zevm/dist/util.d.ts:228
-
 #### Parameters
 
-##### index
-
-`bigint`
-
-##### validatorIndex
-
-`bigint`
-
-##### address
-
-[`EthjsAddress`](EthjsAddress.md)
-
-##### amount
-
-`bigint`
+| Parameter | Type |
+| ------ | ------ |
+| `index` | `bigint` |
+| `validatorIndex` | `bigint` |
+| `address` | [`EthjsAddress`](EthjsAddress.md) |
+| `amount` | `bigint` |
 
 #### Returns
 
@@ -40,43 +27,18 @@ Defined in: zevm/npm/zevm/dist/util.d.ts:228
 
 ## Properties
 
-### address
-
-> `readonly` **address**: [`EthjsAddress`](EthjsAddress.md)
-
-Defined in: zevm/npm/zevm/dist/util.d.ts:226
-
-***
-
-### amount
-
-> `readonly` **amount**: `bigint`
-
-Defined in: zevm/npm/zevm/dist/util.d.ts:227
-
-***
-
-### index
-
-> `readonly` **index**: `bigint`
-
-Defined in: zevm/npm/zevm/dist/util.d.ts:224
-
-***
-
-### validatorIndex
-
-> `readonly` **validatorIndex**: `bigint`
-
-Defined in: zevm/npm/zevm/dist/util.d.ts:225
+| Property | Modifier | Type |
+| ------ | ------ | ------ |
+| <a id="address"></a> `address` | `readonly` | [`EthjsAddress`](EthjsAddress.md) |
+| <a id="amount"></a> `amount` | `readonly` | `bigint` |
+| <a id="index"></a> `index` | `readonly` | `bigint` |
+| <a id="validatorindex"></a> `validatorIndex` | `readonly` | `bigint` |
 
 ## Methods
 
 ### raw()
 
 > **raw**(): `WithdrawalBytes`
-
-Defined in: zevm/npm/zevm/dist/util.d.ts:230
 
 #### Returns
 
@@ -88,8 +50,6 @@ Defined in: zevm/npm/zevm/dist/util.d.ts:230
 
 > **toJSON**(): [`JsonRpcWithdrawal`](../interfaces/JsonRpcWithdrawal.md)
 
-Defined in: zevm/npm/zevm/dist/util.d.ts:237
-
 #### Returns
 
 [`JsonRpcWithdrawal`](../interfaces/JsonRpcWithdrawal.md)
@@ -99,8 +59,6 @@ Defined in: zevm/npm/zevm/dist/util.d.ts:237
 ### toValue()
 
 > **toValue**(): `object`
-
-Defined in: zevm/npm/zevm/dist/util.d.ts:231
 
 #### Returns
 
@@ -128,13 +86,11 @@ Defined in: zevm/npm/zevm/dist/util.d.ts:231
 
 > `static` **fromWithdrawalData**(`withdrawalData`): `Withdrawal`
 
-Defined in: zevm/npm/zevm/dist/util.d.ts:229
-
 #### Parameters
 
-##### withdrawalData
-
-[`WithdrawalData`](../type-aliases/WithdrawalData.md)
+| Parameter | Type |
+| ------ | ------ |
+| `withdrawalData` | [`WithdrawalData`](../type-aliases/WithdrawalData.md) |
 
 #### Returns
 

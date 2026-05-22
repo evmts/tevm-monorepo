@@ -14,9 +14,9 @@ JSON-RPC procedure for `anvil_nodeInfo`
 
 ## Parameters
 
-### request
-
-[`AnvilNodeInfoJsonRpcRequest`](AnvilNodeInfoJsonRpcRequest.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`AnvilNodeInfoJsonRpcRequest`](AnvilNodeInfoJsonRpcRequest.md) |
 
 ## Returns
 

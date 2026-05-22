@@ -12,9 +12,9 @@ Defined in: [extensions/viem/src/ViemTevmClientDecorator.ts:7](https://github.co
 
 ## Parameters
 
-### client
-
-`any`
+| Parameter | Type |
+| ------ | ------ |
+| `client` | `any` |
 
 ## Returns
 

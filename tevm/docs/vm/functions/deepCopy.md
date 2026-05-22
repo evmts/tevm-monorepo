@@ -8,13 +8,11 @@
 
 > **deepCopy**(`baseVm`): [`DeepCopy`](../type-aliases/DeepCopy.md)
 
-Defined in: tevm-monorepo/packages/vm/types/actions/deepCopy.d.ts:1
-
 ## Parameters
 
-### baseVm
-
-`BaseVm`
+| Parameter | Type |
+| ------ | ------ |
+| `baseVm` | `BaseVm` |
 
 ## Returns
 

@@ -15,9 +15,9 @@ This is a specialized version of anvil_deal for ERC20 tokens only
 
 ## Parameters
 
-### node
-
-`TevmNode`\<`"fork"` \| `"normal"`, \{ \}\>
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `node` | `TevmNode`\<`"fork"` \| `"normal"`, \{ \}\> | - |
 
 ## Returns
 

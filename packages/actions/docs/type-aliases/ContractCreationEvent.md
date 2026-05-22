@@ -14,30 +14,8 @@ A contract creation event for V2
 
 ## Properties
 
-### address
-
-> **address**: [`Address`](Address.md)
-
-Defined in: [packages/actions/src/eth/EthResult.ts:490](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthResult.ts#L490)
-
-The address of the newly created contract
-
-***
-
-### code
-
-> **code**: [`Hex`](Hex.md)
-
-Defined in: [packages/actions/src/eth/EthResult.ts:498](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthResult.ts#L498)
-
-The code deployed to the contract
-
-***
-
-### creator
-
-> **creator**: [`Address`](Address.md)
-
-Defined in: [packages/actions/src/eth/EthResult.ts:494](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthResult.ts#L494)
-
-The address of the creator
+| Property | Type | Description | Defined in |
+| ------ | ------ | ------ | ------ |
+| <a id="address"></a> `address` | [`Address`](Address.md) | The address of the newly created contract | [packages/actions/src/eth/EthResult.ts:490](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthResult.ts#L490) |
+| <a id="code"></a> `code` | [`Hex`](Hex.md) | The code deployed to the contract | [packages/actions/src/eth/EthResult.ts:498](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthResult.ts#L498) |
+| <a id="creator"></a> `creator` | [`Address`](Address.md) | The address of the creator | [packages/actions/src/eth/EthResult.ts:494](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthResult.ts#L494) |

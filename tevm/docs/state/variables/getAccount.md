@@ -8,8 +8,6 @@
 
 > `const` **getAccount**: [`StateAction`](../type-aliases/StateAction.md)\<`"getAccount"`\>
 
-Defined in: tevm-monorepo/packages/state/dist/index.d.ts:439
-
 Gets the account corresponding to the provided `address`.
 Returns undefined if account does not exist.
 

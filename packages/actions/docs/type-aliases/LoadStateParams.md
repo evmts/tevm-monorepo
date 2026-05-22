@@ -24,11 +24,9 @@ The TEVM state object to load.
 
 ## Type Parameters
 
-### TThrowOnFail
-
-`TThrowOnFail` *extends* `boolean` = `boolean`
-
-Optional parameter to throw an error on failure.
+| Type Parameter | Default type | Description |
+| ------ | ------ | ------ |
+| `TThrowOnFail` *extends* `boolean` | `boolean` | Optional parameter to throw an error on failure. |
 
 ## Example
 

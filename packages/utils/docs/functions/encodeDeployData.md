@@ -12,15 +12,15 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/viem@2.49.3\_bufferutil@4.1.0\_typ
 
 ## Type Parameters
 
-### abi
-
-`abi` *extends* readonly `unknown`[] \| [`Abi`](../type-aliases/Abi.md)
+| Type Parameter |
+| ------ |
+| `abi` *extends* readonly `unknown`[] \| [`Abi`](../type-aliases/Abi.md) |
 
 ## Parameters
 
-### parameters
-
-[`EncodeDeployDataParameters`](../type-aliases/EncodeDeployDataParameters.md)\<`abi`\>
+| Parameter | Type |
+| ------ | ------ |
+| `parameters` | [`EncodeDeployDataParameters`](../type-aliases/EncodeDeployDataParameters.md)\<`abi`\> |
 
 ## Returns
 

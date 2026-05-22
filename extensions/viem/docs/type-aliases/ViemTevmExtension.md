@@ -47,8 +47,8 @@ for (const result of client.transport.tevm.writeContractOptimistic({
 			tag: 'OPTIMISTIC_RESULT',
 		})
 		expect((client.request as jest.Mock).mock.lastCall[0]).toEqual({
-			method: 'tevm_contract',
-params: params,
+			method: 'tevm_call',
+			params: [params],
 			jsonrpc: '2.0',
 		})
 		expect((client.writeContract as jest.Mock).mock.lastCall[0]).toEqual({

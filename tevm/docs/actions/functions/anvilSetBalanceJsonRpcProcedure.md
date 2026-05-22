@@ -8,13 +8,11 @@
 
 > **anvilSetBalanceJsonRpcProcedure**(`client`): [`AnvilSetBalanceProcedure`](../type-aliases/AnvilSetBalanceProcedure.md)
 
-Defined in: tevm-monorepo/packages/actions/types/anvil/anvilSetBalanceProcedure.d.ts:1
-
 ## Parameters
 
-### client
-
-[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{ \}\>
+| Parameter | Type |
+| ------ | ------ |
+| `client` | [`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{ \}\> |
 
 ## Returns
 

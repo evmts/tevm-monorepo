@@ -8,8 +8,6 @@
 
 > **IntervalMining** = `object`
 
-Defined in: tevm-monorepo/packages/node/dist/index.d.ts:74
-
 Mining configuration that automatically mines blocks at a specified interval.
 When the interval is 0, blocks are only mined via manual calls to anvil_mine.
 
@@ -32,18 +30,7 @@ const manualValue: IntervalMining = {
 
 ## Properties
 
-### blockTime
-
-> **blockTime**: `number`
-
-Defined in: tevm-monorepo/packages/node/dist/index.d.ts:79
-
-The block time in seconds. When set to 0, blocks are only mined manually via anvil_mine.
-
-***
-
-### type
-
-> **type**: `"interval"`
-
-Defined in: tevm-monorepo/packages/node/dist/index.d.ts:75
+| Property | Type | Description |
+| ------ | ------ | ------ |
+| <a id="blocktime"></a> `blockTime` | `number` | The block time in seconds. When set to 0, blocks are only mined manually via anvil_mine. |
+| <a id="type"></a> `type` | `"interval"` | - |

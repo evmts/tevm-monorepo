@@ -8,23 +8,18 @@
 
 > **fromRlp**\<`to`\>(`value`, `to?`): `FromRlpReturnType`\<`to`\>
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/viem@2.49.3\_bufferutil@4.1.0\_typescript@6.0.3\_utf-8-validate@5.0.10\_zod@4.4.3/node\_modules/viem/\_types/utils/encoding/fromRlp.d.ts:12
-
 ## Type Parameters
 
-### to
-
-`to` *extends* `To` = `"hex"`
+| Type Parameter | Default type |
+| ------ | ------ |
+| `to` *extends* `To` | `"hex"` |
 
 ## Parameters
 
-### value
-
-`` `0x${string}` `` \| `ByteArray`
-
-### to?
-
-`to` \| `To`
+| Parameter | Type |
+| ------ | ------ |
+| `value` | `` `0x${string}` `` \| `ByteArray` |
+| `to?` | `to` \| `To` |
 
 ## Returns
 

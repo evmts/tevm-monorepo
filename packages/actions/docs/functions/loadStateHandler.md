@@ -16,27 +16,15 @@ Creates a handler for loading a previously dumped state into the VM.
 
 ## Parameters
 
-### client
-
-`TevmNode`\<`"fork"` \| `"normal"`, \{ \}\>
-
-The base client instance.
-
-### options?
-
-Optional configuration.
-
-#### throwOnFail?
-
-`boolean`
-
-Whether to throw an error when a failure occurs.
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `client` | `TevmNode`\<`"fork"` \| `"normal"`, \{ \}\> | - |
+| `options?` | \{ `throwOnFail?`: `boolean`; \} | - |
+| `options.throwOnFail?` | `boolean` | - |
 
 ## Returns
 
 [`LoadStateHandler`](../type-aliases/LoadStateHandler.md)
-
-- The handler function.
 
 ## Example
 

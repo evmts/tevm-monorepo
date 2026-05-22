@@ -8,13 +8,11 @@
 
 > **anvilLoadStateJsonRpcProcedure**(`client`): [`AnvilLoadStateProcedure`](../type-aliases/AnvilLoadStateProcedure.md)
 
-Defined in: tevm-monorepo/packages/actions/types/anvil/anvilLoadStateProcedure.d.ts:1
-
 ## Parameters
 
-### client
-
-[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{ \}\>
+| Parameter | Type |
+| ------ | ------ |
+| `client` | [`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{ \}\> |
 
 ## Returns
 

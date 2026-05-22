@@ -8,36 +8,12 @@
 
 > **EthGetProofParams** = `object`
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthParams.d.ts:323
-
 Based on the JSON-RPC request for `eth_getProof` procedure (EIP-1186)
 
 ## Properties
 
-### address
-
-> `readonly` **address**: [`Address`](Address.md)
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthParams.d.ts:327
-
-The address of the account to get the proof for
-
-***
-
-### blockTag?
-
-> `readonly` `optional` **blockTag?**: [`BlockParam`](../../index/type-aliases/BlockParam.md)
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthParams.d.ts:335
-
-The block tag or block number to get the proof at
-
-***
-
-### storageKeys
-
-> `readonly` **storageKeys**: readonly [`Hex`](Hex.md)[]
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthParams.d.ts:331
-
-An array of storage keys to get proofs for
+| Property | Modifier | Type | Description |
+| ------ | ------ | ------ | ------ |
+| <a id="address"></a> `address` | `readonly` | [`Address`](Address.md) | The address of the account to get the proof for |
+| <a id="blocktag"></a> `blockTag?` | `readonly` | [`BlockParam`](../../index/type-aliases/BlockParam.md) | The block tag or block number to get the proof at |
+| <a id="storagekeys"></a> `storageKeys` | `readonly` | readonly [`Hex`](Hex.md)[] | An array of storage keys to get proofs for |

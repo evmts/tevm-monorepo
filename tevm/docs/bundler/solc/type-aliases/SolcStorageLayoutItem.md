@@ -8,8 +8,6 @@
 
 > **SolcStorageLayoutItem**\<`T`\> = `object`
 
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:162
-
 An item present in the contract's storage
 
 ## See
@@ -18,66 +16,17 @@ An item present in the contract's storage
 
 ## Type Parameters
 
-### T
-
-`T` *extends* [`SolcStorageLayoutTypes`](SolcStorageLayoutTypes.md) = [`SolcStorageLayoutTypes`](SolcStorageLayoutTypes.md)
+| Type Parameter | Default type |
+| ------ | ------ |
+| `T` *extends* [`SolcStorageLayoutTypes`](SolcStorageLayoutTypes.md) | [`SolcStorageLayoutTypes`](SolcStorageLayoutTypes.md) |
 
 ## Properties
 
-### astId
-
-> **astId**: `number`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:166
-
-The id of the AST node of the state variable's declaration
-
-***
-
-### contract
-
-> **contract**: `string`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:170
-
-The name of the contract including its path as prefix
-
-***
-
-### label
-
-> **label**: `string`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:174
-
-The name of the state variable
-
-***
-
-### offset
-
-> **offset**: `number`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:178
-
-The offset in bytes within the storage slot according to the encoding
-
-***
-
-### slot
-
-> **slot**: `string`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:182
-
-The storage slot where the state variable resides or starts
-
-***
-
-### type
-
-> **type**: keyof `T`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:186
-
-The identifier used as a key to the variable's type information in the [SolcStorageLayoutTypes](SolcStorageLayoutTypes.md) record
+| Property | Type | Description |
+| ------ | ------ | ------ |
+| <a id="astid"></a> `astId` | `number` | The id of the AST node of the state variable's declaration |
+| <a id="contract"></a> `contract` | `string` | The name of the contract including its path as prefix |
+| <a id="label"></a> `label` | `string` | The name of the state variable |
+| <a id="offset"></a> `offset` | `number` | The offset in bytes within the storage slot according to the encoding |
+| <a id="slot"></a> `slot` | `string` | The storage slot where the state variable resides or starts |
+| <a id="type"></a> `type` | keyof `T` | The identifier used as a key to the variable's type information in the [SolcStorageLayoutTypes](SolcStorageLayoutTypes.md) record |

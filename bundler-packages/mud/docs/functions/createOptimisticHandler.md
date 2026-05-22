@@ -14,15 +14,15 @@ Initializes the optimistic handlers (storage and send transaction interceptors),
 
 ## Type Parameters
 
-### TConfig
-
-`TConfig` *extends* `StoreConfig` = `StoreConfig`
+| Type Parameter | Default type |
+| ------ | ------ |
+| `TConfig` *extends* `StoreConfig` | `StoreConfig` |
 
 ## Parameters
 
-### \_\_namedParameters
-
-[`CreateOptimisticHandlerOptions`](../type-aliases/CreateOptimisticHandlerOptions.md)\<`TConfig`\>
+| Parameter | Type |
+| ------ | ------ |
+| `__namedParameters` | [`CreateOptimisticHandlerOptions`](../type-aliases/CreateOptimisticHandlerOptions.md)\<`TConfig`\> |
 
 ## Returns
 

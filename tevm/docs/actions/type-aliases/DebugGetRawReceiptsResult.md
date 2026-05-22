@@ -8,8 +8,6 @@
 
 > **DebugGetRawReceiptsResult** = [`Hex`](Hex.md)[]
 
-Defined in: tevm-monorepo/packages/actions/types/debug/DebugResult.d.ts:237
-
 Result from `debug_getRawReceipts`
 
 Returns an array of consensus-encoded (RLP) receipts as hex strings

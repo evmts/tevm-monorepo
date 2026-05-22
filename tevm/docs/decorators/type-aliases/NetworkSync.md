@@ -8,8 +8,6 @@
 
 > **NetworkSync** = `object`
 
-Defined in: tevm-monorepo/packages/decorators/dist/index.d.ts:1460
-
 Information about the Ethereum client's sync status.
 Returned by the eth_syncing JSON-RPC method when synchronization is in progress.
 
@@ -34,30 +32,8 @@ if (syncStatus !== false) {
 
 ## Properties
 
-### currentBlock
-
-> **currentBlock**: [`Quantity`](Quantity.md)
-
-Defined in: tevm-monorepo/packages/decorators/dist/index.d.ts:1462
-
-The current block number
-
-***
-
-### highestBlock
-
-> **highestBlock**: [`Quantity`](Quantity.md)
-
-Defined in: tevm-monorepo/packages/decorators/dist/index.d.ts:1464
-
-Number of latest block on the network
-
-***
-
-### startingBlock
-
-> **startingBlock**: [`Quantity`](Quantity.md)
-
-Defined in: tevm-monorepo/packages/decorators/dist/index.d.ts:1466
-
-Block number at which syncing started
+| Property | Type | Description |
+| ------ | ------ | ------ |
+| <a id="currentblock"></a> `currentBlock` | [`Quantity`](Quantity.md) | The current block number |
+| <a id="highestblock"></a> `highestBlock` | [`Quantity`](Quantity.md) | Number of latest block on the network |
+| <a id="startingblock"></a> `startingBlock` | [`Quantity`](Quantity.md) | Block number at which syncing started |

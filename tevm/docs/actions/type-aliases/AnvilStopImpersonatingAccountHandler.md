@@ -8,13 +8,11 @@
 
 > **AnvilStopImpersonatingAccountHandler** = (`params`) => `Promise`\<[`AnvilStopImpersonatingAccountResult`](AnvilStopImpersonatingAccountResult.md)\>
 
-Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilHandler.d.ts:4
-
 ## Parameters
 
-### params
-
-[`AnvilStopImpersonatingAccountParams`](AnvilStopImpersonatingAccountParams.md)
+| Parameter | Type |
+| ------ | ------ |
+| `params` | [`AnvilStopImpersonatingAccountParams`](AnvilStopImpersonatingAccountParams.md) |
 
 ## Returns
 

@@ -8,19 +8,13 @@
 
 > **ethSignTransactionProcedure**(`options`): [`EthSignTransactionJsonRpcProcedure`](../type-aliases/EthSignTransactionJsonRpcProcedure.md)
 
-Defined in: tevm-monorepo/packages/actions/types/eth/ethSignTransactionProcedure.d.ts:1
-
 ## Parameters
 
-### options
-
-#### accounts
-
-readonly `object`[]
-
-#### getChainId
-
-() => `Promise`\<`number`\>
+| Parameter | Type |
+| ------ | ------ |
+| `options` | \{ `accounts`: readonly `object`[]; `getChainId`: () => `Promise`\<`number`\>; \} |
+| `options.accounts` | readonly `object`[] |
+| `options.getChainId` | () => `Promise`\<`number`\> |
 
 ## Returns
 

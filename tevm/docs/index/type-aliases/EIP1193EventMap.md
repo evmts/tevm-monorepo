@@ -8,21 +8,17 @@
 
 > **EIP1193EventMap** = `object`
 
-Defined in: tevm-monorepo/packages/node/dist/index.d.ts:236
-
 ## Methods
 
 ### accountsChanged()
 
 > **accountsChanged**(`accounts`): `void`
 
-Defined in: tevm-monorepo/packages/node/dist/index.d.ts:237
-
 #### Parameters
 
-##### accounts
-
-`` `0x${string}` ``[]
+| Parameter | Type |
+| ------ | ------ |
+| `accounts` | `` `0x${string}` ``[] |
 
 #### Returns
 
@@ -34,13 +30,11 @@ Defined in: tevm-monorepo/packages/node/dist/index.d.ts:237
 
 > **chainChanged**(`chainId`): `void`
 
-Defined in: tevm-monorepo/packages/node/dist/index.d.ts:238
-
 #### Parameters
 
-##### chainId
-
-`string`
+| Parameter | Type |
+| ------ | ------ |
+| `chainId` | `string` |
 
 #### Returns
 
@@ -52,13 +46,11 @@ Defined in: tevm-monorepo/packages/node/dist/index.d.ts:238
 
 > **connect**(`connectInfo`): `void`
 
-Defined in: tevm-monorepo/packages/node/dist/index.d.ts:239
-
 #### Parameters
 
-##### connectInfo
-
-[`ProviderConnectInfo`](ProviderConnectInfo.md)
+| Parameter | Type |
+| ------ | ------ |
+| `connectInfo` | [`ProviderConnectInfo`](ProviderConnectInfo.md) |
 
 #### Returns
 
@@ -70,13 +62,11 @@ Defined in: tevm-monorepo/packages/node/dist/index.d.ts:239
 
 > **disconnect**(`error`): `void`
 
-Defined in: tevm-monorepo/packages/node/dist/index.d.ts:240
-
 #### Parameters
 
-##### error
-
-[`ProviderRpcError`](../classes/ProviderRpcError.md)
+| Parameter | Type |
+| ------ | ------ |
+| `error` | [`ProviderRpcError`](../classes/ProviderRpcError.md) |
 
 #### Returns
 
@@ -88,13 +78,11 @@ Defined in: tevm-monorepo/packages/node/dist/index.d.ts:240
 
 > **message**(`message`): `void`
 
-Defined in: tevm-monorepo/packages/node/dist/index.d.ts:241
-
 #### Parameters
 
-##### message
-
-[`ProviderMessage`](ProviderMessage.md)
+| Parameter | Type |
+| ------ | ------ |
+| `message` | [`ProviderMessage`](ProviderMessage.md) |
 
 #### Returns
 
@@ -106,13 +94,11 @@ Defined in: tevm-monorepo/packages/node/dist/index.d.ts:241
 
 > **newBlock**(`block`): `void`
 
-Defined in: tevm-monorepo/packages/node/dist/index.d.ts:244
-
 #### Parameters
 
-##### block
-
-[`Block`](../../block/classes/Block.md)
+| Parameter | Type |
+| ------ | ------ |
+| `block` | [`Block`](../../block/classes/Block.md) |
 
 #### Returns
 
@@ -124,13 +110,11 @@ Defined in: tevm-monorepo/packages/node/dist/index.d.ts:244
 
 > **newLog**(`log`): `void`
 
-Defined in: tevm-monorepo/packages/node/dist/index.d.ts:245
-
 #### Parameters
 
-##### log
-
-[`EthjsLog`](../../utils/type-aliases/EthjsLog.md)
+| Parameter | Type |
+| ------ | ------ |
+| `log` | [`EthjsLog`](../../utils/type-aliases/EthjsLog.md) |
 
 #### Returns
 
@@ -142,13 +126,11 @@ Defined in: tevm-monorepo/packages/node/dist/index.d.ts:245
 
 > **newPendingTransaction**(`tx`): `void`
 
-Defined in: tevm-monorepo/packages/node/dist/index.d.ts:242
-
 #### Parameters
 
-##### tx
-
-[`TypedTransaction`](../../tx/type-aliases/TypedTransaction.md) \| `ImpersonatedTx`
+| Parameter | Type |
+| ------ | ------ |
+| `tx` | [`TypedTransaction`](../../tx/type-aliases/TypedTransaction.md) \| [`ImpersonatedTx`](../../txpool/interfaces/ImpersonatedTx.md) |
 
 #### Returns
 
@@ -160,13 +142,11 @@ Defined in: tevm-monorepo/packages/node/dist/index.d.ts:242
 
 > **newReceipt**(`receipt`): `void`
 
-Defined in: tevm-monorepo/packages/node/dist/index.d.ts:243
-
 #### Parameters
 
-##### receipt
-
-[`TxReceipt`](../../receipt-manager/type-aliases/TxReceipt.md)
+| Parameter | Type |
+| ------ | ------ |
+| `receipt` | [`TxReceipt`](../../receipt-manager/type-aliases/TxReceipt.md) |
 
 #### Returns
 

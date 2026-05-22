@@ -12,9 +12,9 @@ Defined in: [packages/blockchain/src/actions/validateHeader.js:8](https://github
 
 ## Parameters
 
-### baseChain
-
-`BaseChain`
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `baseChain` | `BaseChain` | - |
 
 ## Returns
 
@@ -24,17 +24,10 @@ Validates a block header, throwing if invalid. It is being validated against the
 
 ### Parameters
 
-#### header
-
-`BlockHeader`
-
-header to be validated
-
-#### height?
-
-`bigint`
-
-If this is an uncle header, this is the height of the block that is including it
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `header` | `BlockHeader` | header to be validated |
+| `height?` | `bigint` | If this is an uncle header, this is the height of the block that is including it |
 
 ### Returns
 

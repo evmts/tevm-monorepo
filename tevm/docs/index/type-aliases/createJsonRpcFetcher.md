@@ -8,15 +8,12 @@
 
 > **createJsonRpcFetcher** = (`client`) => [`JsonRpcClient`](JsonRpcClient.md)
 
-Defined in: tevm-monorepo/packages/jsonrpc/types/createJsonRpcFetcher.d.ts:1
-
 ## Parameters
 
-### client
-
-#### request
-
-`EIP1193RequestFn`\<`undefined`, `false`\>
+| Parameter | Type |
+| ------ | ------ |
+| `client` | \{ `request`: `EIP1193RequestFn`\<`undefined`, `false`\>; \} |
+| `client.request` | `EIP1193RequestFn`\<`undefined`, `false`\> |
 
 ## Returns
 

@@ -12,15 +12,11 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/viem@2.49.3\_bufferutil@4.1.0\_typ
 
 ## Parameters
 
-### value
-
-`unknown`
-
-### \_\_namedParameters?
-
-#### strict?
-
-`boolean`
+| Parameter | Type |
+| ------ | ------ |
+| `value` | `unknown` |
+| `__namedParameters?` | \{ `strict?`: `boolean`; \} |
+| `__namedParameters.strict?` | `boolean` |
 
 ## Returns
 

@@ -7,5 +7,3 @@
 # Type Alias: EthAccountsResult
 
 > **EthAccountsResult** = [`Address`](Address.md)[]
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthResult.d.ts:11

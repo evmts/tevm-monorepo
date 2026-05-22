@@ -8,13 +8,11 @@
 
 > **setIteratorHead**(`baseChain`): (`tag`, `headHash`) => `Promise`\<`void`\>
 
-Defined in: tevm-monorepo/packages/blockchain/types/actions/setIteratorHead.d.ts:1
-
 ## Parameters
 
-### baseChain
-
-`BaseChain`
+| Parameter | Type |
+| ------ | ------ |
+| `baseChain` | `BaseChain` |
 
 ## Returns
 
@@ -25,17 +23,10 @@ When calling the iterator, the iterator will start running the first child block
 
 ### Parameters
 
-#### tag
-
-`string`
-
-The tag to save the headHash to
-
-#### headHash
-
-`Uint8Array`
-
-The head hash to save
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `tag` | `string` | The tag to save the headHash to |
+| `headHash` | `Uint8Array` | The head hash to save |
 
 ### Returns
 

@@ -14,9 +14,9 @@ JSON-RPC procedure for `anvil_loadState`
 
 ## Parameters
 
-### request
-
-[`AnvilLoadStateJsonRpcRequest`](AnvilLoadStateJsonRpcRequest.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`AnvilLoadStateJsonRpcRequest`](AnvilLoadStateJsonRpcRequest.md) |
 
 ## Returns
 

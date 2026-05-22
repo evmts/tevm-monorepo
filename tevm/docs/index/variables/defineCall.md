@@ -8,8 +8,6 @@
 
 > `const` **defineCall**: \<`TAbi`\>(`abi`, `handlers`) => (`{ data, gasLimit }`) => `Promise`\<[`ExecResult`](../../evm/interfaces/ExecResult.md)\>
 
-Defined in: tevm-monorepo/packages/precompiles/dist/index.d.ts:116
-
 Defines a call handler for a contract precompile by mapping function names to handler implementations.
 
 The defineCall function takes an ABI and a map of function names to handler implementations.
@@ -18,19 +16,16 @@ that will be encoded according to the ABI.
 
 ## Type Parameters
 
-### TAbi
-
-`TAbi` *extends* [`Abi`](../type-aliases/Abi.md)
+| Type Parameter |
+| ------ |
+| `TAbi` *extends* [`Abi`](../type-aliases/Abi.md) |
 
 ## Parameters
 
-### abi
-
-`TAbi`
-
-### handlers
-
-`{ [TFunctionName in ExtractAbiFunctionNames<TAbi>]: Handler<TAbi, TFunctionName> }`
+| Parameter | Type |
+| ------ | ------ |
+| `abi` | `TAbi` |
+| `handlers` | `{ [TFunctionName in ExtractAbiFunctionNames<TAbi>]: Handler<TAbi, TFunctionName> }` |
 
 ## Returns
 

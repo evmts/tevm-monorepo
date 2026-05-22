@@ -7,5 +7,3 @@
 # Variable: GENESIS\_STATE
 
 > `const` **GENESIS\_STATE**: [`TevmState`](../type-aliases/TevmState.md)
-
-Defined in: tevm-monorepo/packages/node/dist/index.d.ts:597

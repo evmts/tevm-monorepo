@@ -12,27 +12,18 @@ Defined in: [packages/jsonrpc/src/JsonRpcProcedure.ts:4](https://github.com/evmt
 
 ## Type Parameters
 
-### TMethod
-
-`TMethod` *extends* `string`
-
-### TParams
-
-`TParams`
-
-### TResult
-
-`TResult`
-
-### TErrorCode
-
-`TErrorCode` *extends* `string` \| `number`
+| Type Parameter |
+| ------ |
+| `TMethod` *extends* `string` |
+| `TParams` |
+| `TResult` |
+| `TErrorCode` *extends* `string` \| `number` |
 
 ## Parameters
 
-### request
-
-[`JsonRpcRequest`](JsonRpcRequest.md)\<`TMethod`, `TParams`\>
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`JsonRpcRequest`](JsonRpcRequest.md)\<`TMethod`, `TParams`\> |
 
 ## Returns
 

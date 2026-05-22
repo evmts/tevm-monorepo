@@ -6,81 +6,57 @@
 
 # Type Alias: MemoryClientOptions\<TCommon, TAccountOrAddress, TRpcSchema\>
 
-> **MemoryClientOptions**\<`TCommon`, `TAccountOrAddress`, `TRpcSchema`\> = `TevmNodeOptions`\<`TCommon`\> & `Pick`\<`ClientConfig`\<`Transport`, `TCommon`, `TAccountOrAddress`, `TRpcSchema`\>, `"type"` \| `"key"` \| `"name"` \| `"account"` \| `"pollingInterval"` \| `"cacheTime"`\>
+> **MemoryClientOptions**\<`TCommon`, `TAccountOrAddress`, `TRpcSchema`\> = `TevmNodeOptions`\<`TCommon`\> & `Pick`\<`ClientConfig`\<`Transport`, `TCommon`, `TAccountOrAddress`, `TRpcSchema`\>, `"type"` \| `"key"` \| `"name"` \| `"account"` \| `"pollingInterval"` \| `"cacheTime"`\> & `object`
 
-Defined in: [packages/memory-client/src/MemoryClientOptions.ts:78](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/src/MemoryClientOptions.ts#L78)
+Defined in: [packages/memory-client/src/MemoryClientOptions.ts:32](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/src/MemoryClientOptions.ts#L32)
 
-Configuration options for creating a [MemoryClient](MemoryClient.md).
+Configuration options for [createMemoryClient](../variables/createMemoryClient.md).
 
-This type extends `TevmNodeOptions` and includes specific options for configuring the MemoryClient,
-such as the transport type, account, polling interval, and caching behavior. It provides
-a comprehensive set of parameters to customize the behavior of the in-memory Ethereum client.
+Extends TevmNodeOptions (fork, miningConfig, persister, common, eips, loggingLevel, etc.)
+with viem client options (type, key, name, account, pollingInterval, cacheTime).
+
+## Type Declaration
+
+### ~~mining?~~
+
+> `readonly` `optional` **mining?**: `object`
+
+#### Type Declaration
+
+#### Deprecated
+
+Use miningConfig instead. Interval values are interpreted as milliseconds for compatibility.
+
+#### mining.auto?
+
+> `readonly` `optional` **auto?**: `boolean`
+
+#### mining.interval?
+
+> `readonly` `optional` **interval?**: `number`
 
 ## Type Parameters
 
-### TCommon
-
-`TCommon` *extends* `Common` & `Chain` = `Common` & `Chain`
-
-The common chain configuration, extending both `Common` and `Chain`.
-
-### TAccountOrAddress
-
-`TAccountOrAddress` *extends* `Account` \| `Address` \| `undefined` = `undefined`
-
-The account or address type for the client.
-
-### TRpcSchema
-
-`TRpcSchema` *extends* `RpcSchema` \| `undefined` = [`TevmRpcSchema`](TevmRpcSchema.md)
-
-The RPC schema type, defaults to `TevmRpcSchema`.
+| Type Parameter | Default type | Description |
+| ------ | ------ | ------ |
+| `TCommon` *extends* `Common` & `Chain` | `Common` & `Chain` | The common chain configuration, extending both `Common` and `Chain`. |
+| `TAccountOrAddress` *extends* `Account` \| `Address` \| `undefined` | `undefined` | The account or address type for the client. |
+| `TRpcSchema` *extends* `RpcSchema` \| `undefined` | [`TevmRpcSchema`](TevmRpcSchema.md) | The RPC schema type, defaults to `TevmRpcSchema`. |
 
 ## Example
 
 ```typescript
-import { createMemoryClient, http, type MemoryClientOptions } from "tevm";
+import { createMemoryClient, http } from "tevm";
 import { optimism } from "tevm/common";
-import { createSyncPersister } from "tevm/sync-storage-persister";
 
-const options: MemoryClientOptions = {
-  // Fork configuration to pull state from a live network
-  fork: {
-    transport: http("https://mainnet.optimism.io")({}),
-    blockTag: '0xa6a63cd70fbbe396321ca6fe79e1b6735760c03538208b50d7e3a5dac5226435',
-  },
-  // Chain configuration
+const client = createMemoryClient({
+  fork: { transport: http("https://mainnet.optimism.io")({}) },
   common: optimism,
-  // Client identification
-  name: 'Optimism Memory Client',
-  key: 'optimism-memory',
-  // Mining configuration (auto mines blocks after transactions)
-  miningConfig: {
-    type: 'auto'
-  },
-  // Client performance tuning
-  pollingInterval: 1000,
-  cacheTime: 60000,
-  // State persistence
-  persister: createSyncPersister({
-    storage: localStorage,
-    key: 'tevm-state'
-  }),
-  // Enable unlimited contract sizes (for testing very large contracts)
-  allowUnlimitedContractSize: true,
-  // Logging level
-  loggingLevel: 'info'
-};
-
-const client = createMemoryClient(options);
+  miningConfig: { type: 'auto' },
+});
 ```
 
 ## See
 
  - [MemoryClient](MemoryClient.md)
- - [CreateMemoryClientFn](CreateMemoryClientFn.md)
  - TevmNodeOptions
-
-## Throws
-
-When configuration options are incompatible or invalid.

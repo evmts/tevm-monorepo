@@ -14,17 +14,10 @@ Extracts [AbiEvent](AbiEvent.md) with name from [Abi](Abi.md).
 
 ## Type Parameters
 
-### abi
-
-`abi` *extends* [`Abi`](Abi.md)
-
-[Abi](Abi.md) to extract [AbiEvent](AbiEvent.md) from
-
-### eventName
-
-`eventName` *extends* [`ExtractAbiEventNames`](ExtractAbiEventNames.md)\<`abi`\>
-
-String name of event to extract from [Abi](Abi.md)
+| Type Parameter | Description |
+| ------ | ------ |
+| `abi` *extends* [`Abi`](Abi.md) | [Abi](Abi.md) to extract [AbiEvent](AbiEvent.md) from |
+| `eventName` *extends* [`ExtractAbiEventNames`](ExtractAbiEventNames.md)\<`abi`\> | String name of event to extract from [Abi](Abi.md) |
 
 ## Returns
 

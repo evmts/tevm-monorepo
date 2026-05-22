@@ -8,54 +8,15 @@
 
 > **TevmRequestType** = `object`
 
-Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/TevmRequestType.d.ts:10
-
 A mapping of `tevm_*` method names to their request type
 
 ## Properties
 
-### tevm\_call
-
-> **tevm\_call**: [`CallJsonRpcRequest`](CallJsonRpcRequest.md)
-
-Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/TevmRequestType.d.ts:11
-
-***
-
-### tevm\_dumpState
-
-> **tevm\_dumpState**: [`DumpStateJsonRpcRequest`](DumpStateJsonRpcRequest.md)
-
-Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/TevmRequestType.d.ts:13
-
-***
-
-### tevm\_getAccount
-
-> **tevm\_getAccount**: [`GetAccountJsonRpcRequest`](GetAccountJsonRpcRequest.md)
-
-Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/TevmRequestType.d.ts:14
-
-***
-
-### tevm\_loadState
-
-> **tevm\_loadState**: [`LoadStateJsonRpcRequest`](LoadStateJsonRpcRequest.md)
-
-Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/TevmRequestType.d.ts:12
-
-***
-
-### tevm\_mine
-
-> **tevm\_mine**: [`MineJsonRpcRequest`](MineJsonRpcRequest.md)
-
-Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/TevmRequestType.d.ts:16
-
-***
-
-### tevm\_setAccount
-
-> **tevm\_setAccount**: [`SetAccountJsonRpcRequest`](SetAccountJsonRpcRequest.md)
-
-Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/TevmRequestType.d.ts:15
+| Property | Type |
+| ------ | ------ |
+| <a id="tevm_call"></a> `tevm_call` | [`CallJsonRpcRequest`](CallJsonRpcRequest.md) |
+| <a id="tevm_dumpstate"></a> `tevm_dumpState` | [`DumpStateJsonRpcRequest`](DumpStateJsonRpcRequest.md) |
+| <a id="tevm_getaccount"></a> `tevm_getAccount` | [`GetAccountJsonRpcRequest`](GetAccountJsonRpcRequest.md) |
+| <a id="tevm_loadstate"></a> `tevm_loadState` | [`LoadStateJsonRpcRequest`](LoadStateJsonRpcRequest.md) |
+| <a id="tevm_mine"></a> `tevm_mine` | [`MineJsonRpcRequest`](MineJsonRpcRequest.md) |
+| <a id="tevm_setaccount"></a> `tevm_setAccount` | [`SetAccountJsonRpcRequest`](SetAccountJsonRpcRequest.md) |

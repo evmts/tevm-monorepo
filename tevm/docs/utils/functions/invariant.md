@@ -8,17 +8,12 @@
 
 > **invariant**(`condition`, `error?`): `asserts condition`
 
-Defined in: tevm-monorepo/packages/utils/types/invariant.d.ts:1
-
 ## Parameters
 
-### condition
-
-`any`
-
-### error?
-
-`Error`
+| Parameter | Type |
+| ------ | ------ |
+| `condition` | `any` |
+| `error?` | `Error` |
 
 ## Returns
 

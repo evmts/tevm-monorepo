@@ -8,13 +8,11 @@
 
 > **AnvilSetNonceHandler** = (`params`) => `Promise`\<[`AnvilSetNonceResult`](AnvilSetNonceResult.md)\>
 
-Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilHandler.d.ts:11
-
 ## Parameters
 
-### params
-
-[`AnvilSetNonceParams`](AnvilSetNonceParams.md)
+| Parameter | Type |
+| ------ | ------ |
+| `params` | [`AnvilSetNonceParams`](AnvilSetNonceParams.md) |
 
 ## Returns
 

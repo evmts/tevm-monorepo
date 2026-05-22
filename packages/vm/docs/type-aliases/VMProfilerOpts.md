@@ -26,16 +26,7 @@ const value: VMProfilerOpts = {
 
 ## Properties
 
-### reportAfterBlock?
-
-> `optional` **reportAfterBlock?**: `boolean`
-
-Defined in: [packages/vm/src/utils/VMProfileOpts.ts:17](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/VMProfileOpts.ts#L17)
-
-***
-
-### reportAfterTx?
-
-> `optional` **reportAfterTx?**: `boolean`
-
-Defined in: [packages/vm/src/utils/VMProfileOpts.ts:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/VMProfileOpts.ts#L16)
+| Property | Type | Defined in |
+| ------ | ------ | ------ |
+| <a id="reportafterblock"></a> `reportAfterBlock?` | `boolean` | [packages/vm/src/utils/VMProfileOpts.ts:17](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/VMProfileOpts.ts#L17) |
+| <a id="reportaftertx"></a> `reportAfterTx?` | `boolean` | [packages/vm/src/utils/VMProfileOpts.ts:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/VMProfileOpts.ts#L16) |

@@ -12,9 +12,9 @@ Defined in: [packages/actions/src/debug/DebugHandler.ts:38](https://github.com/e
 
 ## Parameters
 
-### params
-
-[`DebugGetRawBlockParams`](DebugGetRawBlockParams.md)
+| Parameter | Type |
+| ------ | ------ |
+| `params` | [`DebugGetRawBlockParams`](DebugGetRawBlockParams.md) |
 
 ## Returns
 

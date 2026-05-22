@@ -8,28 +8,25 @@
 
 > **validateMineEvents**(`events`): `object`
 
-Defined in: [packages/actions/src/Mine/validateMineEvents.js:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Mine/validateMineEvents.js#L7)
+Defined in: [packages/actions/src/Mine/validateMineEvents.js:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Mine/validateMineEvents.js#L6)
 
-Validates mining event handlers
-These are not part of the JSON-RPC interface but are used internally for mining operations
+Validates mining event handlers (internal — not part of the JSON-RPC interface).
 
 ## Parameters
 
-### events
-
-`unknown`
-
-The event handlers to validate
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `events` | `unknown` | - |
 
 ## Returns
 
 `object`
 
-- Validation result
-
 ### errors
 
 > **errors**: `object`[]
+
+#### Type Declaration
 
 ### isValid
 

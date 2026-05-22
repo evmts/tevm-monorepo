@@ -14,25 +14,17 @@ Creates a test snapshot transport that automatically caches RPC responses
 
 ## Type Parameters
 
-### TTransportType
-
-`TTransportType` *extends* `string` = `string`
-
-### TRpcAttributes
-
-`TRpcAttributes` = `Record`\<`string`, `any`\>
-
-### TEip1193RequestFn
-
-`TEip1193RequestFn` *extends* `EIP1193RequestFn` = `EIP1193RequestFn`
+| Type Parameter | Default type |
+| ------ | ------ |
+| `TTransportType` *extends* `string` | `string` |
+| `TRpcAttributes` | `Record`\<`string`, `any`\> |
+| `TEip1193RequestFn` *extends* `EIP1193RequestFn` | `EIP1193RequestFn` |
 
 ## Parameters
 
-### options
-
-[`TestSnapshotTransportOptions`](../type-aliases/TestSnapshotTransportOptions.md)\<`TTransportType`, `TRpcAttributes`, `TEip1193RequestFn`\>
-
-Configuration options for the transport
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `options` | [`TestSnapshotTransportOptions`](../type-aliases/TestSnapshotTransportOptions.md)\<`TTransportType`, `TRpcAttributes`, `TEip1193RequestFn`\> | Configuration options for the transport |
 
 ## Returns
 

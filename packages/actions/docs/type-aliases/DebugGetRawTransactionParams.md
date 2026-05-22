@@ -14,10 +14,6 @@ Params taken by `debug_getRawTransaction` handler
 
 ## Properties
 
-### hash
-
-> `readonly` **hash**: [`Hex`](Hex.md)
-
-Defined in: [packages/actions/src/debug/DebugParams.ts:375](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/DebugParams.ts#L375)
-
-The transaction hash
+| Property | Modifier | Type | Description | Defined in |
+| ------ | ------ | ------ | ------ | ------ |
+| <a id="hash"></a> `hash` | `readonly` | [`Hex`](Hex.md) | The transaction hash | [packages/actions/src/debug/DebugParams.ts:375](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/DebugParams.ts#L375) |

@@ -48,17 +48,10 @@ Constructs a ForkError.
 
 #### Parameters
 
-##### message
-
-`string`
-
-Human-readable error message.
-
-##### args
-
-[`ForkErrorParameters`](../interfaces/ForkErrorParameters.md)
-
-Additional parameters for the error.
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `message` | `string` | Human-readable error message. |
+| `args` | [`ForkErrorParameters`](../interfaces/ForkErrorParameters.md) | Additional parameters for the error. |
 
 #### Returns
 
@@ -70,93 +63,17 @@ Additional parameters for the error.
 
 ## Properties
 
-### \_tag
-
-> **\_tag**: `string`
-
-#### Inherited from
-
-[`BaseError`](BaseError.md).[`_tag`](BaseError.md#_tag)
-
-***
-
-### cause
-
-> **cause**: `any`
-
-#### Inherited from
-
-[`BaseError`](BaseError.md).[`cause`](BaseError.md#cause)
-
-***
-
-### code
-
-> **code**: `number`
-
-#### Inherited from
-
-[`BaseError`](BaseError.md).[`code`](BaseError.md#code)
-
-***
-
-### details
-
-> **details**: `string`
-
-#### Inherited from
-
-[`BaseError`](BaseError.md).[`details`](BaseError.md#details)
-
-***
-
-### docsPath
-
-> **docsPath**: `string` \| `undefined`
-
-#### Inherited from
-
-[`BaseError`](BaseError.md).[`docsPath`](BaseError.md#docspath)
-
-***
-
-### metaMessages
-
-> **metaMessages**: `string`[] \| `undefined`
-
-#### Inherited from
-
-[`BaseError`](BaseError.md).[`metaMessages`](BaseError.md#metamessages)
-
-***
-
-### name
-
-> **name**: `string`
-
-#### Inherited from
-
-`BaseError.name`
-
-***
-
-### shortMessage
-
-> **shortMessage**: `string`
-
-#### Inherited from
-
-[`BaseError`](BaseError.md).[`shortMessage`](BaseError.md#shortmessage)
-
-***
-
-### version
-
-> **version**: `string`
-
-#### Inherited from
-
-[`BaseError`](BaseError.md).[`version`](BaseError.md#version)
+| Property | Type | Inherited from |
+| ------ | ------ | ------ |
+| <a id="_tag"></a> `_tag` | `string` | [`BaseError`](BaseError.md).[`_tag`](BaseError.md#_tag) |
+| <a id="cause"></a> `cause` | `any` | [`BaseError`](BaseError.md).[`cause`](BaseError.md#cause) |
+| <a id="code"></a> `code` | `number` | [`BaseError`](BaseError.md).[`code`](BaseError.md#code) |
+| <a id="details"></a> `details` | `string` | [`BaseError`](BaseError.md).[`details`](BaseError.md#details) |
+| <a id="docspath"></a> `docsPath` | `string` \| `undefined` | [`BaseError`](BaseError.md).[`docsPath`](BaseError.md#docspath) |
+| <a id="metamessages"></a> `metaMessages` | `string`[] \| `undefined` | [`BaseError`](BaseError.md).[`metaMessages`](BaseError.md#metamessages) |
+| <a id="name"></a> `name` | `string` | `BaseError.name` |
+| <a id="shortmessage"></a> `shortMessage` | `string` | [`BaseError`](BaseError.md).[`shortMessage`](BaseError.md#shortmessage) |
+| <a id="version"></a> `version` | `string` | [`BaseError`](BaseError.md).[`version`](BaseError.md#version) |
 
 ## Methods
 
@@ -168,11 +85,9 @@ Walks through the error chain.
 
 #### Parameters
 
-##### fn?
-
-`Function`
-
-A function to execute on each error in the chain.
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `fn?` | `Function` | A function to execute on each error in the chain. |
 
 #### Returns
 

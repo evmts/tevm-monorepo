@@ -8,6 +8,4 @@
 
 > **EthGetBalanceResult** = `bigint`
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthResult.d.ts:72
-
 JSON-RPC response for `eth_getBalance` procedure

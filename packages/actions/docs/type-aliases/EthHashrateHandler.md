@@ -12,9 +12,9 @@ Defined in: [packages/actions/src/eth/EthHandler.ts:111](https://github.com/evmt
 
 ## Parameters
 
-### request?
-
-[`EthHashrateParams`](EthHashrateParams.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request?` | [`EthHashrateParams`](EthHashrateParams.md) |
 
 ## Returns
 

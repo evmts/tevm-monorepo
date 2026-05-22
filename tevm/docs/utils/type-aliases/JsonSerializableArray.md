@@ -8,6 +8,4 @@
 
 > **JsonSerializableArray** = `ReadonlyArray`\<[`JsonSerializable`](JsonSerializable.md)\>
 
-Defined in: tevm-monorepo/packages/utils/types/SerializeToJson.d.ts:9
-
 A type that represents a JSON-serializable array.

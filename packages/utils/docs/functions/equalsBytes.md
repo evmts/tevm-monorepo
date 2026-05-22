@@ -12,13 +12,10 @@ Defined in: zevm/npm/zevm/dist/util.d.ts:153
 
 ## Parameters
 
-### a
-
-`Uint8Array`
-
-### b
-
-`Uint8Array`
+| Parameter | Type |
+| ------ | ------ |
+| `a` | `Uint8Array` |
+| `b` | `Uint8Array` |
 
 ## Returns
 

@@ -8,15 +8,11 @@
 
 > **EthSendRawTransactionParams** = `object`
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthParams.d.ts:243
-
 Based on the JSON-RPC request for `eth_sendRawTransaction` procedure
 This type is a placeholder
 
 ## Properties
 
-### data
-
-> `readonly` **data**: [`Hex`](Hex.md)
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthParams.d.ts:244
+| Property | Modifier | Type |
+| ------ | ------ | ------ |
+| <a id="data"></a> `data` | `readonly` | [`Hex`](Hex.md) |

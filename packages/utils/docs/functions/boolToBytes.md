@@ -16,17 +16,10 @@ Encodes a boolean into a byte array.
 
 ## Parameters
 
-### value
-
-`boolean`
-
-Boolean value to encode.
-
-### opts?
-
-`BoolToBytesOpts`
-
-Options.
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `value` | `boolean` | Boolean value to encode. |
+| `opts?` | `BoolToBytesOpts` | Options. |
 
 ## Returns
 

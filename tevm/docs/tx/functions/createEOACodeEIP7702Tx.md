@@ -19,13 +19,10 @@ Notes:
 
 ## Parameters
 
-### txData
-
-[`EOACodeEIP7702TxData`](../interfaces/EOACodeEIP7702TxData.md)
-
-### opts?
-
-[`TxOptions`](../interfaces/TxOptions.md)
+| Parameter | Type |
+| ------ | ------ |
+| `txData` | [`EOACodeEIP7702TxData`](../interfaces/EOACodeEIP7702TxData.md) |
+| `opts?` | [`TxOptions`](../interfaces/TxOptions.md) |
 
 ## Returns
 

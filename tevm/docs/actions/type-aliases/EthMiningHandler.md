@@ -8,13 +8,11 @@
 
 > **EthMiningHandler** = (`request`) => `Promise`\<[`EthMiningResult`](EthMiningResult.md)\>
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthHandler.d.ts:33
-
 ## Parameters
 
-### request
-
-[`EthMiningParams`](EthMiningParams.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`EthMiningParams`](EthMiningParams.md) |
 
 ## Returns
 

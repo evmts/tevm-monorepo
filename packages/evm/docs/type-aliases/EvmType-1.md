@@ -8,8 +8,6 @@
 
 > **EvmType** = `Omit`\<`EthereumEVM`, `"stateManager"`\> & `object`
 
-Defined in: [packages/evm/src/EvmType.ts:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/src/EvmType.ts#L12)
-
 ## Type Declaration
 
 ### addCustomPrecompile
@@ -18,9 +16,9 @@ Defined in: [packages/evm/src/EvmType.ts:12](https://github.com/evmts/tevm-monor
 
 #### Parameters
 
-##### precompile
-
-[`CustomPrecompile`](CustomPrecompile.md)
+| Parameter | Type |
+| ------ | ------ |
+| `precompile` | [`CustomPrecompile`](CustomPrecompile.md) |
 
 #### Returns
 
@@ -32,9 +30,9 @@ Defined in: [packages/evm/src/EvmType.ts:12](https://github.com/evmts/tevm-monor
 
 #### Parameters
 
-##### precompile
-
-[`CustomPrecompile`](CustomPrecompile.md)
+| Parameter | Type |
+| ------ | ------ |
+| `precompile` | [`CustomPrecompile`](CustomPrecompile.md) |
 
 #### Returns
 

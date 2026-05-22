@@ -7,5 +7,3 @@
 # Type Alias: SolcRemapping
 
 > **SolcRemapping** = `` `${string}=${string}` ``[]
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:13

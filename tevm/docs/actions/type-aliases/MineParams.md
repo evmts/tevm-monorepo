@@ -8,8 +8,6 @@
 
 > **MineParams**\<`TThrowOnFail`\> = [`BaseParams`](../../index/type-aliases/BaseParams.md)\<`TThrowOnFail`\> & [`MineEvents`](MineEvents.md) & `object`
 
-Defined in: tevm-monorepo/packages/actions/types/Mine/MineParams.d.ts:21
-
 Tevm params to mine one or more blocks.
 
 ## Type Declaration
@@ -34,9 +32,9 @@ The txHash to mine if only mining one tx
 
 ## Type Parameters
 
-### TThrowOnFail
-
-`TThrowOnFail` *extends* `boolean` = `boolean`
+| Type Parameter | Default type |
+| ------ | ------ |
+| `TThrowOnFail` *extends* `boolean` | `boolean` |
 
 ## Example
 

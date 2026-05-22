@@ -8,13 +8,11 @@
 
 > **AnvilSetLoggingEnabledHandler** = (`params`) => `Promise`\<[`AnvilSetLoggingEnabledResult`](AnvilSetLoggingEnabledResult.md)\>
 
-Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilHandler.d.ts:22
-
 ## Parameters
 
-### params
-
-[`AnvilSetLoggingEnabledParams`](AnvilSetLoggingEnabledParams.md)
+| Parameter | Type |
+| ------ | ------ |
+| `params` | [`AnvilSetLoggingEnabledParams`](AnvilSetLoggingEnabledParams.md) |
 
 ## Returns
 

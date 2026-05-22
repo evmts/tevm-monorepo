@@ -12,13 +12,10 @@ Defined in: [tevm-monorepo/packages/utils/src/invariant.ts:3](https://github.com
 
 ## Parameters
 
-### condition
-
-`any`
-
-### error?
-
-`Error` = `...`
+| Parameter | Type |
+| ------ | ------ |
+| `condition` | `any` |
+| `error` | `Error` |
 
 ## Returns
 

@@ -8,6 +8,4 @@
 
 > **EthGetTransactionReceiptResult** = [`TransactionReceiptResult`](TransactionReceiptResult.md) \| `null`
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthResult.d.ts:136
-
 JSON-RPC response for `eth_getTransactionReceipt` procedure

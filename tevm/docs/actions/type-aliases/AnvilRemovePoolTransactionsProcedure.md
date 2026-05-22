@@ -8,15 +8,13 @@
 
 > **AnvilRemovePoolTransactionsProcedure** = (`request`) => `Promise`\<[`AnvilRemovePoolTransactionsJsonRpcResponse`](AnvilRemovePoolTransactionsJsonRpcResponse.md)\>
 
-Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilProcedure.d.ts:91
-
 JSON-RPC procedure for `anvil_removePoolTransactions`
 
 ## Parameters
 
-### request
-
-[`AnvilRemovePoolTransactionsJsonRpcRequest`](AnvilRemovePoolTransactionsJsonRpcRequest.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`AnvilRemovePoolTransactionsJsonRpcRequest`](AnvilRemovePoolTransactionsJsonRpcRequest.md) |
 
 ## Returns
 

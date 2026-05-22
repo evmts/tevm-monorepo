@@ -8,8 +8,6 @@
 
 > **DebugGetRawTransactionResult** = [`Hex`](Hex.md)
 
-Defined in: tevm-monorepo/packages/actions/types/debug/DebugResult.d.ts:231
-
 Result from `debug_getRawTransaction`
 
 Returns the raw transaction bytes as a hex string

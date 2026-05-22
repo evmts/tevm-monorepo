@@ -8,8 +8,6 @@
 
 > **WithdrawalV1** = `object`
 
-Defined in: tevm-monorepo/packages/block/types/types.d.ts:502
-
 Represents an Ethereum withdrawal from the consensus layer to the execution layer
 
 Introduced in the Shanghai/Capella upgrade (EIP-4895), these withdrawals allow validators
@@ -43,32 +41,9 @@ function processWithdrawals(withdrawals: WithdrawalV1[]): void {
 
 ## Properties
 
-### address
-
-> **address**: [`Hex`](../../index/type-aliases/Hex.md)
-
-Defined in: tevm-monorepo/packages/block/types/types.d.ts:505
-
-***
-
-### amount
-
-> **amount**: [`Hex`](../../index/type-aliases/Hex.md)
-
-Defined in: tevm-monorepo/packages/block/types/types.d.ts:506
-
-***
-
-### index
-
-> **index**: [`Hex`](../../index/type-aliases/Hex.md)
-
-Defined in: tevm-monorepo/packages/block/types/types.d.ts:503
-
-***
-
-### validatorIndex
-
-> **validatorIndex**: [`Hex`](../../index/type-aliases/Hex.md)
-
-Defined in: tevm-monorepo/packages/block/types/types.d.ts:504
+| Property | Type |
+| ------ | ------ |
+| <a id="address"></a> `address` | [`Hex`](../../index/type-aliases/Hex.md) |
+| <a id="amount"></a> `amount` | [`Hex`](../../index/type-aliases/Hex.md) |
+| <a id="index"></a> `index` | [`Hex`](../../index/type-aliases/Hex.md) |
+| <a id="validatorindex"></a> `validatorIndex` | [`Hex`](../../index/type-aliases/Hex.md) |

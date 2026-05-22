@@ -16,9 +16,9 @@ side-effect free (it doesn't modify the block nor the state).
 
 ## Parameters
 
-### vm
-
-`BaseVm`
+| Parameter | Type |
+| ------ | ------ |
+| `vm` | `BaseVm` |
 
 ## Returns
 

@@ -8,8 +8,6 @@
 
 > **ContractHandler** = \<`TAbi`, `TFunctionName`\>(`action`) => `Promise`\<[`ContractResult`](ContractResult.md)\<`TAbi`, `TFunctionName`\>\>
 
-Defined in: tevm-monorepo/packages/actions/types/Contract/ContractHandlerType.d.ts:49
-
 Handler for executing contract interactions with the TEVM.
 
 This handler is adapted from viem and is designed to closely match the viem `contractRead`/`contractWrite` API.
@@ -17,25 +15,16 @@ It encodes the ABI, function name, and arguments to perform the contract call.
 
 ## Type Parameters
 
-### TAbi
-
-`TAbi` *extends* [`Abi`](../../index/type-aliases/Abi.md) \| readonly `unknown`[] = [`Abi`](../../index/type-aliases/Abi.md)
-
-The ABI type.
-
-### TFunctionName
-
-`TFunctionName` *extends* [`ContractFunctionName`](../../index/type-aliases/ContractFunctionName.md)\<`TAbi`\> = [`ContractFunctionName`](../../index/type-aliases/ContractFunctionName.md)\<`TAbi`\>
-
-The function name type from the ABI.
+| Type Parameter | Default type | Description |
+| ------ | ------ | ------ |
+| `TAbi` *extends* [`Abi`](../../index/type-aliases/Abi.md) \| readonly `unknown`[] | [`Abi`](../../index/type-aliases/Abi.md) | The ABI type. |
+| `TFunctionName` *extends* [`ContractFunctionName`](../../index/type-aliases/ContractFunctionName.md)\<`TAbi`\> | [`ContractFunctionName`](../../index/type-aliases/ContractFunctionName.md)\<`TAbi`\> | The function name type from the ABI. |
 
 ## Parameters
 
-### action
-
-[`ContractParams`](ContractParams.md)\<`TAbi`, `TFunctionName`\> & [`CallEvents`](CallEvents.md)
-
-The parameters for the contract call, including ABI, function name, and arguments, with optional event handlers.
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `action` | [`ContractParams`](ContractParams.md)\<`TAbi`, `TFunctionName`\> & [`CallEvents`](CallEvents.md) | The parameters for the contract call, including ABI, function name, and arguments, with optional event handlers. |
 
 ## Returns
 

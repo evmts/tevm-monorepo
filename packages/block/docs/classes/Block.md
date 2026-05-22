@@ -6,7 +6,7 @@
 
 # Class: Block
 
-Defined in: [packages/block/src/block.ts:38](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L38)
+Defined in: [packages/block/src/block.ts:155](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L155)
 
 An object that represents the block.
 
@@ -16,40 +16,22 @@ An object that represents the block.
 
 > **new Block**(`opts`, `header?`, `transactions?`, `uncleHeaders?`, `withdrawals?`, `requests?`, `executionWitness?`): `Block`
 
-Defined in: [packages/block/src/block.ts:336](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L336)
+Defined in: [packages/block/src/block.ts:472](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L472)
 
 This constructor takes the values, validates them, assigns them and freezes the object.
 Use the static factory methods to assist in creating a Block object from varying data types and options.
 
 #### Parameters
 
-##### opts
-
-[`BlockOptions`](../interfaces/BlockOptions.md)
-
-##### header?
-
-[`BlockHeader`](BlockHeader.md)
-
-##### transactions?
-
-`TypedTransaction`[] = `[]`
-
-##### uncleHeaders?
-
-[`BlockHeader`](BlockHeader.md)[] = `[]`
-
-##### withdrawals?
-
-`Withdrawal`[]
-
-##### requests?
-
-[`ClRequest`](ClRequest.md)[]
-
-##### executionWitness?
-
-[`VerkleExecutionWitness`](../interfaces/VerkleExecutionWitness.md) \| `null`
+| Parameter | Type | Default value |
+| ------ | ------ | ------ |
+| `opts` | [`BlockOptions`](../interfaces/BlockOptions.md) | `undefined` |
+| `header?` | [`BlockHeader`](BlockHeader.md) | `undefined` |
+| `transactions?` | `TypedTransaction`[] | `[]` |
+| `uncleHeaders?` | [`BlockHeader`](BlockHeader.md)[] | `[]` |
+| `withdrawals?` | `Withdrawal`[] | `undefined` |
+| `requests?` | [`ClRequest`](ClRequest.md)[] | `undefined` |
+| `executionWitness?` | [`VerkleExecutionWitness`](../interfaces/VerkleExecutionWitness.md) \| `null` | `undefined` |
 
 #### Returns
 
@@ -57,262 +39,46 @@ Use the static factory methods to assist in creating a Block object from varying
 
 ## Properties
 
-### cache
-
-> `protected` **cache**: `object` = `{}`
-
-Defined in: [packages/block/src/block.ts:54](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L54)
-
-#### requestsRoot?
-
-> `optional` **requestsRoot?**: `Uint8Array`\<`ArrayBufferLike`\>
-
-#### txTrieRoot?
-
-> `optional` **txTrieRoot?**: `Uint8Array`\<`ArrayBufferLike`\>
-
-#### withdrawalsTrieRoot?
-
-> `optional` **withdrawalsTrieRoot?**: `Uint8Array`\<`ArrayBufferLike`\>
-
-***
-
-### common
-
-> `readonly` **common**: `object`
-
-Defined in: [packages/block/src/block.ts:44](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L44)
-
-#### blockExplorers?
-
-> `optional` **blockExplorers?**: `object`
-
-Collection of block explorers
-
-##### Index Signature
-
-\[`key`: `string`\]: `ChainBlockExplorer`
-
-##### blockExplorers.default
-
-> **default**: `ChainBlockExplorer`
-
-#### blockTime?
-
-> `optional` **blockTime?**: `number`
-
-Block time in milliseconds.
-
-#### contracts?
-
-> `optional` **contracts?**: `object`
-
-Collection of contracts
-
-##### Index Signature
-
-\[`key`: `string`\]: `ChainContract` \| \{\[`sourceId`: `number`\]: `ChainContract` \| `undefined`; \} \| `undefined`
-
-##### contracts.ensRegistry?
-
-> `optional` **ensRegistry?**: `ChainContract`
-
-##### contracts.ensUniversalResolver?
-
-> `optional` **ensUniversalResolver?**: `ChainContract`
-
-##### contracts.erc6492Verifier?
-
-> `optional` **erc6492Verifier?**: `ChainContract`
-
-##### contracts.multicall3?
-
-> `optional` **multicall3?**: `ChainContract`
-
-#### copy
-
-> **copy**: () => \{ blockExplorers?: \{ \[key: string\]: ChainBlockExplorer; default: ChainBlockExplorer; \} \| undefined; blockTime?: number \| undefined; contracts?: \{ ...; \} \| undefined; ... 16 more ...; copy: () =\> ...; \}
-
-##### Returns
-
-\{ blockExplorers?: \{ \[key: string\]: ChainBlockExplorer; default: ChainBlockExplorer; \} \| undefined; blockTime?: number \| undefined; contracts?: \{ ...; \} \| undefined; ... 16 more ...; copy: () =\> ...; \}
-
-#### ~~custom?~~
-
-> `optional` **custom?**: `Record`\<`string`, `unknown`\>
-
-Custom chain data.
-
-##### Deprecated
-
-use `.extend` instead.
-
-#### ensTlds?
-
-> `optional` **ensTlds?**: readonly `string`[]
-
-Collection of ENS TLDs for the chain.
-
-#### ethjsCommon
-
-> **ethjsCommon**: `Common`
-
-#### experimental\_preconfirmationTime?
-
-> `optional` **experimental\_preconfirmationTime?**: `number`
-
-Preconfirmation time in milliseconds.
-
-#### extendSchema?
-
-> `optional` **extendSchema?**: `Record`\<`string`, `unknown`\>
-
-Extend schema.
-
-#### fees?
-
-> `optional` **fees?**: `ChainFees`\<`ChainFormatters` \| `undefined`\>
-
-Modifies how fees are derived.
-
-#### formatters?
-
-> `optional` **formatters?**: `ChainFormatters`
-
-Modifies how data is formatted and typed (e.g. blocks and transactions)
-
-#### id
-
-> **id**: `number`
-
-ID in number form
-
-#### name
-
-> **name**: `string`
-
-Human-readable name
-
-#### nativeCurrency
-
-> **nativeCurrency**: `ChainNativeCurrency`
-
-Currency used by chain
-
-#### prepareTransactionRequest?
-
-> `optional` **prepareTransactionRequest?**: `PrepareTransactionRequestFn` \| \[`PrepareTransactionRequestFn`, `object`\]
-
-Function to prepare a transaction request. Runs before the transaction is filled.
-
-#### rpcUrls
-
-> **rpcUrls**: `object`
-
-Collection of RPC endpoints
-
-##### Index Signature
-
-\[`key`: `string`\]: `ChainRpcUrls`
-
-##### rpcUrls.default
-
-> **default**: `ChainRpcUrls`
-
-#### serializers?
-
-> `optional` **serializers?**: `ChainSerializers`\<`ChainFormatters` \| `undefined`, `TransactionSerializable`\>
-
-Modifies how data is serialized (e.g. transactions).
-
-#### sourceId?
-
-> `optional` **sourceId?**: `number`
-
-Source Chain ID (ie. the L1 chain)
-
-#### testnet?
-
-> `optional` **testnet?**: `boolean`
-
-Flag for test networks
-
-#### verifyHash?
-
-> `optional` **verifyHash?**: `ChainVerifyHashFn`
-
-Chain-specific signature verification.
-
-***
-
-### executionWitness?
-
-> `readonly` `optional` **executionWitness?**: [`VerkleExecutionWitness`](../interfaces/VerkleExecutionWitness.md) \| `null`
-
-Defined in: [packages/block/src/block.ts:52](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L52)
-
-EIP-6800: Verkle Proof Data (experimental)
-null implies that the non default executionWitness might exist but not available
-and will not lead to execution of the block via VM Verkle state-witness support.
-Tevm intentionally does not support Verkle/EIP-6800 execution.
-
-***
-
-### header
-
-> `readonly` **header**: [`BlockHeader`](BlockHeader.md)
-
-Defined in: [packages/block/src/block.ts:39](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L39)
-
-***
-
-### keccakFunction
-
-> `protected` **keccakFunction**: (`msg`) => `Uint8Array`
-
-Defined in: [packages/block/src/block.ts:45](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L45)
-
-#### Parameters
-
-##### msg
-
-`Uint8Array`
-
-#### Returns
-
-`Uint8Array`
-
-***
-
-### requests?
-
-> `readonly` `optional` **requests?**: [`ClRequest`](ClRequest.md)[]
-
-Defined in: [packages/block/src/block.ts:43](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L43)
-
-***
-
-### transactions
-
-> `readonly` **transactions**: `TypedTransaction`[] = `[]`
-
-Defined in: [packages/block/src/block.ts:40](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L40)
-
-***
-
-### uncleHeaders
-
-> `readonly` **uncleHeaders**: [`BlockHeader`](BlockHeader.md)[] = `[]`
-
-Defined in: [packages/block/src/block.ts:41](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L41)
-
-***
-
-### withdrawals?
-
-> `readonly` `optional` **withdrawals?**: `Withdrawal`[]
-
-Defined in: [packages/block/src/block.ts:42](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L42)
+| Property | Modifier | Type | Default value | Description | Defined in |
+| ------ | ------ | ------ | ------ | ------ | ------ |
+| <a id="cache"></a> `cache` | `protected` | `object` | `{}` | - | [packages/block/src/block.ts:172](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L172) |
+| `cache.requestsRoot?` | `public` | `Uint8Array`\<`ArrayBufferLike`\> | `undefined` | - | [packages/block/src/block.ts:175](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L175) |
+| `cache.txTrieRoot?` | `public` | `Uint8Array`\<`ArrayBufferLike`\> | `undefined` | - | [packages/block/src/block.ts:173](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L173) |
+| `cache.withdrawalsTrieRoot?` | `public` | `Uint8Array`\<`ArrayBufferLike`\> | `undefined` | - | [packages/block/src/block.ts:174](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L174) |
+| <a id="common"></a> `common` | `readonly` | `object` | `undefined` | - | [packages/block/src/block.ts:161](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L161) |
+| `common.blockExplorers?` | `public` | `object` | `undefined` | Collection of block explorers | node\_modules/.pnpm/viem@2.49.3\_bufferutil@4.1.0\_typescript@6.0.3\_utf-8-validate@5.0.10\_zod@4.4.3/node\_modules/viem/\_types/types/chain.d.ts:15 |
+| `common.blockExplorers.default` | `public` | `ChainBlockExplorer` | `undefined` | - | node\_modules/.pnpm/viem@2.49.3\_bufferutil@4.1.0\_typescript@6.0.3\_utf-8-validate@5.0.10\_zod@4.4.3/node\_modules/viem/\_types/types/chain.d.ts:17 |
+| `common.blockTime?` | `public` | `number` | `undefined` | Block time in milliseconds. | node\_modules/.pnpm/viem@2.49.3\_bufferutil@4.1.0\_typescript@6.0.3\_utf-8-validate@5.0.10\_zod@4.4.3/node\_modules/viem/\_types/types/chain.d.ts:20 |
+| `common.contracts?` | `public` | `object` | `undefined` | Collection of contracts | node\_modules/.pnpm/viem@2.49.3\_bufferutil@4.1.0\_typescript@6.0.3\_utf-8-validate@5.0.10\_zod@4.4.3/node\_modules/viem/\_types/types/chain.d.ts:22 |
+| `common.contracts.ensRegistry?` | `public` | `ChainContract` | `undefined` | - | node\_modules/.pnpm/viem@2.49.3\_bufferutil@4.1.0\_typescript@6.0.3\_utf-8-validate@5.0.10\_zod@4.4.3/node\_modules/viem/\_types/types/chain.d.ts:27 |
+| `common.contracts.ensUniversalResolver?` | `public` | `ChainContract` | `undefined` | - | node\_modules/.pnpm/viem@2.49.3\_bufferutil@4.1.0\_typescript@6.0.3\_utf-8-validate@5.0.10\_zod@4.4.3/node\_modules/viem/\_types/types/chain.d.ts:28 |
+| `common.contracts.erc6492Verifier?` | `public` | `ChainContract` | `undefined` | - | node\_modules/.pnpm/viem@2.49.3\_bufferutil@4.1.0\_typescript@6.0.3\_utf-8-validate@5.0.10\_zod@4.4.3/node\_modules/viem/\_types/types/chain.d.ts:30 |
+| `common.contracts.multicall3?` | `public` | `ChainContract` | `undefined` | - | node\_modules/.pnpm/viem@2.49.3\_bufferutil@4.1.0\_typescript@6.0.3\_utf-8-validate@5.0.10\_zod@4.4.3/node\_modules/viem/\_types/types/chain.d.ts:29 |
+| `common.copy` | `public` | () => \{ blockExplorers?: \{ \[key: string\]: ChainBlockExplorer; default: ChainBlockExplorer; \} \| undefined; blockTime?: number \| undefined; contracts?: \{ ...; \} \| undefined; ... 16 more ...; copy: () =\> ...; \} | `undefined` | - | packages/common/types/Common.d.ts:28 |
+| `common.custom?` | `public` | `Record`\<`string`, `unknown`\> | `undefined` | Custom chain data. **Deprecated** use `.extend` instead. | node\_modules/.pnpm/viem@2.49.3\_bufferutil@4.1.0\_typescript@6.0.3\_utf-8-validate@5.0.10\_zod@4.4.3/node\_modules/viem/\_types/types/chain.d.ts:59 |
+| `common.ensTlds?` | `public` | readonly `string`[] | `undefined` | Collection of ENS TLDs for the chain. | node\_modules/.pnpm/viem@2.49.3\_bufferutil@4.1.0\_typescript@6.0.3\_utf-8-validate@5.0.10\_zod@4.4.3/node\_modules/viem/\_types/types/chain.d.ts:33 |
+| `common.ethjsCommon` | `public` | `Common` | `undefined` | - | packages/common/types/Common.d.ts:27 |
+| `common.experimental_preconfirmationTime?` | `public` | `number` | `undefined` | Preconfirmation time in milliseconds. | node\_modules/.pnpm/viem@2.49.3\_bufferutil@4.1.0\_typescript@6.0.3\_utf-8-validate@5.0.10\_zod@4.4.3/node\_modules/viem/\_types/types/chain.d.ts:41 |
+| `common.extendSchema?` | `public` | `Record`\<`string`, `unknown`\> | `undefined` | Extend schema. | node\_modules/.pnpm/viem@2.49.3\_bufferutil@4.1.0\_typescript@6.0.3\_utf-8-validate@5.0.10\_zod@4.4.3/node\_modules/viem/\_types/types/chain.d.ts:61 |
+| `common.fees?` | `public` | `ChainFees`\<`ChainFormatters` \| `undefined`\> | `undefined` | Modifies how fees are derived. | node\_modules/.pnpm/viem@2.49.3\_bufferutil@4.1.0\_typescript@6.0.3\_utf-8-validate@5.0.10\_zod@4.4.3/node\_modules/viem/\_types/types/chain.d.ts:63 |
+| `common.formatters?` | `public` | `ChainFormatters` | `undefined` | Modifies how data is formatted and typed (e.g. blocks and transactions) | node\_modules/.pnpm/viem@2.49.3\_bufferutil@4.1.0\_typescript@6.0.3\_utf-8-validate@5.0.10\_zod@4.4.3/node\_modules/viem/\_types/types/chain.d.ts:65 |
+| `common.id` | `public` | `number` | `undefined` | ID in number form | node\_modules/.pnpm/viem@2.49.3\_bufferutil@4.1.0\_typescript@6.0.3\_utf-8-validate@5.0.10\_zod@4.4.3/node\_modules/viem/\_types/types/chain.d.ts:35 |
+| `common.name` | `public` | `string` | `undefined` | Human-readable name | node\_modules/.pnpm/viem@2.49.3\_bufferutil@4.1.0\_typescript@6.0.3\_utf-8-validate@5.0.10\_zod@4.4.3/node\_modules/viem/\_types/types/chain.d.ts:37 |
+| `common.nativeCurrency` | `public` | `ChainNativeCurrency` | `undefined` | Currency used by chain | node\_modules/.pnpm/viem@2.49.3\_bufferutil@4.1.0\_typescript@6.0.3\_utf-8-validate@5.0.10\_zod@4.4.3/node\_modules/viem/\_types/types/chain.d.ts:39 |
+| `common.prepareTransactionRequest?` | `public` | `PrepareTransactionRequestFn` \| \[`PrepareTransactionRequestFn`, `object`\] | `undefined` | Function to prepare a transaction request. Runs before the transaction is filled. | node\_modules/.pnpm/viem@2.49.3\_bufferutil@4.1.0\_typescript@6.0.3\_utf-8-validate@5.0.10\_zod@4.4.3/node\_modules/viem/\_types/types/chain.d.ts:67 |
+| `common.rpcUrls` | `public` | `object` | `undefined` | Collection of RPC endpoints | node\_modules/.pnpm/viem@2.49.3\_bufferutil@4.1.0\_typescript@6.0.3\_utf-8-validate@5.0.10\_zod@4.4.3/node\_modules/viem/\_types/types/chain.d.ts:43 |
+| `common.rpcUrls.default` | `public` | `ChainRpcUrls` | `undefined` | - | node\_modules/.pnpm/viem@2.49.3\_bufferutil@4.1.0\_typescript@6.0.3\_utf-8-validate@5.0.10\_zod@4.4.3/node\_modules/viem/\_types/types/chain.d.ts:45 |
+| `common.serializers?` | `public` | `ChainSerializers`\<`ChainFormatters` \| `undefined`, `TransactionSerializable`\> | `undefined` | Modifies how data is serialized (e.g. transactions). | node\_modules/.pnpm/viem@2.49.3\_bufferutil@4.1.0\_typescript@6.0.3\_utf-8-validate@5.0.10\_zod@4.4.3/node\_modules/viem/\_types/types/chain.d.ts:81 |
+| `common.sourceId?` | `public` | `number` | `undefined` | Source Chain ID (ie. the L1 chain) | node\_modules/.pnpm/viem@2.49.3\_bufferutil@4.1.0\_typescript@6.0.3\_utf-8-validate@5.0.10\_zod@4.4.3/node\_modules/viem/\_types/types/chain.d.ts:48 |
+| `common.testnet?` | `public` | `boolean` | `undefined` | Flag for test networks | node\_modules/.pnpm/viem@2.49.3\_bufferutil@4.1.0\_typescript@6.0.3\_utf-8-validate@5.0.10\_zod@4.4.3/node\_modules/viem/\_types/types/chain.d.ts:50 |
+| `common.verifyHash?` | `public` | `ChainVerifyHashFn` | `undefined` | Chain-specific signature verification. | node\_modules/.pnpm/viem@2.49.3\_bufferutil@4.1.0\_typescript@6.0.3\_utf-8-validate@5.0.10\_zod@4.4.3/node\_modules/viem/\_types/types/chain.d.ts:83 |
+| <a id="executionwitness"></a> `executionWitness?` | `readonly` | [`VerkleExecutionWitness`](../interfaces/VerkleExecutionWitness.md) \| `null` | `undefined` | EIP-6800: Verkle Proof Data (experimental) null implies that the non default executionWitness might exist but not available and will not lead to execution of the block via VM Verkle state-witness support. Tevm intentionally does not support Verkle/EIP-6800 execution. | [packages/block/src/block.ts:170](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L170) |
+| <a id="header"></a> `header` | `readonly` | [`BlockHeader`](BlockHeader.md) | `undefined` | - | [packages/block/src/block.ts:156](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L156) |
+| <a id="keccakfunction"></a> `keccakFunction` | `protected` | (`msg`) => `Uint8Array` | `undefined` | - | [packages/block/src/block.ts:162](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L162) |
+| <a id="requests"></a> `requests?` | `readonly` | [`ClRequest`](ClRequest.md)[] | `undefined` | - | [packages/block/src/block.ts:160](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L160) |
+| <a id="transactions"></a> `transactions` | `readonly` | `TypedTransaction`[] | `[]` | - | [packages/block/src/block.ts:157](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L157) |
+| <a id="uncleheaders"></a> `uncleHeaders` | `readonly` | [`BlockHeader`](BlockHeader.md)[] | `[]` | - | [packages/block/src/block.ts:158](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L158) |
+| <a id="withdrawals"></a> `withdrawals?` | `readonly` | `Withdrawal`[] | `undefined` | - | [packages/block/src/block.ts:159](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L159) |
 
 ## Methods
 
@@ -320,7 +86,7 @@ Defined in: [packages/block/src/block.ts:42](https://github.com/evmts/tevm-monor
 
 > **errorStr**(): `string`
 
-Defined in: [packages/block/src/block.ts:803](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L803)
+Defined in: [packages/block/src/block.ts:948](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L948)
 
 Return a compact error string representation of the object
 
@@ -334,17 +100,15 @@ Return a compact error string representation of the object
 
 > **ethashCanonicalDifficulty**(`parentBlock`): `bigint`
 
-Defined in: [packages/block/src/block.ts:737](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L737)
+Defined in: [packages/block/src/block.ts:881](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L881)
 
 Returns the canonical difficulty for this block.
 
 #### Parameters
 
-##### parentBlock
-
-`Block`
-
-the parent of this `Block`
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `parentBlock` | `Block` | the parent of this `Block` |
 
 #### Returns
 
@@ -356,7 +120,7 @@ the parent of this `Block`
 
 > **genTxTrie**(): `Promise`\<`Uint8Array`\<`ArrayBufferLike`\>\>
 
-Defined in: [packages/block/src/block.ts:457](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L457)
+Defined in: [packages/block/src/block.ts:596](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L596)
 
 Generates transaction trie for validation.
 
@@ -370,7 +134,7 @@ Generates transaction trie for validation.
 
 > **getTransactionsValidationErrors**(): `string`[]
 
-Defined in: [packages/block/src/block.ts:503](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L503)
+Defined in: [packages/block/src/block.ts:642](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L642)
 
 Validates transaction signatures and minimum gas requirements.
 
@@ -386,7 +150,7 @@ an array of error strings
 
 > **hash**(): `Uint8Array`
 
-Defined in: [packages/block/src/block.ts:436](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L436)
+Defined in: [packages/block/src/block.ts:575](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L575)
 
 Returns the hash of the block.
 
@@ -400,7 +164,7 @@ Returns the hash of the block.
 
 > **isGenesis**(): `boolean`
 
-Defined in: [packages/block/src/block.ts:443](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L443)
+Defined in: [packages/block/src/block.ts:582](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L582)
 
 Determines if this block is the genesis block.
 
@@ -414,7 +178,7 @@ Determines if this block is the genesis block.
 
 > **raw**(): [`BlockBytes`](../type-aliases/BlockBytes.md)
 
-Defined in: [packages/block/src/block.ts:414](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L414)
+Defined in: [packages/block/src/block.ts:550](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L550)
 
 Returns a Array of the raw Bytes Arrays of this block, in order.
 
@@ -428,7 +192,7 @@ Returns a Array of the raw Bytes Arrays of this block, in order.
 
 > **requestsTrieIsValid**(): `Promise`\<`boolean`\>
 
-Defined in: [packages/block/src/block.ts:480](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L480)
+Defined in: [packages/block/src/block.ts:619](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L619)
 
 #### Returns
 
@@ -440,7 +204,7 @@ Defined in: [packages/block/src/block.ts:480](https://github.com/evmts/tevm-mono
 
 > **serialize**(): `Uint8Array`
 
-Defined in: [packages/block/src/block.ts:450](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L450)
+Defined in: [packages/block/src/block.ts:589](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L589)
 
 Returns the rlp encoding of the block.
 
@@ -454,7 +218,7 @@ Returns the rlp encoding of the block.
 
 > **toExecutionPayload**(): [`ExecutionPayload`](../type-aliases/ExecutionPayload.md)
 
-Defined in: [packages/block/src/block.ts:769](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L769)
+Defined in: [packages/block/src/block.ts:913](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L913)
 
 #### Returns
 
@@ -466,7 +230,7 @@ Defined in: [packages/block/src/block.ts:769](https://github.com/evmts/tevm-mono
 
 > **toJSON**(): [`JsonBlock`](../interfaces/JsonBlock.md)
 
-Defined in: [packages/block/src/block.ts:754](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L754)
+Defined in: [packages/block/src/block.ts:898](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L898)
 
 Returns the block in JSON format.
 
@@ -480,7 +244,7 @@ Returns the block in JSON format.
 
 > **transactionsAreValid**(): `boolean`
 
-Defined in: [packages/block/src/block.ts:553](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L553)
+Defined in: [packages/block/src/block.ts:692](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L692)
 
 Validates transaction signatures and minimum gas requirements.
 
@@ -496,7 +260,7 @@ True if all transactions are valid, false otherwise
 
 > **transactionsTrieIsValid**(): `Promise`\<`boolean`\>
 
-Defined in: [packages/block/src/block.ts:466](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L466)
+Defined in: [packages/block/src/block.ts:605](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L605)
 
 Validates the transaction trie by generating a trie
 and do a check on the root hash.
@@ -513,7 +277,7 @@ True if the transaction trie is valid, false otherwise
 
 > **uncleHashIsValid**(): `boolean`
 
-Defined in: [packages/block/src/block.ts:670](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L670)
+Defined in: [packages/block/src/block.ts:814](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L814)
 
 Validates the uncle's hash.
 
@@ -529,7 +293,7 @@ true if the uncle's hash is valid, false otherwise.
 
 > **validateBlobTransactions**(`parentHeader`): `void`
 
-Defined in: [packages/block/src/block.ts:624](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L624)
+Defined in: [packages/block/src/block.ts:768](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L768)
 
 Validates that blob gas fee for each transaction is greater than or equal to the
 blobGasPrice for the block and that total blob gas in block is less than maximum
@@ -537,11 +301,9 @@ blob gas per block
 
 #### Parameters
 
-##### parentHeader
-
-[`BlockHeader`](BlockHeader.md)
-
-header of parent block
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `parentHeader` | [`BlockHeader`](BlockHeader.md) | header of parent block |
 
 #### Returns
 
@@ -553,7 +315,7 @@ header of parent block
 
 > **validateData**(`onlyHeader?`, `verifyTxs?`): `Promise`\<`void`\>
 
-Defined in: [packages/block/src/block.ts:569](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L569)
+Defined in: [packages/block/src/block.ts:708](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L708)
 
 Validates the block data, throwing if invalid.
 This can be checked on the Block itself without needing access to any parent block
@@ -564,17 +326,10 @@ It checks:
 
 #### Parameters
 
-##### onlyHeader?
-
-`boolean` = `false`
-
-if only passed the header, skip validating txTrie and unclesHash (default: false)
-
-##### verifyTxs?
-
-`boolean` = `true`
-
-if set to `false`, will not check for transaction validation errors (default: true)
+| Parameter | Type | Default value | Description |
+| ------ | ------ | ------ | ------ |
+| `onlyHeader` | `boolean` | `false` | if only passed the header, skip validating txTrie and unclesHash (default: false) |
+| `verifyTxs` | `boolean` | `true` | if set to `false`, will not check for transaction validation errors (default: true) |
 
 #### Returns
 
@@ -586,18 +341,16 @@ if set to `false`, will not check for transaction validation errors (default: tr
 
 > **validateGasLimit**(`parentBlock`): `void`
 
-Defined in: [packages/block/src/block.ts:747](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L747)
+Defined in: [packages/block/src/block.ts:891](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L891)
 
 Validates if the block gasLimit remains in the boundaries set by the protocol.
 Throws if invalid
 
 #### Parameters
 
-##### parentBlock
-
-`Block`
-
-the parent of this `Block`
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `parentBlock` | `Block` | the parent of this `Block` |
 
 #### Returns
 
@@ -609,7 +362,7 @@ the parent of this `Block`
 
 > **validateUncles**(): `void`
 
-Defined in: [packages/block/src/block.ts:713](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L713)
+Defined in: [packages/block/src/block.ts:857](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L857)
 
 Consistency checks for uncles included in the block, if any.
 
@@ -629,7 +382,7 @@ Header does not count an uncle twice.
 
 > **withdrawalsTrieIsValid**(): `Promise`\<`boolean`\>
 
-Defined in: [packages/block/src/block.ts:683](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L683)
+Defined in: [packages/block/src/block.ts:827](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L827)
 
 Validates the withdrawal root
 
@@ -641,27 +394,42 @@ true if the withdrawals trie root is valid, false otherwise
 
 ***
 
+### computeRequestsHash()
+
+> `static` **computeRequestsHash**(`requests`): `Uint8Array`\<`ArrayBuffer`\>
+
+Defined in: [packages/block/src/block.ts:209](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L209)
+
+Returns the EIP-7685 requests hash for an array of CLRequests.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `requests` | [`ClRequest`](ClRequest.md)[] | an array of CLRequests |
+
+#### Returns
+
+`Uint8Array`\<`ArrayBuffer`\>
+
+a 32 byte Uint8Array representing the requests hash
+
+***
+
 ### fromBeaconPayloadJson()
 
 > `static` **fromBeaconPayloadJson**(`payload`, `opts`): `Promise`\<`Block`\>
 
-Defined in: [packages/block/src/block.ts:327](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L327)
+Defined in: [packages/block/src/block.ts:463](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L463)
 
 Method to retrieve a block from a beacon payload json
 
 #### Parameters
 
-##### payload
-
-[`BeaconPayloadJson`](../type-aliases/BeaconPayloadJson.md)
-
-json of a beacon beacon fetched from beacon apis
-
-##### opts
-
-[`BlockOptions`](../interfaces/BlockOptions.md)
-
-[BlockOptions](../interfaces/BlockOptions.md)
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `payload` | [`BeaconPayloadJson`](../type-aliases/BeaconPayloadJson.md) | json of a beacon beacon fetched from beacon apis |
+| `opts` | [`BlockOptions`](../interfaces/BlockOptions.md) | [BlockOptions](../interfaces/BlockOptions.md) |
 
 #### Returns
 
@@ -675,19 +443,16 @@ the block constructed block
 
 > `static` **fromBlockData**(`blockData`, `opts`): `Block`
 
-Defined in: [packages/block/src/block.ts:109](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L109)
+Defined in: [packages/block/src/block.ts:237](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L237)
 
 Static constructor to create a block from a block data dictionary
 
 #### Parameters
 
-##### blockData
-
-[`BlockData`](../interfaces/BlockData.md)
-
-##### opts
-
-[`BlockOptions`](../interfaces/BlockOptions.md)
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `blockData` | [`BlockData`](../interfaces/BlockData.md) | - |
+| `opts` | [`BlockOptions`](../interfaces/BlockOptions.md) | - |
 
 #### Returns
 
@@ -703,21 +468,16 @@ Use createBlock() instead - this method is kept for compatibility
 
 > `static` **fromExecutionPayload**(`payload`, `opts`): `Promise`\<`Block`\>
 
-Defined in: [packages/block/src/block.ts:262](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L262)
+Defined in: [packages/block/src/block.ts:398](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L398)
 
 Method to retrieve a block from an execution payload
 
 #### Parameters
 
-##### payload
-
-[`ExecutionPayload`](../type-aliases/ExecutionPayload.md)
-
-##### opts
-
-[`BlockOptions`](../interfaces/BlockOptions.md)
-
-[BlockOptions](../interfaces/BlockOptions.md)
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `payload` | [`ExecutionPayload`](../type-aliases/ExecutionPayload.md) | - |
+| `opts` | [`BlockOptions`](../interfaces/BlockOptions.md) | [BlockOptions](../interfaces/BlockOptions.md) |
 
 #### Returns
 
@@ -731,19 +491,16 @@ the block constructed block
 
 > `static` **fromRLPSerializedBlock**(`serialized`, `opts`): `Block`
 
-Defined in: [packages/block/src/block.ts:162](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L162)
+Defined in: [packages/block/src/block.ts:295](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L295)
 
 Static constructor to create a block from a RLP-serialized block
 
 #### Parameters
 
-##### serialized
-
-`Uint8Array`
-
-##### opts
-
-[`BlockOptions`](../interfaces/BlockOptions.md)
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `serialized` | `Uint8Array` | - |
+| `opts` | [`BlockOptions`](../interfaces/BlockOptions.md) | - |
 
 #### Returns
 
@@ -759,19 +516,16 @@ Use createBlockFromRLP() instead - this method is kept for compatibility
 
 > `static` **fromValuesArray**(`values`, `opts`): `Block`
 
-Defined in: [packages/block/src/block.ts:179](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L179)
+Defined in: [packages/block/src/block.ts:312](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L312)
 
 Static constructor to create a block from an array of Bytes values
 
 #### Parameters
 
-##### values
-
-[`BlockBytes`](../type-aliases/BlockBytes.md)
-
-##### opts
-
-[`BlockOptions`](../interfaces/BlockOptions.md)
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `values` | [`BlockBytes`](../type-aliases/BlockBytes.md) | - |
+| `opts` | [`BlockOptions`](../interfaces/BlockOptions.md) | - |
 
 #### Returns
 
@@ -785,31 +539,20 @@ Use createBlockFromValuesArray() instead - this method is kept for compatibility
 
 ### genRequestsTrieRoot()
 
-> `static` **genRequestsTrieRoot**(`requests`, `emptyTrie?`): `Promise`\<`Uint8Array`\<`ArrayBufferLike`\>\>
+> `static` **genRequestsTrieRoot**(`requests`, `_emptyTrie?`): `Promise`\<`Uint8Array`\<`ArrayBuffer`\>\>
 
-Defined in: [packages/block/src/block.ts:92](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L92)
-
-Returns the requests trie root for an array of CLRequests
+Defined in: [packages/block/src/block.ts:226](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L226)
 
 #### Parameters
 
-##### requests
-
-[`ClRequest`](ClRequest.md)[]
-
-an array of CLRequests
-
-##### emptyTrie?
-
-`Trie`
-
-optional empty trie used to generate the root
+| Parameter | Type |
+| ------ | ------ |
+| `requests` | [`ClRequest`](ClRequest.md)[] |
+| `_emptyTrie?` | `Trie` |
 
 #### Returns
 
-`Promise`\<`Uint8Array`\<`ArrayBufferLike`\>\>
-
-a 32 byte Uint8Array representing the requests trie root
+`Promise`\<`Uint8Array`\<`ArrayBuffer`\>\>
 
 ***
 
@@ -817,21 +560,16 @@ a 32 byte Uint8Array representing the requests trie root
 
 > `static` **genTransactionsTrieRoot**(`txs`, `emptyTrie?`): `Promise`\<`Uint8Array`\<`ArrayBufferLike`\>\>
 
-Defined in: [packages/block/src/block.ts:78](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L78)
+Defined in: [packages/block/src/block.ts:196](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L196)
 
 Returns the txs trie root for array of TypedTransaction
 
 #### Parameters
 
-##### txs
-
-`TypedTransaction`[]
-
-array of TypedTransaction to compute the root of
-
-##### emptyTrie?
-
-`Trie`
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `txs` | `TypedTransaction`[] | array of TypedTransaction to compute the root of |
+| `emptyTrie?` | `Trie` | - |
 
 #### Returns
 
@@ -843,21 +581,16 @@ array of TypedTransaction to compute the root of
 
 > `static` **genWithdrawalsTrieRoot**(`wts`, `emptyTrie?`): `Promise`\<`Uint8Array`\<`ArrayBufferLike`\>\>
 
-Defined in: [packages/block/src/block.ts:65](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L65)
+Defined in: [packages/block/src/block.ts:183](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L183)
 
 Returns the withdrawals trie root for array of Withdrawal.
 
 #### Parameters
 
-##### wts
-
-`Withdrawal`[]
-
-array of Withdrawal to compute the root of
-
-##### emptyTrie?
-
-`Trie`
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `wts` | `Withdrawal`[] | array of Withdrawal to compute the root of |
+| `emptyTrie?` | `Trie` | - |
 
 #### Returns
 

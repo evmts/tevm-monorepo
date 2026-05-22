@@ -8,8 +8,6 @@
 
 > **AddEthereumChainParameter** = `object`
 
-Defined in: tevm-monorepo/packages/decorators/dist/index.d.ts:235
-
 Parameters for wallet_addEthereumChain RPC method (EIP-3085).
 Used to request that a wallet adds a specific blockchain network.
 
@@ -33,66 +31,14 @@ const optimismChain: AddEthereumChainParameter = {
 
 ## Properties
 
-### blockExplorerUrls?
-
-> `optional` **blockExplorerUrls?**: `string`[]
-
-Defined in: tevm-monorepo/packages/decorators/dist/index.d.ts:247
-
-***
-
-### chainId
-
-> **chainId**: `string`
-
-Defined in: tevm-monorepo/packages/decorators/dist/index.d.ts:237
-
-A 0x-prefixed hexadecimal string
-
-***
-
-### chainName
-
-> **chainName**: `string`
-
-Defined in: tevm-monorepo/packages/decorators/dist/index.d.ts:239
-
-The chain name.
-
-***
-
-### iconUrls?
-
-> `optional` **iconUrls?**: `string`[]
-
-Defined in: tevm-monorepo/packages/decorators/dist/index.d.ts:248
-
-***
-
-### nativeCurrency?
-
-> `optional` **nativeCurrency?**: `object`
-
-Defined in: tevm-monorepo/packages/decorators/dist/index.d.ts:241
-
-Native currency for the chain.
-
-#### decimals
-
-> **decimals**: `number`
-
-#### name
-
-> **name**: `string`
-
-#### symbol
-
-> **symbol**: `string`
-
-***
-
-### rpcUrls
-
-> **rpcUrls**: readonly `string`[]
-
-Defined in: tevm-monorepo/packages/decorators/dist/index.d.ts:246
+| Property | Type | Description |
+| ------ | ------ | ------ |
+| <a id="blockexplorerurls"></a> `blockExplorerUrls?` | `string`[] | - |
+| <a id="chainid"></a> `chainId` | `string` | A 0x-prefixed hexadecimal string |
+| <a id="chainname"></a> `chainName` | `string` | The chain name. |
+| <a id="iconurls"></a> `iconUrls?` | `string`[] | - |
+| <a id="nativecurrency"></a> `nativeCurrency?` | `object` | Native currency for the chain. |
+| `nativeCurrency.decimals` | `number` | - |
+| `nativeCurrency.name` | `string` | - |
+| `nativeCurrency.symbol` | `string` | - |
+| <a id="rpcurls"></a> `rpcUrls` | readonly `string`[] | - |

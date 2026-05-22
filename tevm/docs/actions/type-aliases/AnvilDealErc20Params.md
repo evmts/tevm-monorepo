@@ -8,36 +8,12 @@
 
 > **AnvilDealErc20Params** = `object`
 
-Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilParams.d.ts:174
-
 Params for `anvil_dealErc20` handler
 
 ## Properties
 
-### account
-
-> `readonly` **account**: [`Address`](Address.md)
-
-Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilParams.d.ts:182
-
-The account to set the balance for
-
-***
-
-### amount
-
-> `readonly` **amount**: `bigint`
-
-Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilParams.d.ts:186
-
-The amount of tokens to set
-
-***
-
-### erc20
-
-> `readonly` **erc20**: [`Address`](Address.md)
-
-Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilParams.d.ts:178
-
-The address of the ERC20 token
+| Property | Modifier | Type | Description |
+| ------ | ------ | ------ | ------ |
+| <a id="account"></a> `account` | `readonly` | [`Address`](Address.md) | The account to set the balance for |
+| <a id="amount"></a> `amount` | `readonly` | `bigint` | The amount of tokens to set |
+| <a id="erc20"></a> `erc20` | `readonly` | [`Address`](Address.md) | The address of the ERC20 token |

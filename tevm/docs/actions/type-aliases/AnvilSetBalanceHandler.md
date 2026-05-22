@@ -8,13 +8,11 @@
 
 > **AnvilSetBalanceHandler** = (`params`) => `Promise`\<[`AnvilSetBalanceResult`](AnvilSetBalanceResult.md)\>
 
-Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilHandler.d.ts:9
-
 ## Parameters
 
-### params
-
-[`AnvilSetBalanceParams`](AnvilSetBalanceParams.md)
+| Parameter | Type |
+| ------ | ------ |
+| `params` | [`AnvilSetBalanceParams`](AnvilSetBalanceParams.md) |
 
 ## Returns
 

@@ -14,9 +14,9 @@ JSON-RPC procedure for `anvil_setNonce`
 
 ## Parameters
 
-### request
-
-[`AnvilSetNonceJsonRpcRequest`](AnvilSetNonceJsonRpcRequest.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`AnvilSetNonceJsonRpcRequest`](AnvilSetNonceJsonRpcRequest.md) |
 
 ## Returns
 

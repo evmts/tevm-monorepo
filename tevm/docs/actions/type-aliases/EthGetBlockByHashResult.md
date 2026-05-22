@@ -8,6 +8,4 @@
 
 > **EthGetBlockByHashResult** = [`BlockResult`](../../index/type-aliases/BlockResult.md)
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthResult.d.ts:76
-
 JSON-RPC response for `eth_getBlockByHash` procedure

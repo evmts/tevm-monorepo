@@ -8,13 +8,11 @@
 
 > **AnvilDealHandler** = (`params`) => `Promise`\<[`AnvilDealResult`](AnvilDealResult.md)\>
 
-Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilHandler.d.ts:16
-
 ## Parameters
 
-### params
-
-[`AnvilDealParams`](AnvilDealParams.md)
+| Parameter | Type |
+| ------ | ------ |
+| `params` | [`AnvilDealParams`](AnvilDealParams.md) |
 
 ## Returns
 

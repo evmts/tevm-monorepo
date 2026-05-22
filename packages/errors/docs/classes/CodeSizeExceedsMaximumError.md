@@ -58,46 +58,13 @@ Additional parameters for the BaseError.
 
 > **new CodeSizeExceedsMaximumError**(`message?`, `args?`, `tag?`): `CodeSizeExceedsMaximumError`
 
-Constructs a CodeSizeExceedsMaximumError.
-Represents an calldata/creation error that occurs when the code size exceeds the maximum limit.
-This error is typically encountered when the contract size to be deployed exceeds the maximum allowed size.
-
-Code size exceeds maximum errors can occur due to:
-- Deployment of contracts with large bytecode.
-- Contracts with a significant amount of embedded data or logic.
-- Incorrect settings for contract size limits in TEVM configuration.
-
-To debug a code size exceeds maximum error:
-1. **Review Contract Size**: Ensure that the contract bytecode size is within the allowed limits. Consider refactoring the contract to reduce its size.
-2. **Optimize Contract Code**: Break down large contracts into smaller, modular contracts and use libraries or inheritance to share code.
-3. **Configure TEVM Memory Client**: When creating a TEVM MemoryClient instance, set `allowUnlimitedContractSize` to `true` if necessary. Note that even with this setting, you may still encounter block limits.
-   ```typescript
-   import { createMemoryClient } from 'tevm'
-
-   const client = createMemoryClient({ allowUnlimitedContractSize: true })
-   ```
-4. **Use TEVM Tracing**: Utilize TEVM tracing to step through the contract deployment process and inspect the bytecode size.
-5. **Use Other Tools**: Use other tools to analyze and optimize contract bytecode.
-
 #### Parameters
 
-##### message?
-
-`string` = `'Code size exceeds maximum error occurred.'`
-
-Human-readable error message.
-
-##### args?
-
-[`CodeSizeExceedsMaximumErrorParameters`](../interfaces/CodeSizeExceedsMaximumErrorParameters.md) = `{}`
-
-Additional parameters for the BaseError.
-
-##### tag?
-
-`string` = `'CodeSizeExceedsMaximumError'`
-
-The tag for the error.
+| Parameter | Type | Default value | Description |
+| ------ | ------ | ------ | ------ |
+| `message?` | `string` | `'Code size exceeds maximum error occurred.'` | Human-readable error message. |
+| `args?` | [`CodeSizeExceedsMaximumErrorParameters`](../interfaces/CodeSizeExceedsMaximumErrorParameters.md) | `{}` | Additional parameters. |
+| `tag?` | `string` | `'CodeSizeExceedsMaximumError'` | Internal error tag. |
 
 #### Returns
 
@@ -109,107 +76,18 @@ The tag for the error.
 
 ## Properties
 
-### \_tag
-
-> **\_tag**: `string`
-
-Same as name, used internally.
-
-#### Inherited from
-
-[`GasLimitExceededError`](GasLimitExceededError.md).[`_tag`](GasLimitExceededError.md#_tag)
-
-***
-
-### cause
-
-> **cause**: `any`
-
-#### Inherited from
-
-[`GasLimitExceededError`](GasLimitExceededError.md).[`cause`](GasLimitExceededError.md#cause)
-
-***
-
-### code
-
-> **code**: `number`
-
-#### Inherited from
-
-[`GasLimitExceededError`](GasLimitExceededError.md).[`code`](GasLimitExceededError.md#code)
-
-***
-
-### details
-
-> **details**: `string`
-
-#### Inherited from
-
-[`GasLimitExceededError`](GasLimitExceededError.md).[`details`](GasLimitExceededError.md#details)
-
-***
-
-### docsPath
-
-> **docsPath**: `string` \| `undefined`
-
-Path to the documentation for this error.
-
-#### Inherited from
-
-[`GasLimitExceededError`](GasLimitExceededError.md).[`docsPath`](GasLimitExceededError.md#docspath)
-
-***
-
-### metaMessages
-
-> **metaMessages**: `string`[] \| `undefined`
-
-Additional meta messages for more context.
-
-#### Inherited from
-
-[`GasLimitExceededError`](GasLimitExceededError.md).[`metaMessages`](GasLimitExceededError.md#metamessages)
-
-***
-
-### shortMessage
-
-> **shortMessage**: `string`
-
-#### Inherited from
-
-[`GasLimitExceededError`](GasLimitExceededError.md).[`shortMessage`](GasLimitExceededError.md#shortmessage)
-
-***
-
-### version
-
-> **version**: `string`
-
-#### Inherited from
-
-[`GasLimitExceededError`](GasLimitExceededError.md).[`version`](GasLimitExceededError.md#version)
-
-***
-
-### code
-
-> `static` **code**: `number` = `-32003`
-
-Error code, analogous to the code in JSON RPC error.
-
-#### Inherited from
-
-[`GasLimitExceededError`](GasLimitExceededError.md).[`code`](GasLimitExceededError.md#code-1)
-
-***
-
-### EVMErrorMessage
-
-> `static` **EVMErrorMessage**: `string` = `EVMError.errorMessages.CODESIZE_EXCEEDS_MAXIMUM`
+| Property | Modifier | Type | Default value | Description | Inherited from |
+| ------ | ------ | ------ | ------ | ------ | ------ |
+| <a id="_tag"></a> `_tag` | `public` | `string` | `undefined` | - | [`GasLimitExceededError`](GasLimitExceededError.md).[`_tag`](GasLimitExceededError.md#_tag) |
+| <a id="cause"></a> `cause` | `public` | `any` | `undefined` | - | [`GasLimitExceededError`](GasLimitExceededError.md).[`cause`](GasLimitExceededError.md#cause) |
+| <a id="code"></a> `code` | `public` | `number` | `undefined` | - | [`GasLimitExceededError`](GasLimitExceededError.md).[`code`](GasLimitExceededError.md#code) |
+| <a id="details"></a> `details` | `public` | `string` | `undefined` | - | [`GasLimitExceededError`](GasLimitExceededError.md).[`details`](GasLimitExceededError.md#details) |
+| <a id="docspath"></a> `docsPath` | `public` | `string` \| `undefined` | `undefined` | - | [`GasLimitExceededError`](GasLimitExceededError.md).[`docsPath`](GasLimitExceededError.md#docspath) |
+| <a id="metamessages"></a> `metaMessages` | `public` | `string`[] \| `undefined` | `undefined` | - | [`GasLimitExceededError`](GasLimitExceededError.md).[`metaMessages`](GasLimitExceededError.md#metamessages) |
+| <a id="shortmessage"></a> `shortMessage` | `public` | `string` | `undefined` | - | [`GasLimitExceededError`](GasLimitExceededError.md).[`shortMessage`](GasLimitExceededError.md#shortmessage) |
+| <a id="version"></a> `version` | `public` | `string` | `undefined` | - | [`GasLimitExceededError`](GasLimitExceededError.md).[`version`](GasLimitExceededError.md#version) |
+| <a id="code-1"></a> `code` | `static` | `number` | `-32003` | The error code for GasLimitExceededError. | [`GasLimitExceededError`](GasLimitExceededError.md).[`code`](GasLimitExceededError.md#code-1) |
+| <a id="evmerrormessage"></a> `EVMErrorMessage` | `static` | `string` | `EVMError.errorMessages.CODESIZE_EXCEEDS_MAXIMUM` | - | - |
 
 ## Methods
 
@@ -221,11 +99,9 @@ Walks through the error chain.
 
 #### Parameters
 
-##### fn?
-
-`Function`
-
-A function to execute on each error in the chain.
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `fn?` | `Function` | A function to execute on each error in the chain. |
 
 #### Returns
 

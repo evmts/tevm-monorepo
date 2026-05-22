@@ -26,13 +26,10 @@ varying data types.
 
 #### Parameters
 
-##### txData
-
-`LegacyTxData`
-
-##### opts?
-
-[`TxOptions`](../interfaces/TxOptions.md)
+| Parameter | Type |
+| ------ | ------ |
+| `txData` | `LegacyTxData` |
+| `opts?` | [`TxOptions`](../interfaces/TxOptions.md) |
 
 #### Returns
 
@@ -40,139 +37,22 @@ varying data types.
 
 ## Properties
 
-### activeCapabilities
-
-> `protected` **activeCapabilities**: `number`[]
-
-List of tx type defining EIPs,
-e.g. 1559 (fee market) and 2930 (access lists)
-for FeeMarket1559Tx objects
-
-***
-
-### cache
-
-> `readonly` **cache**: `TransactionCache`
-
-#### Implementation of
-
-`TransactionInterface.cache`
-
-***
-
-### common
-
-> `readonly` **common**: `Common`
-
-#### Implementation of
-
-`TransactionInterface.common`
-
-***
-
-### data
-
-> `readonly` **data**: `Uint8Array`
-
-#### Implementation of
-
-`TransactionInterface.data`
-
-***
-
-### gasLimit
-
-> `readonly` **gasLimit**: `bigint`
-
-#### Implementation of
-
-`TransactionInterface.gasLimit`
-
-***
-
-### gasPrice
-
-> `readonly` **gasPrice**: `bigint`
-
-***
-
-### nonce
-
-> `readonly` **nonce**: `bigint`
-
-#### Implementation of
-
-`TransactionInterface.nonce`
-
-***
-
-### r?
-
-> `readonly` `optional` **r?**: `bigint`
-
-#### Implementation of
-
-`TransactionInterface.r`
-
-***
-
-### s?
-
-> `readonly` `optional` **s?**: `bigint`
-
-#### Implementation of
-
-`TransactionInterface.s`
-
-***
-
-### to?
-
-> `readonly` `optional` **to?**: `Address`
-
-#### Implementation of
-
-`TransactionInterface.to`
-
-***
-
-### txOptions
-
-> `readonly` **txOptions**: [`TxOptions`](../interfaces/TxOptions.md)
-
-#### Implementation of
-
-`TransactionInterface.txOptions`
-
-***
-
-### type
-
-> **type**: `0`
-
-#### Implementation of
-
-`TransactionInterface.type`
-
-***
-
-### v?
-
-> `readonly` `optional` **v?**: `bigint`
-
-#### Implementation of
-
-`TransactionInterface.v`
-
-***
-
-### value
-
-> `readonly` **value**: `bigint`
-
-#### Implementation of
-
-`TransactionInterface.value`
+| Property | Modifier | Type | Description |
+| ------ | ------ | ------ | ------ |
+| <a id="activecapabilities"></a> `activeCapabilities` | `protected` | `number`[] | List of tx type defining EIPs, e.g. 1559 (fee market) and 2930 (access lists) for FeeMarket1559Tx objects |
+| <a id="cache"></a> `cache` | `readonly` | `TransactionCache` | - |
+| <a id="common"></a> `common` | `readonly` | `Common` | - |
+| <a id="data"></a> `data` | `readonly` | `Uint8Array` | - |
+| <a id="gaslimit"></a> `gasLimit` | `readonly` | `bigint` | - |
+| <a id="gasprice"></a> `gasPrice` | `readonly` | `bigint` | - |
+| <a id="nonce"></a> `nonce` | `readonly` | `bigint` | - |
+| <a id="r"></a> `r?` | `readonly` | `bigint` | - |
+| <a id="s"></a> `s?` | `readonly` | `bigint` | - |
+| <a id="to"></a> `to?` | `readonly` | `Address` | - |
+| <a id="txoptions"></a> `txOptions` | `readonly` | [`TxOptions`](../interfaces/TxOptions.md) | - |
+| <a id="type"></a> `type` | `public` | `0` | - |
+| <a id="v"></a> `v?` | `readonly` | `bigint` | - |
+| <a id="value"></a> `value` | `readonly` | `bigint` | - |
 
 ## Methods
 
@@ -184,29 +64,12 @@ Adds a signature (or replaces an existing one) and returns a new transaction ins
 
 #### Parameters
 
-##### v
-
-`bigint`
-
-Recovery parameter, potentially unconverted when `convertV` is false
-
-##### r
-
-`bigint` \| `Uint8Array`\<`ArrayBufferLike`\>
-
-`r` value of the signature
-
-##### s
-
-`bigint` \| `Uint8Array`\<`ArrayBufferLike`\>
-
-`s` value of the signature
-
-##### convertV?
-
-`boolean`
-
-When true, converts the recovery ID into the appropriate legacy `v`
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `v` | `bigint` | Recovery parameter, potentially unconverted when `convertV` is false |
+| `r` | `bigint` \| `Uint8Array`\<`ArrayBufferLike`\> | `r` value of the signature |
+| `s` | `bigint` \| `Uint8Array`\<`ArrayBufferLike`\> | `s` value of the signature |
+| `convertV?` | `boolean` | When true, converts the recovery ID into the appropriate legacy `v` |
 
 #### Returns
 
@@ -262,11 +125,9 @@ Computes the effective priority fee for this legacy transaction, optionally cons
 
 #### Parameters
 
-##### baseFee?
-
-`bigint`
-
-Optional base fee used on networks that emulate 1559-style pricing
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `baseFee?` | `bigint` | Optional base fee used on networks that emulate 1559-style pricing |
 
 #### Returns
 
@@ -325,7 +186,7 @@ Note: the raw message message format for the legacy tx is not RLP encoded
 and you might need to do yourself with:
 
 ```javascript
-import { RLP } from '/rlp'
+import { RLP } from '@ethereumjs/rlp'
 const message = tx.getMessageToSign()
 const serializedMessage = RLP.encode(message)) // use this for the HW wallet input
 ```
@@ -543,17 +404,10 @@ Signs the transaction with the provided private key and returns the new signed i
 
 #### Parameters
 
-##### privateKey
-
-`Uint8Array`
-
-32-byte private key used to sign the transaction
-
-##### extraEntropy?
-
-`boolean` \| `Uint8Array`\<`ArrayBufferLike`\>
-
-Optional entropy passed to the signing routine
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `privateKey` | `Uint8Array` | 32-byte private key used to sign the transaction |
+| `extraEntropy?` | `boolean` \| `Uint8Array`\<`ArrayBufferLike`\> | Optional entropy passed to the signing routine |
 
 #### Returns
 
@@ -588,9 +442,9 @@ on all supported capabilities.
 
 #### Parameters
 
-##### capability
-
-`number`
+| Parameter | Type |
+| ------ | ------ |
+| `capability` | `number` |
 
 #### Returns
 

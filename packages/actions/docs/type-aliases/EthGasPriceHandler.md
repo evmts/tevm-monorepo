@@ -12,9 +12,9 @@ Defined in: [packages/actions/src/eth/EthHandler.ts:113](https://github.com/evmt
 
 ## Parameters
 
-### request?
-
-[`EthGasPriceParams`](EthGasPriceParams.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request?` | [`EthGasPriceParams`](EthGasPriceParams.md) |
 
 ## Returns
 

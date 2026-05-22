@@ -15,15 +15,15 @@ and more feature-rich `actions` api
 
 ## Type Parameters
 
-### TRequest
-
-`TRequest` *extends* [`TevmJsonRpcRequest`](TevmJsonRpcRequest.md) \| [`EthJsonRpcRequest`](EthJsonRpcRequest.md) \| [`AnvilJsonRpcRequest`](AnvilJsonRpcRequest.md) \| `DebugJsonRpcRequest`
+| Type Parameter |
+| ------ |
+| `TRequest` *extends* [`TevmJsonRpcRequest`](TevmJsonRpcRequest.md) \| [`EthJsonRpcRequest`](EthJsonRpcRequest.md) \| [`AnvilJsonRpcRequest`](AnvilJsonRpcRequest.md) \| `DebugJsonRpcRequest` |
 
 ## Parameters
 
-### request
-
-`TRequest`
+| Parameter | Type |
+| ------ | ------ |
+| `request` | `TRequest` |
 
 ## Returns
 

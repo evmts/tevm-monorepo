@@ -8,33 +8,16 @@
 
 > **bundler**(`config`, `logger`, `fao`, `solc`, `cache`, `contractPackage?`): `object`
 
-Defined in: tevm-monorepo/bundler-packages/base-bundler/types/src/bundler.d.ts:1
-
 ## Parameters
 
-### config
-
-`ResolvedCompilerConfig`
-
-### logger
-
-`Logger`
-
-### fao
-
-`FileAccessObject`
-
-### solc
-
-[`Solc`](../solc/interfaces/Solc.md)
-
-### cache
-
-`Cache`
-
-### contractPackage?
-
-`"tevm/contract"` \| `"@tevm/contract"`
+| Parameter | Type |
+| ------ | ------ |
+| `config` | `ResolvedCompilerConfig` |
+| `logger` | `Logger` |
+| `fao` | `FileAccessObject` |
+| `solc` | [`Solc`](../solc/interfaces/Solc.md) |
+| `cache` | `Cache` |
+| `contractPackage?` | `"tevm/contract"` \| `"@tevm/contract"` |
 
 ## Returns
 

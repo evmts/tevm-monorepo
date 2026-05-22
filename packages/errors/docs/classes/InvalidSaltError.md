@@ -45,23 +45,11 @@ Constructs an InvalidSaltError.
 
 #### Parameters
 
-##### message
-
-`string`
-
-Human-readable error message.
-
-##### args?
-
-[`InvalidSaltErrorParameters`](../interfaces/InvalidSaltErrorParameters.md) = `{}`
-
-Additional parameters for the InvalidSaltError.
-
-##### tag?
-
-`string` = `'InvalidSaltError'`
-
-The tag for the error.
+| Parameter | Type | Default value | Description |
+| ------ | ------ | ------ | ------ |
+| `message` | `string` | `undefined` | Human-readable error message. |
+| `args?` | [`InvalidSaltErrorParameters`](../interfaces/InvalidSaltErrorParameters.md) | `{}` | Additional parameters for the InvalidSaltError. |
+| `tag?` | `string` | `'InvalidSaltError'` | The tag for the error. |
 
 #### Returns
 
@@ -73,101 +61,17 @@ The tag for the error.
 
 ## Properties
 
-### \_tag
-
-> **\_tag**: `string`
-
-Same as name, used internally.
-
-#### Inherited from
-
-[`InvalidParamsError`](InvalidParamsError.md).[`_tag`](InvalidParamsError.md#_tag)
-
-***
-
-### cause
-
-> **cause**: `any`
-
-#### Inherited from
-
-[`InvalidParamsError`](InvalidParamsError.md).[`cause`](InvalidParamsError.md#cause)
-
-***
-
-### code
-
-> **code**: `number`
-
-#### Inherited from
-
-[`InvalidParamsError`](InvalidParamsError.md).[`code`](InvalidParamsError.md#code)
-
-***
-
-### details
-
-> **details**: `string`
-
-#### Inherited from
-
-[`InvalidParamsError`](InvalidParamsError.md).[`details`](InvalidParamsError.md#details)
-
-***
-
-### docsPath
-
-> **docsPath**: `string` \| `undefined`
-
-Path to the documentation for this error.
-
-#### Inherited from
-
-[`InvalidParamsError`](InvalidParamsError.md).[`docsPath`](InvalidParamsError.md#docspath)
-
-***
-
-### metaMessages
-
-> **metaMessages**: `string`[] \| `undefined`
-
-Additional meta messages for more context.
-
-#### Inherited from
-
-[`InvalidParamsError`](InvalidParamsError.md).[`metaMessages`](InvalidParamsError.md#metamessages)
-
-***
-
-### shortMessage
-
-> **shortMessage**: `string`
-
-#### Inherited from
-
-[`InvalidParamsError`](InvalidParamsError.md).[`shortMessage`](InvalidParamsError.md#shortmessage)
-
-***
-
-### version
-
-> **version**: `string`
-
-#### Inherited from
-
-[`InvalidParamsError`](InvalidParamsError.md).[`version`](InvalidParamsError.md#version)
-
-***
-
-### code
-
-> `static` **code**: `number` = `-32602`
-
-Error code, analogous to the code in JSON RPC error.
-
-#### Inherited from
-
-[`InvalidParamsError`](InvalidParamsError.md).[`code`](InvalidParamsError.md#code-1)
+| Property | Modifier | Type | Default value | Description | Inherited from |
+| ------ | ------ | ------ | ------ | ------ | ------ |
+| <a id="_tag"></a> `_tag` | `public` | `string` | `undefined` | - | [`InvalidParamsError`](InvalidParamsError.md).[`_tag`](InvalidParamsError.md#_tag) |
+| <a id="cause"></a> `cause` | `public` | `any` | `undefined` | - | [`InvalidParamsError`](InvalidParamsError.md).[`cause`](InvalidParamsError.md#cause) |
+| <a id="code"></a> `code` | `public` | `number` | `undefined` | - | [`InvalidParamsError`](InvalidParamsError.md).[`code`](InvalidParamsError.md#code) |
+| <a id="details"></a> `details` | `public` | `string` | `undefined` | - | [`InvalidParamsError`](InvalidParamsError.md).[`details`](InvalidParamsError.md#details) |
+| <a id="docspath"></a> `docsPath` | `public` | `string` \| `undefined` | `undefined` | - | [`InvalidParamsError`](InvalidParamsError.md).[`docsPath`](InvalidParamsError.md#docspath) |
+| <a id="metamessages"></a> `metaMessages` | `public` | `string`[] \| `undefined` | `undefined` | - | [`InvalidParamsError`](InvalidParamsError.md).[`metaMessages`](InvalidParamsError.md#metamessages) |
+| <a id="shortmessage"></a> `shortMessage` | `public` | `string` | `undefined` | - | [`InvalidParamsError`](InvalidParamsError.md).[`shortMessage`](InvalidParamsError.md#shortmessage) |
+| <a id="version"></a> `version` | `public` | `string` | `undefined` | - | [`InvalidParamsError`](InvalidParamsError.md).[`version`](InvalidParamsError.md#version) |
+| <a id="code-1"></a> `code` | `static` | `number` | `-32602` | The error code for InvalidParamsError. | [`InvalidParamsError`](InvalidParamsError.md).[`code`](InvalidParamsError.md#code-1) |
 
 ## Methods
 
@@ -179,11 +83,9 @@ Walks through the error chain.
 
 #### Parameters
 
-##### fn?
-
-`Function`
-
-A function to execute on each error in the chain.
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `fn?` | `Function` | A function to execute on each error in the chain. |
 
 #### Returns
 

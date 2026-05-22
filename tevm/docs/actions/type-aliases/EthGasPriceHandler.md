@@ -8,13 +8,11 @@
 
 > **EthGasPriceHandler** = (`request?`) => `Promise`\<[`EthGasPriceResult`](EthGasPriceResult.md)\>
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthHandler.d.ts:10
-
 ## Parameters
 
-### request?
-
-[`EthGasPriceParams`](EthGasPriceParams.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request?` | [`EthGasPriceParams`](EthGasPriceParams.md) |
 
 ## Returns
 

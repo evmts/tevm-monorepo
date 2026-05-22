@@ -22,9 +22,9 @@ Defined in: [bundler-packages/whatsabi/src/resolveContractUri.js:20](https://git
 
 #### Parameters
 
-##### chainId
-
-`number`
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `chainId` | `number` | - |
 
 #### Returns
 
@@ -36,59 +36,13 @@ Defined in: [bundler-packages/whatsabi/src/resolveContractUri.js:20](https://git
 
 ## Properties
 
-### \_tag
-
-> **\_tag**: `"UnknownChainError"` = `'UnknownChainError'`
-
-Defined in: [bundler-packages/whatsabi/src/resolveContractUri.js:16](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/whatsabi/src/resolveContractUri.js#L16)
-
-***
-
-### cause?
-
-> `optional` **cause?**: `unknown`
-
-Defined in: node\_modules/.pnpm/typescript@6.0.3/node\_modules/typescript/lib/lib.es2022.error.d.ts:24
-
-#### Inherited from
-
-`Error.cause`
-
-***
-
-### message
-
-> **message**: `string`
-
-Defined in: node\_modules/.pnpm/typescript@6.0.3/node\_modules/typescript/lib/lib.es5.d.ts:1075
-
-#### Inherited from
-
-`Error.message`
-
-***
-
-### name
-
-> **name**: `"UnknownChainError"` = `'UnknownChainError'`
-
-Defined in: [bundler-packages/whatsabi/src/resolveContractUri.js:12](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/whatsabi/src/resolveContractUri.js#L12)
-
-#### Overrides
-
-`Error.name`
-
-***
-
-### stack?
-
-> `optional` **stack?**: `string`
-
-Defined in: node\_modules/.pnpm/typescript@6.0.3/node\_modules/typescript/lib/lib.es5.d.ts:1076
-
-#### Inherited from
-
-`Error.stack`
+| Property | Type | Default value | Overrides | Inherited from | Defined in |
+| ------ | ------ | ------ | ------ | ------ | ------ |
+| <a id="_tag"></a> `_tag` | `"UnknownChainError"` | `'UnknownChainError'` | - | - | [bundler-packages/whatsabi/src/resolveContractUri.js:16](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/whatsabi/src/resolveContractUri.js#L16) |
+| <a id="cause"></a> `cause?` | `unknown` | `undefined` | - | `Error.cause` | node\_modules/.pnpm/typescript@6.0.3/node\_modules/typescript/lib/lib.es2022.error.d.ts:24 |
+| <a id="message"></a> `message` | `string` | `undefined` | - | `Error.message` | node\_modules/.pnpm/typescript@6.0.3/node\_modules/typescript/lib/lib.es5.d.ts:1075 |
+| <a id="name"></a> `name` | `"UnknownChainError"` | `'UnknownChainError'` | `Error.name` | - | [bundler-packages/whatsabi/src/resolveContractUri.js:12](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/whatsabi/src/resolveContractUri.js#L12) |
+| <a id="stack"></a> `stack?` | `string` | `undefined` | - | `Error.stack` | node\_modules/.pnpm/typescript@6.0.3/node\_modules/typescript/lib/lib.es5.d.ts:1076 |
 
 ## Methods
 
@@ -102,9 +56,9 @@ Indicates whether the argument provided is a built-in Error instance or not.
 
 #### Parameters
 
-##### error
-
-`unknown`
+| Parameter | Type |
+| ------ | ------ |
+| `error` | `unknown` |
 
 #### Returns
 

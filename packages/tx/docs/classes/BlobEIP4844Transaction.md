@@ -33,13 +33,10 @@ varying data types.
 
 #### Parameters
 
-##### txData
-
-`BlobEIP4844TxData`
-
-##### opts?
-
-[`TxOptions`](../interfaces/TxOptions.md)
+| Parameter | Type |
+| ------ | ------ |
+| `txData` | `BlobEIP4844TxData` |
+| `opts?` | [`TxOptions`](../interfaces/TxOptions.md) |
 
 #### Returns
 
@@ -47,199 +44,31 @@ varying data types.
 
 ## Properties
 
-### accessList
-
-> `readonly` **accessList**: `AccessListBytes`
-
-***
-
-### activeCapabilities
-
-> `protected` **activeCapabilities**: `number`[]
-
-List of tx type defining EIPs,
-e.g. 1559 (fee market) and 2930 (access lists)
-for FeeMarket1559Tx objects
-
-***
-
-### blobs?
-
-> `optional` **blobs?**: `` `0x${string}` ``[]
-
-***
-
-### blobVersionedHashes
-
-> **blobVersionedHashes**: `` `0x${string}` ``[]
-
-***
-
-### cache
-
-> `readonly` **cache**: `TransactionCache`
-
-#### Implementation of
-
-[`EIP4844CompatibleTx`](../interfaces/EIP4844CompatibleTx.md).[`cache`](../interfaces/EIP4844CompatibleTx.md#cache)
-
-***
-
-### chainId
-
-> `readonly` **chainId**: `bigint`
-
-***
-
-### common
-
-> `readonly` **common**: `Common`
-
-#### Implementation of
-
-[`EIP4844CompatibleTx`](../interfaces/EIP4844CompatibleTx.md).[`common`](../interfaces/EIP4844CompatibleTx.md#common)
-
-***
-
-### data
-
-> `readonly` **data**: `Uint8Array`
-
-#### Implementation of
-
-[`EIP4844CompatibleTx`](../interfaces/EIP4844CompatibleTx.md).[`data`](../interfaces/EIP4844CompatibleTx.md#data)
-
-***
-
-### gasLimit
-
-> `readonly` **gasLimit**: `bigint`
-
-#### Implementation of
-
-[`EIP4844CompatibleTx`](../interfaces/EIP4844CompatibleTx.md).[`gasLimit`](../interfaces/EIP4844CompatibleTx.md#gaslimit)
-
-***
-
-### kzgCommitments?
-
-> `optional` **kzgCommitments?**: `` `0x${string}` ``[]
-
-***
-
-### kzgProofs?
-
-> `optional` **kzgProofs?**: `` `0x${string}` ``[]
-
-***
-
-### maxFeePerBlobGas
-
-> `readonly` **maxFeePerBlobGas**: `bigint`
-
-***
-
-### maxFeePerGas
-
-> `readonly` **maxFeePerGas**: `bigint`
-
-***
-
-### maxPriorityFeePerGas
-
-> `readonly` **maxPriorityFeePerGas**: `bigint`
-
-***
-
-### networkWrapperVersion?
-
-> `optional` **networkWrapperVersion?**: `NetworkWrapperType`
-
-This property is set if the tx is in "Network Wrapper" format.
-
-Possible values:
-- 0 (EIP-4844)
-- 1 (EIP-4844 + EIP-7594)
-
-***
-
-### nonce
-
-> `readonly` **nonce**: `bigint`
-
-#### Implementation of
-
-[`EIP4844CompatibleTx`](../interfaces/EIP4844CompatibleTx.md).[`nonce`](../interfaces/EIP4844CompatibleTx.md#nonce)
-
-***
-
-### r?
-
-> `readonly` `optional` **r?**: `bigint`
-
-#### Implementation of
-
-[`EIP4844CompatibleTx`](../interfaces/EIP4844CompatibleTx.md).[`r`](../interfaces/EIP4844CompatibleTx.md#r)
-
-***
-
-### s?
-
-> `readonly` `optional` **s?**: `bigint`
-
-#### Implementation of
-
-[`EIP4844CompatibleTx`](../interfaces/EIP4844CompatibleTx.md).[`s`](../interfaces/EIP4844CompatibleTx.md#s)
-
-***
-
-### to?
-
-> `readonly` `optional` **to?**: `Address`
-
-#### Implementation of
-
-[`EIP4844CompatibleTx`](../interfaces/EIP4844CompatibleTx.md).[`to`](../interfaces/EIP4844CompatibleTx.md#to)
-
-***
-
-### txOptions
-
-> `readonly` **txOptions**: [`TxOptions`](../interfaces/TxOptions.md)
-
-#### Implementation of
-
-[`EIP4844CompatibleTx`](../interfaces/EIP4844CompatibleTx.md).[`txOptions`](../interfaces/EIP4844CompatibleTx.md#txoptions)
-
-***
-
-### type
-
-> **type**: `3`
-
-#### Implementation of
-
-[`EIP4844CompatibleTx`](../interfaces/EIP4844CompatibleTx.md).[`type`](../interfaces/EIP4844CompatibleTx.md#type)
-
-***
-
-### v?
-
-> `readonly` `optional` **v?**: `bigint`
-
-#### Implementation of
-
-[`EIP4844CompatibleTx`](../interfaces/EIP4844CompatibleTx.md).[`v`](../interfaces/EIP4844CompatibleTx.md#v)
-
-***
-
-### value
-
-> `readonly` **value**: `bigint`
-
-#### Implementation of
-
-[`EIP4844CompatibleTx`](../interfaces/EIP4844CompatibleTx.md).[`value`](../interfaces/EIP4844CompatibleTx.md#value)
+| Property | Modifier | Type | Description |
+| ------ | ------ | ------ | ------ |
+| <a id="accesslist"></a> `accessList` | `readonly` | `AccessListBytes` | - |
+| <a id="activecapabilities"></a> `activeCapabilities` | `protected` | `number`[] | List of tx type defining EIPs, e.g. 1559 (fee market) and 2930 (access lists) for FeeMarket1559Tx objects |
+| <a id="blobs"></a> `blobs?` | `public` | `` `0x${string}` ``[] | - |
+| <a id="blobversionedhashes"></a> `blobVersionedHashes` | `public` | `` `0x${string}` ``[] | - |
+| <a id="cache"></a> `cache` | `readonly` | `TransactionCache` | - |
+| <a id="chainid"></a> `chainId` | `readonly` | `bigint` | - |
+| <a id="common"></a> `common` | `readonly` | `Common` | - |
+| <a id="data"></a> `data` | `readonly` | `Uint8Array` | - |
+| <a id="gaslimit"></a> `gasLimit` | `readonly` | `bigint` | - |
+| <a id="kzgcommitments"></a> `kzgCommitments?` | `public` | `` `0x${string}` ``[] | - |
+| <a id="kzgproofs"></a> `kzgProofs?` | `public` | `` `0x${string}` ``[] | - |
+| <a id="maxfeeperblobgas"></a> `maxFeePerBlobGas` | `readonly` | `bigint` | - |
+| <a id="maxfeepergas"></a> `maxFeePerGas` | `readonly` | `bigint` | - |
+| <a id="maxpriorityfeepergas"></a> `maxPriorityFeePerGas` | `readonly` | `bigint` | - |
+| <a id="networkwrapperversion"></a> `networkWrapperVersion?` | `public` | `NetworkWrapperType` | This property is set if the tx is in "Network Wrapper" format. Possible values: - 0 (EIP-4844) - 1 (EIP-4844 + EIP-7594) |
+| <a id="nonce"></a> `nonce` | `readonly` | `bigint` | - |
+| <a id="r"></a> `r?` | `readonly` | `bigint` | - |
+| <a id="s"></a> `s?` | `readonly` | `bigint` | - |
+| <a id="to"></a> `to?` | `readonly` | `Address` | - |
+| <a id="txoptions"></a> `txOptions` | `readonly` | [`TxOptions`](../interfaces/TxOptions.md) | - |
+| <a id="type"></a> `type` | `public` | `3` | - |
+| <a id="v"></a> `v?` | `readonly` | `bigint` | - |
+| <a id="value"></a> `value` | `readonly` | `bigint` | - |
 
 ## Methods
 
@@ -251,23 +80,11 @@ Adds signature values (and optional network wrapper fields) and returns a new tr
 
 #### Parameters
 
-##### v
-
-`bigint`
-
-Recovery parameter
-
-##### r
-
-`bigint` \| `Uint8Array`\<`ArrayBufferLike`\>
-
-Signature `r` value
-
-##### s
-
-`bigint` \| `Uint8Array`\<`ArrayBufferLike`\>
-
-Signature `s` value
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `v` | `bigint` | Recovery parameter |
+| `r` | `bigint` \| `Uint8Array`\<`ArrayBufferLike`\> | Signature `r` value |
+| `s` | `bigint` \| `Uint8Array`\<`ArrayBufferLike`\> | Signature `s` value |
 
 #### Returns
 
@@ -323,11 +140,9 @@ Returns the minimum of calculated priority fee (from maxFeePerGas and baseFee) a
 
 #### Parameters
 
-##### baseFee
-
-`bigint`
-
-Base fee retrieved from block
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `baseFee` | `bigint` | Base fee retrieved from block |
 
 #### Returns
 
@@ -464,11 +279,9 @@ The up front amount that an account must have for this transaction to be valid
 
 #### Parameters
 
-##### baseFee?
-
-`bigint`
-
-The base fee of the block (will be set to 0 if not provided)
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `baseFee?` | `bigint` | The base fee of the block (will be set to 0 if not provided) |
 
 #### Returns
 
@@ -636,17 +449,10 @@ Signs the transaction with the provided private key and returns the signed insta
 
 #### Parameters
 
-##### privateKey
-
-`Uint8Array`
-
-32-byte private key used for signing
-
-##### extraEntropy?
-
-`boolean` \| `Uint8Array`\<`ArrayBufferLike`\>
-
-Optional entropy passed to the signing routine
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `privateKey` | `Uint8Array` | 32-byte private key used for signing |
+| `extraEntropy?` | `boolean` \| `Uint8Array`\<`ArrayBufferLike`\> | Optional entropy passed to the signing routine |
 
 #### Returns
 
@@ -681,9 +487,9 @@ on all supported capabilities.
 
 #### Parameters
 
-##### capability
-
-`number`
+| Parameter | Type |
+| ------ | ------ |
+| `capability` | `number` |
 
 #### Returns
 

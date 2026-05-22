@@ -14,9 +14,9 @@ JSON-RPC procedure for `anvil_metadata`
 
 ## Parameters
 
-### request
-
-[`AnvilMetadataJsonRpcRequest`](AnvilMetadataJsonRpcRequest.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`AnvilMetadataJsonRpcRequest`](AnvilMetadataJsonRpcRequest.md) |
 
 ## Returns
 

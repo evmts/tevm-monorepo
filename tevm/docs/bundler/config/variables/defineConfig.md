@@ -8,8 +8,6 @@
 
 > `const` **defineConfig**: `DefineConfig`
 
-Defined in: tevm-monorepo/bundler-packages/config/types/defineConfig.d.ts:35
-
 Typesafe way to create an Tevm CompilerConfig
 
 ## Example

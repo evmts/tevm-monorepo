@@ -12,9 +12,9 @@ Defined in: [packages/actions/src/SetAccount/validateSetAccountParams.js:19](htt
 
 ## Parameters
 
-### action
-
-[`SetAccountParams`](../type-aliases/SetAccountParams.md)\<`boolean`\>
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `action` | [`SetAccountParams`](../type-aliases/SetAccountParams.md)\<`boolean`\> | - |
 
 ## Returns
 

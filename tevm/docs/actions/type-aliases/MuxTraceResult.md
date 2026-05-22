@@ -8,8 +8,6 @@
 
 > **MuxTraceResult**\<`TTracers`, `TDiffMode`\> = `{ [K in TTracers[number]]?: K extends keyof TracerResultMap<TDiffMode> ? TracerResultMap<TDiffMode>[K] : never }`
 
-Defined in: tevm-monorepo/packages/actions/types/common/MuxTraceResult.d.ts:70
-
 Result from `debug_*` with `muxTracer`
 
 The muxTracer multiplexes multiple tracers and returns their results in a single object.
@@ -17,13 +15,10 @@ Each key in the result corresponds to a tracer name, and the value is that trace
 
 ## Type Parameters
 
-### TTracers
-
-`TTracers` *extends* readonly [`MuxTracerType`](MuxTracerType.md)[] = readonly [`MuxTracerType`](MuxTracerType.md)[]
-
-### TDiffMode
-
-`TDiffMode` *extends* `boolean` = `boolean`
+| Type Parameter | Default type |
+| ------ | ------ |
+| `TTracers` *extends* readonly [`MuxTracerType`](MuxTracerType.md)[] | readonly [`MuxTracerType`](MuxTracerType.md)[] |
+| `TDiffMode` *extends* `boolean` | `boolean` |
 
 ## Example
 

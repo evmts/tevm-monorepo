@@ -8,8 +8,6 @@
 
 > `const` **definePrecompile**: \<`TContract`\>(`{ contract, call, }`) => `Precompile`\<`TContract`\>
 
-Defined in: tevm-monorepo/packages/precompiles/dist/index.d.ts:215
-
 Defines a precompile contract that executes JavaScript code instead of EVM bytecode.
 
 A precompile is a special kind of contract that is deployed at a specific address
@@ -18,21 +16,17 @@ functionality that would be difficult or inefficient to implement in Solidity.
 
 ## Type Parameters
 
-### TContract
-
-`TContract` *extends* [`Contract`](../type-aliases/Contract.md)\<`any`, `any`, [`Address`](../type-aliases/Address.md), `any`, `any`, `any`\> = [`Contract`](../type-aliases/Contract.md)\<`string`, `ReadonlyArray`\<`string`\>, [`Address`](../type-aliases/Address.md), `any`, `any`, `any`\>
+| Type Parameter | Default type |
+| ------ | ------ |
+| `TContract` *extends* [`Contract`](../type-aliases/Contract.md)\<`any`, `any`, [`Address`](../type-aliases/Address.md), `any`, `any`, `any`\> | [`Contract`](../type-aliases/Contract.md)\<`string`, `ReadonlyArray`\<`string`\>, [`Address`](../type-aliases/Address.md), `any`, `any`, `any`\> |
 
 ## Parameters
 
-### \{ contract, call, \}
-
-#### call
-
-(`context`) => `Promise`\<[`ExecResult`](../../evm/interfaces/ExecResult.md)\>
-
-#### contract
-
-`TContract`
+| Parameter | Type |
+| ------ | ------ |
+| `{ contract, call, }` | \{ `call`: (`context`) => `Promise`\<[`ExecResult`](../../evm/interfaces/ExecResult.md)\>; `contract`: `TContract`; \} |
+| `{ contract, call, }.call` | (`context`) => `Promise`\<[`ExecResult`](../../evm/interfaces/ExecResult.md)\> |
+| `{ contract, call, }.contract` | `TContract` |
 
 ## Returns
 

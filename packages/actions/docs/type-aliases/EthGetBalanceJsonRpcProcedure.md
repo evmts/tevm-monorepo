@@ -12,9 +12,9 @@ Defined in: [packages/actions/src/eth/EthProcedure.ts:135](https://github.com/ev
 
 ## Parameters
 
-### request
-
-[`EthGetBalanceJsonRpcRequest`](EthGetBalanceJsonRpcRequest.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`EthGetBalanceJsonRpcRequest`](EthGetBalanceJsonRpcRequest.md) |
 
 ## Returns
 

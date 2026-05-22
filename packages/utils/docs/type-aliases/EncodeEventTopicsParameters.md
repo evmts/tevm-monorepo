@@ -22,22 +22,10 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/viem@2.49.3\_bufferutil@4.1.0\_typ
 
 ## Type Parameters
 
-### abi
-
-`abi` *extends* [`Abi`](Abi.md) \| readonly `unknown`[] = [`Abi`](Abi.md)
-
-### eventName
-
-`eventName` *extends* `ContractEventName`\<`abi`\> \| `undefined` = `ContractEventName`\<`abi`\>
-
-### hasEvents
-
-`hasEvents` = `abi` *extends* [`Abi`](Abi.md) ? [`Abi`](Abi.md) *extends* `abi` ? `true` : \[[`ExtractAbiEvents`](ExtractAbiEvents.md)\<`abi`\>\] *extends* \[`never`\] ? `false` : `true` : `true`
-
-### allArgs
-
-`allArgs` = `ContractEventArgs`\<`abi`, `eventName` *extends* `ContractEventName`\<`abi`\> ? `eventName` : `ContractEventName`\<`abi`\>\>
-
-### allErrorNames
-
-`allErrorNames` = `ContractEventName`\<`abi`\>
+| Type Parameter | Default type |
+| ------ | ------ |
+| `abi` *extends* [`Abi`](Abi.md) \| readonly `unknown`[] | [`Abi`](Abi.md) |
+| `eventName` *extends* `ContractEventName`\<`abi`\> \| `undefined` | `ContractEventName`\<`abi`\> |
+| `hasEvents` | `abi` *extends* [`Abi`](Abi.md) ? [`Abi`](Abi.md) *extends* `abi` ? `true` : \[[`ExtractAbiEvents`](ExtractAbiEvents.md)\<`abi`\>\] *extends* \[`never`\] ? `false` : `true` : `true` |
+| `allArgs` | `ContractEventArgs`\<`abi`, `eventName` *extends* `ContractEventName`\<`abi`\> ? `eventName` : `ContractEventName`\<`abi`\>\> |
+| `allErrorNames` | `ContractEventName`\<`abi`\> |

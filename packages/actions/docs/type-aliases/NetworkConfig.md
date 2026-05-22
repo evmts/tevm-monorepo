@@ -14,20 +14,7 @@ Represents a configuration for a forked or proxied network
 
 ## Properties
 
-### blockTag
-
-> **blockTag**: [`BlockParam`](BlockParam.md)
-
-Defined in: [packages/actions/src/common/NetworkConfig.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/NetworkConfig.ts#L14)
-
-the block tag to fork from
-
-***
-
-### url
-
-> **url**: `string`
-
-Defined in: [packages/actions/src/common/NetworkConfig.ts:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/NetworkConfig.ts#L10)
-
-The URL to the RPC endpoint
+| Property | Type | Description | Defined in |
+| ------ | ------ | ------ | ------ |
+| <a id="blocktag"></a> `blockTag` | [`BlockParam`](BlockParam.md) | the block tag to fork from | [packages/actions/src/common/NetworkConfig.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/NetworkConfig.ts#L14) |
+| <a id="url"></a> `url` | `string` | The URL to the RPC endpoint | [packages/actions/src/common/NetworkConfig.ts:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/NetworkConfig.ts#L10) |

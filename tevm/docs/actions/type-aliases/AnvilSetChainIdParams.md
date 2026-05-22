@@ -8,16 +8,10 @@
 
 > **AnvilSetChainIdParams** = `object`
 
-Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilParams.d.ts:144
-
 Params for `anvil_setChainId` handler
 
 ## Properties
 
-### chainId
-
-> `readonly` **chainId**: `number`
-
-Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilParams.d.ts:148
-
-The chain id to set
+| Property | Modifier | Type | Description |
+| ------ | ------ | ------ | ------ |
+| <a id="chainid"></a> `chainId` | `readonly` | `number` | The chain id to set |

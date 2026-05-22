@@ -4,32 +4,20 @@
 
 [tevm](../../../modules.md) / [bundler/solc](../README.md) / SolcInputDescription
 
-# Type Alias: SolcInputDescription
+# Type Alias: SolcInputDescription\<T\>
 
-> **SolcInputDescription** = `object`
+> **SolcInputDescription**\<`T`\> = `object`
 
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:88
+## Type Parameters
+
+| Type Parameter | Default type |
+| ------ | ------ |
+| `T` *extends* [`SolcLanguage`](SolcLanguage.md) | [`SolcLanguage`](SolcLanguage.md) |
 
 ## Properties
 
-### language
-
-> **language**: [`SolcLanguage`](SolcLanguage.md)
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:89
-
-***
-
-### settings?
-
-> `optional` **settings?**: [`SolcSettings`](SolcSettings.md)
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:91
-
-***
-
-### sources
-
-> **sources**: [`SolcInputSources`](SolcInputSources.md)
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:90
+| Property | Type |
+| ------ | ------ |
+| <a id="language"></a> `language` | `T` |
+| <a id="settings"></a> `settings?` | [`SolcSettings`](SolcSettings.md) |
+| <a id="sources"></a> `sources` | [`SolcInputSources`](SolcInputSources.md)\<`T`\> |

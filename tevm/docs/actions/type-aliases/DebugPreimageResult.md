@@ -8,8 +8,6 @@
 
 > **DebugPreimageResult** = [`Hex`](Hex.md) \| `null`
 
-Defined in: tevm-monorepo/packages/actions/types/debug/DebugResult.d.ts:181
-
 Result from `debug_preimage`
 
 Returns the preimage (original data) for a hash, or null if not available

@@ -8,7 +8,7 @@
 
 > **create2ContractAddress**(`from`, `salt`, `code`): [`Address`](../classes/Address.md)
 
-Defined in: [tevm-monorepo/packages/address/src/create2ContractAddress.js:86](https://github.com/evmts/tevm-monorepo/blob/main/packages/address/src/create2ContractAddress.js#L86)
+Defined in: [tevm-monorepo/packages/address/src/create2ContractAddress.js:87](https://github.com/evmts/tevm-monorepo/blob/main/packages/address/src/create2ContractAddress.js#L87)
 
 Generates an [Address](../classes/Address.md) for a contract deployed using the CREATE2 opcode.
 
@@ -33,23 +33,11 @@ Where:
 
 ## Parameters
 
-### from
-
-`Address`
-
-The address of the account or factory contract initiating the deployment
-
-### salt
-
-`` `0x${string}` ``
-
-A 32-byte value as a hex string that makes the address unique
-
-### code
-
-`` `0x${string}` ``
-
-The contract creation bytecode (not the deployed bytecode)
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `from` | `Address` | The address of the account or factory contract initiating the deployment |
+| `salt` | `` `0x${string}` `` | A 32-byte value as a hex string that makes the address unique |
+| `code` | `` `0x${string}` `` | The contract creation bytecode (not the deployed bytecode) |
 
 ## Returns
 

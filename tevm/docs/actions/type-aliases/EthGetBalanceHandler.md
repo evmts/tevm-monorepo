@@ -8,13 +8,11 @@
 
 > **EthGetBalanceHandler** = (`request`) => `Promise`\<[`EthGetBalanceResult`](EthGetBalanceResult.md)\>
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthHandler.d.ts:13
-
 ## Parameters
 
-### request
-
-[`EthGetBalanceParams`](EthGetBalanceParams.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`EthGetBalanceParams`](EthGetBalanceParams.md) |
 
 ## Returns
 

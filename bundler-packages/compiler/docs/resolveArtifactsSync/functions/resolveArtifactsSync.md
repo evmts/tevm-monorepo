@@ -12,37 +12,16 @@ Defined in: [compiler/src/resolveArtifactsSync.js:6](https://github.com/evmts/te
 
 ## Parameters
 
-### solFile
-
-`string`
-
-### basedir
-
-`string`
-
-### logger
-
-[`Logger`](../../types/type-aliases/Logger.md)
-
-### config
-
-`ResolvedCompilerConfig`
-
-### includeAst
-
-`boolean`
-
-### includeBytecode
-
-`boolean`
-
-### fao
-
-[`FileAccessObject`](../../types/type-aliases/FileAccessObject.md)
-
-### solc
-
-`any`
+| Parameter | Type |
+| ------ | ------ |
+| `solFile` | `string` |
+| `basedir` | `string` |
+| `logger` | [`Logger`](../../types/type-aliases/Logger.md) |
+| `config` | `ResolvedCompilerConfig` |
+| `includeAst` | `boolean` |
+| `includeBytecode` | `boolean` |
+| `fao` | [`FileAccessObject`](../../types/type-aliases/FileAccessObject.md) |
+| `solc` | `any` |
 
 ## Returns
 

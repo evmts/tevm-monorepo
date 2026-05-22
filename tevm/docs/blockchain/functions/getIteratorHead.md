@@ -8,13 +8,11 @@
 
 > **getIteratorHead**(`baseChain`): (`name?`) => `Promise`\<[`Block`](../../block/classes/Block.md)\>
 
-Defined in: tevm-monorepo/packages/blockchain/types/actions/getIteratorHead.d.ts:1
-
 ## Parameters
 
-### baseChain
-
-`BaseChain`
+| Parameter | Type |
+| ------ | ------ |
+| `baseChain` | `BaseChain` |
 
 ## Returns
 
@@ -24,11 +22,9 @@ Returns the specified iterator head.
 
 ### Parameters
 
-#### name?
-
-`string`
-
-Optional name of the iterator head (default: 'vm')
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `name?` | `string` | Optional name of the iterator head (default: 'vm') |
 
 ### Returns
 

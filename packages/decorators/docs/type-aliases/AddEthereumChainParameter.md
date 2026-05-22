@@ -33,66 +33,14 @@ const optimismChain: AddEthereumChainParameter = {
 
 ## Properties
 
-### blockExplorerUrls?
-
-> `optional` **blockExplorerUrls?**: `string`[]
-
-Defined in: [eip1193/AddEthereumChainParameter.ts:39](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/AddEthereumChainParameter.ts#L39)
-
-***
-
-### chainId
-
-> **chainId**: `string`
-
-Defined in: [eip1193/AddEthereumChainParameter.ts:29](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/AddEthereumChainParameter.ts#L29)
-
-A 0x-prefixed hexadecimal string
-
-***
-
-### chainName
-
-> **chainName**: `string`
-
-Defined in: [eip1193/AddEthereumChainParameter.ts:31](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/AddEthereumChainParameter.ts#L31)
-
-The chain name.
-
-***
-
-### iconUrls?
-
-> `optional` **iconUrls?**: `string`[]
-
-Defined in: [eip1193/AddEthereumChainParameter.ts:40](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/AddEthereumChainParameter.ts#L40)
-
-***
-
-### nativeCurrency?
-
-> `optional` **nativeCurrency?**: `object`
-
-Defined in: [eip1193/AddEthereumChainParameter.ts:33](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/AddEthereumChainParameter.ts#L33)
-
-Native currency for the chain.
-
-#### decimals
-
-> **decimals**: `number`
-
-#### name
-
-> **name**: `string`
-
-#### symbol
-
-> **symbol**: `string`
-
-***
-
-### rpcUrls
-
-> **rpcUrls**: readonly `string`[]
-
-Defined in: [eip1193/AddEthereumChainParameter.ts:38](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/AddEthereumChainParameter.ts#L38)
+| Property | Type | Description | Defined in |
+| ------ | ------ | ------ | ------ |
+| <a id="blockexplorerurls"></a> `blockExplorerUrls?` | `string`[] | - | [eip1193/AddEthereumChainParameter.ts:39](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/AddEthereumChainParameter.ts#L39) |
+| <a id="chainid"></a> `chainId` | `string` | A 0x-prefixed hexadecimal string | [eip1193/AddEthereumChainParameter.ts:29](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/AddEthereumChainParameter.ts#L29) |
+| <a id="chainname"></a> `chainName` | `string` | The chain name. | [eip1193/AddEthereumChainParameter.ts:31](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/AddEthereumChainParameter.ts#L31) |
+| <a id="iconurls"></a> `iconUrls?` | `string`[] | - | [eip1193/AddEthereumChainParameter.ts:40](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/AddEthereumChainParameter.ts#L40) |
+| <a id="nativecurrency"></a> `nativeCurrency?` | `object` | Native currency for the chain. | [eip1193/AddEthereumChainParameter.ts:33](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/AddEthereumChainParameter.ts#L33) |
+| `nativeCurrency.decimals` | `number` | - | [eip1193/AddEthereumChainParameter.ts:36](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/AddEthereumChainParameter.ts#L36) |
+| `nativeCurrency.name` | `string` | - | [eip1193/AddEthereumChainParameter.ts:34](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/AddEthereumChainParameter.ts#L34) |
+| `nativeCurrency.symbol` | `string` | - | [eip1193/AddEthereumChainParameter.ts:35](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/AddEthereumChainParameter.ts#L35) |
+| <a id="rpcurls"></a> `rpcUrls` | readonly `string`[] | - | [eip1193/AddEthereumChainParameter.ts:38](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/AddEthereumChainParameter.ts#L38) |

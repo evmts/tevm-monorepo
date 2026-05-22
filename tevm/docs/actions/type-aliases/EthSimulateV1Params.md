@@ -8,58 +8,15 @@
 
 > **EthSimulateV1Params** = `object`
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthParams.d.ts:424
-
 Based on the JSON-RPC request for `eth_simulateV1` procedure
 Allows simulation of multiple transactions across multiple blocks with state overrides
 
 ## Properties
 
-### blockStateCalls
-
-> `readonly` **blockStateCalls**: readonly [`EthSimulateV1BlockStateCall`](EthSimulateV1BlockStateCall.md)[]
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthParams.d.ts:429
-
-Array of block state calls to simulate. Each block can have its own
-state overrides and multiple calls.
-
-***
-
-### blockTag?
-
-> `readonly` `optional` **blockTag?**: [`BlockParam`](../../index/type-aliases/BlockParam.md)
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthParams.d.ts:445
-
-The block number or tag to execute the simulation against
-
-***
-
-### returnFullTransactions?
-
-> `readonly` `optional` **returnFullTransactions?**: `boolean`
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthParams.d.ts:441
-
-Whether to return full transaction objects in the response
-
-***
-
-### traceTransfers?
-
-> `readonly` `optional` **traceTransfers?**: `boolean`
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthParams.d.ts:433
-
-Whether to trace ETH transfers
-
-***
-
-### validation?
-
-> `readonly` `optional` **validation?**: `boolean`
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthParams.d.ts:437
-
-Whether to validate transactions (check signatures, nonces, etc.)
+| Property | Modifier | Type | Description |
+| ------ | ------ | ------ | ------ |
+| <a id="blockstatecalls"></a> `blockStateCalls` | `readonly` | readonly [`EthSimulateV1BlockStateCall`](EthSimulateV1BlockStateCall.md)[] | Array of block state calls to simulate. Each block can have its own state overrides and multiple calls. |
+| <a id="blocktag"></a> `blockTag?` | `readonly` | [`BlockParam`](../../index/type-aliases/BlockParam.md) | The block number or tag to execute the simulation against |
+| <a id="returnfulltransactions"></a> `returnFullTransactions?` | `readonly` | `boolean` | Whether to return full transaction objects in the response |
+| <a id="tracetransfers"></a> `traceTransfers?` | `readonly` | `boolean` | Whether to trace ETH transfers |
+| <a id="validation"></a> `validation?` | `readonly` | `boolean` | Whether to validate transactions (check signatures, nonces, etc.) |

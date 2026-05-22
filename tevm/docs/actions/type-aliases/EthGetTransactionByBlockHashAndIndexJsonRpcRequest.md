@@ -8,6 +8,4 @@
 
 > **EthGetTransactionByBlockHashAndIndexJsonRpcRequest** = [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"eth_getTransactionByBlockHashAndIndex"`, readonly \[[`Hex`](../../index/type-aliases/Hex.md), [`Hex`](../../index/type-aliases/Hex.md)\]\>
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthJsonRpcRequest.d.ts:152
-
 JSON-RPC request for `eth_getTransactionByBlockHashAndIndex` procedure

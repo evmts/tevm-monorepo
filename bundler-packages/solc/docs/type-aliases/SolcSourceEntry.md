@@ -8,20 +8,11 @@
 
 > **SolcSourceEntry** = `object`
 
-Defined in: [solcTypes.ts:385](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L385)
+Defined in: [solcTypes.ts:411](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L411)
 
 ## Properties
 
-### ast
-
-> **ast**: `any`
-
-Defined in: [solcTypes.ts:390](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L390)
-
-***
-
-### id
-
-> **id**: `number`
-
-Defined in: [solcTypes.ts:387](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L387)
+| Property | Type | Defined in |
+| ------ | ------ | ------ |
+| <a id="ast"></a> `ast` | [`SolcAst`](SolcAst.md) | [solcTypes.ts:416](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L416) |
+| <a id="id"></a> `id` | `number` | [solcTypes.ts:413](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L413) |

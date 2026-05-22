@@ -12,9 +12,9 @@ Defined in: zevm/npm/zevm/dist/util.d.ts:239
 
 ## Parameters
 
-### withdrawalData
-
-[`WithdrawalData`](../type-aliases/WithdrawalData.md)
+| Parameter | Type |
+| ------ | ------ |
+| `withdrawalData` | [`WithdrawalData`](../type-aliases/WithdrawalData.md) |
 
 ## Returns
 

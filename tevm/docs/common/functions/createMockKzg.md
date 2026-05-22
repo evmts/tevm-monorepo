@@ -8,8 +8,6 @@
 
 > **createMockKzg**(): [`MockKzg`](../type-aliases/MockKzg.md)
 
-Defined in: tevm-monorepo/packages/common/types/createMockKzg.d.ts:1
-
 ## Returns
 
 [`MockKzg`](../type-aliases/MockKzg.md)

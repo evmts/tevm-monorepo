@@ -14,11 +14,9 @@ Parses human-readable ABI into JSON [Abi](Abi.md)
 
 ## Type Parameters
 
-### signatures
-
-`signatures` *extends* readonly `string`[]
-
-Human-readable ABI
+| Type Parameter | Description |
+| ------ | ------ |
+| `signatures` *extends* readonly `string`[] | Human-readable ABI |
 
 ## Returns
 

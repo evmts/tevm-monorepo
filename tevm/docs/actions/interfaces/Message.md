@@ -6,137 +6,23 @@
 
 # Interface: Message
 
-Defined in: tevm-monorepo/packages/actions/types/common/CallEvents.d.ts:16
-
 Message object representing a call to the EVM
 This corresponds to the EVM's internal Message object
 
 ## Properties
 
-### authcallOrigin?
-
-> `optional` **authcallOrigin?**: [`Address`](../../address/classes/Address.md)
-
-Defined in: tevm-monorepo/packages/actions/types/common/CallEvents.d.ts:40
-
-Origin address for AUTH calls
-
-***
-
-### caller
-
-> **caller**: [`Address`](../../address/classes/Address.md)
-
-Defined in: tevm-monorepo/packages/actions/types/common/CallEvents.d.ts:22
-
-Address of the account that initiated this call
-
-***
-
-### code?
-
-> `optional` **code?**: `any`
-
-Defined in: tevm-monorepo/packages/actions/types/common/CallEvents.d.ts:28
-
-Contract code for the call - can be bytecode or a precompile function
-
-***
-
-### data
-
-> **data**: `Uint8Array`
-
-Defined in: tevm-monorepo/packages/actions/types/common/CallEvents.d.ts:26
-
-Input data to the call
-
-***
-
-### delegatecall
-
-> **delegatecall**: `boolean`
-
-Defined in: tevm-monorepo/packages/actions/types/common/CallEvents.d.ts:36
-
-Whether this is a DELEGATECALL
-
-***
-
-### depth
-
-> **depth**: `number`
-
-Defined in: tevm-monorepo/packages/actions/types/common/CallEvents.d.ts:30
-
-Call depth
-
-***
-
-### gasLimit
-
-> **gasLimit**: `bigint`
-
-Defined in: tevm-monorepo/packages/actions/types/common/CallEvents.d.ts:24
-
-Gas limit for this call
-
-***
-
-### gasRefund?
-
-> `optional` **gasRefund?**: `bigint`
-
-Defined in: tevm-monorepo/packages/actions/types/common/CallEvents.d.ts:42
-
-Gas refund counter
-
-***
-
-### isCompiled
-
-> **isCompiled**: `boolean`
-
-Defined in: tevm-monorepo/packages/actions/types/common/CallEvents.d.ts:34
-
-Whether this is precompiled contract code
-
-***
-
-### isStatic
-
-> **isStatic**: `boolean`
-
-Defined in: tevm-monorepo/packages/actions/types/common/CallEvents.d.ts:32
-
-Whether the call is static (view)
-
-***
-
-### salt?
-
-> `optional` **salt?**: `Uint8Array`\<`ArrayBufferLike`\>
-
-Defined in: tevm-monorepo/packages/actions/types/common/CallEvents.d.ts:38
-
-Salt for CREATE2 calls
-
-***
-
-### to?
-
-> `optional` **to?**: [`Address`](../../address/classes/Address.md)
-
-Defined in: tevm-monorepo/packages/actions/types/common/CallEvents.d.ts:18
-
-Target address (undefined for contract creation)
-
-***
-
-### value
-
-> **value**: `bigint`
-
-Defined in: tevm-monorepo/packages/actions/types/common/CallEvents.d.ts:20
-
-Value sent with the call (in wei)
+| Property | Type | Description |
+| ------ | ------ | ------ |
+| <a id="authcallorigin"></a> `authcallOrigin?` | [`Address`](../../address/classes/Address.md) | Origin address for AUTH calls |
+| <a id="caller"></a> `caller` | [`Address`](../../address/classes/Address.md) | Address of the account that initiated this call |
+| <a id="code"></a> `code?` | `any` | Contract code for the call - can be bytecode or a precompile function |
+| <a id="data"></a> `data` | `Uint8Array` | Input data to the call |
+| <a id="delegatecall"></a> `delegatecall` | `boolean` | Whether this is a DELEGATECALL |
+| <a id="depth"></a> `depth` | `number` | Call depth |
+| <a id="gaslimit"></a> `gasLimit` | `bigint` | Gas limit for this call |
+| <a id="gasrefund"></a> `gasRefund?` | `bigint` | Gas refund counter |
+| <a id="iscompiled"></a> `isCompiled` | `boolean` | Whether this is precompiled contract code |
+| <a id="isstatic"></a> `isStatic` | `boolean` | Whether the call is static (view) |
+| <a id="salt"></a> `salt?` | `Uint8Array`\<`ArrayBufferLike`\> | Salt for CREATE2 calls |
+| <a id="to"></a> `to?` | [`Address`](../../address/classes/Address.md) | Target address (undefined for contract creation) |
+| <a id="value"></a> `value` | `bigint` | Value sent with the call (in wei) |

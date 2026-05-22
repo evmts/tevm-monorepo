@@ -8,8 +8,6 @@
 
 > **ExecutionPayload** = `object`
 
-Defined in: tevm-monorepo/packages/block/types/types.d.ts:548
-
 Represents the execution layer data of an Ethereum block
 
 Introduced with The Merge (Paris fork), the ExecutionPayload is passed between
@@ -20,7 +18,7 @@ The structure has evolved over time with various Ethereum upgrades:
 - The Merge (Paris): Basic structure with transactions
 - Shanghai: Added withdrawals field
 - Cancun: Added blobGasUsed, excessBlobGas, parentBeaconBlockRoot
-- Prague (planned): Will add verkle-related fields
+- Verkle/EIP-6800 payload fields are modeled only; Tevm execution is unsupported
 
 ## See
 
@@ -54,160 +52,25 @@ async function handleNewPayload(payload: ExecutionPayload): Promise<{status: str
 
 ## Properties
 
-### baseFeePerGas
-
-> **baseFeePerGas**: [`Hex`](../../index/type-aliases/Hex.md) \| `string`
-
-Defined in: tevm-monorepo/packages/block/types/types.d.ts:560
-
-***
-
-### blobGasUsed?
-
-> `optional` **blobGasUsed?**: [`Hex`](../../index/type-aliases/Hex.md) \| `string`
-
-Defined in: tevm-monorepo/packages/block/types/types.d.ts:564
-
-***
-
-### blockHash
-
-> **blockHash**: [`Hex`](../../index/type-aliases/Hex.md) \| `string`
-
-Defined in: tevm-monorepo/packages/block/types/types.d.ts:561
-
-***
-
-### blockNumber
-
-> **blockNumber**: [`Hex`](../../index/type-aliases/Hex.md) \| `string`
-
-Defined in: tevm-monorepo/packages/block/types/types.d.ts:555
-
-***
-
-### excessBlobGas?
-
-> `optional` **excessBlobGas?**: [`Hex`](../../index/type-aliases/Hex.md) \| `string`
-
-Defined in: tevm-monorepo/packages/block/types/types.d.ts:565
-
-***
-
-### executionWitness?
-
-> `optional` **executionWitness?**: [`VerkleExecutionWitness`](../interfaces/VerkleExecutionWitness.md) \| `null`
-
-Defined in: tevm-monorepo/packages/block/types/types.d.ts:567
-
-***
-
-### extraData
-
-> **extraData**: [`Hex`](../../index/type-aliases/Hex.md) \| `string`
-
-Defined in: tevm-monorepo/packages/block/types/types.d.ts:559
-
-***
-
-### feeRecipient
-
-> **feeRecipient**: [`Hex`](../../index/type-aliases/Hex.md) \| `string`
-
-Defined in: tevm-monorepo/packages/block/types/types.d.ts:550
-
-***
-
-### gasLimit
-
-> **gasLimit**: [`Hex`](../../index/type-aliases/Hex.md) \| `string`
-
-Defined in: tevm-monorepo/packages/block/types/types.d.ts:556
-
-***
-
-### gasUsed
-
-> **gasUsed**: [`Hex`](../../index/type-aliases/Hex.md) \| `string`
-
-Defined in: tevm-monorepo/packages/block/types/types.d.ts:557
-
-***
-
-### logsBloom
-
-> **logsBloom**: [`Hex`](../../index/type-aliases/Hex.md) \| `string`
-
-Defined in: tevm-monorepo/packages/block/types/types.d.ts:553
-
-***
-
-### parentBeaconBlockRoot?
-
-> `optional` **parentBeaconBlockRoot?**: [`Hex`](../../index/type-aliases/Hex.md) \| `string`
-
-Defined in: tevm-monorepo/packages/block/types/types.d.ts:566
-
-***
-
-### parentHash
-
-> **parentHash**: [`Hex`](../../index/type-aliases/Hex.md) \| `string`
-
-Defined in: tevm-monorepo/packages/block/types/types.d.ts:549
-
-***
-
-### prevRandao
-
-> **prevRandao**: [`Hex`](../../index/type-aliases/Hex.md) \| `string`
-
-Defined in: tevm-monorepo/packages/block/types/types.d.ts:554
-
-***
-
-### receiptsRoot
-
-> **receiptsRoot**: [`Hex`](../../index/type-aliases/Hex.md) \| `string`
-
-Defined in: tevm-monorepo/packages/block/types/types.d.ts:552
-
-***
-
-### requestsRoot?
-
-> `optional` **requestsRoot?**: [`Hex`](../../index/type-aliases/Hex.md) \| `string` \| `null`
-
-Defined in: tevm-monorepo/packages/block/types/types.d.ts:568
-
-***
-
-### stateRoot
-
-> **stateRoot**: [`Hex`](../../index/type-aliases/Hex.md) \| `string`
-
-Defined in: tevm-monorepo/packages/block/types/types.d.ts:551
-
-***
-
-### timestamp
-
-> **timestamp**: [`Hex`](../../index/type-aliases/Hex.md) \| `string`
-
-Defined in: tevm-monorepo/packages/block/types/types.d.ts:558
-
-***
-
-### transactions
-
-> **transactions**: [`Hex`](../../index/type-aliases/Hex.md)[] \| `string`[]
-
-Defined in: tevm-monorepo/packages/block/types/types.d.ts:562
-
-***
-
-### withdrawals?
-
-> `optional` **withdrawals?**: [`WithdrawalV1`](WithdrawalV1.md)[]
-
-Defined in: tevm-monorepo/packages/block/types/types.d.ts:563
+| Property | Type |
+| ------ | ------ |
+| <a id="basefeepergas"></a> `baseFeePerGas` | [`Hex`](../../index/type-aliases/Hex.md) \| `string` |
+| <a id="blobgasused"></a> `blobGasUsed?` | [`Hex`](../../index/type-aliases/Hex.md) \| `string` |
+| <a id="blockhash"></a> `blockHash` | [`Hex`](../../index/type-aliases/Hex.md) \| `string` |
+| <a id="blocknumber"></a> `blockNumber` | [`Hex`](../../index/type-aliases/Hex.md) \| `string` |
+| <a id="excessblobgas"></a> `excessBlobGas?` | [`Hex`](../../index/type-aliases/Hex.md) \| `string` |
+| <a id="executionwitness"></a> `executionWitness?` | [`VerkleExecutionWitness`](../interfaces/VerkleExecutionWitness.md) \| `null` |
+| <a id="extradata"></a> `extraData` | [`Hex`](../../index/type-aliases/Hex.md) \| `string` |
+| <a id="feerecipient"></a> `feeRecipient` | [`Hex`](../../index/type-aliases/Hex.md) \| `string` |
+| <a id="gaslimit"></a> `gasLimit` | [`Hex`](../../index/type-aliases/Hex.md) \| `string` |
+| <a id="gasused"></a> `gasUsed` | [`Hex`](../../index/type-aliases/Hex.md) \| `string` |
+| <a id="logsbloom"></a> `logsBloom` | [`Hex`](../../index/type-aliases/Hex.md) \| `string` |
+| <a id="parentbeaconblockroot"></a> `parentBeaconBlockRoot?` | [`Hex`](../../index/type-aliases/Hex.md) \| `string` |
+| <a id="parenthash"></a> `parentHash` | [`Hex`](../../index/type-aliases/Hex.md) \| `string` |
+| <a id="prevrandao"></a> `prevRandao` | [`Hex`](../../index/type-aliases/Hex.md) \| `string` |
+| <a id="receiptsroot"></a> `receiptsRoot` | [`Hex`](../../index/type-aliases/Hex.md) \| `string` |
+| <a id="requestsroot"></a> `requestsRoot?` | [`Hex`](../../index/type-aliases/Hex.md) \| `string` \| `null` |
+| <a id="stateroot"></a> `stateRoot` | [`Hex`](../../index/type-aliases/Hex.md) \| `string` |
+| <a id="timestamp"></a> `timestamp` | [`Hex`](../../index/type-aliases/Hex.md) \| `string` |
+| <a id="transactions"></a> `transactions` | [`Hex`](../../index/type-aliases/Hex.md)[] \| `string`[] |
+| <a id="withdrawals"></a> `withdrawals?` | [`WithdrawalV1`](WithdrawalV1.md)[] |

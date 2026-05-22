@@ -12,9 +12,9 @@ Defined in: [packages/actions/src/Mine/validateMineParams.js:12](https://github.
 
 ## Parameters
 
-### action
-
-[`MineParams`](../type-aliases/MineParams.md)\<`boolean`\>
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `action` | [`MineParams`](../type-aliases/MineParams.md)\<`boolean`\> | - |
 
 ## Returns
 

@@ -8,8 +8,6 @@
 
 > `const` **createContract**: [`CreateContractFn`](../../contract/type-aliases/CreateContractFn.md)
 
-Defined in: tevm-monorepo/packages/contract/types/createContract.d.ts:67
-
 Creates a Tevm Contract instance from a human-readable ABI or JSON ABI.
 This function is the core of Tevm's contract interaction capabilities,
 allowing for type-safe and easy-to-use contract interfaces.

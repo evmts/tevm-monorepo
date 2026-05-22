@@ -12,9 +12,9 @@ Defined in: [packages/actions/src/Contract/validateContractParams.js:20](https:/
 
 ## Parameters
 
-### action
-
-[`ContractParams`](../type-aliases/ContractParams.md)\<`Abi`, `string`, `boolean`\>
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `action` | [`ContractParams`](../type-aliases/ContractParams.md)\<`Abi`, `string`, `boolean`\> | - |
 
 ## Returns
 

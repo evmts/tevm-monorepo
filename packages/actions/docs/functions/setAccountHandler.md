@@ -8,7 +8,7 @@
 
 > **setAccountHandler**(`client`, `options?`): [`SetAccountHandler`](../type-aliases/SetAccountHandler.md)
 
-Defined in: [packages/actions/src/SetAccount/setAccountHandler.js:70](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/SetAccount/setAccountHandler.js#L70)
+Defined in: [packages/actions/src/SetAccount/setAccountHandler.js:47](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/SetAccount/setAccountHandler.js#L47)
 
 Creates a handler for setting account state in the Ethereum Virtual Machine
 
@@ -21,37 +21,28 @@ This handler allows you to completely modify an account's state, including:
 It's particularly useful for test environments where you need to set up
 specific contract states or account balances before running tests.
 
+Use `state` to overwrite the account's storage (clears existing slots first) or
+`stateDiff` to patch individual slots without clearing.
+
 ## Parameters
 
-### client
-
-`TevmNode`\<`"fork"` \| `"normal"`, \{ \}\>
-
-The TEVM node instance
-
-### options?
-
-Handler configuration options
-
-#### throwOnFail?
-
-`boolean`
-
-Whether to throw errors or return them in the result object
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `client` | `TevmNode`\<`"fork"` \| `"normal"`, \{ \}\> | - |
+| `options?` | \{ `throwOnFail?`: `boolean`; \} | - |
+| `options.throwOnFail?` | `boolean` | - |
 
 ## Returns
 
 [`SetAccountHandler`](../type-aliases/SetAccountHandler.md)
 
-A handler function for setting account state
+## Throws
+
+When validation fails and throwOnFail is true.
 
 ## Throws
 
-When validation fails and throwOnFail is true
-
-## Throws
-
-When there's an error putting the account state and throwOnFail is true
+When putting account state fails and throwOnFail is true.
 
 ## Example
 
@@ -60,38 +51,12 @@ import { createTevmNode } from '@tevm/node'
 import { setAccountHandler } from '@tevm/actions'
 import { parseEther } from 'viem'
 
-const node = createTevmNode()
-const handler = setAccountHandler(node)
-
-// Set an account with balance and nonce
+const handler = setAccountHandler(createTevmNode())
 await handler({
   address: '0x1234567890123456789012345678901234567890',
-  balance: parseEther('1000'), // 1000 ETH
-  nonce: 5n
-})
-
-// Deploy contract bytecode
-await handler({
-  address: '0xabcdef1234567890abcdef1234567890abcdef12',
-  deployedBytecode: '0x608060405234801561001057600080fd5b50600436106100365760003560e01c8063...',
-  balance: parseEther('10')
-})
-
-// Set specific storage values
-await handler({
-  address: '0xabcdef1234567890abcdef1234567890abcdef12',
-  state: {
-    // storage slot => value
-    '0x0000000000000000000000000000000000000000000000000000000000000000': '0x0000000000000000000000000000000000000000000000000000000000000001',
-    '0x0000000000000000000000000000000000000000000000000000000000000001': '0x0000000000000000000000000000000000000000000000000000000000000002'
-  }
-})
-
-// Update individual storage slots without clearing others
-await handler({
-  address: '0xabcdef1234567890abcdef1234567890abcdef12',
-  stateDiff: {
-    '0x0000000000000000000000000000000000000000000000000000000000000000': '0x0000000000000000000000000000000000000000000000000000000000000005'
-  }
+  balance: parseEther('1000'),
+  nonce: 5n,
+  deployedBytecode: '0x6080...',
+  stateDiff: { '0x00...00': '0x00...05' },
 })
 ```

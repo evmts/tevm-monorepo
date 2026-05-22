@@ -14,9 +14,9 @@ Sets the state of a specific ethereum address
 
 ## Parameters
 
-### params
-
-[`SetAccountParams`](SetAccountParams.md)
+| Parameter | Type |
+| ------ | ------ |
+| `params` | [`SetAccountParams`](SetAccountParams.md) |
 
 ## Returns
 

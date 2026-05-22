@@ -17,12 +17,14 @@
 ## Type Aliases
 
 - [Releases](type-aliases/Releases.md)
+- [SolcAst](type-aliases/SolcAst.md)
 - [SolcBytecodeOutput](type-aliases/SolcBytecodeOutput.md)
 - [SolcContractOutput](type-aliases/SolcContractOutput.md)
 - [SolcDebugSettings](type-aliases/SolcDebugSettings.md)
 - [SolcDeployedBytecodeOutput](type-aliases/SolcDeployedBytecodeOutput.md)
 - [SolcErrorEntry](type-aliases/SolcErrorEntry.md)
-- [SolcEVMOutput](type-aliases/SolcEVMOutput.md)
+- [SolcEvmOutput](type-aliases/SolcEvmOutput.md)
+- [SolcEvmVersion](type-aliases/SolcEvmVersion.md)
 - [SolcEwasmOutput](type-aliases/SolcEwasmOutput.md)
 - [SolcFunctionDebugData](type-aliases/SolcFunctionDebugData.md)
 - [SolcGasEstimates](type-aliases/SolcGasEstimates.md)

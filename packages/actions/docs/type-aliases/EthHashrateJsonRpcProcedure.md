@@ -12,9 +12,9 @@ Defined in: [packages/actions/src/eth/EthProcedure.ts:123](https://github.com/ev
 
 ## Parameters
 
-### request
-
-[`EthHashrateJsonRpcRequest`](EthHashrateJsonRpcRequest.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`EthHashrateJsonRpcRequest`](EthHashrateJsonRpcRequest.md) |
 
 ## Returns
 

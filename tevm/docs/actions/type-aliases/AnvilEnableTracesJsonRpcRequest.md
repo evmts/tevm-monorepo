@@ -8,6 +8,4 @@
 
 > **AnvilEnableTracesJsonRpcRequest** = [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"anvil_enableTraces"`, readonly \[`boolean`\]\>
 
-Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilJsonRpcRequest.d.ts:185
-
 JSON-RPC request for `anvil_enableTraces` method

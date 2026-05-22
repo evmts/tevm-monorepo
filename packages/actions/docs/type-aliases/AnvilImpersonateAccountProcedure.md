@@ -14,9 +14,9 @@ JSON-RPC procedure for `anvil_impersonateAccount`
 
 ## Parameters
 
-### request
-
-[`AnvilImpersonateAccountJsonRpcRequest`](AnvilImpersonateAccountJsonRpcRequest.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`AnvilImpersonateAccountJsonRpcRequest`](AnvilImpersonateAccountJsonRpcRequest.md) |
 
 ## Returns
 

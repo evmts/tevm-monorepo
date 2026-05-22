@@ -8,19 +8,15 @@
 
 > **CallHandler** = (`action`) => `Promise`\<[`CallResult`](CallResult.md)\>
 
-Defined in: tevm-monorepo/packages/actions/types/Call/CallHandlerType.d.ts:48
-
 Executes a call against the VM, similar to `eth_call` but with more options for controlling the execution environment.
 
 This low-level function is used internally by higher-level functions like `contract` and `script`, which are designed to interact with deployed contracts or undeployed scripts, respectively.
 
 ## Parameters
 
-### action
-
-[`CallHandlerParams`](CallHandlerParams.md)
-
-The parameters for the call, including optional event handlers.
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `action` | [`CallHandlerParams`](CallHandlerParams.md) | The parameters for the call, including optional event handlers. |
 
 ## Returns
 

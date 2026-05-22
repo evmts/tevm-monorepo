@@ -8,6 +8,4 @@
 
 > **EthAccountsParams** = [`EmptyParams`](../../index/type-aliases/EmptyParams.md)
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthParams.d.ts:6
-
 Params taken by `eth_accounts` handler (no params)

@@ -8,8 +8,6 @@
 
 > `const` **applyBlock**: (`vm`) => (`block`, `opts`) => `Promise`\<[`ApplyBlockResult`](../interfaces/ApplyBlockResult.md)\>
 
-Defined in: tevm-monorepo/packages/vm/types/actions/applyBlock.d.ts:12
-
 Validates and applies a block, computing the results of
 applying its transactions. This method doesn't modify the
 block itself. It computes the block rewards and puts
@@ -17,9 +15,9 @@ them on state (but doesn't persist the changes).
 
 ## Parameters
 
-### vm
-
-`BaseVm`
+| Parameter | Type |
+| ------ | ------ |
+| `vm` | `BaseVm` |
 
 ## Returns
 

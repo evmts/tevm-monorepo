@@ -8,20 +8,9 @@
 
 > **SolcEwasmOutput** = `object`
 
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:322
-
 ## Properties
 
-### wasm
-
-> **wasm**: `string`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:324
-
-***
-
-### wast
-
-> **wast**: `string`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:323
+| Property | Type |
+| ------ | ------ |
+| <a id="wasm"></a> `wasm` | `string` |
+| <a id="wast"></a> `wast` | `string` |

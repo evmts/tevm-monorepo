@@ -8,13 +8,13 @@
 
 > **getCodeHandler**(`baseClient`): [`EthGetCodeHandler`](../type-aliases/EthGetCodeHandler.md)
 
-Defined in: [packages/actions/src/eth/getCodeHandler.js:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/getCodeHandler.js#L10)
+Defined in: [packages/actions/src/eth/getCodeHandler.js:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/getCodeHandler.js#L11)
 
 ## Parameters
 
-### baseClient
-
-`TevmNode`\<`"fork"` \| `"normal"`, \{ \}\>
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `baseClient` | `TevmNode`\<`"fork"` \| `"normal"`, \{ \}\> | - |
 
 ## Returns
 

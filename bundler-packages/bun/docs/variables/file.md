@@ -27,15 +27,10 @@ This Blob is lazy. That means it won't do any work until you read from it.
 
 ### Parameters
 
-#### path
-
-`string` \| `URL`
-
-The path to the file (lazily loaded) if the path starts with `s3://` it will behave like S3File
-
-#### options?
-
-`BlobPropertyBag`
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `path` | `string` \| `URL` | The path to the file (lazily loaded) if the path starts with `s3://` it will behave like S3File |
+| `options?` | `BlobPropertyBag` | - |
 
 ### Returns
 
@@ -69,15 +64,10 @@ This Blob is lazy. It won't do any work until you read from it. Errors propagate
 
 ### Parameters
 
-#### path
-
-`ArrayBufferLike` \| `Uint8Array`\<`ArrayBuffer`\>
-
-The path to the file as a byte buffer (the buffer is copied) if the path starts with `s3://` it will behave like S3File
-
-#### options?
-
-`BlobPropertyBag`
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `path` | `ArrayBufferLike` \| `Uint8Array`\<`ArrayBuffer`\> | The path to the file as a byte buffer (the buffer is copied) if the path starts with `s3://` it will behave like S3File |
+| `options?` | `BlobPropertyBag` | - |
 
 ### Returns
 
@@ -102,15 +92,10 @@ This Blob is lazy. That means it won't do any work until you read from it.
 
 ### Parameters
 
-#### fileDescriptor
-
-`number`
-
-The file descriptor of the file
-
-#### options?
-
-`BlobPropertyBag`
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `fileDescriptor` | `number` | The file descriptor of the file |
+| `options?` | `BlobPropertyBag` | - |
 
 ### Returns
 

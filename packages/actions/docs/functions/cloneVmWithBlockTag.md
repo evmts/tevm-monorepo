@@ -19,13 +19,10 @@ Prepares the VM for a call given a block tag. This includes
 
 ## Parameters
 
-### client
-
-`TevmNode`\<`"fork"` \| `"normal"`, \{ \}\>
-
-### block
-
-`Block`
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `client` | `TevmNode`\<`"fork"` \| `"normal"`, \{ \}\> | - |
+| `block` | `Block` | - |
 
 ## Returns
 

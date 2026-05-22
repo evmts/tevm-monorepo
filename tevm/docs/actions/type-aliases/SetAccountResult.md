@@ -8,22 +8,16 @@
 
 > **SetAccountResult**\<`ErrorType`\> = `object`
 
-Defined in: tevm-monorepo/packages/actions/types/SetAccount/SetAccountResult.d.ts:5
-
 Result of SetAccount Action
 
 ## Type Parameters
 
-### ErrorType
-
-`ErrorType` = [`TevmSetAccountError`](TevmSetAccountError.md)
+| Type Parameter | Default type |
+| ------ | ------ |
+| `ErrorType` | [`TevmSetAccountError`](TevmSetAccountError.md) |
 
 ## Properties
 
-### errors?
-
-> `optional` **errors?**: `ErrorType`[]
-
-Defined in: tevm-monorepo/packages/actions/types/SetAccount/SetAccountResult.d.ts:9
-
-Description of the exception, if any occurred
+| Property | Type | Description |
+| ------ | ------ | ------ |
+| <a id="errors"></a> `errors?` | `ErrorType`[] | Description of the exception, if any occurred |

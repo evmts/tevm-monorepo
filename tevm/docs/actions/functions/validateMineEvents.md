@@ -8,13 +8,11 @@
 
 > **validateMineEvents**(`events`): `object`
 
-Defined in: tevm-monorepo/packages/actions/types/Mine/validateMineEvents.d.ts:1
-
 ## Parameters
 
-### events
-
-`unknown`
+| Parameter | Type |
+| ------ | ------ |
+| `events` | `unknown` |
 
 ## Returns
 
@@ -23,6 +21,8 @@ Defined in: tevm-monorepo/packages/actions/types/Mine/validateMineEvents.d.ts:1
 ### errors
 
 > **errors**: `object`[]
+
+#### Type Declaration
 
 ### isValid
 

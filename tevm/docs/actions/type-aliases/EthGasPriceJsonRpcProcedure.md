@@ -8,13 +8,11 @@
 
 > **EthGasPriceJsonRpcProcedure** = (`request`) => `Promise`\<[`EthGasPriceJsonRpcResponse`](EthGasPriceJsonRpcResponse.md)\>
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthProcedure.d.ts:11
-
 ## Parameters
 
-### request
-
-[`EthGasPriceJsonRpcRequest`](EthGasPriceJsonRpcRequest.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`EthGasPriceJsonRpcRequest`](EthGasPriceJsonRpcRequest.md) |
 
 ## Returns
 

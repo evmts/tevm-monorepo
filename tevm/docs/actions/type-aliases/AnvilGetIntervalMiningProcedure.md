@@ -8,15 +8,13 @@
 
 > **AnvilGetIntervalMiningProcedure** = (`request`) => `Promise`\<[`AnvilGetIntervalMiningJsonRpcResponse`](AnvilGetIntervalMiningJsonRpcResponse.md)\>
 
-Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilProcedure.d.ts:31
-
 JSON-RPC procedure for `anvil_getIntervalMining`
 
 ## Parameters
 
-### request
-
-[`AnvilGetIntervalMiningJsonRpcRequest`](AnvilGetIntervalMiningJsonRpcRequest.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`AnvilGetIntervalMiningJsonRpcRequest`](AnvilGetIntervalMiningJsonRpcRequest.md) |
 
 ## Returns
 

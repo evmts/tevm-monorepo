@@ -11,3 +11,6 @@
 Defined in: [packages/actions/src/eth/ethNewFilterHandler.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/ethNewFilterHandler.js#L9)
 
 ## Type Parameters
+
+| Type Parameter |
+| ------ |

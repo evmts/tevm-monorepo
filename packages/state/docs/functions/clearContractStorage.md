@@ -14,9 +14,9 @@ Clears all storage entries for the account corresponding to `address`.
 
 ## Parameters
 
-### baseState
-
-[`BaseState`](../type-aliases/BaseState.md)
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `baseState` | [`BaseState`](../type-aliases/BaseState.md) | - |
 
 ## Returns
 

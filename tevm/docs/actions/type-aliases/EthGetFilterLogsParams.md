@@ -8,14 +8,10 @@
 
 > **EthGetFilterLogsParams** = `object`
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthParams.d.ts:145
-
 Based on the JSON-RPC request for `eth_getFilterLogs` procedure
 
 ## Properties
 
-### filterId
-
-> `readonly` **filterId**: [`Hex`](Hex.md)
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthParams.d.ts:146
+| Property | Modifier | Type |
+| ------ | ------ | ------ |
+| <a id="filterid"></a> `filterId` | `readonly` | [`Hex`](Hex.md) |

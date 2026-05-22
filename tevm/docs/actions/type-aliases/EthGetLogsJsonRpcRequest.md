@@ -8,6 +8,4 @@
 
 > **EthGetLogsJsonRpcRequest** = [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"eth_getLogs"`, \[[`FilterParams`](../../index/type-aliases/FilterParams.md)\]\>
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthJsonRpcRequest.d.ts:128
-
 JSON-RPC request for `eth_getLogs` procedure

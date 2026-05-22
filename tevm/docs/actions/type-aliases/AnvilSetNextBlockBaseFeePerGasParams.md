@@ -8,17 +8,10 @@
 
 > **AnvilSetNextBlockBaseFeePerGasParams** = `object`
 
-Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilParams.d.ts:286
-
 Params for `anvil_setNextBlockBaseFeePerGas` handler
 
 ## Properties
 
-### baseFeePerGas
-
-> `readonly` **baseFeePerGas**: `bigint`
-
-Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilParams.d.ts:291
-
-The base fee per gas to set for the next block (in wei)
-This is only used for EIP-1559 transactions
+| Property | Modifier | Type | Description |
+| ------ | ------ | ------ | ------ |
+| <a id="basefeepergas"></a> `baseFeePerGas` | `readonly` | `bigint` | The base fee per gas to set for the next block (in wei) This is only used for EIP-1559 transactions |

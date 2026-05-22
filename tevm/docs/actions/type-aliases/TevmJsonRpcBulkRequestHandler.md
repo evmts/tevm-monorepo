@@ -8,8 +8,6 @@
 
 > **TevmJsonRpcBulkRequestHandler** = (`requests`) => `Promise`\<[`JsonRpcReturnTypeFromMethod`](JsonRpcReturnTypeFromMethod.md)\<`any`\>[]\>
 
-Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/TevmJsonRpcBulkRequestHandler.d.ts:85
-
 **`Experimental`**
 
 Bulk request handler for JSON-RPC requests. Takes an array of requests and returns an array of results.
@@ -21,9 +19,9 @@ Currently is not very generic with regard to input and output types.
 
 ## Parameters
 
-### requests
-
-`ReadonlyArray`\<[`TevmJsonRpcRequest`](TevmJsonRpcRequest.md) \| [`EthJsonRpcRequest`](EthJsonRpcRequest.md) \| [`AnvilJsonRpcRequest`](AnvilJsonRpcRequest.md) \| `DebugJsonRpcRequest`\>
+| Parameter | Type |
+| ------ | ------ |
+| `requests` | `ReadonlyArray`\<[`TevmJsonRpcRequest`](TevmJsonRpcRequest.md) \| [`EthJsonRpcRequest`](EthJsonRpcRequest.md) \| [`AnvilJsonRpcRequest`](AnvilJsonRpcRequest.md) \| `DebugJsonRpcRequest`\> |
 
 ## Returns
 

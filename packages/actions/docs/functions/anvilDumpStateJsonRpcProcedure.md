@@ -14,9 +14,9 @@ Defined in: [packages/actions/src/anvil/anvilDumpStateProcedure.js:11](https://g
 
 ## Parameters
 
-### client
-
-`TevmNode`\<`"fork"` \| `"normal"`, \{ \}\>
+| Parameter | Type |
+| ------ | ------ |
+| `client` | `TevmNode`\<`"fork"` \| `"normal"`, \{ \}\> |
 
 ## Returns
 

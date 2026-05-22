@@ -8,16 +8,10 @@
 
 > **AnvilRemovePoolTransactionsParams** = `object`
 
-Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilParams.d.ts:255
-
 Params for `anvil_removePoolTransactions` handler
 
 ## Properties
 
-### address
-
-> `readonly` **address**: [`Address`](Address.md)
-
-Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilParams.d.ts:259
-
-The address whose transactions should be removed from the pool
+| Property | Modifier | Type | Description |
+| ------ | ------ | ------ | ------ |
+| <a id="address"></a> `address` | `readonly` | [`Address`](Address.md) | The address whose transactions should be removed from the pool |

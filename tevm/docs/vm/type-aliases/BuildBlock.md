@@ -8,13 +8,11 @@
 
 > **BuildBlock** = (`opts`) => `Promise`\<[`BlockBuilder`](../classes/BlockBuilder.md)\>
 
-Defined in: tevm-monorepo/packages/vm/types/actions/buildBlock.d.ts:4
-
 ## Parameters
 
-### opts
-
-[`BuildBlockOpts`](../interfaces/BuildBlockOpts.md)
+| Parameter | Type |
+| ------ | ------ |
+| `opts` | [`BuildBlockOpts`](../interfaces/BuildBlockOpts.md) |
 
 ## Returns
 

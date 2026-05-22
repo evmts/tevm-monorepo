@@ -8,15 +8,13 @@
 
 > **AnvilGetAutomineProcedure** = (`request`) => `Promise`\<[`AnvilGetAutomineJsonRpcResponse`](AnvilGetAutomineJsonRpcResponse.md)\>
 
-Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilProcedure.d.ts:19
-
 JSON-RPC procedure for `anvil_getAutomine`
 
 ## Parameters
 
-### request
-
-[`AnvilGetAutomineJsonRpcRequest`](AnvilGetAutomineJsonRpcRequest.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`AnvilGetAutomineJsonRpcRequest`](AnvilGetAutomineJsonRpcRequest.md) |
 
 ## Returns
 

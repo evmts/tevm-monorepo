@@ -8,6 +8,4 @@
 
 > **EthChainIdResult** = `bigint`
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthResult.d.ts:23
-
 JSON-RPC response for `eth_chainId` procedure

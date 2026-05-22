@@ -8,8 +8,6 @@
 
 > **CallEvents** = `object`
 
-Defined in: tevm-monorepo/packages/actions/types/common/CallEvents.d.ts:63
-
 Event handlers for EVM execution during a call
 
 ## Example
@@ -32,112 +30,9 @@ const result = await tevmCall(client, {
 
 ## Properties
 
-### onAfterMessage?
-
-> `optional` **onAfterMessage?**: (`data`, `next?`) => `void`
-
-Defined in: tevm-monorepo/packages/actions/types/common/CallEvents.d.ts:87
-
-Handler called after a message (call) is processed
-
-#### Parameters
-
-##### data
-
-[`EvmResult`](../../evm/interfaces/EvmResult.md)
-
-Result information
-
-##### next?
-
-() => `void`
-
-Function to continue execution - must be called to proceed
-
-#### Returns
-
-`void`
-
-***
-
-### onBeforeMessage?
-
-> `optional` **onBeforeMessage?**: (`data`, `next?`) => `void`
-
-Defined in: tevm-monorepo/packages/actions/types/common/CallEvents.d.ts:81
-
-Handler called before a message (call) is processed
-
-#### Parameters
-
-##### data
-
-[`Message`](../interfaces/Message.md)
-
-Message information
-
-##### next?
-
-() => `void`
-
-Function to continue execution - must be called to proceed
-
-#### Returns
-
-`void`
-
-***
-
-### onNewContract?
-
-> `optional` **onNewContract?**: (`data`, `next?`) => `void`
-
-Defined in: tevm-monorepo/packages/actions/types/common/CallEvents.d.ts:75
-
-Handler called when a new contract is created
-
-#### Parameters
-
-##### data
-
-[`NewContractEvent`](../interfaces/NewContractEvent.md)
-
-Contract creation information
-
-##### next?
-
-() => `void`
-
-Function to continue execution - must be called to proceed
-
-#### Returns
-
-`void`
-
-***
-
-### onStep?
-
-> `optional` **onStep?**: (`data`, `next?`) => `void`
-
-Defined in: tevm-monorepo/packages/actions/types/common/CallEvents.d.ts:69
-
-Handler called on each EVM step (instruction execution)
-
-#### Parameters
-
-##### data
-
-[`InterpreterStep`](../../evm/interfaces/InterpreterStep.md)
-
-Step information including opcode, stack, and memory state
-
-##### next?
-
-() => `void`
-
-Function to continue execution - must be called to proceed
-
-#### Returns
-
-`void`
+| Property | Type | Description |
+| ------ | ------ | ------ |
+| <a id="onaftermessage"></a> `onAfterMessage?` | (`data`, `next?`) => `void` | Handler called after a message (call) is processed |
+| <a id="onbeforemessage"></a> `onBeforeMessage?` | (`data`, `next?`) => `void` | Handler called before a message (call) is processed |
+| <a id="onnewcontract"></a> `onNewContract?` | (`data`, `next?`) => `void` | Handler called when a new contract is created |
+| <a id="onstep"></a> `onStep?` | (`data`, `next?`) => `void` | Handler called on each EVM step (instruction execution) |

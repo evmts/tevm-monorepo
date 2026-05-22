@@ -12,9 +12,9 @@ Defined in: [packages/actions/src/anvil/AnvilHandler.ts:88](https://github.com/e
 
 ## Parameters
 
-### params
-
-[`AnvilSetErc20AllowanceParams`](AnvilSetErc20AllowanceParams.md)
+| Parameter | Type |
+| ------ | ------ |
+| `params` | [`AnvilSetErc20AllowanceParams`](AnvilSetErc20AllowanceParams.md) |
 
 ## Returns
 

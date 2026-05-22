@@ -6,8 +6,6 @@
 
 # Class: AccountCache
 
-Defined in: zevm/npm/zevm/dist/statemanager.d.ts:71
-
 ## Extends
 
 - `Cache`
@@ -18,13 +16,11 @@ Defined in: zevm/npm/zevm/dist/statemanager.d.ts:71
 
 > **new AccountCache**(`opts`): `AccountCache`
 
-Defined in: zevm/npm/zevm/dist/statemanager.d.ts:75
-
 #### Parameters
 
-##### opts
-
-`CacheOpts`
+| Parameter | Type |
+| ------ | ------ |
+| `opts` | `CacheOpts` |
 
 #### Returns
 
@@ -36,63 +32,14 @@ Defined in: zevm/npm/zevm/dist/statemanager.d.ts:75
 
 ## Properties
 
-### \_checkpoints
-
-> **\_checkpoints**: `number`
-
-Defined in: zevm/npm/zevm/dist/statemanager.d.ts:66
-
-#### Inherited from
-
-`Cache._checkpoints`
-
-***
-
-### \_diffCache
-
-> **\_diffCache**: `Map`\<`string`, `AccountCacheElement` \| `undefined`\>[]
-
-Defined in: zevm/npm/zevm/dist/statemanager.d.ts:74
-
-***
-
-### \_lruCache
-
-> **\_lruCache**: `SimpleLRUCache`\<`string`, `AccountCacheElement`\> \| `undefined`
-
-Defined in: zevm/npm/zevm/dist/statemanager.d.ts:72
-
-***
-
-### \_orderedMapCache
-
-> **\_orderedMapCache**: `SimpleOrderedMap`\<`string`, `AccountCacheElement`\> \| `undefined`
-
-Defined in: zevm/npm/zevm/dist/statemanager.d.ts:73
-
-***
-
-### \_stats
-
-> **\_stats**: `CacheStats`
-
-Defined in: zevm/npm/zevm/dist/statemanager.d.ts:67
-
-#### Inherited from
-
-`Cache._stats`
-
-***
-
-### DEBUG
-
-> `protected` `readonly` **DEBUG**: `false` = `false`
-
-Defined in: zevm/npm/zevm/dist/statemanager.d.ts:68
-
-#### Inherited from
-
-`Cache.DEBUG`
+| Property | Modifier | Type | Default value | Inherited from |
+| ------ | ------ | ------ | ------ | ------ |
+| <a id="_checkpoints"></a> `_checkpoints` | `public` | `number` | `undefined` | `Cache._checkpoints` |
+| <a id="_diffcache"></a> `_diffCache` | `public` | `Map`\<`string`, `AccountCacheElement` \| `undefined`\>[] | `undefined` | - |
+| <a id="_lrucache"></a> `_lruCache` | `public` | `SimpleLRUCache`\<`string`, `AccountCacheElement`\> \| `undefined` | `undefined` | - |
+| <a id="_orderedmapcache"></a> `_orderedMapCache` | `public` | `SimpleOrderedMap`\<`string`, `AccountCacheElement`\> \| `undefined` | `undefined` | - |
+| <a id="_stats"></a> `_stats` | `public` | `CacheStats` | `undefined` | `Cache._stats` |
+| <a id="debug"></a> `DEBUG` | `readonly` | `false` | `false` | `Cache.DEBUG` |
 
 ## Methods
 
@@ -100,13 +47,11 @@ Defined in: zevm/npm/zevm/dist/statemanager.d.ts:68
 
 > **\_debug**(`_message`): `void`
 
-Defined in: zevm/npm/zevm/dist/statemanager.d.ts:69
-
 #### Parameters
 
-##### \_message
-
-`string`
+| Parameter | Type |
+| ------ | ------ |
+| `_message` | `string` |
 
 #### Returns
 
@@ -122,13 +67,11 @@ Defined in: zevm/npm/zevm/dist/statemanager.d.ts:69
 
 > **\_saveCachePreState**(`cacheKeyHex`): `void`
 
-Defined in: zevm/npm/zevm/dist/statemanager.d.ts:76
-
 #### Parameters
 
-##### cacheKeyHex
-
-`string`
+| Parameter | Type |
+| ------ | ------ |
+| `cacheKeyHex` | `string` |
 
 #### Returns
 
@@ -140,8 +83,6 @@ Defined in: zevm/npm/zevm/dist/statemanager.d.ts:76
 
 > **checkpoint**(): `void`
 
-Defined in: zevm/npm/zevm/dist/statemanager.d.ts:83
-
 #### Returns
 
 `void`
@@ -151,8 +92,6 @@ Defined in: zevm/npm/zevm/dist/statemanager.d.ts:83
 ### clear()
 
 > **clear**(): `void`
-
-Defined in: zevm/npm/zevm/dist/statemanager.d.ts:86
 
 #### Returns
 
@@ -164,8 +103,6 @@ Defined in: zevm/npm/zevm/dist/statemanager.d.ts:86
 
 > **commit**(): `void`
 
-Defined in: zevm/npm/zevm/dist/statemanager.d.ts:82
-
 #### Returns
 
 `void`
@@ -176,13 +113,11 @@ Defined in: zevm/npm/zevm/dist/statemanager.d.ts:82
 
 > **del**(`address`): `void`
 
-Defined in: zevm/npm/zevm/dist/statemanager.d.ts:79
-
 #### Parameters
 
-##### address
-
-[`EthjsAddress`](../../utils/classes/EthjsAddress.md)
+| Parameter | Type |
+| ------ | ------ |
+| `address` | [`EthjsAddress`](../../utils/classes/EthjsAddress.md) |
 
 #### Returns
 
@@ -194,8 +129,6 @@ Defined in: zevm/npm/zevm/dist/statemanager.d.ts:79
 
 > **flush**(): \[`string`, `AccountCacheElement`\][]
 
-Defined in: zevm/npm/zevm/dist/statemanager.d.ts:80
-
 #### Returns
 
 \[`string`, `AccountCacheElement`\][]
@@ -206,13 +139,11 @@ Defined in: zevm/npm/zevm/dist/statemanager.d.ts:80
 
 > **get**(`address`): `AccountCacheElement` \| `undefined`
 
-Defined in: zevm/npm/zevm/dist/statemanager.d.ts:78
-
 #### Parameters
 
-##### address
-
-[`EthjsAddress`](../../utils/classes/EthjsAddress.md)
+| Parameter | Type |
+| ------ | ------ |
+| `address` | [`EthjsAddress`](../../utils/classes/EthjsAddress.md) |
 
 #### Returns
 
@@ -224,21 +155,13 @@ Defined in: zevm/npm/zevm/dist/statemanager.d.ts:78
 
 > **put**(`address`, `account`, `couldBePartialAccount?`): `void`
 
-Defined in: zevm/npm/zevm/dist/statemanager.d.ts:77
-
 #### Parameters
 
-##### address
-
-[`EthjsAddress`](../../utils/classes/EthjsAddress.md)
-
-##### account
-
-[`EthjsAccount`](../../utils/classes/EthjsAccount.md) \| `undefined`
-
-##### couldBePartialAccount?
-
-`boolean`
+| Parameter | Type |
+| ------ | ------ |
+| `address` | [`EthjsAddress`](../../utils/classes/EthjsAddress.md) |
+| `account` | [`EthjsAccount`](../../utils/classes/EthjsAccount.md) \| `undefined` |
+| `couldBePartialAccount?` | `boolean` |
 
 #### Returns
 
@@ -250,8 +173,6 @@ Defined in: zevm/npm/zevm/dist/statemanager.d.ts:77
 
 > **revert**(): `void`
 
-Defined in: zevm/npm/zevm/dist/statemanager.d.ts:81
-
 #### Returns
 
 `void`
@@ -261,8 +182,6 @@ Defined in: zevm/npm/zevm/dist/statemanager.d.ts:81
 ### size()
 
 > **size**(): `number`
-
-Defined in: zevm/npm/zevm/dist/statemanager.d.ts:84
 
 #### Returns
 
@@ -274,13 +193,11 @@ Defined in: zevm/npm/zevm/dist/statemanager.d.ts:84
 
 > **stats**(`reset?`): `CacheStats`
 
-Defined in: zevm/npm/zevm/dist/statemanager.d.ts:85
-
 #### Parameters
 
-##### reset?
-
-`boolean`
+| Parameter | Type |
+| ------ | ------ |
+| `reset?` | `boolean` |
 
 #### Returns
 

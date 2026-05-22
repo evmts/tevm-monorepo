@@ -8,13 +8,11 @@
 
 > **AnvilMetadataHandler** = (`params`) => `Promise`\<[`AnvilMetadataResult`](AnvilMetadataResult.md)\>
 
-Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilHandler.d.ts:20
-
 ## Parameters
 
-### params
-
-[`AnvilMetadataParams`](AnvilMetadataParams.md)
+| Parameter | Type |
+| ------ | ------ |
+| `params` | [`AnvilMetadataParams`](AnvilMetadataParams.md) |
 
 ## Returns
 

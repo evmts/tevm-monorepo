@@ -8,32 +8,17 @@
 
 > **DebugTraceStateParams**\<`TStateFilters`\> = `object`
 
-Defined in: tevm-monorepo/packages/actions/types/debug/DebugParams.d.ts:106
-
 Params taken by `debug_traceState` handler
 
 ## Type Parameters
 
-### TStateFilters
-
-`TStateFilters` *extends* readonly [`DebugTraceStateFilter`](DebugTraceStateFilter.md)[] = readonly [`DebugTraceStateFilter`](DebugTraceStateFilter.md)[]
+| Type Parameter | Default type |
+| ------ | ------ |
+| `TStateFilters` *extends* readonly [`DebugTraceStateFilter`](DebugTraceStateFilter.md)[] | readonly [`DebugTraceStateFilter`](DebugTraceStateFilter.md)[] |
 
 ## Properties
 
-### filters?
-
-> `readonly` `optional` **filters?**: `TStateFilters`
-
-Defined in: tevm-monorepo/packages/actions/types/debug/DebugParams.d.ts:110
-
-Filters to apply to the state
-
-***
-
-### timeout?
-
-> `readonly` `optional` **timeout?**: `string`
-
-Defined in: tevm-monorepo/packages/actions/types/debug/DebugParams.d.ts:114
-
-Timeout for the state trace
+| Property | Modifier | Type | Description |
+| ------ | ------ | ------ | ------ |
+| <a id="filters"></a> `filters?` | `readonly` | `TStateFilters` | Filters to apply to the state |
+| <a id="timeout"></a> `timeout?` | `readonly` | `string` | Timeout for the state trace |

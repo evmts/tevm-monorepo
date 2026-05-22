@@ -8,8 +8,6 @@
 
 > **LoadStateParams**\<`TThrowOnFail`\> = [`BaseParams`](../../index/type-aliases/BaseParams.md)\<`TThrowOnFail`\> & `object`
 
-Defined in: tevm-monorepo/packages/actions/types/LoadState/LoadStateParams.d.ts:24
-
 Parameters for the `tevmLoadState` method.
 
 This method takes a [SerializableTevmState](../../state/type-aliases/SerializableTevmState.md) object and loads it into the VM state.
@@ -24,11 +22,9 @@ The TEVM state object to load.
 
 ## Type Parameters
 
-### TThrowOnFail
-
-`TThrowOnFail` *extends* `boolean` = `boolean`
-
-Optional parameter to throw an error on failure.
+| Type Parameter | Default type | Description |
+| ------ | ------ | ------ |
+| `TThrowOnFail` *extends* `boolean` | `boolean` | Optional parameter to throw an error on failure. |
 
 ## Example
 

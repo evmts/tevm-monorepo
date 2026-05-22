@@ -4,18 +4,18 @@
 
 [tevm](../../../modules.md) / [bundler/solc](../README.md) / SolcInputSource
 
-# Type Alias: SolcInputSource
+# Type Alias: SolcInputSource\<T\>
 
-> **SolcInputSource** = `object` & \{ `urls`: `string`[]; \} \| \{ `content`: `string`; \}
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:5
+> **SolcInputSource**\<`T`\> = `object` & \{ `ast`: `T` *extends* `"SolidityAST"` ? [`SolcAst`](SolcAst.md) : `never`; \} \| \{ `urls`: `string`[]; \} \| \{ `content`: `T` *extends* `"SolidityAST"` ? `never` : `string`; \}
 
 ## Type Declaration
-
-### ast?
-
-> `optional` **ast?**: `SolcAst`
 
 ### keccak256?
 
 > `optional` **keccak256?**: `HexNumber`
+
+## Type Parameters
+
+| Type Parameter | Default type |
+| ------ | ------ |
+| `T` *extends* [`SolcLanguage`](SolcLanguage.md) | [`SolcLanguage`](SolcLanguage.md) |

@@ -10,13 +10,13 @@
 
 Defined in: [packages/actions/src/DumpState/dumpStateProcedure.js:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/DumpState/dumpStateProcedure.js#L8)
 
-Creates a DumpState JSON-RPC Procedure for handling dumpState requests with the Tevm EVM
+Creates a DumpState JSON-RPC Procedure for handling dumpState requests with the Tevm EVM.
 
 ## Parameters
 
-### client
-
-`TevmNode`\<`"fork"` \| `"normal"`, \{ \}\>
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `client` | `TevmNode`\<`"fork"` \| `"normal"`, \{ \}\> | - |
 
 ## Returns
 

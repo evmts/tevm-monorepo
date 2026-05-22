@@ -12,9 +12,9 @@ Defined in: [extensions/ethers/src/contract/Contract.d.ts:12](https://github.com
 
 ## Parameters
 
-### abi
-
-`InterfaceAbi`
+| Parameter | Type |
+| ------ | ------ |
+| `abi` | `InterfaceAbi` |
 
 ## Returns
 

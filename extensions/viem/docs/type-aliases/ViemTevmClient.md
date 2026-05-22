@@ -17,8 +17,6 @@ The decorated properties added by the `tevmViemExtension`
 
 ## Properties
 
-### ~~tevm~~
-
-> **tevm**: `TevmClient`
-
-Defined in: [extensions/viem/src/ViemTevmClient.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/ViemTevmClient.ts#L8)
+| Property | Type | Defined in |
+| ------ | ------ | ------ |
+| <a id="tevm"></a> ~~`tevm`~~ | `TevmClient` | [extensions/viem/src/ViemTevmClient.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/ViemTevmClient.ts#L8) |

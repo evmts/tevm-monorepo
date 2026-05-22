@@ -45,23 +45,11 @@ Constructs an AccountNotFoundError.
 
 #### Parameters
 
-##### message
-
-`string`
-
-Human-readable error message.
-
-##### args?
-
-`AccountNotFoundErrorParameters` = `{}`
-
-Additional parameters for the ResourceNotFoundError.
-
-##### tag?
-
-`string` = `'AccountNotFound'`
-
-The tag for the error.
+| Parameter | Type | Default value | Description |
+| ------ | ------ | ------ | ------ |
+| `message` | `string` | `undefined` | Human-readable error message. |
+| `args?` | `AccountNotFoundErrorParameters` | `{}` | Additional parameters for the ResourceNotFoundError. |
+| `tag?` | `string` | `'AccountNotFound'` | The tag for the error. |
 
 #### Returns
 
@@ -73,101 +61,17 @@ The tag for the error.
 
 ## Properties
 
-### \_tag
-
-> **\_tag**: `string`
-
-Same as name, used internally.
-
-#### Inherited from
-
-[`ResourceNotFoundError`](ResourceNotFoundError.md).[`_tag`](ResourceNotFoundError.md#_tag)
-
-***
-
-### cause
-
-> **cause**: `any`
-
-#### Inherited from
-
-[`ResourceNotFoundError`](ResourceNotFoundError.md).[`cause`](ResourceNotFoundError.md#cause)
-
-***
-
-### code
-
-> **code**: `number`
-
-#### Inherited from
-
-[`ResourceNotFoundError`](ResourceNotFoundError.md).[`code`](ResourceNotFoundError.md#code)
-
-***
-
-### details
-
-> **details**: `string`
-
-#### Inherited from
-
-[`ResourceNotFoundError`](ResourceNotFoundError.md).[`details`](ResourceNotFoundError.md#details)
-
-***
-
-### docsPath
-
-> **docsPath**: `string` \| `undefined`
-
-Path to the documentation for this error.
-
-#### Inherited from
-
-[`ResourceNotFoundError`](ResourceNotFoundError.md).[`docsPath`](ResourceNotFoundError.md#docspath)
-
-***
-
-### metaMessages
-
-> **metaMessages**: `string`[] \| `undefined`
-
-Additional meta messages for more context.
-
-#### Inherited from
-
-[`ResourceNotFoundError`](ResourceNotFoundError.md).[`metaMessages`](ResourceNotFoundError.md#metamessages)
-
-***
-
-### shortMessage
-
-> **shortMessage**: `string`
-
-#### Inherited from
-
-[`ResourceNotFoundError`](ResourceNotFoundError.md).[`shortMessage`](ResourceNotFoundError.md#shortmessage)
-
-***
-
-### version
-
-> **version**: `string`
-
-#### Inherited from
-
-[`ResourceNotFoundError`](ResourceNotFoundError.md).[`version`](ResourceNotFoundError.md#version)
-
-***
-
-### code
-
-> `static` **code**: `number` = `-32001`
-
-Error code, analogous to the code in JSON RPC error.
-
-#### Inherited from
-
-[`ResourceNotFoundError`](ResourceNotFoundError.md).[`code`](ResourceNotFoundError.md#code-1)
+| Property | Modifier | Type | Default value | Description | Inherited from |
+| ------ | ------ | ------ | ------ | ------ | ------ |
+| <a id="_tag"></a> `_tag` | `public` | `string` | `undefined` | - | [`ResourceNotFoundError`](ResourceNotFoundError.md).[`_tag`](ResourceNotFoundError.md#_tag) |
+| <a id="cause"></a> `cause` | `public` | `any` | `undefined` | - | [`ResourceNotFoundError`](ResourceNotFoundError.md).[`cause`](ResourceNotFoundError.md#cause) |
+| <a id="code"></a> `code` | `public` | `number` | `undefined` | - | [`ResourceNotFoundError`](ResourceNotFoundError.md).[`code`](ResourceNotFoundError.md#code) |
+| <a id="details"></a> `details` | `public` | `string` | `undefined` | - | [`ResourceNotFoundError`](ResourceNotFoundError.md).[`details`](ResourceNotFoundError.md#details) |
+| <a id="docspath"></a> `docsPath` | `public` | `string` \| `undefined` | `undefined` | - | [`ResourceNotFoundError`](ResourceNotFoundError.md).[`docsPath`](ResourceNotFoundError.md#docspath) |
+| <a id="metamessages"></a> `metaMessages` | `public` | `string`[] \| `undefined` | `undefined` | - | [`ResourceNotFoundError`](ResourceNotFoundError.md).[`metaMessages`](ResourceNotFoundError.md#metamessages) |
+| <a id="shortmessage"></a> `shortMessage` | `public` | `string` | `undefined` | - | [`ResourceNotFoundError`](ResourceNotFoundError.md).[`shortMessage`](ResourceNotFoundError.md#shortmessage) |
+| <a id="version"></a> `version` | `public` | `string` | `undefined` | - | [`ResourceNotFoundError`](ResourceNotFoundError.md).[`version`](ResourceNotFoundError.md#version) |
+| <a id="code-1"></a> `code` | `static` | `number` | `-32001` | The error code for ResourceNotFoundError. | [`ResourceNotFoundError`](ResourceNotFoundError.md).[`code`](ResourceNotFoundError.md#code-1) |
 
 ## Methods
 
@@ -179,11 +83,9 @@ Walks through the error chain.
 
 #### Parameters
 
-##### fn?
-
-`Function`
-
-A function to execute on each error in the chain.
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `fn?` | `Function` | A function to execute on each error in the chain. |
 
 #### Returns
 

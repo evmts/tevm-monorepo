@@ -8,13 +8,11 @@
 
 > **EthNewPendingTransactionFilterHandler** = (`request`) => `Promise`\<[`EthNewPendingTransactionFilterResult`](EthNewPendingTransactionFilterResult.md)\>
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthHandler.d.ts:42
-
 ## Parameters
 
-### request
-
-[`EthNewPendingTransactionFilterParams`](EthNewPendingTransactionFilterParams.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`EthNewPendingTransactionFilterParams`](EthNewPendingTransactionFilterParams.md) |
 
 ## Returns
 

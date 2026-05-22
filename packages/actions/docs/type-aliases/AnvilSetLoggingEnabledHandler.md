@@ -12,9 +12,9 @@ Defined in: [packages/actions/src/anvil/AnvilHandler.ts:98](https://github.com/e
 
 ## Parameters
 
-### params
-
-[`AnvilSetLoggingEnabledParams`](AnvilSetLoggingEnabledParams.md)
+| Parameter | Type |
+| ------ | ------ |
+| `params` | [`AnvilSetLoggingEnabledParams`](AnvilSetLoggingEnabledParams.md) |
 
 ## Returns
 

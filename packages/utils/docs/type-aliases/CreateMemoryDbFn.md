@@ -12,19 +12,16 @@ Defined in: [tevm-monorepo/packages/utils/src/CreateMemoryDbFn.ts:4](https://git
 
 ## Type Parameters
 
-### TKey
-
-`TKey` *extends* `string` \| `number` \| `Uint8Array` = `Uint8Array`
-
-### TValue
-
-`TValue` *extends* `string` \| `Uint8Array` \| `Uint8Array` \| `string` \| [`DbObject`](DbObject.md) = `Uint8Array`
+| Type Parameter | Default type |
+| ------ | ------ |
+| `TKey` *extends* `string` \| `number` \| `Uint8Array` | `Uint8Array` |
+| `TValue` *extends* `string` \| `Uint8Array` \| `Uint8Array` \| `string` \| [`DbObject`](DbObject.md) | `Uint8Array` |
 
 ## Parameters
 
-### initialDb?
-
-`Map`\<`TKey`, `TValue`\>
+| Parameter | Type |
+| ------ | ------ |
+| `initialDb?` | `Map`\<`TKey`, `TValue`\> |
 
 ## Returns
 

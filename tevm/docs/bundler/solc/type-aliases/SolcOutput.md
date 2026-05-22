@@ -8,36 +8,10 @@
 
 > **SolcOutput** = `object`
 
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:93
-
 ## Properties
 
-### contracts
-
-> **contracts**: `object`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:98
-
-#### Index Signature
-
-\[`sourceFile`: `string`\]: `object`
-
-***
-
-### errors?
-
-> `optional` **errors?**: [`SolcErrorEntry`](SolcErrorEntry.md)[]
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:94
-
-***
-
-### sources
-
-> **sources**: `object`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:95
-
-#### Index Signature
-
-\[`sourceFile`: `string`\]: [`SolcSourceEntry`](SolcSourceEntry.md)
+| Property | Type |
+| ------ | ------ |
+| <a id="contracts"></a> `contracts?` | `object` |
+| <a id="errors"></a> `errors?` | [`SolcErrorEntry`](SolcErrorEntry.md)[] |
+| <a id="sources"></a> `sources` | `object` |

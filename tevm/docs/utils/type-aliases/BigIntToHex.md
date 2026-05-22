@@ -8,12 +8,10 @@
 
 > **BigIntToHex**\<`T`\> = `T` *extends* `bigint` ? [`Hex`](../../index/type-aliases/Hex.md) : `T`
 
-Defined in: tevm-monorepo/packages/utils/types/SerializeToJson.d.ts:23
-
 A helper type that converts a bigint to a hex string.
 
 ## Type Parameters
 
-### T
-
-`T`
+| Type Parameter |
+| ------ |
+| `T` |

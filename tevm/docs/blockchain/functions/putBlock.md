@@ -8,13 +8,11 @@
 
 > **putBlock**(`baseChain`): (`block`) => `Promise`\<`void`\>
 
-Defined in: tevm-monorepo/packages/blockchain/types/actions/putBlock.d.ts:1
-
 ## Parameters
 
-### baseChain
-
-`BaseChain`
+| Parameter | Type |
+| ------ | ------ |
+| `baseChain` | `BaseChain` |
 
 ## Returns
 
@@ -24,11 +22,9 @@ Adds a block to the blockchain.
 
 ### Parameters
 
-#### block
-
-[`Block`](../../block/classes/Block.md)
-
-The block to be added to the blockchain.
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `block` | [`Block`](../../block/classes/Block.md) | The block to be added to the blockchain. |
 
 ### Returns
 

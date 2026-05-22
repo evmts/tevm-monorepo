@@ -8,8 +8,6 @@
 
 > **DumpStateHandler** = (`params?`) => `Promise`\<[`DumpStateResult`](DumpStateResult.md)\>
 
-Defined in: tevm-monorepo/packages/actions/types/DumpState/DumpStateHandlerType.d.ts:28
-
 Dumps the current state of the VM into a JSON-serializable object.
 
 This handler allows you to capture the entire state of the VM, which can be useful for
@@ -17,11 +15,9 @@ debugging, testing, or persisting the state across sessions.
 
 ## Parameters
 
-### params?
-
-[`DumpStateParams`](DumpStateParams.md)
-
-Optional parameters to customize the state dumping process.
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `params?` | [`DumpStateParams`](DumpStateParams.md) | Optional parameters to customize the state dumping process. |
 
 ## Returns
 

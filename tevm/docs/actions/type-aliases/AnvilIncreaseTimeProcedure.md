@@ -8,15 +8,13 @@
 
 > **AnvilIncreaseTimeProcedure** = (`request`) => `Promise`\<[`AnvilIncreaseTimeJsonRpcResponse`](AnvilIncreaseTimeJsonRpcResponse.md)\>
 
-Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilProcedure.d.ts:135
-
 JSON-RPC procedure for `anvil_increaseTime`
 
 ## Parameters
 
-### request
-
-[`AnvilIncreaseTimeJsonRpcRequest`](AnvilIncreaseTimeJsonRpcRequest.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`AnvilIncreaseTimeJsonRpcRequest`](AnvilIncreaseTimeJsonRpcRequest.md) |
 
 ## Returns
 

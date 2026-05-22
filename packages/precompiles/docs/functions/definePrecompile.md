@@ -18,21 +18,17 @@ functionality that would be difficult or inefficient to implement in Solidity.
 
 ## Type Parameters
 
-### TContract
-
-`TContract` *extends* `Contract`\<`any`, `any`, `` `0x${string}` ``, `any`, `any`, `any`\> = `Contract`\<`string`, readonly `string`[], `` `0x${string}` ``, `any`, `any`, `any`\>
+| Type Parameter | Default type |
+| ------ | ------ |
+| `TContract` *extends* `Contract`\<`any`, `any`, `` `0x${string}` ``, `any`, `any`, `any`\> | `Contract`\<`string`, readonly `string`[], `` `0x${string}` ``, `any`, `any`, `any`\> |
 
 ## Parameters
 
-### \_\_namedParameters
-
-#### call
-
-(`context`) => `Promise`\<`ExecResult`\>
-
-#### contract
-
-`TContract`
+| Parameter | Type |
+| ------ | ------ |
+| `__namedParameters` | \{ `call`: (`context`) => `Promise`\<`ExecResult`\>; `contract`: `TContract`; \} |
+| `__namedParameters.call` | (`context`) => `Promise`\<`ExecResult`\> |
+| `__namedParameters.contract` | `TContract` |
 
 ## Returns
 

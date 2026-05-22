@@ -54,43 +54,13 @@ Additional parameters for the BaseError.
 
 > **new OutOfGasError**(`message?`, `args?`, `tag?`): `OutOfGasError`
 
-Constructs an OutOfGasError.
-Represents an execution error that occurs when a transaction runs out of gas during execution.
-This error is typically encountered when the gas provided for a transaction is insufficient to complete its execution.
-
-Out of gas errors can occur due to:
-- Insufficient gas provided for complex transactions or loops.
-- Incorrect estimation of gas required for certain operations.
-- Contracts with high gas consumption in specific functions.
-- Non-deterministic gas usage in contracts.
-- If TEVM submitted the transaction using `createTransaction: true` and the account being used runs out of gas.
-
-To debug an out of gas error:
-1. **Review Gas Estimates**: Ensure that the gas estimate for your transaction is accurate and sufficient. If you provided explicit gas-related parameters, double-check their values.
-2. **Optimize Contract Code**: Refactor your smart contract code to reduce gas consumption, especially in loops and complex operations. Remove potential non-deterministic behaviors.
-3. **Use TEVM Tracing**: Utilize TEVM tracing to step through the transaction and inspect gas usage.
-4. **Estimate Gas Multiple Times**: If using TEVM gas estimations, it might make sense to estimate gas many times and take the worst case to set `gasPrice`. Most nodes execute `eth_estimateGas` 10 times, while TEVM runs it only once.
-5. **Use Other Tools**: Use other tools with gas profiling such as [Foundry](https://book.getfoundry.sh/forge/gas).
-
 #### Parameters
 
-##### message?
-
-`string` = `'Out of gas error occurred.'`
-
-Human-readable error message.
-
-##### args?
-
-[`OutOfGasErrorParameters`](../interfaces/OutOfGasErrorParameters.md) = `{}`
-
-Additional parameters for the BaseError.
-
-##### tag?
-
-`string` = `'OutOfGasError'`
-
-The tag for the error.
+| Parameter | Type | Default value | Description |
+| ------ | ------ | ------ | ------ |
+| `message?` | `string` | `'Out of gas error occurred.'` | Human-readable error message. |
+| `args?` | [`OutOfGasErrorParameters`](../interfaces/OutOfGasErrorParameters.md) | `{}` | Additional parameters. |
+| `tag?` | `string` | `'OutOfGasError'` | Internal error tag. |
 
 #### Returns
 
@@ -102,107 +72,18 @@ The tag for the error.
 
 ## Properties
 
-### \_tag
-
-> **\_tag**: `string`
-
-Same as name, used internally.
-
-#### Inherited from
-
-[`GasLimitExceededError`](GasLimitExceededError.md).[`_tag`](GasLimitExceededError.md#_tag)
-
-***
-
-### cause
-
-> **cause**: `any`
-
-#### Inherited from
-
-[`GasLimitExceededError`](GasLimitExceededError.md).[`cause`](GasLimitExceededError.md#cause)
-
-***
-
-### code
-
-> **code**: `number`
-
-#### Inherited from
-
-[`GasLimitExceededError`](GasLimitExceededError.md).[`code`](GasLimitExceededError.md#code)
-
-***
-
-### details
-
-> **details**: `string`
-
-#### Inherited from
-
-[`GasLimitExceededError`](GasLimitExceededError.md).[`details`](GasLimitExceededError.md#details)
-
-***
-
-### docsPath
-
-> **docsPath**: `string` \| `undefined`
-
-Path to the documentation for this error.
-
-#### Inherited from
-
-[`GasLimitExceededError`](GasLimitExceededError.md).[`docsPath`](GasLimitExceededError.md#docspath)
-
-***
-
-### metaMessages
-
-> **metaMessages**: `string`[] \| `undefined`
-
-Additional meta messages for more context.
-
-#### Inherited from
-
-[`GasLimitExceededError`](GasLimitExceededError.md).[`metaMessages`](GasLimitExceededError.md#metamessages)
-
-***
-
-### shortMessage
-
-> **shortMessage**: `string`
-
-#### Inherited from
-
-[`GasLimitExceededError`](GasLimitExceededError.md).[`shortMessage`](GasLimitExceededError.md#shortmessage)
-
-***
-
-### version
-
-> **version**: `string`
-
-#### Inherited from
-
-[`GasLimitExceededError`](GasLimitExceededError.md).[`version`](GasLimitExceededError.md#version)
-
-***
-
-### code
-
-> `static` **code**: `number` = `-32003`
-
-Error code, analogous to the code in JSON RPC error.
-
-#### Inherited from
-
-[`GasLimitExceededError`](GasLimitExceededError.md).[`code`](GasLimitExceededError.md#code-1)
-
-***
-
-### EVMErrorMessage
-
-> `static` **EVMErrorMessage**: `string` = `EVMError.errorMessages.OUT_OF_GAS`
+| Property | Modifier | Type | Default value | Description | Inherited from |
+| ------ | ------ | ------ | ------ | ------ | ------ |
+| <a id="_tag"></a> `_tag` | `public` | `string` | `undefined` | - | [`GasLimitExceededError`](GasLimitExceededError.md).[`_tag`](GasLimitExceededError.md#_tag) |
+| <a id="cause"></a> `cause` | `public` | `any` | `undefined` | - | [`GasLimitExceededError`](GasLimitExceededError.md).[`cause`](GasLimitExceededError.md#cause) |
+| <a id="code"></a> `code` | `public` | `number` | `undefined` | - | [`GasLimitExceededError`](GasLimitExceededError.md).[`code`](GasLimitExceededError.md#code) |
+| <a id="details"></a> `details` | `public` | `string` | `undefined` | - | [`GasLimitExceededError`](GasLimitExceededError.md).[`details`](GasLimitExceededError.md#details) |
+| <a id="docspath"></a> `docsPath` | `public` | `string` \| `undefined` | `undefined` | - | [`GasLimitExceededError`](GasLimitExceededError.md).[`docsPath`](GasLimitExceededError.md#docspath) |
+| <a id="metamessages"></a> `metaMessages` | `public` | `string`[] \| `undefined` | `undefined` | - | [`GasLimitExceededError`](GasLimitExceededError.md).[`metaMessages`](GasLimitExceededError.md#metamessages) |
+| <a id="shortmessage"></a> `shortMessage` | `public` | `string` | `undefined` | - | [`GasLimitExceededError`](GasLimitExceededError.md).[`shortMessage`](GasLimitExceededError.md#shortmessage) |
+| <a id="version"></a> `version` | `public` | `string` | `undefined` | - | [`GasLimitExceededError`](GasLimitExceededError.md).[`version`](GasLimitExceededError.md#version) |
+| <a id="code-1"></a> `code` | `static` | `number` | `-32003` | The error code for GasLimitExceededError. | [`GasLimitExceededError`](GasLimitExceededError.md).[`code`](GasLimitExceededError.md#code-1) |
+| <a id="evmerrormessage"></a> `EVMErrorMessage` | `static` | `string` | `EVMError.errorMessages.OUT_OF_GAS` | - | - |
 
 ## Methods
 
@@ -214,11 +95,9 @@ Walks through the error chain.
 
 #### Parameters
 
-##### fn?
-
-`Function`
-
-A function to execute on each error in the chain.
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `fn?` | `Function` | A function to execute on each error in the chain. |
 
 #### Returns
 

@@ -12,9 +12,9 @@ Defined in: [packages/actions/src/eth/EthHandler.ts:187](https://github.com/evmt
 
 ## Parameters
 
-### request
-
-[`EthSendRawTransactionParams`](EthSendRawTransactionParams.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`EthSendRawTransactionParams`](EthSendRawTransactionParams.md) |
 
 ## Returns
 

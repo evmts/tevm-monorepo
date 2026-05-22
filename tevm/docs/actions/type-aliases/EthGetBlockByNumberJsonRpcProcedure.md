@@ -8,13 +8,11 @@
 
 > **EthGetBlockByNumberJsonRpcProcedure** = (`request`) => `Promise`\<[`EthGetBlockByNumberJsonRpcResponse`](EthGetBlockByNumberJsonRpcResponse.md)\>
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthProcedure.d.ts:16
-
 ## Parameters
 
-### request
-
-[`EthGetBlockByNumberJsonRpcRequest`](EthGetBlockByNumberJsonRpcRequest.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`EthGetBlockByNumberJsonRpcRequest`](EthGetBlockByNumberJsonRpcRequest.md) |
 
 ## Returns
 

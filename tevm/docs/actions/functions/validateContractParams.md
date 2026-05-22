@@ -8,13 +8,11 @@
 
 > **validateContractParams**(`action`): [`ValidateContractParamsError`](../type-aliases/ValidateContractParamsError.md)[]
 
-Defined in: tevm-monorepo/packages/actions/types/Contract/validateContractParams.d.ts:1
-
 ## Parameters
 
-### action
-
-[`ContractParams`](../type-aliases/ContractParams.md)\<[`Abi`](../../index/type-aliases/Abi.md), `string`, `boolean`\>
+| Parameter | Type |
+| ------ | ------ |
+| `action` | [`ContractParams`](../type-aliases/ContractParams.md)\<[`Abi`](../../index/type-aliases/Abi.md), `string`, `boolean`\> |
 
 ## Returns
 

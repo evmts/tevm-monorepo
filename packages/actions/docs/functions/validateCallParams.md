@@ -14,9 +14,9 @@ Defined in: [packages/actions/src/Call/validateCallParams.js:14](https://github.
 
 ## Parameters
 
-### action
-
-[`CallParams`](../type-aliases/CallParams.md)\<`boolean`\>
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `action` | [`CallParams`](../type-aliases/CallParams.md)\<`boolean`\> | - |
 
 ## Returns
 

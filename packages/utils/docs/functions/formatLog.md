@@ -12,19 +12,12 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/viem@2.49.3\_bufferutil@4.1.0\_typ
 
 ## Parameters
 
-### log
-
-`ExactPartial`\<`RpcLog`\>
-
-### \_\_namedParameters?
-
-#### args?
-
-`unknown`
-
-#### eventName?
-
-`string`
+| Parameter | Type |
+| ------ | ------ |
+| `log` | `ExactPartial`\<`RpcLog`\> |
+| `__namedParameters?` | \{ `args?`: `unknown`; `eventName?`: `string`; \} |
+| `__namedParameters.args?` | `unknown` |
+| `__namedParameters.eventName?` | `string` |
 
 ## Returns
 

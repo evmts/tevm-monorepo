@@ -8,13 +8,11 @@
 
 > **DebugGetRawBlockHandler** = (`params`) => `Promise`\<[`DebugGetRawBlockResult`](DebugGetRawBlockResult.md)\>
 
-Defined in: tevm-monorepo/packages/actions/types/debug/DebugHandler.d.ts:4
-
 ## Parameters
 
-### params
-
-[`DebugGetRawBlockParams`](DebugGetRawBlockParams.md)
+| Parameter | Type |
+| ------ | ------ |
+| `params` | [`DebugGetRawBlockParams`](DebugGetRawBlockParams.md) |
 
 ## Returns
 

@@ -6,8 +6,6 @@
 
 # Interface: PostByzantiumTxReceipt
 
-Defined in: tevm-monorepo/packages/receipt-manager/types/ReceiptManager.d.ts:32
-
 Receipt type for Byzantium and beyond (EIP-658)
 Replaces the intermediary state root field with a status code field
 Introduced in the Byzantium hard fork
@@ -22,57 +20,9 @@ Introduced in the Byzantium hard fork
 
 ## Properties
 
-### bitvector
-
-> **bitvector**: `Uint8Array`
-
-Defined in: tevm-monorepo/packages/receipt-manager/types/ReceiptManager.d.ts:20
-
-Bloom filter bitvector containing indexed log data
-Used for efficient searching of logs in the blockchain
-
-#### Inherited from
-
-[`BaseTxReceipt`](BaseTxReceipt.md).[`bitvector`](BaseTxReceipt.md#bitvector)
-
-***
-
-### cumulativeBlockGasUsed
-
-> **cumulativeBlockGasUsed**: `bigint`
-
-Defined in: tevm-monorepo/packages/receipt-manager/types/ReceiptManager.d.ts:15
-
-Cumulative gas used in the block including this transaction
-Represented as a bigint to handle large gas values accurately
-
-#### Inherited from
-
-[`BaseTxReceipt`](BaseTxReceipt.md).[`cumulativeBlockGasUsed`](BaseTxReceipt.md#cumulativeblockgasused)
-
-***
-
-### logs
-
-> **logs**: [`EthjsLog`](../../utils/type-aliases/EthjsLog.md)[]
-
-Defined in: tevm-monorepo/packages/receipt-manager/types/ReceiptManager.d.ts:25
-
-Array of logs emitted during transaction execution
-Each log contains address, topics, and data fields
-
-#### Inherited from
-
-[`BaseTxReceipt`](BaseTxReceipt.md).[`logs`](BaseTxReceipt.md#logs)
-
-***
-
-### status
-
-> **status**: `0` \| `1`
-
-Defined in: tevm-monorepo/packages/receipt-manager/types/ReceiptManager.d.ts:38
-
-Status of transaction execution
-- `1` if successful
-- `0` if an exception occurred during execution
+| Property | Type | Description | Inherited from |
+| ------ | ------ | ------ | ------ |
+| <a id="bitvector"></a> `bitvector` | `Uint8Array` | Bloom filter bitvector containing indexed log data Used for efficient searching of logs in the blockchain | [`BaseTxReceipt`](BaseTxReceipt.md).[`bitvector`](BaseTxReceipt.md#bitvector) |
+| <a id="cumulativeblockgasused"></a> `cumulativeBlockGasUsed` | `bigint` | Cumulative gas used in the block including this transaction Represented as a bigint to handle large gas values accurately | [`BaseTxReceipt`](BaseTxReceipt.md).[`cumulativeBlockGasUsed`](BaseTxReceipt.md#cumulativeblockgasused) |
+| <a id="logs"></a> `logs` | [`EthjsLog`](../../utils/type-aliases/EthjsLog.md)[] | Array of logs emitted during transaction execution Each log contains address, topics, and data fields | [`BaseTxReceipt`](BaseTxReceipt.md).[`logs`](BaseTxReceipt.md#logs) |
+| <a id="status"></a> `status` | `0` \| `1` | Status of transaction execution - `1` if successful - `0` if an exception occurred during execution | - |

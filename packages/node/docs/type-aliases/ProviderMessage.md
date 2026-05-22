@@ -12,16 +12,7 @@ Defined in: [packages/node/src/EIP1193EventEmitterTypes.ts:16](https://github.co
 
 ## Properties
 
-### data
-
-> **data**: `unknown`
-
-Defined in: [packages/node/src/EIP1193EventEmitterTypes.ts:18](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/EIP1193EventEmitterTypes.ts#L18)
-
-***
-
-### type
-
-> **type**: `string`
-
-Defined in: [packages/node/src/EIP1193EventEmitterTypes.ts:17](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/EIP1193EventEmitterTypes.ts#L17)
+| Property | Type | Defined in |
+| ------ | ------ | ------ |
+| <a id="data"></a> `data` | `unknown` | [packages/node/src/EIP1193EventEmitterTypes.ts:18](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/EIP1193EventEmitterTypes.ts#L18) |
+| <a id="type"></a> `type` | `string` | [packages/node/src/EIP1193EventEmitterTypes.ts:17](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/EIP1193EventEmitterTypes.ts#L17) |

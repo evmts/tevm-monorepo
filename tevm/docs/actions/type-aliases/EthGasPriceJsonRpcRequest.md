@@ -8,6 +8,4 @@
 
 > **EthGasPriceJsonRpcRequest** = [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"eth_gasPrice"`, readonly \[\]\>
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthJsonRpcRequest.d.ts:84
-
 JSON-RPC request for `eth_gasPrice` procedure

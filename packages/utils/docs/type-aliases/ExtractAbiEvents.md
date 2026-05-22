@@ -14,11 +14,9 @@ Extracts all [AbiEvent](AbiEvent.md) types from [Abi](Abi.md).
 
 ## Type Parameters
 
-### abi
-
-`abi` *extends* [`Abi`](Abi.md)
-
-[Abi](Abi.md) to extract events from
+| Type Parameter | Description |
+| ------ | ------ |
+| `abi` *extends* [`Abi`](Abi.md) | [Abi](Abi.md) to extract events from |
 
 ## Returns
 

@@ -1,5 +1,9 @@
 {
-  "extends": "../../typedoc.base.json",
-  "entryPoints": ["./src/index.ts"],
-  "out": "docs"
+	"extends": "../../typedoc.base.json",
+	"entryPoints": [
+		"./src/index.ts"
+	],
+	"out": "docs",
+	"parametersFormat": "table",
+	"propertiesFormat": "table"
 }

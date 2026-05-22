@@ -8,8 +8,6 @@
 
 > `const` **createMemoryDb**: [`CreateMemoryDbFn`](../type-aliases/CreateMemoryDbFn.md)
 
-Defined in: tevm-monorepo/packages/utils/types/createMemoryDb.d.ts:8
-
 **`Internal`**
 
 A simple EVM-compatible DB instance that uses an in-memory Map as its backend

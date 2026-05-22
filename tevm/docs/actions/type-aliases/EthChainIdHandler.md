@@ -8,13 +8,11 @@
 
 > **EthChainIdHandler** = (`request?`) => `Promise`\<[`EthChainIdResult`](EthChainIdResult.md)\>
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthHandler.d.ts:6
-
 ## Parameters
 
-### request?
-
-[`EthChainIdParams`](EthChainIdParams.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request?` | [`EthChainIdParams`](EthChainIdParams.md) |
 
 ## Returns
 

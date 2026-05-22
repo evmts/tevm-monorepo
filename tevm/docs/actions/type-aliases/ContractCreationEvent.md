@@ -8,36 +8,12 @@
 
 > **ContractCreationEvent** = `object`
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthResult.d.ts:386
-
 A contract creation event for V2
 
 ## Properties
 
-### address
-
-> **address**: [`Address`](Address.md)
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthResult.d.ts:390
-
-The address of the newly created contract
-
-***
-
-### code
-
-> **code**: [`Hex`](Hex.md)
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthResult.d.ts:398
-
-The code deployed to the contract
-
-***
-
-### creator
-
-> **creator**: [`Address`](Address.md)
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthResult.d.ts:394
-
-The address of the creator
+| Property | Type | Description |
+| ------ | ------ | ------ |
+| <a id="address"></a> `address` | [`Address`](Address.md) | The address of the newly created contract |
+| <a id="code"></a> `code` | [`Hex`](Hex.md) | The code deployed to the contract |
+| <a id="creator"></a> `creator` | [`Address`](Address.md) | The address of the creator |

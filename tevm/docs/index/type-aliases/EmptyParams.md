@@ -7,5 +7,3 @@
 # Type Alias: EmptyParams
 
 > **EmptyParams** = readonly \[\] \| \{ \} \| `undefined` \| `never`
-
-Defined in: tevm-monorepo/packages/actions/types/common/EmptyParams.d.ts:1

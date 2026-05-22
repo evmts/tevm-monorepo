@@ -12,9 +12,9 @@ Defined in: [packages/actions/src/eth/EthHandler.ts:127](https://github.com/evmt
 
 ## Parameters
 
-### request
-
-[`EthGetBlockTransactionCountByHashParams`](EthGetBlockTransactionCountByHashParams.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`EthGetBlockTransactionCountByHashParams`](EthGetBlockTransactionCountByHashParams.md) |
 
 ## Returns
 

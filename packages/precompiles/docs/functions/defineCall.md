@@ -18,19 +18,16 @@ that will be encoded according to the ABI.
 
 ## Type Parameters
 
-### TAbi
-
-`TAbi` *extends* `Abi`
+| Type Parameter |
+| ------ |
+| `TAbi` *extends* `Abi` |
 
 ## Parameters
 
-### abi
-
-`TAbi`
-
-### handlers
-
-`{ [TFunctionName in string]: Handler<TAbi, TFunctionName> }`
+| Parameter | Type |
+| ------ | ------ |
+| `abi` | `TAbi` |
+| `handlers` | `{ [TFunctionName in string]: Handler<TAbi, TFunctionName> }` |
 
 ## Returns
 

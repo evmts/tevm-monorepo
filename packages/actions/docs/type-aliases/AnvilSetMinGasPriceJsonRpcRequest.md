@@ -8,6 +8,6 @@
 
 > **AnvilSetMinGasPriceJsonRpcRequest** = `JsonRpcRequest`\<`"anvil_setMinGasPrice"`, readonly \[`Hex`\]\>
 
-Defined in: [packages/actions/src/anvil/AnvilJsonRpcRequest.ts:228](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilJsonRpcRequest.ts#L228)
+Defined in: [packages/actions/src/anvil/AnvilJsonRpcRequest.ts:232](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilJsonRpcRequest.ts#L232)
 
 JSON-RPC request for `anvil_setMinGasPrice` method

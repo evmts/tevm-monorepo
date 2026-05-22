@@ -8,78 +8,18 @@
 
 > **FilterLog** = `object`
 
-Defined in: tevm-monorepo/packages/actions/types/common/FilterLog.d.ts:5
-
 FilterLog type for eth JSON-RPC procedures
 
 ## Properties
 
-### address
-
-> `readonly` **address**: [`Hex`](Hex.md)
-
-Defined in: tevm-monorepo/packages/actions/types/common/FilterLog.d.ts:6
-
-***
-
-### blockHash
-
-> `readonly` **blockHash**: [`Hex`](Hex.md)
-
-Defined in: tevm-monorepo/packages/actions/types/common/FilterLog.d.ts:7
-
-***
-
-### blockNumber
-
-> `readonly` **blockNumber**: `bigint`
-
-Defined in: tevm-monorepo/packages/actions/types/common/FilterLog.d.ts:8
-
-***
-
-### data
-
-> `readonly` **data**: [`Hex`](Hex.md)
-
-Defined in: tevm-monorepo/packages/actions/types/common/FilterLog.d.ts:9
-
-***
-
-### logIndex
-
-> `readonly` **logIndex**: `bigint`
-
-Defined in: tevm-monorepo/packages/actions/types/common/FilterLog.d.ts:10
-
-***
-
-### removed
-
-> `readonly` **removed**: `boolean`
-
-Defined in: tevm-monorepo/packages/actions/types/common/FilterLog.d.ts:11
-
-***
-
-### topics
-
-> `readonly` **topics**: readonly [`Hex`](Hex.md)[]
-
-Defined in: tevm-monorepo/packages/actions/types/common/FilterLog.d.ts:12
-
-***
-
-### transactionHash
-
-> `readonly` **transactionHash**: [`Hex`](Hex.md)
-
-Defined in: tevm-monorepo/packages/actions/types/common/FilterLog.d.ts:13
-
-***
-
-### transactionIndex
-
-> `readonly` **transactionIndex**: `bigint`
-
-Defined in: tevm-monorepo/packages/actions/types/common/FilterLog.d.ts:14
+| Property | Modifier | Type |
+| ------ | ------ | ------ |
+| <a id="address"></a> `address` | `readonly` | [`Hex`](Hex.md) |
+| <a id="blockhash"></a> `blockHash` | `readonly` | [`Hex`](Hex.md) |
+| <a id="blocknumber"></a> `blockNumber` | `readonly` | `bigint` |
+| <a id="data"></a> `data` | `readonly` | [`Hex`](Hex.md) |
+| <a id="logindex"></a> `logIndex` | `readonly` | `bigint` |
+| <a id="removed"></a> `removed` | `readonly` | `boolean` |
+| <a id="topics"></a> `topics` | `readonly` | readonly [`Hex`](Hex.md)[] |
+| <a id="transactionhash"></a> `transactionHash` | `readonly` | [`Hex`](Hex.md) |
+| <a id="transactionindex"></a> `transactionIndex` | `readonly` | `bigint` |

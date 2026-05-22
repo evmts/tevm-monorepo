@@ -8,13 +8,11 @@
 
 > **EthGetUncleCountByBlockNumberHandler** = (`request`) => `Promise`\<[`EthGetUncleCountByBlockNumberResult`](EthGetUncleCountByBlockNumberResult.md)\>
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthHandler.d.ts:25
-
 ## Parameters
 
-### request
-
-[`EthGetUncleCountByBlockNumberParams`](EthGetUncleCountByBlockNumberParams.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`EthGetUncleCountByBlockNumberParams`](EthGetUncleCountByBlockNumberParams.md) |
 
 ## Returns
 

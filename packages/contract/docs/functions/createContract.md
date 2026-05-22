@@ -16,39 +16,21 @@ allowing for type-safe and easy-to-use contract interfaces.
 
 ## Type Parameters
 
-### TName
-
-`TName` *extends* `string`
-
-### TAbi
-
-`TAbi` *extends* `Abi` \| readonly `string`[]
-
-### TAddress
-
-`TAddress` *extends* `` `0x${string}` `` \| `undefined` = `undefined`
-
-### TBytecode
-
-`TBytecode` *extends* `` `0x${string}` `` \| `undefined` = `undefined`
-
-### TDeployedBytecode
-
-`TDeployedBytecode` *extends* `` `0x${string}` `` \| `undefined` = `undefined`
-
-### TCode
-
-`TCode` *extends* `` `0x${string}` `` \| `undefined` = `undefined`
-
-### THumanReadableAbi
-
-`THumanReadableAbi` *extends* readonly `string`[] = `TAbi` *extends* readonly `string`[] ? `TAbi` : `TAbi` *extends* `Abi` ? `FormatAbi`\<`TAbi`\> : `never`
+| Type Parameter | Default type |
+| ------ | ------ |
+| `TName` *extends* `string` | - |
+| `TAbi` *extends* `Abi` \| readonly `string`[] | - |
+| `TAddress` *extends* `` `0x${string}` `` \| `undefined` | `undefined` |
+| `TBytecode` *extends* `` `0x${string}` `` \| `undefined` | `undefined` |
+| `TDeployedBytecode` *extends* `` `0x${string}` `` \| `undefined` | `undefined` |
+| `TCode` *extends* `` `0x${string}` `` \| `undefined` | `undefined` |
+| `THumanReadableAbi` *extends* readonly `string`[] | `TAbi` *extends* readonly `string`[] ? `TAbi` : `TAbi` *extends* `Abi` ? `FormatAbi`\<`TAbi`\> : `never` |
 
 ## Parameters
 
-### \_\_namedParameters
-
-[`CreateContractParams`](../type-aliases/CreateContractParams.md)\<`TName`, `TAbi`, `TAddress`, `TBytecode`, `TDeployedBytecode`, `TCode`\>
+| Parameter | Type |
+| ------ | ------ |
+| `__namedParameters` | [`CreateContractParams`](../type-aliases/CreateContractParams.md)\<`TName`, `TAbi`, `TAddress`, `TBytecode`, `TDeployedBytecode`, `TCode`\> |
 
 ## Returns
 

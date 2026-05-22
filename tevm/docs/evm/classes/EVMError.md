@@ -14,9 +14,9 @@
 
 #### Parameters
 
-##### error
-
-`EVMErrorType`
+| Parameter | Type |
+| ------ | ------ |
+| `error` | `EVMErrorType` |
 
 #### Returns
 
@@ -24,18 +24,8 @@
 
 ## Properties
 
-### error
-
-> **error**: `EVMErrorType`
-
-***
-
-### errorType
-
-> **errorType**: `string`
-
-***
-
-### errorMessages
-
-> `static` **errorMessages**: `Record`\<keyof *typeof* `EVMErrorMessage`, `EVMErrorType`\>
+| Property | Modifier | Type |
+| ------ | ------ | ------ |
+| <a id="error"></a> `error` | `public` | `EVMErrorType` |
+| <a id="errortype"></a> `errorType` | `public` | `string` |
+| <a id="errormessages"></a> `errorMessages` | `static` | `Record`\<keyof *typeof* `EVMErrorMessage`, `EVMErrorType`\> |

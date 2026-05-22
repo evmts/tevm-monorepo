@@ -8,23 +8,14 @@
 
 > **createBlockHeaderFromValuesArray**(`values`, `opts`): [`BlockHeader`](../classes/BlockHeader.md)
 
-Defined in: tevm-monorepo/packages/block/types/index.d.ts:75
-
 Creates a block header from an array of Bytes values
 
 ## Parameters
 
-### values
-
-[`BlockHeaderBytes`](../type-aliases/BlockHeaderBytes.md)
-
-The header values array
-
-### opts
-
-[`BlockOptions`](../interfaces/BlockOptions.md)
-
-Options for the block header
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `values` | [`BlockHeaderBytes`](../type-aliases/BlockHeaderBytes.md) | The header values array |
+| `opts` | [`BlockOptions`](../interfaces/BlockOptions.md) | Options for the block header |
 
 ## Returns
 

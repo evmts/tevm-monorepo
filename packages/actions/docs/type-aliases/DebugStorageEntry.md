@@ -14,20 +14,7 @@ Storage entry in debug_storageRangeAt result
 
 ## Properties
 
-### key
-
-> **key**: [`Hex`](Hex.md)
-
-Defined in: [packages/actions/src/debug/DebugResult.ts:226](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/DebugResult.ts#L226)
-
-Storage key
-
-***
-
-### value
-
-> **value**: [`Hex`](Hex.md)
-
-Defined in: [packages/actions/src/debug/DebugResult.ts:230](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/DebugResult.ts#L230)
-
-Storage value
+| Property | Type | Description | Defined in |
+| ------ | ------ | ------ | ------ |
+| <a id="key"></a> `key` | [`Hex`](Hex.md) | Storage key | [packages/actions/src/debug/DebugResult.ts:226](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/DebugResult.ts#L226) |
+| <a id="value"></a> `value` | [`Hex`](Hex.md) | Storage value | [packages/actions/src/debug/DebugResult.ts:230](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/DebugResult.ts#L230) |

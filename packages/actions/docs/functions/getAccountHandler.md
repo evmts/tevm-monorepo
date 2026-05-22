@@ -10,21 +10,15 @@
 
 Defined in: [packages/actions/src/GetAccount/getAccountHandler.js:17](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/GetAccount/getAccountHandler.js#L17)
 
-Creates a GetAccountHandler for handling account params with the Tevm VM
+Creates a GetAccountHandler for handling account params with the Tevm VM.
 
 ## Parameters
 
-### client
-
-`TevmNode`\<`"fork"` \| `"normal"`, \{ \}\>
-
-### options?
-
-#### throwOnFail?
-
-`boolean`
-
-whether to default to throwing or not when errors occur
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `client` | `TevmNode`\<`"fork"` \| `"normal"`, \{ \}\> | - |
+| `options?` | \{ `throwOnFail?`: `boolean`; \} | - |
+| `options.throwOnFail?` | `boolean` | whether to default to throwing or not when errors occur |
 
 ## Returns
 

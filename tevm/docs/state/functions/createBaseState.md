@@ -8,13 +8,11 @@
 
 > **createBaseState**(`options`): [`BaseState`](../type-aliases/BaseState.md)
 
-Defined in: tevm-monorepo/packages/state/dist/index.d.ts:522
-
 ## Parameters
 
-### options
-
-[`StateOptions`](../../index/type-aliases/StateOptions.md)
+| Parameter | Type |
+| ------ | ------ |
+| `options` | [`StateOptions`](../../index/type-aliases/StateOptions.md) |
 
 ## Returns
 

@@ -12,50 +12,11 @@ An object with the block's data represented as strings.
 
 ## Properties
 
-### executionWitness?
-
-> `optional` **executionWitness?**: [`VerkleExecutionWitness`](VerkleExecutionWitness.md) \| `null`
-
-Defined in: [packages/block/src/types.ts:430](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L430)
-
-***
-
-### header?
-
-> `optional` **header?**: [`JsonHeader`](JsonHeader.md)
-
-Defined in: [packages/block/src/types.ts:425](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L425)
-
-Header data for the block
-
-***
-
-### requests?
-
-> `optional` **requests?**: `` `0x${string}` ``[] \| `null`
-
-Defined in: [packages/block/src/types.ts:429](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L429)
-
-***
-
-### transactions?
-
-> `optional` **transactions?**: `JSONTx`[]
-
-Defined in: [packages/block/src/types.ts:426](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L426)
-
-***
-
-### uncleHeaders?
-
-> `optional` **uncleHeaders?**: [`JsonHeader`](JsonHeader.md)[]
-
-Defined in: [packages/block/src/types.ts:427](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L427)
-
-***
-
-### withdrawals?
-
-> `optional` **withdrawals?**: `JSONRPCWithdrawal`[]
-
-Defined in: [packages/block/src/types.ts:428](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L428)
+| Property | Type | Description | Defined in |
+| ------ | ------ | ------ | ------ |
+| <a id="executionwitness"></a> `executionWitness?` | [`VerkleExecutionWitness`](VerkleExecutionWitness.md) \| `null` | - | [packages/block/src/types.ts:430](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L430) |
+| <a id="header"></a> `header?` | [`JsonHeader`](JsonHeader.md) | Header data for the block | [packages/block/src/types.ts:425](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L425) |
+| <a id="requests"></a> `requests?` | `` `0x${string}` ``[] \| `null` | - | [packages/block/src/types.ts:429](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L429) |
+| <a id="transactions"></a> `transactions?` | `JSONTx`[] | - | [packages/block/src/types.ts:426](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L426) |
+| <a id="uncleheaders"></a> `uncleHeaders?` | [`JsonHeader`](JsonHeader.md)[] | - | [packages/block/src/types.ts:427](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L427) |
+| <a id="withdrawals"></a> `withdrawals?` | `JSONRPCWithdrawal`[] | - | [packages/block/src/types.ts:428](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L428) |

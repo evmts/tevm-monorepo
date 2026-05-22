@@ -12,11 +12,9 @@ Type guard to check if transaction is a Fee Market EIP-1559 transaction
 
 ## Parameters
 
-### tx
-
-[`TypedTransaction`](../type-aliases/TypedTransaction.md)
-
-The transaction to check
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `tx` | [`TypedTransaction`](../type-aliases/TypedTransaction.md) | The transaction to check |
 
 ## Returns
 

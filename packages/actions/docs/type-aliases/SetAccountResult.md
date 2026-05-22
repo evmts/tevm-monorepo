@@ -14,16 +14,12 @@ Result of SetAccount Action
 
 ## Type Parameters
 
-### ErrorType
-
-`ErrorType` = [`TevmSetAccountError`](TevmSetAccountError.md)
+| Type Parameter | Default type |
+| ------ | ------ |
+| `ErrorType` | [`TevmSetAccountError`](TevmSetAccountError.md) |
 
 ## Properties
 
-### errors?
-
-> `optional` **errors?**: `ErrorType`[]
-
-Defined in: [packages/actions/src/SetAccount/SetAccountResult.ts:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/SetAccount/SetAccountResult.ts#L10)
-
-Description of the exception, if any occurred
+| Property | Type | Description | Defined in |
+| ------ | ------ | ------ | ------ |
+| <a id="errors"></a> `errors?` | `ErrorType`[] | Description of the exception, if any occurred | [packages/actions/src/SetAccount/SetAccountResult.ts:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/SetAccount/SetAccountResult.ts#L10) |

@@ -12,9 +12,9 @@ Defined in: [packages/actions/src/eth/ethSignProcedure.js:7](https://github.com/
 
 ## Parameters
 
-### accounts
-
-readonly `object`[]
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `accounts` | readonly `object`[] | - |
 
 ## Returns
 

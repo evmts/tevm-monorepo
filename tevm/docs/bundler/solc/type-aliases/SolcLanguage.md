@@ -7,5 +7,3 @@
 # Type Alias: SolcLanguage
 
 > **SolcLanguage** = `"Solidity"` \| `"Yul"` \| `"SolidityAST"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:4

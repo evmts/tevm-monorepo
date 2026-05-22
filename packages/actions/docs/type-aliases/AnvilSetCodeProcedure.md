@@ -14,9 +14,9 @@ JSON-RPC procedure for `anvil_setCode`
 
 ## Parameters
 
-### request
-
-[`AnvilSetCodeJsonRpcRequest`](AnvilSetCodeJsonRpcRequest.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`AnvilSetCodeJsonRpcRequest`](AnvilSetCodeJsonRpcRequest.md) |
 
 ## Returns
 

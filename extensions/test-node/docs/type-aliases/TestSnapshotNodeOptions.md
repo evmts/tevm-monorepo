@@ -8,7 +8,7 @@
 
 > **TestSnapshotNodeOptions** = `TevmNodeOptions` & `object`
 
-Defined in: [extensions/test-node/src/types.ts:90](https://github.com/evmts/tevm-monorepo/blob/main/extensions/test-node/src/types.ts#L90)
+Defined in: [extensions/test-node/src/types.ts:92](https://github.com/evmts/tevm-monorepo/blob/main/extensions/test-node/src/types.ts#L92)
 
 ## Type Declaration
 

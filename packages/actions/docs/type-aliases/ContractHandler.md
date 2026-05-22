@@ -17,25 +17,16 @@ It encodes the ABI, function name, and arguments to perform the contract call.
 
 ## Type Parameters
 
-### TAbi
-
-`TAbi` *extends* `Abi` \| readonly `unknown`[] = `Abi`
-
-The ABI type.
-
-### TFunctionName
-
-`TFunctionName` *extends* `ContractFunctionName`\<`TAbi`\> = `ContractFunctionName`\<`TAbi`\>
-
-The function name type from the ABI.
+| Type Parameter | Default type | Description |
+| ------ | ------ | ------ |
+| `TAbi` *extends* `Abi` \| readonly `unknown`[] | `Abi` | The ABI type. |
+| `TFunctionName` *extends* `ContractFunctionName`\<`TAbi`\> | `ContractFunctionName`\<`TAbi`\> | The function name type from the ABI. |
 
 ## Parameters
 
-### action
-
-[`ContractParams`](ContractParams.md)\<`TAbi`, `TFunctionName`\> & [`CallEvents`](CallEvents.md)
-
-The parameters for the contract call, including ABI, function name, and arguments, with optional event handlers.
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `action` | [`ContractParams`](ContractParams.md)\<`TAbi`, `TFunctionName`\> & [`CallEvents`](CallEvents.md) | The parameters for the contract call, including ABI, function name, and arguments, with optional event handlers. |
 
 ## Returns
 

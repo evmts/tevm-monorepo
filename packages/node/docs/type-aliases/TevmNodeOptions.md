@@ -8,7 +8,7 @@
 
 > **TevmNodeOptions**\<`TCommon`\> = `StateOptions` & `object`
 
-Defined in: [packages/node/src/TevmNodeOptions.ts:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/TevmNodeOptions.ts#L12)
+Defined in: [packages/node/src/TevmNodeOptions.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/TevmNodeOptions.ts#L14)
 
 Options for creating an Tevm MemoryClient instance
 
@@ -37,6 +37,13 @@ import { createMemoryClient } from 'tevm'}
 const client = createMemoryClient({ chain: optimism })
 ````
 `
+
+### consensus?
+
+> `readonly` `optional` **consensus?**: `ConsensusService`
+
+Consensus service used for trust assumptions and proof-backed reads.
+Defaults to a no-op trusted service in normal in-memory mode.
 
 ### customPrecompiles?
 
@@ -109,6 +116,36 @@ const tevm = createMemoryClient({
 })
 ```
 
+### exExHooks?
+
+> `readonly` `optional` **exExHooks?**: readonly [`ExExHook`](ExExHook.md)[]
+
+### lightSync?
+
+> `readonly` `optional` **lightSync?**: `object`
+
+#### Type Declaration
+
+#### lightSync.defaultCheckpoint?
+
+> `readonly` `optional` **defaultCheckpoint?**: `string`
+
+#### lightSync.explicitCheckpoint?
+
+> `readonly` `optional` **explicitCheckpoint?**: `string`
+
+#### lightSync.maxCheckpointAgeMs?
+
+> `readonly` `optional` **maxCheckpointAgeMs?**: `number`
+
+#### lightSync.persistedCheckpointPath?
+
+> `readonly` `optional` **persistedCheckpointPath?**: `string`
+
+#### lightSync.strictCheckpointAge?
+
+> `readonly` `optional` **strictCheckpointAge?**: `boolean`
+
 ### loggingLevel?
 
 > `readonly` `optional` **loggingLevel?**: `LogOptions`\[`"level"`\]
@@ -153,6 +190,6 @@ Enable profiler. Defaults to false.
 
 ## Type Parameters
 
-### TCommon
-
-`TCommon` *extends* `Common` = `Common`
+| Type Parameter | Default type |
+| ------ | ------ |
+| `TCommon` *extends* `Common` | `Common` |

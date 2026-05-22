@@ -10,8 +10,6 @@ Defined in: [extensions/test-matchers/src/common/types.ts:22](https://github.com
 
 ## Properties
 
-### address
-
-> **address**: `` `0x${string}` ``
-
-Defined in: [extensions/test-matchers/src/common/types.ts:23](https://github.com/evmts/tevm-monorepo/blob/main/extensions/test-matchers/src/common/types.ts#L23)
+| Property | Type | Defined in |
+| ------ | ------ | ------ |
+| <a id="address"></a> `address` | `` `0x${string}` `` | [extensions/test-matchers/src/common/types.ts:23](https://github.com/evmts/tevm-monorepo/blob/main/extensions/test-matchers/src/common/types.ts#L23) |

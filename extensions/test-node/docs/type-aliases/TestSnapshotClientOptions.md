@@ -8,7 +8,7 @@
 
 > **TestSnapshotClientOptions**\<`TCommon`, `TAccountOrAddress`, `TRpcSchema`\> = `MemoryClientOptions`\<`TCommon`, `TAccountOrAddress`, `TRpcSchema`\> & `object`
 
-Defined in: [extensions/test-node/src/types.ts:77](https://github.com/evmts/tevm-monorepo/blob/main/extensions/test-node/src/types.ts#L77)
+Defined in: [extensions/test-node/src/types.ts:79](https://github.com/evmts/tevm-monorepo/blob/main/extensions/test-node/src/types.ts#L79)
 
 ## Type Declaration
 
@@ -18,14 +18,8 @@ Defined in: [extensions/test-node/src/types.ts:77](https://github.com/evmts/tevm
 
 ## Type Parameters
 
-### TCommon
-
-`TCommon` *extends* `Common` & `Chain` = `Common` & `Chain`
-
-### TAccountOrAddress
-
-`TAccountOrAddress` *extends* `Account` \| `Address` \| `undefined` = `undefined`
-
-### TRpcSchema
-
-`TRpcSchema` *extends* `RpcSchema` \| `undefined` = `TevmRpcSchema`
+| Type Parameter | Default type |
+| ------ | ------ |
+| `TCommon` *extends* `Common` & `Chain` | `Common` & `Chain` |
+| `TAccountOrAddress` *extends* `Account` \| `Address` \| `undefined` | `undefined` |
+| `TRpcSchema` *extends* `RpcSchema` \| `undefined` | `TevmRpcSchema` |

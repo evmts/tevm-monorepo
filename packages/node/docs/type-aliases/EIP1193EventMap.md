@@ -8,7 +8,7 @@
 
 > **EIP1193EventMap** = `object`
 
-Defined in: [packages/node/src/EIP1193EventEmitterTypes.ts:32](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/EIP1193EventEmitterTypes.ts#L32)
+Defined in: [packages/node/src/EIP1193EventEmitterTypes.ts:34](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/EIP1193EventEmitterTypes.ts#L34)
 
 ## Methods
 
@@ -16,13 +16,13 @@ Defined in: [packages/node/src/EIP1193EventEmitterTypes.ts:32](https://github.co
 
 > **accountsChanged**(`accounts`): `void`
 
-Defined in: [packages/node/src/EIP1193EventEmitterTypes.ts:33](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/EIP1193EventEmitterTypes.ts#L33)
+Defined in: [packages/node/src/EIP1193EventEmitterTypes.ts:35](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/EIP1193EventEmitterTypes.ts#L35)
 
 #### Parameters
 
-##### accounts
-
-`` `0x${string}` ``[]
+| Parameter | Type |
+| ------ | ------ |
+| `accounts` | `` `0x${string}` ``[] |
 
 #### Returns
 
@@ -34,13 +34,13 @@ Defined in: [packages/node/src/EIP1193EventEmitterTypes.ts:33](https://github.co
 
 > **chainChanged**(`chainId`): `void`
 
-Defined in: [packages/node/src/EIP1193EventEmitterTypes.ts:34](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/EIP1193EventEmitterTypes.ts#L34)
+Defined in: [packages/node/src/EIP1193EventEmitterTypes.ts:36](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/EIP1193EventEmitterTypes.ts#L36)
 
 #### Parameters
 
-##### chainId
-
-`string`
+| Parameter | Type |
+| ------ | ------ |
+| `chainId` | `string` |
 
 #### Returns
 
@@ -52,13 +52,13 @@ Defined in: [packages/node/src/EIP1193EventEmitterTypes.ts:34](https://github.co
 
 > **connect**(`connectInfo`): `void`
 
-Defined in: [packages/node/src/EIP1193EventEmitterTypes.ts:35](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/EIP1193EventEmitterTypes.ts#L35)
+Defined in: [packages/node/src/EIP1193EventEmitterTypes.ts:37](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/EIP1193EventEmitterTypes.ts#L37)
 
 #### Parameters
 
-##### connectInfo
-
-[`ProviderConnectInfo`](ProviderConnectInfo.md)
+| Parameter | Type |
+| ------ | ------ |
+| `connectInfo` | [`ProviderConnectInfo`](ProviderConnectInfo.md) |
 
 #### Returns
 
@@ -70,13 +70,13 @@ Defined in: [packages/node/src/EIP1193EventEmitterTypes.ts:35](https://github.co
 
 > **disconnect**(`error`): `void`
 
-Defined in: [packages/node/src/EIP1193EventEmitterTypes.ts:36](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/EIP1193EventEmitterTypes.ts#L36)
+Defined in: [packages/node/src/EIP1193EventEmitterTypes.ts:38](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/EIP1193EventEmitterTypes.ts#L38)
 
 #### Parameters
 
-##### error
-
-[`ProviderRpcError`](../classes/ProviderRpcError.md)
+| Parameter | Type |
+| ------ | ------ |
+| `error` | [`ProviderRpcError`](../classes/ProviderRpcError.md) |
 
 #### Returns
 
@@ -88,13 +88,13 @@ Defined in: [packages/node/src/EIP1193EventEmitterTypes.ts:36](https://github.co
 
 > **message**(`message`): `void`
 
-Defined in: [packages/node/src/EIP1193EventEmitterTypes.ts:37](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/EIP1193EventEmitterTypes.ts#L37)
+Defined in: [packages/node/src/EIP1193EventEmitterTypes.ts:39](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/EIP1193EventEmitterTypes.ts#L39)
 
 #### Parameters
 
-##### message
-
-[`ProviderMessage`](ProviderMessage.md)
+| Parameter | Type |
+| ------ | ------ |
+| `message` | [`ProviderMessage`](ProviderMessage.md) |
 
 #### Returns
 
@@ -106,13 +106,13 @@ Defined in: [packages/node/src/EIP1193EventEmitterTypes.ts:37](https://github.co
 
 > **newBlock**(`block`): `void`
 
-Defined in: [packages/node/src/EIP1193EventEmitterTypes.ts:42](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/EIP1193EventEmitterTypes.ts#L42)
+Defined in: [packages/node/src/EIP1193EventEmitterTypes.ts:44](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/EIP1193EventEmitterTypes.ts#L44)
 
 #### Parameters
 
-##### block
-
-`Block`
+| Parameter | Type |
+| ------ | ------ |
+| `block` | `Block` |
 
 #### Returns
 
@@ -124,13 +124,13 @@ Defined in: [packages/node/src/EIP1193EventEmitterTypes.ts:42](https://github.co
 
 > **newLog**(`log`): `void`
 
-Defined in: [packages/node/src/EIP1193EventEmitterTypes.ts:43](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/EIP1193EventEmitterTypes.ts#L43)
+Defined in: [packages/node/src/EIP1193EventEmitterTypes.ts:45](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/EIP1193EventEmitterTypes.ts#L45)
 
 #### Parameters
 
-##### log
-
-`ReceiptLog`
+| Parameter | Type |
+| ------ | ------ |
+| `log` | `ReceiptLog` |
 
 #### Returns
 
@@ -142,13 +142,13 @@ Defined in: [packages/node/src/EIP1193EventEmitterTypes.ts:43](https://github.co
 
 > **newPendingTransaction**(`tx`): `void`
 
-Defined in: [packages/node/src/EIP1193EventEmitterTypes.ts:40](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/EIP1193EventEmitterTypes.ts#L40)
+Defined in: [packages/node/src/EIP1193EventEmitterTypes.ts:42](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/EIP1193EventEmitterTypes.ts#L42)
 
 #### Parameters
 
-##### tx
-
-`TypedTransaction` \| `ImpersonatedTx`
+| Parameter | Type |
+| ------ | ------ |
+| `tx` | `TypedTransaction` \| `ImpersonatedTx` |
 
 #### Returns
 
@@ -160,13 +160,13 @@ Defined in: [packages/node/src/EIP1193EventEmitterTypes.ts:40](https://github.co
 
 > **newReceipt**(`receipt`): `void`
 
-Defined in: [packages/node/src/EIP1193EventEmitterTypes.ts:41](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/EIP1193EventEmitterTypes.ts#L41)
+Defined in: [packages/node/src/EIP1193EventEmitterTypes.ts:43](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/EIP1193EventEmitterTypes.ts#L43)
 
 #### Parameters
 
-##### receipt
-
-`TxReceipt`
+| Parameter | Type |
+| ------ | ------ |
+| `receipt` | `TxReceipt` |
 
 #### Returns
 

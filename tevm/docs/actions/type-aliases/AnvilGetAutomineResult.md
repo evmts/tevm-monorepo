@@ -7,5 +7,3 @@
 # Type Alias: AnvilGetAutomineResult
 
 > **AnvilGetAutomineResult** = `boolean`
-
-Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilResult.d.ts:5

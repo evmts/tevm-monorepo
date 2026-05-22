@@ -12,9 +12,9 @@ Defined in: [subscribeTx.ts:23](https://github.com/evmts/tevm-monorepo/blob/main
 
 ## Parameters
 
-### subscribers
-
-`Set`\<[`TxStatusSubscriber`](../type-aliases/TxStatusSubscriber.md)\>
+| Parameter | Type |
+| ------ | ------ |
+| `subscribers` | `Set`\<[`TxStatusSubscriber`](../type-aliases/TxStatusSubscriber.md)\> |
 
 ## Returns
 

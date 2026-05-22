@@ -12,9 +12,9 @@ Defined in: [packages/actions/src/eth/EthProcedure.ts:191](https://github.com/ev
 
 ## Parameters
 
-### request
-
-[`EthGetTransactionByBlockNumberAndIndexJsonRpcRequest`](EthGetTransactionByBlockNumberAndIndexJsonRpcRequest.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`EthGetTransactionByBlockNumberAndIndexJsonRpcRequest`](EthGetTransactionByBlockNumberAndIndexJsonRpcRequest.md) |
 
 ## Returns
 

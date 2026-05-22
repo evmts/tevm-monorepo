@@ -8,8 +8,6 @@
 
 > **DebugGetRawBlockResult** = [`Hex`](Hex.md)
 
-Defined in: tevm-monorepo/packages/actions/types/debug/DebugResult.d.ts:219
-
 Result from `debug_getRawBlock`
 
 Returns the RLP-encoded block as a hex string

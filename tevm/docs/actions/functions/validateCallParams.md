@@ -8,13 +8,11 @@
 
 > **validateCallParams**(`action`): [`ValidateCallParamsError`](../type-aliases/ValidateCallParamsError.md)[]
 
-Defined in: tevm-monorepo/packages/actions/types/Call/validateCallParams.d.ts:1
-
 ## Parameters
 
-### action
-
-[`CallParams`](../type-aliases/CallParams.md)\<`boolean`\>
+| Parameter | Type |
+| ------ | ------ |
+| `action` | [`CallParams`](../type-aliases/CallParams.md)\<`boolean`\> |
 
 ## Returns
 

@@ -14,6 +14,6 @@ Represents a block number in the blockchain.
 
 ## Type Parameters
 
-### quantity
-
-`quantity` = `bigint`
+| Type Parameter | Default type |
+| ------ | ------ |
+| `quantity` | `bigint` |

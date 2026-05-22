@@ -8,14 +8,12 @@
 
 > **EthUninstallFilterParams** = `object`
 
-Defined in: [packages/actions/src/eth/EthParams.ts:339](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L339)
+Defined in: [packages/actions/src/eth/EthParams.ts:346](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L346)
 
 Based on the JSON-RPC request for `eth_uninstallFilter` procedure
 
 ## Properties
 
-### filterId
-
-> `readonly` **filterId**: [`Hex`](Hex.md)
-
-Defined in: [packages/actions/src/eth/EthParams.ts:339](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L339)
+| Property | Modifier | Type | Defined in |
+| ------ | ------ | ------ | ------ |
+| <a id="filterid"></a> `filterId` | `readonly` | [`Hex`](Hex.md) | [packages/actions/src/eth/EthParams.ts:346](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L346) |

@@ -16,23 +16,12 @@ executeCall encapsalates the internal logic of running a call in the EVM
 
 ## Parameters
 
-### client
-
-`TevmNode`\<`"fork"` \| `"normal"`, \{ \}\>
-
-### evmInput
-
-`EVMRunCallOpts`
-
-### params
-
-[`CallParams`](../type-aliases/CallParams.md)\<`boolean`\>
-
-### events?
-
-[`CallEvents`](../type-aliases/CallEvents.md)
-
-Optional event handlers for EVM execution
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `client` | `TevmNode`\<`"fork"` \| `"normal"`, \{ \}\> | - |
+| `evmInput` | `EVMRunCallOpts` | - |
+| `params` | [`CallParams`](../type-aliases/CallParams.md)\<`boolean`\> | - |
+| `events?` | [`CallEvents`](../type-aliases/CallEvents.md) | Optional event handlers for EVM execution |
 
 ## Returns
 

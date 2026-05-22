@@ -14,9 +14,9 @@ Creates a syncronous storage persister to be used in tevm clients
 
 ## Parameters
 
-### options
-
-[`CreateSyncStoragePersisterOptions`](../type-aliases/CreateSyncStoragePersisterOptions.md)
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `options` | [`CreateSyncStoragePersisterOptions`](../type-aliases/CreateSyncStoragePersisterOptions.md) | - |
 
 ## Returns
 

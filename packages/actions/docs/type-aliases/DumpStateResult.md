@@ -17,32 +17,13 @@ It includes the serialized TEVM state and any errors that may have occurred.
 
 ## Type Parameters
 
-### ErrorType
-
-`ErrorType` = [`TevmDumpStateError`](TevmDumpStateError.md)
+| Type Parameter | Default type |
+| ------ | ------ |
+| `ErrorType` | [`TevmDumpStateError`](TevmDumpStateError.md) |
 
 ## Properties
 
-### errors?
-
-> `optional` **errors?**: `ErrorType`[]
-
-Defined in: [packages/actions/src/DumpState/DumpStateResult.ts:24](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/DumpState/DumpStateResult.ts#L24)
-
-Description of the exception, if any occurred.
-
-This property contains an array of errors that may have occurred during the execution
-of the `dumpState` method. Each error provides detailed information about what went wrong.
-
-***
-
-### state
-
-> **state**: `SerializableTevmState`
-
-Defined in: [packages/actions/src/DumpState/DumpStateResult.ts:17](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/DumpState/DumpStateResult.ts#L17)
-
-The serialized TEVM state.
-
-This property contains the entire state of the TEVM, serialized into a JSON-compatible
-format. This state can be used for debugging, analysis, or state persistence.
+| Property | Type | Description | Defined in |
+| ------ | ------ | ------ | ------ |
+| <a id="errors"></a> `errors?` | `ErrorType`[] | Description of the exception, if any occurred. This property contains an array of errors that may have occurred during the execution of the `dumpState` method. Each error provides detailed information about what went wrong. | [packages/actions/src/DumpState/DumpStateResult.ts:24](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/DumpState/DumpStateResult.ts#L24) |
+| <a id="state"></a> `state` | `SerializableTevmState` | The serialized TEVM state. This property contains the entire state of the TEVM, serialized into a JSON-compatible format. This state can be used for debugging, analysis, or state persistence. | [packages/actions/src/DumpState/DumpStateResult.ts:17](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/DumpState/DumpStateResult.ts#L17) |

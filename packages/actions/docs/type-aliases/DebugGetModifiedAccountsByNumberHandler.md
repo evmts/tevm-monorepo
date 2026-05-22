@@ -12,9 +12,9 @@ Defined in: [packages/actions/src/debug/DebugHandler.ts:50](https://github.com/e
 
 ## Parameters
 
-### params
-
-[`DebugGetModifiedAccountsByNumberParams`](DebugGetModifiedAccountsByNumberParams.md)
+| Parameter | Type |
+| ------ | ------ |
+| `params` | [`DebugGetModifiedAccountsByNumberParams`](DebugGetModifiedAccountsByNumberParams.md) |
 
 ## Returns
 

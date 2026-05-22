@@ -19,13 +19,10 @@ hardfork in for e.g. vm or txs or when the chain is not fully synced yet.
 
 ## Parameters
 
-### hardfork
-
-`string`
-
-### preMergeHf
-
-`string`
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `hardfork` | `string` | - |
+| `preMergeHf` | `string` | - |
 
 ## Returns
 

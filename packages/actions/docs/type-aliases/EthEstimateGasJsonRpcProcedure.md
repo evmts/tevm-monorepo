@@ -12,9 +12,9 @@ Defined in: [packages/actions/src/eth/EthProcedure.ts:119](https://github.com/ev
 
 ## Parameters
 
-### request
-
-[`EthEstimateGasJsonRpcRequest`](EthEstimateGasJsonRpcRequest.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`EthEstimateGasJsonRpcRequest`](EthEstimateGasJsonRpcRequest.md) |
 
 ## Returns
 

@@ -12,11 +12,9 @@ Type guard to check if transaction is a Blob EIP-4844 transaction
 
 ## Parameters
 
-### tx
-
-[`TypedTransaction`](../type-aliases/TypedTransaction.md)
-
-The transaction to check
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `tx` | [`TypedTransaction`](../type-aliases/TypedTransaction.md) | The transaction to check |
 
 ## Returns
 

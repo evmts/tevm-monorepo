@@ -6,8 +6,6 @@
 
 # Interface: RunTxResult
 
-Defined in: tevm-monorepo/packages/vm/types/utils/RunTxResult.d.ts:9
-
 Execution result of a transaction
 
 ## Extends
@@ -20,116 +18,16 @@ Execution result of a transaction
 
 ## Properties
 
-### accessList?
-
-> `optional` **accessList?**: [`AccessList`](../../tx/type-aliases/AccessList.md)
-
-Defined in: tevm-monorepo/packages/vm/types/utils/RunTxResult.d.ts:35
-
-EIP-2930 access list generated for the tx (see `reportAccessList` option)
-
-***
-
-### amountSpent
-
-> **amountSpent**: `bigint`
-
-Defined in: tevm-monorepo/packages/vm/types/utils/RunTxResult.d.ts:17
-
-The amount of ether used by this transaction
-
-***
-
-### blobGasUsed?
-
-> `optional` **blobGasUsed?**: `bigint`
-
-Defined in: tevm-monorepo/packages/vm/types/utils/RunTxResult.d.ts:47
-
-This is the blob gas units times the fee per blob gas for 4844 transactions
-
-***
-
-### bloom
-
-> **bloom**: [`Bloom`](../../utils/classes/Bloom.md)
-
-Defined in: tevm-monorepo/packages/vm/types/utils/RunTxResult.d.ts:13
-
-Bloom filter resulted from transaction
-
-***
-
-### createdAddress?
-
-> `optional` **createdAddress?**: `Address`
-
-Address of created account during transaction, if any
-
-#### Inherited from
-
-[`EvmResult`](../../evm/interfaces/EvmResult.md).[`createdAddress`](../../evm/interfaces/EvmResult.md#createdaddress)
-
-***
-
-### execResult
-
-> **execResult**: [`ExecResult`](../../evm/interfaces/ExecResult.md)
-
-Contains the results from running the code, if any, as described in runCode
-
-#### Inherited from
-
-[`EvmResult`](../../evm/interfaces/EvmResult.md).[`execResult`](../../evm/interfaces/EvmResult.md#execresult)
-
-***
-
-### gasRefund
-
-> **gasRefund**: `bigint`
-
-Defined in: tevm-monorepo/packages/vm/types/utils/RunTxResult.d.ts:31
-
-The amount of gas as that was refunded during the transaction (i.e. `gasUsed = totalGasConsumed - gasRefund`)
-
-***
-
-### minerValue
-
-> **minerValue**: `bigint`
-
-Defined in: tevm-monorepo/packages/vm/types/utils/RunTxResult.d.ts:43
-
-The value that accrues to the miner by this transaction
-
-***
-
-### preimages?
-
-> `optional` **preimages?**: `Map`\<`` `0x${string}` ``, `Uint8Array`\<`ArrayBufferLike`\>\>
-
-Defined in: tevm-monorepo/packages/vm/types/utils/RunTxResult.d.ts:39
-
-Preimages mapping of the touched accounts from the tx (see `reportPreimages` option)
-
-***
-
-### receipt
-
-> **receipt**: [`TxReceipt`](../type-aliases/TxReceipt.md)
-
-Defined in: tevm-monorepo/packages/vm/types/utils/RunTxResult.d.ts:21
-
-The tx receipt
-
-***
-
-### totalGasSpent
-
-> **totalGasSpent**: `bigint`
-
-Defined in: tevm-monorepo/packages/vm/types/utils/RunTxResult.d.ts:27
-
-The amount of gas used in this transaction, which is paid for
-This contains the gas units that have been used on execution, plus the upfront cost,
-which consists of calldata cost, intrinsic cost and optionally the access list costs
+| Property | Type | Description | Inherited from |
+| ------ | ------ | ------ | ------ |
+| <a id="accesslist"></a> `accessList?` | [`AccessList`](../../tx/type-aliases/AccessList.md) | EIP-2930 access list generated for the tx (see `reportAccessList` option) | - |
+| <a id="amountspent"></a> `amountSpent` | `bigint` | The amount of ether used by this transaction | - |
+| <a id="blobgasused"></a> `blobGasUsed?` | `bigint` | This is the blob gas units times the fee per blob gas for 4844 transactions | - |
+| <a id="bloom"></a> `bloom` | [`Bloom`](../../utils/classes/Bloom.md) | Bloom filter resulted from transaction | - |
+| <a id="createdaddress"></a> `createdAddress?` | `Address` | Address of created account during transaction, if any | [`EvmResult`](../../evm/interfaces/EvmResult.md).[`createdAddress`](../../evm/interfaces/EvmResult.md#createdaddress) |
+| <a id="execresult"></a> `execResult` | [`ExecResult`](../../evm/interfaces/ExecResult.md) | Contains the results from running the code, if any, as described in runCode | [`EvmResult`](../../evm/interfaces/EvmResult.md).[`execResult`](../../evm/interfaces/EvmResult.md#execresult) |
+| <a id="gasrefund"></a> `gasRefund` | `bigint` | The amount of gas as that was refunded during the transaction (i.e. `gasUsed = totalGasConsumed - gasRefund`) | - |
+| <a id="minervalue"></a> `minerValue` | `bigint` | The value that accrues to the miner by this transaction | - |
+| <a id="preimages"></a> `preimages?` | `Map`\<`` `0x${string}` ``, `Uint8Array`\<`ArrayBufferLike`\>\> | Preimages mapping of the touched accounts from the tx (see `reportPreimages` option) | - |
+| <a id="receipt"></a> `receipt` | [`TxReceipt`](../type-aliases/TxReceipt.md) | The tx receipt | - |
+| <a id="totalgasspent"></a> `totalGasSpent` | `bigint` | The amount of gas used in this transaction, which is paid for This contains the gas units that have been used on execution, plus the upfront cost, which consists of calldata cost, intrinsic cost and optionally the access list costs | - |

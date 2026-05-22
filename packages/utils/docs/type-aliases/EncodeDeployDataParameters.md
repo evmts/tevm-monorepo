@@ -22,14 +22,8 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/viem@2.49.3\_bufferutil@4.1.0\_typ
 
 ## Type Parameters
 
-### abi
-
-`abi` *extends* [`Abi`](Abi.md) \| readonly `unknown`[] = [`Abi`](Abi.md)
-
-### hasConstructor
-
-`hasConstructor` = `abi` *extends* [`Abi`](Abi.md) ? [`Abi`](Abi.md) *extends* `abi` ? `true` : \[`Extract`\<`abi`\[`number`\], \{ `type`: `"constructor"`; \}\>\] *extends* \[`never`\] ? `false` : `true` : `true`
-
-### allArgs
-
-`allArgs` = [`ContractConstructorArgs`](ContractConstructorArgs.md)\<`abi`\>
+| Type Parameter | Default type |
+| ------ | ------ |
+| `abi` *extends* [`Abi`](Abi.md) \| readonly `unknown`[] | [`Abi`](Abi.md) |
+| `hasConstructor` | `abi` *extends* [`Abi`](Abi.md) ? [`Abi`](Abi.md) *extends* `abi` ? `true` : \[`Extract`\<`abi`\[`number`\], \{ `type`: `"constructor"`; \}\>\] *extends* \[`never`\] ? `false` : `true` : `true` |
+| `allArgs` | [`ContractConstructorArgs`](ContractConstructorArgs.md)\<`abi`\> |

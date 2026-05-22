@@ -6,8 +6,6 @@
 
 # Class: ContractCache
 
-Defined in: tevm-monorepo/packages/state/dist/index.d.ts:248
-
 Contract cache is a mapping of addresses to deployedBytecode
 It is implemented via extending StorageCache and hardcoding slot 0
 
@@ -17,13 +15,11 @@ It is implemented via extending StorageCache and hardcoding slot 0
 
 > **new ContractCache**(`storageCache?`): `ContractCache`
 
-Defined in: tevm-monorepo/packages/state/dist/index.d.ts:249
-
 #### Parameters
 
-##### storageCache?
-
-[`StorageCache`](StorageCache.md)
+| Parameter | Type |
+| ------ | ------ |
+| `storageCache?` | [`StorageCache`](StorageCache.md) |
 
 #### Returns
 
@@ -31,11 +27,9 @@ Defined in: tevm-monorepo/packages/state/dist/index.d.ts:249
 
 ## Properties
 
-### storageCache
-
-> **storageCache**: [`StorageCache`](StorageCache.md)
-
-Defined in: tevm-monorepo/packages/state/dist/index.d.ts:250
+| Property | Type |
+| ------ | ------ |
+| <a id="storagecache"></a> `storageCache` | [`StorageCache`](StorageCache.md) |
 
 ## Accessors
 
@@ -44,8 +38,6 @@ Defined in: tevm-monorepo/packages/state/dist/index.d.ts:250
 #### Get Signature
 
 > **get** **\_checkpoints**(): `number`
-
-Defined in: tevm-monorepo/packages/state/dist/index.d.ts:284
 
 ##### Returns
 
@@ -57,8 +49,6 @@ Defined in: tevm-monorepo/packages/state/dist/index.d.ts:284
 
 > **checkpoint**(): `void`
 
-Defined in: tevm-monorepo/packages/state/dist/index.d.ts:278
-
 #### Returns
 
 `void`
@@ -68,8 +58,6 @@ Defined in: tevm-monorepo/packages/state/dist/index.d.ts:278
 ### clear()
 
 > **clear**(): `void`
-
-Defined in: tevm-monorepo/packages/state/dist/index.d.ts:258
 
 #### Returns
 
@@ -81,8 +69,6 @@ Defined in: tevm-monorepo/packages/state/dist/index.d.ts:258
 
 > **commit**(): `void`
 
-Defined in: tevm-monorepo/packages/state/dist/index.d.ts:254
-
 #### Returns
 
 `void`
@@ -93,13 +79,11 @@ Defined in: tevm-monorepo/packages/state/dist/index.d.ts:254
 
 > **del**(`address`): `void`
 
-Defined in: tevm-monorepo/packages/state/dist/index.d.ts:274
-
 #### Parameters
 
-##### address
-
-[`EthjsAddress`](../../utils/classes/EthjsAddress.md)
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `address` | [`EthjsAddress`](../../utils/classes/EthjsAddress.md) | - |
 
 #### Returns
 
@@ -111,13 +95,11 @@ Defined in: tevm-monorepo/packages/state/dist/index.d.ts:274
 
 > **get**(`address`): `Uint8Array`\<`ArrayBufferLike`\> \| `undefined`
 
-Defined in: tevm-monorepo/packages/state/dist/index.d.ts:263
-
 #### Parameters
 
-##### address
-
-[`EthjsAddress`](../../utils/classes/EthjsAddress.md)
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `address` | [`EthjsAddress`](../../utils/classes/EthjsAddress.md) | - |
 
 #### Returns
 
@@ -129,13 +111,11 @@ Defined in: tevm-monorepo/packages/state/dist/index.d.ts:263
 
 > **has**(`address`): `boolean`
 
-Defined in: tevm-monorepo/packages/state/dist/index.d.ts:283
-
 #### Parameters
 
-##### address
-
-[`EthjsAddress`](../../utils/classes/EthjsAddress.md)
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `address` | [`EthjsAddress`](../../utils/classes/EthjsAddress.md) | - |
 
 #### Returns
 
@@ -149,17 +129,12 @@ if the cache has the key
 
 > **put**(`address`, `bytecode`): `void`
 
-Defined in: tevm-monorepo/packages/state/dist/index.d.ts:269
-
 #### Parameters
 
-##### address
-
-[`EthjsAddress`](../../utils/classes/EthjsAddress.md)
-
-##### bytecode
-
-`Uint8Array`
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `address` | [`EthjsAddress`](../../utils/classes/EthjsAddress.md) | - |
+| `bytecode` | `Uint8Array` | - |
 
 #### Returns
 
@@ -171,8 +146,6 @@ Defined in: tevm-monorepo/packages/state/dist/index.d.ts:269
 
 > **revert**(): `void`
 
-Defined in: tevm-monorepo/packages/state/dist/index.d.ts:289
-
 #### Returns
 
 `void`
@@ -182,8 +155,6 @@ Defined in: tevm-monorepo/packages/state/dist/index.d.ts:289
 ### size()
 
 > **size**(): `number`
-
-Defined in: tevm-monorepo/packages/state/dist/index.d.ts:285
 
 #### Returns
 

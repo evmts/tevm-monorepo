@@ -8,8 +8,6 @@
 
 > **BaseCallParams**\<`TThrowOnFail`\> = [`BaseParams`](../../index/type-aliases/BaseParams.md)\<`TThrowOnFail`\> & `object`
 
-Defined in: tevm-monorepo/packages/actions/types/BaseCall/BaseCallParams.d.ts:36
-
 Properties shared across call-like params.
 This type is used as the base for various call-like parameter types:
 - [CallParams](https://tevm.sh/reference/tevm/actions/type-aliases/callparams-1/)
@@ -289,9 +287,9 @@ The value in ether that is being sent to the `to` address. Defaults to `0`.
 
 ## Type Parameters
 
-### TThrowOnFail
-
-`TThrowOnFail` *extends* `boolean` = `boolean`
+| Type Parameter | Default type |
+| ------ | ------ |
+| `TThrowOnFail` *extends* `boolean` | `boolean` |
 
 ## Example
 

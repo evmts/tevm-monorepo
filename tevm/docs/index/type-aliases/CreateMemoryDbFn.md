@@ -8,23 +8,18 @@
 
 > **CreateMemoryDbFn**\<`TKey`, `TValue`\> = (`initialDb?`) => [`MemoryDb`](MemoryDb.md)\<`TKey`, `TValue`\>
 
-Defined in: tevm-monorepo/packages/utils/types/CreateMemoryDbFn.d.ts:3
-
 ## Type Parameters
 
-### TKey
-
-`TKey` *extends* `string` \| `number` \| `Uint8Array` = `Uint8Array`
-
-### TValue
-
-`TValue` *extends* `string` \| `Uint8Array` \| `Uint8Array` \| `string` \| [`DbObject`](../../utils/type-aliases/DbObject.md) = `Uint8Array`
+| Type Parameter | Default type |
+| ------ | ------ |
+| `TKey` *extends* `string` \| `number` \| `Uint8Array` | `Uint8Array` |
+| `TValue` *extends* `string` \| `Uint8Array` \| `Uint8Array` \| `string` \| [`DbObject`](../../utils/type-aliases/DbObject.md) | `Uint8Array` |
 
 ## Parameters
 
-### initialDb?
-
-`Map`\<`TKey`, `TValue`\>
+| Parameter | Type |
+| ------ | ------ |
+| `initialDb?` | `Map`\<`TKey`, `TValue`\> |
 
 ## Returns
 

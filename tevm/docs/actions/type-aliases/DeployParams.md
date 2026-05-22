@@ -8,8 +8,6 @@
 
 > **DeployParams**\<`TThrowOnFail`, `TAbi`, `THasConstructor`, `TAllArgs`\> = `Omit`\<[`BaseCallParams`](BaseCallParams.md)\<`TThrowOnFail`\>, `"to"`\> & `object` & [`EncodeDeployDataParameters`](../../utils/type-aliases/EncodeDeployDataParameters.md)\<`TAbi`, `THasConstructor`, `TAllArgs`\>
 
-Defined in: tevm-monorepo/packages/actions/types/Deploy/DeployParams.d.ts:46
-
 Defines the parameters used for deploying a contract on TEVM.
 This type extends the base call parameters used for typical TEVM calls,
 with the addition of deployment-specific settings. By default, `createTransaction`
@@ -27,29 +25,12 @@ An optional CREATE2 salt, if deploying with CREATE2 for a predictable contract a
 
 ## Type Parameters
 
-### TThrowOnFail
-
-`TThrowOnFail` *extends* `boolean` = `boolean`
-
-Indicates whether the function should throw on failure.
-
-### TAbi
-
-`TAbi` *extends* [`Abi`](../../index/type-aliases/Abi.md) \| readonly `unknown`[] = [`Abi`](../../index/type-aliases/Abi.md)
-
-The ABI type, typically including constructor definitions.
-
-### THasConstructor
-
-`THasConstructor` = `TAbi` *extends* [`Abi`](../../index/type-aliases/Abi.md) ? [`Abi`](../../index/type-aliases/Abi.md) *extends* `TAbi` ? `true` : \[`Extract`\<`TAbi`\[`number`\], \{ `type`: `"constructor"`; \}\>\] *extends* \[`never`\] ? `false` : `true` : `true`
-
-Determines whether the ABI includes a constructor.
-
-### TAllArgs
-
-`TAllArgs` = [`ContractConstructorArgs`](../../utils/type-aliases/ContractConstructorArgs.md)\<`TAbi`\>
-
-Types of the constructor arguments for the deployment.
+| Type Parameter | Default type | Description |
+| ------ | ------ | ------ |
+| `TThrowOnFail` *extends* `boolean` | `boolean` | Indicates whether the function should throw on failure. |
+| `TAbi` *extends* [`Abi`](../../index/type-aliases/Abi.md) \| readonly `unknown`[] | [`Abi`](../../index/type-aliases/Abi.md) | The ABI type, typically including constructor definitions. |
+| `THasConstructor` | `TAbi` *extends* [`Abi`](../../index/type-aliases/Abi.md) ? [`Abi`](../../index/type-aliases/Abi.md) *extends* `TAbi` ? `true` : \[`Extract`\<`TAbi`\[`number`\], \{ `type`: `"constructor"`; \}\>\] *extends* \[`never`\] ? `false` : `true` : `true` | Determines whether the ABI includes a constructor. |
+| `TAllArgs` | [`ContractConstructorArgs`](../../utils/type-aliases/ContractConstructorArgs.md)\<`TAbi`\> | Types of the constructor arguments for the deployment. |
 
 ## Example
 

@@ -8,68 +8,15 @@
 
 > **SolcErrorEntry** = `object`
 
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:104
-
 ## Properties
 
-### component
-
-> **component**: `string`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:108
-
-***
-
-### errorCode?
-
-> `optional` **errorCode?**: `string`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:110
-
-***
-
-### formattedMessage?
-
-> `optional` **formattedMessage?**: `string`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:112
-
-***
-
-### message
-
-> **message**: `string`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:111
-
-***
-
-### secondarySourceLocations?
-
-> `optional` **secondarySourceLocations?**: [`SolcSecondarySourceLocation`](SolcSecondarySourceLocation.md)[]
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:106
-
-***
-
-### severity
-
-> **severity**: `"error"` \| `"warning"` \| `"info"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:109
-
-***
-
-### sourceLocation?
-
-> `optional` **sourceLocation?**: [`SolcSourceLocation`](SolcSourceLocation.md)
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:105
-
-***
-
-### type
-
-> **type**: `string`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:107
+| Property | Type |
+| ------ | ------ |
+| <a id="component"></a> `component` | `string` |
+| <a id="errorcode"></a> `errorCode?` | `string` |
+| <a id="formattedmessage"></a> `formattedMessage?` | `string` |
+| <a id="message"></a> `message` | `string` |
+| <a id="secondarysourcelocations"></a> `secondarySourceLocations?` | [`SolcSecondarySourceLocation`](SolcSecondarySourceLocation.md)[] |
+| <a id="severity"></a> `severity` | `"error"` \| `"warning"` \| `"info"` |
+| <a id="sourcelocation"></a> `sourceLocation?` | [`SolcSourceLocation`](SolcSourceLocation.md) |
+| <a id="type"></a> `type` | `string` |

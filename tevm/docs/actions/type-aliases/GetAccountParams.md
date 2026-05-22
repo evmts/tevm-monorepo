@@ -8,8 +8,6 @@
 
 > **GetAccountParams**\<`TThrowOnFail`\> = [`BaseParams`](../../index/type-aliases/BaseParams.md)\<`TThrowOnFail`\> & `object`
 
-Defined in: tevm-monorepo/packages/actions/types/GetAccount/GetAccountParams.d.ts:10
-
 Tevm params to get an account
 
 ## Type Declaration
@@ -41,9 +39,9 @@ Be aware that this can be very expensive if a contract has a lot of storage
 
 ## Type Parameters
 
-### TThrowOnFail
-
-`TThrowOnFail` *extends* `boolean` = `boolean`
+| Type Parameter | Default type |
+| ------ | ------ |
+| `TThrowOnFail` *extends* `boolean` | `boolean` |
 
 ## Example
 

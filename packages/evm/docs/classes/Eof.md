@@ -16,23 +16,11 @@ Main constructor for the EOFContainer
 
 #### Parameters
 
-##### buf
-
-`Uint8Array`
-
-Entire container buffer
-
-##### eofMode?
-
-`EOFContainerMode`
-
-Container mode to validate the container on
-
-##### dataSectionAllowedSmaller?
-
-`boolean`
-
-`true` if the data section is allowed to be smaller than the data section size in the header
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `buf` | `Uint8Array` | Entire container buffer |
+| `eofMode?` | `EOFContainerMode` | Container mode to validate the container on |
+| `dataSectionAllowedSmaller?` | `boolean` | `true` if the data section is allowed to be smaller than the data section size in the header |
 
 #### Returns
 
@@ -40,24 +28,9 @@ Container mode to validate the container on
 
 ## Properties
 
-### body
-
-> **body**: `EOFBody`
-
-***
-
-### buffer
-
-> **buffer**: `Uint8Array`
-
-***
-
-### eofMode
-
-> **eofMode**: `EOFContainerMode`
-
-***
-
-### header
-
-> **header**: `EOFHeader`
+| Property | Type |
+| ------ | ------ |
+| <a id="body"></a> `body` | `EOFBody` |
+| <a id="buffer"></a> `buffer` | `Uint8Array` |
+| <a id="eofmode"></a> `eofMode` | `EOFContainerMode` |
+| <a id="header"></a> `header` | `EOFHeader` |

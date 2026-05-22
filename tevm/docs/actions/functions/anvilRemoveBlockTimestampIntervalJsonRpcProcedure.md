@@ -8,13 +8,11 @@
 
 > **anvilRemoveBlockTimestampIntervalJsonRpcProcedure**(`client`): [`AnvilRemoveBlockTimestampIntervalProcedure`](../type-aliases/AnvilRemoveBlockTimestampIntervalProcedure.md)
 
-Defined in: tevm-monorepo/packages/actions/types/anvil/anvilRemoveBlockTimestampIntervalProcedure.d.ts:1
-
 ## Parameters
 
-### client
-
-[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{ \}\>
+| Parameter | Type |
+| ------ | ------ |
+| `client` | [`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{ \}\> |
 
 ## Returns
 

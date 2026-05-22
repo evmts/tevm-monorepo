@@ -16,15 +16,10 @@ Encodes a UTF-8 string into a hex string
 
 ## Parameters
 
-### value\_
-
-`string`
-
-### opts?
-
-`StringToHexOpts`
-
-Options.
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `value_` | `string` | - |
+| `opts?` | `StringToHexOpts` | Options. |
 
 ## Returns
 

@@ -8,13 +8,11 @@
 
 > **concatBytes**(...`arrays`): `Uint8Array`
 
-Defined in: zevm/npm/zevm/dist/util.d.ts:152
-
 ## Parameters
 
-### arrays
-
-...`Uint8Array`\<`ArrayBufferLike`\>[]
+| Parameter | Type |
+| ------ | ------ |
+| ...`arrays` | `Uint8Array`\<`ArrayBufferLike`\>[] |
 
 ## Returns
 

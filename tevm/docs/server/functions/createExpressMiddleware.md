@@ -8,15 +8,13 @@
 
 > **createExpressMiddleware**(`client`): `RequestHandler`\<`ParamsDictionary`, `any`, `any`, `ParsedQs`, `Record`\<`string`, `any`\>\>
 
-Defined in: tevm-monorepo/packages/server/types/adapters/createExpressMiddleware.d.ts:32
-
 Creates express middleware for a Tevm JSON-RPC server
 
 ## Parameters
 
-### client
-
-[`Client`](../type-aliases/Client.md)
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `client` | [`Client`](../type-aliases/Client.md) | - |
 
 ## Returns
 

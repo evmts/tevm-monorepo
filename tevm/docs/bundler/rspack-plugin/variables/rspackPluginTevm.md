@@ -8,8 +8,6 @@
 
 > `const` **rspackPluginTevm**: (`options?`) => `RspackPluginInstance`
 
-Defined in: tevm-monorepo/bundler-packages/rspack/types/rspackPluginTevm.d.ts:140
-
 Creates an Rspack plugin for Tevm that enables direct Solidity imports in JavaScript
 and TypeScript code.
 
@@ -23,13 +21,10 @@ compatible with Webpack APIs but offers significantly better performance.
 
 ## Parameters
 
-### options?
-
-#### solc?
-
-`CompilerOption`
-
-Solidity compiler version to use
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `options?` | \{ `solc?`: `CompilerOption`; \} | - |
+| `options.solc?` | `CompilerOption` | Solidity compiler version to use |
 
 ## Returns
 

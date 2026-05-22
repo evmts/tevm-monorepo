@@ -8,13 +8,11 @@
 
 > **EthEstimateGasHandler** = (`request`) => `Promise`\<[`EthEstimateGasResult`](EthEstimateGasResult.md)\>
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthHandler.d.ts:8
-
 ## Parameters
 
-### request
-
-[`EthEstimateGasParams`](EthEstimateGasParams.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`EthEstimateGasParams`](EthEstimateGasParams.md) |
 
 ## Returns
 

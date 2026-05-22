@@ -15,9 +15,9 @@ The JSON data can be retrieved from a consensus layer (CL) client on this Beacon
 
 ## Parameters
 
-### payload
-
-[`BeaconPayloadJson`](../type-aliases/BeaconPayloadJson.md)
+| Parameter | Type |
+| ------ | ------ |
+| `payload` | [`BeaconPayloadJson`](../type-aliases/BeaconPayloadJson.md) |
 
 ## Returns
 

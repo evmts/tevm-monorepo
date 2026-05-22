@@ -8,13 +8,11 @@
 
 > **EthUnsubscribeHandler** = (`request`) => `Promise`\<[`EthUnsubscribeResult`](EthUnsubscribeResult.md)\>
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthHandler.d.ts:45
-
 ## Parameters
 
-### request
-
-[`EthUnsubscribeParams`](EthUnsubscribeParams.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`EthUnsubscribeParams`](EthUnsubscribeParams.md) |
 
 ## Returns
 

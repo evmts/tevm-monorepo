@@ -8,6 +8,4 @@
 
 > **EthGetTransactionCountResult** = [`Hex`](Hex.md)
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthResult.d.ts:112
-
 JSON-RPC response for `eth_getTransactionCount` procedure

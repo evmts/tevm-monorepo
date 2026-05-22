@@ -16,9 +16,9 @@ Creates the core data structure for ethereum state
 
 ## Parameters
 
-### options
-
-[`StateOptions`](../type-aliases/StateOptions.md)
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `options` | [`StateOptions`](../type-aliases/StateOptions.md) | - |
 
 ## Returns
 

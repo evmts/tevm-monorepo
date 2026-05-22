@@ -51,11 +51,9 @@ deleted and any encountered heads are set to the parent block.
 
 #### Parameters
 
-##### blockHash
-
-`Uint8Array`
-
-The hash of the block to be deleted
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `blockHash` | `Uint8Array` | The hash of the block to be deleted |
 
 #### Returns
 
@@ -69,9 +67,9 @@ Returns a block by its hash or number.
 
 #### Parameters
 
-##### blockId
-
-`number` \| `bigint` \| `Uint8Array`\<`ArrayBufferLike`\>
+| Parameter | Type |
+| ------ | ------ |
+| `blockId` | `number` \| `bigint` \| `Uint8Array`\<`ArrayBufferLike`\> |
 
 #### Returns
 
@@ -92,9 +90,9 @@ Gets block given one of the following inputs:
 
 #### Parameters
 
-##### blockTag
-
-`number` \| `bigint` \| `Uint8Array`\<`ArrayBufferLike`\> \| `BlockTag` \| `` `0x${string}` ``
+| Parameter | Type |
+| ------ | ------ |
+| `blockTag` | `number` \| `bigint` \| `Uint8Array`\<`ArrayBufferLike`\> \| `BlockTag` \| `` `0x${string}` `` |
 
 #### Returns
 
@@ -126,11 +124,9 @@ Returns the specified iterator head.
 
 #### Parameters
 
-##### name?
-
-`string`
-
-Optional name of the iterator head (default: 'vm')
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `name?` | `string` | Optional name of the iterator head (default: 'vm') |
 
 #### Returns
 
@@ -144,13 +140,10 @@ Gets total difficulty for a block specified by hash and number
 
 #### Parameters
 
-##### hash
-
-`Uint8Array`
-
-##### number?
-
-`bigint`
+| Parameter | Type |
+| ------ | ------ |
+| `hash` | `Uint8Array` |
+| `number?` | `bigint` |
 
 #### Returns
 
@@ -165,28 +158,12 @@ the onBlock function on each block.
 
 #### Parameters
 
-##### name
-
-`string`
-
-Name of the state root head
-
-##### onBlock
-
-`OnBlock`
-
-Function called on each block with params (block: Block,
-
-##### maxBlocks?
-
-`number`
-
-optional maximum number of blocks to iterate through
-reorg: boolean)
-
-##### releaseLockOnCallback?
-
-`boolean`
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `name` | `string` | Name of the state root head |
+| `onBlock` | `OnBlock` | Function called on each block with params (block: Block, |
+| `maxBlocks?` | `number` | optional maximum number of blocks to iterate through reorg: boolean) |
+| `releaseLockOnCallback?` | `boolean` | - |
 
 #### Returns
 
@@ -200,11 +177,9 @@ Adds a block to the blockchain.
 
 #### Parameters
 
-##### block
-
-`Block`
-
-The block to be added to the blockchain.
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `block` | `Block` | The block to be added to the blockchain. |
 
 #### Returns
 
@@ -219,17 +194,10 @@ When calling the iterator, the iterator will start running the first child block
 
 #### Parameters
 
-##### tag
-
-`string`
-
-The tag to save the headHash to
-
-##### headHash
-
-`Uint8Array`
-
-The head hash to save
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `tag` | `string` | The tag to save the headHash to |
+| `headHash` | `Uint8Array` | The head hash to save |
 
 #### Returns
 
@@ -243,17 +211,10 @@ Validates a block header, throwing if invalid. It is being validated against the
 
 #### Parameters
 
-##### header
-
-`BlockHeader`
-
-header to be validated
-
-##### height?
-
-`bigint`
-
-If this is an uncle header, this is the height of the block that is including it
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `header` | `BlockHeader` | header to be validated |
+| `height?` | `bigint` | If this is an uncle header, this is the height of the block that is including it |
 
 #### Returns
 

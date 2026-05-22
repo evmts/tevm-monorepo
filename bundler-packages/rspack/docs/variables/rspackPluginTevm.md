@@ -23,13 +23,10 @@ compatible with Webpack APIs but offers significantly better performance.
 
 ## Parameters
 
-### options?
-
-#### solc?
-
-`SolcVersions`
-
-Solidity compiler version to use
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `options?` | \{ `solc?`: `SolcVersions`; \} | - |
+| `options.solc?` | `SolcVersions` | Solidity compiler version to use |
 
 ## Returns
 

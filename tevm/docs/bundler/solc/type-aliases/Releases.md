@@ -8,908 +8,120 @@
 
 > **Releases** = `object`
 
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:327
-
 ## Properties
 
-### 0.1.1
-
-> **0.1.1**: `"v0.1.1+commit.6ff4cd6"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:440
-
-***
-
-### 0.1.2
-
-> **0.1.2**: `"v0.1.2+commit.d0d36e3"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:439
-
-***
-
-### 0.1.3
-
-> **0.1.3**: `"v0.1.3+commit.028f561d"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:438
-
-***
-
-### 0.1.4
-
-> **0.1.4**: `"v0.1.4+commit.5f6c3cdf"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:437
-
-***
-
-### 0.1.5
-
-> **0.1.5**: `"v0.1.5+commit.23865e39"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:436
-
-***
-
-### 0.1.6
-
-> **0.1.6**: `"v0.1.6+commit.d41f8b7c"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:435
-
-***
-
-### 0.1.7
-
-> **0.1.7**: `"v0.1.7+commit.b4e666cc"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:434
-
-***
-
-### 0.2.0
-
-> **0.2.0**: `"v0.2.0+commit.4dc2445e"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:433
-
-***
-
-### 0.2.1
-
-> **0.2.1**: `"v0.2.1+commit.91a6b35f"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:432
-
-***
-
-### 0.2.2
-
-> **0.2.2**: `"v0.2.2+commit.ef92f566"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:431
-
-***
-
-### 0.3.0
-
-> **0.3.0**: `"v0.3.0+commit.11d67369"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:430
-
-***
-
-### 0.3.1
-
-> **0.3.1**: `"v0.3.1+commit.c492d9be"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:429
-
-***
-
-### 0.3.2
-
-> **0.3.2**: `"v0.3.2+commit.81ae2a78"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:428
-
-***
-
-### 0.3.3
-
-> **0.3.3**: `"v0.3.3+commit.4dc1cb14"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:427
-
-***
-
-### 0.3.4
-
-> **0.3.4**: `"v0.3.4+commit.7dab8902"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:426
-
-***
-
-### 0.3.5
-
-> **0.3.5**: `"v0.3.5+commit.5f97274a"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:425
-
-***
-
-### 0.3.6
-
-> **0.3.6**: `"v0.3.6+commit.3fc68da5"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:424
-
-***
-
-### 0.4.0
-
-> **0.4.0**: `"v0.4.0+commit.acd334c9"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:423
-
-***
-
-### 0.4.1
-
-> **0.4.1**: `"v0.4.1+commit.4fc6fc2c"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:422
-
-***
-
-### 0.4.10
-
-> **0.4.10**: `"v0.4.10+commit.f0d539ae"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:413
-
-***
-
-### 0.4.11
-
-> **0.4.11**: `"v0.4.11+commit.68ef5810"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:412
-
-***
-
-### 0.4.12
-
-> **0.4.12**: `"v0.4.12+commit.194ff033"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:411
-
-***
-
-### 0.4.13
-
-> **0.4.13**: `"v0.4.13+commit.0fb4cb1a"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:410
-
-***
-
-### 0.4.14
-
-> **0.4.14**: `"v0.4.14+commit.c2215d46"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:409
-
-***
-
-### 0.4.15
-
-> **0.4.15**: `"v0.4.15+commit.bbb8e64f"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:408
-
-***
-
-### 0.4.16
-
-> **0.4.16**: `"v0.4.16+commit.d7661dd9"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:407
-
-***
-
-### 0.4.17
-
-> **0.4.17**: `"v0.4.17+commit.bdeb9e52"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:406
-
-***
-
-### 0.4.18
-
-> **0.4.18**: `"v0.4.18+commit.9cf6e910"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:405
-
-***
-
-### 0.4.19
-
-> **0.4.19**: `"v0.4.19+commit.c4cbbb05"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:404
-
-***
-
-### 0.4.2
-
-> **0.4.2**: `"v0.4.2+commit.af6afb04"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:421
-
-***
-
-### 0.4.20
-
-> **0.4.20**: `"v0.4.20+commit.3155dd80"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:403
-
-***
-
-### 0.4.21
-
-> **0.4.21**: `"v0.4.21+commit.dfe3193c"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:402
-
-***
-
-### 0.4.22
-
-> **0.4.22**: `"v0.4.22+commit.4cb486ee"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:401
-
-***
-
-### 0.4.23
-
-> **0.4.23**: `"v0.4.23+commit.124ca40d"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:400
-
-***
-
-### 0.4.24
-
-> **0.4.24**: `"v0.4.24+commit.e67f0147"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:399
-
-***
-
-### 0.4.25
-
-> **0.4.25**: `"v0.4.25+commit.59dbf8f1"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:398
-
-***
-
-### 0.4.26
-
-> **0.4.26**: `"v0.4.26+commit.4563c3fc"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:397
-
-***
-
-### 0.4.3
-
-> **0.4.3**: `"v0.4.3+commit.2353da71"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:420
-
-***
-
-### 0.4.4
-
-> **0.4.4**: `"v0.4.4+commit.4633f3de"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:419
-
-***
-
-### 0.4.5
-
-> **0.4.5**: `"v0.4.5+commit.b318366e"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:418
-
-***
-
-### 0.4.6
-
-> **0.4.6**: `"v0.4.6+commit.2dabbdf0"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:417
-
-***
-
-### 0.4.7
-
-> **0.4.7**: `"v0.4.7+commit.822622cf"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:416
-
-***
-
-### 0.4.8
-
-> **0.4.8**: `"v0.4.8+commit.60cc1668"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:415
-
-***
-
-### 0.4.9
-
-> **0.4.9**: `"v0.4.9+commit.364da425"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:414
-
-***
-
-### 0.5.0
-
-> **0.5.0**: `"v0.5.0+commit.1d4f565a"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:396
-
-***
-
-### 0.5.1
-
-> **0.5.1**: `"v0.5.1+commit.c8a2cb62"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:395
-
-***
-
-### 0.5.10
-
-> **0.5.10**: `"v0.5.10+commit.5a6ea5b1"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:386
-
-***
-
-### 0.5.11
-
-> **0.5.11**: `"v0.5.11+commit.c082d0b4"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:385
-
-***
-
-### 0.5.12
-
-> **0.5.12**: `"v0.5.12+commit.7709ece9"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:384
-
-***
-
-### 0.5.13
-
-> **0.5.13**: `"v0.5.13+commit.5b0b510c"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:383
-
-***
-
-### 0.5.14
-
-> **0.5.14**: `"v0.5.14+commit.01f1aaa4"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:382
-
-***
-
-### 0.5.15
-
-> **0.5.15**: `"v0.5.15+commit.6a57276f"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:381
-
-***
-
-### 0.5.16
-
-> **0.5.16**: `"v0.5.16+commit.9c3226ce"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:380
-
-***
-
-### 0.5.17
-
-> **0.5.17**: `"v0.5.17+commit.d19bba13"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:379
-
-***
-
-### 0.5.2
-
-> **0.5.2**: `"v0.5.2+commit.1df8f40c"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:394
-
-***
-
-### 0.5.3
-
-> **0.5.3**: `"v0.5.3+commit.10d17f24"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:393
-
-***
-
-### 0.5.4
-
-> **0.5.4**: `"v0.5.4+commit.9549d8ff"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:392
-
-***
-
-### 0.5.5
-
-> **0.5.5**: `"v0.5.5+commit.47a71e8f"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:391
-
-***
-
-### 0.5.6
-
-> **0.5.6**: `"v0.5.6+commit.b259423e"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:390
-
-***
-
-### 0.5.7
-
-> **0.5.7**: `"v0.5.7+commit.6da8b019"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:389
-
-***
-
-### 0.5.8
-
-> **0.5.8**: `"v0.5.8+commit.23d335f2"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:388
-
-***
-
-### 0.5.9
-
-> **0.5.9**: `"v0.5.9+commit.e560f70d"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:387
-
-***
-
-### 0.6.0
-
-> **0.6.0**: `"v0.6.0+commit.26b70077"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:378
-
-***
-
-### 0.6.1
-
-> **0.6.1**: `"v0.6.1+commit.e6f7d5a4"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:377
-
-***
-
-### 0.6.10
-
-> **0.6.10**: `"v0.6.10+commit.00c0fcaf"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:368
-
-***
-
-### 0.6.11
-
-> **0.6.11**: `"v0.6.11+commit.5ef660b1"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:367
-
-***
-
-### 0.6.12
-
-> **0.6.12**: `"v0.6.12+commit.27d51765"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:366
-
-***
-
-### 0.6.2
-
-> **0.6.2**: `"v0.6.2+commit.bacdbe57"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:376
-
-***
-
-### 0.6.3
-
-> **0.6.3**: `"v0.6.3+commit.8dda9521"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:375
-
-***
-
-### 0.6.4
-
-> **0.6.4**: `"v0.6.4+commit.1dca32f3"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:374
-
-***
-
-### 0.6.5
-
-> **0.6.5**: `"v0.6.5+commit.f956cc89"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:373
-
-***
-
-### 0.6.6
-
-> **0.6.6**: `"v0.6.6+commit.6c089d02"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:372
-
-***
-
-### 0.6.7
-
-> **0.6.7**: `"v0.6.7+commit.b8d736ae"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:371
-
-***
-
-### 0.6.8
-
-> **0.6.8**: `"v0.6.8+commit.0bbfe453"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:370
-
-***
-
-### 0.6.9
-
-> **0.6.9**: `"v0.6.9+commit.3e3065ac"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:369
-
-***
-
-### 0.7.0
-
-> **0.7.0**: `"v0.7.0+commit.9e61f92b"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:365
-
-***
-
-### 0.7.1
-
-> **0.7.1**: `"v0.7.1+commit.f4a555be"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:364
-
-***
-
-### 0.7.2
-
-> **0.7.2**: `"v0.7.2+commit.51b20bc0"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:363
-
-***
-
-### 0.7.3
-
-> **0.7.3**: `"v0.7.3+commit.9bfce1f6"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:362
-
-***
-
-### 0.7.4
-
-> **0.7.4**: `"v0.7.4+commit.3f05b770"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:361
-
-***
-
-### 0.7.5
-
-> **0.7.5**: `"v0.7.5+commit.eb77ed08"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:360
-
-***
-
-### 0.7.6
-
-> **0.7.6**: `"v0.7.6+commit.7338295f"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:359
-
-***
-
-### 0.8.0
-
-> **0.8.0**: `"v0.8.0+commit.c7dfd78e"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:358
-
-***
-
-### 0.8.1
-
-> **0.8.1**: `"v0.8.1+commit.df193b15"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:357
-
-***
-
-### 0.8.10
-
-> **0.8.10**: `"v0.8.10+commit.fc410830"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:348
-
-***
-
-### 0.8.11
-
-> **0.8.11**: `"v0.8.11+commit.d7f03943"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:347
-
-***
-
-### 0.8.12
-
-> **0.8.12**: `"v0.8.12+commit.f00d7308"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:346
-
-***
-
-### 0.8.13
-
-> **0.8.13**: `"v0.8.13+commit.abaa5c0e"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:345
-
-***
-
-### 0.8.14
-
-> **0.8.14**: `"v0.8.14+commit.80d49f37"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:344
-
-***
-
-### 0.8.15
-
-> **0.8.15**: `"v0.8.15+commit.e14f2714"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:343
-
-***
-
-### 0.8.16
-
-> **0.8.16**: `"v0.8.16+commit.07a7930e"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:342
-
-***
-
-### 0.8.17
-
-> **0.8.17**: `"v0.8.17+commit.8df45f5f"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:341
-
-***
-
-### 0.8.18
-
-> **0.8.18**: `"v0.8.18+commit.87f61d96"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:340
-
-***
-
-### 0.8.19
-
-> **0.8.19**: `"v0.8.19+commit.7dd6d404"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:339
-
-***
-
-### 0.8.2
-
-> **0.8.2**: `"v0.8.2+commit.661d1103"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:356
-
-***
-
-### 0.8.20
-
-> **0.8.20**: `"v0.8.20+commit.a1b79de6"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:338
-
-***
-
-### 0.8.21
-
-> **0.8.21**: `"v0.8.21+commit.d9974bed"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:337
-
-***
-
-### 0.8.22
-
-> **0.8.22**: `"v0.8.22+commit.4fc1097e"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:336
-
-***
-
-### 0.8.23
-
-> **0.8.23**: `"v0.8.23+commit.f704f362"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:335
-
-***
-
-### 0.8.24
-
-> **0.8.24**: `"v0.8.24+commit.e11b9ed9.js"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:334
-
-***
-
-### 0.8.25
-
-> **0.8.25**: `"v0.8.25+commit.b61c2a91.js"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:333
-
-***
-
-### 0.8.26
-
-> **0.8.26**: `"v0.8.26+commit.8a97fa7a.js"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:332
-
-***
-
-### 0.8.27
-
-> **0.8.27**: `"v0.8.27+commit.4a35a09.js"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:331
-
-***
-
-### 0.8.28
-
-> **0.8.28**: `"v0.8.28+commit.c33e5a8c.js"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:330
-
-***
-
-### 0.8.29
-
-> **0.8.29**: `"v0.8.29+commit.ab55807c.js"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:329
-
-***
-
-### 0.8.3
-
-> **0.8.3**: `"v0.8.3+commit.8d00100c"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:355
-
-***
-
-### 0.8.30
-
-> **0.8.30**: `"v0.8.30+commit.73712a01.js"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:328
-
-***
-
-### 0.8.4
-
-> **0.8.4**: `"v0.8.4+commit.c7e474f2"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:354
-
-***
-
-### 0.8.5
-
-> **0.8.5**: `"v0.8.5+commit.a4f2e591"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:353
-
-***
-
-### 0.8.6
-
-> **0.8.6**: `"v0.8.6+commit.11564f7e"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:352
-
-***
-
-### 0.8.7
-
-> **0.8.7**: `"v0.8.7+commit.e28d00a7"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:351
-
-***
-
-### 0.8.8
-
-> **0.8.8**: `"v0.8.8+commit.dddeac2f"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:350
-
-***
-
-### 0.8.9
-
-> **0.8.9**: `"v0.8.9+commit.e5eed63a"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:349
+| Property | Type |
+| ------ | ------ |
+| <a id="011"></a> `0.1.1` | `"v0.1.1+commit.6ff4cd6"` |
+| <a id="012"></a> `0.1.2` | `"v0.1.2+commit.d0d36e3"` |
+| <a id="013"></a> `0.1.3` | `"v0.1.3+commit.028f561d"` |
+| <a id="014"></a> `0.1.4` | `"v0.1.4+commit.5f6c3cdf"` |
+| <a id="015"></a> `0.1.5` | `"v0.1.5+commit.23865e39"` |
+| <a id="016"></a> `0.1.6` | `"v0.1.6+commit.d41f8b7c"` |
+| <a id="017"></a> `0.1.7` | `"v0.1.7+commit.b4e666cc"` |
+| <a id="020"></a> `0.2.0` | `"v0.2.0+commit.4dc2445e"` |
+| <a id="021"></a> `0.2.1` | `"v0.2.1+commit.91a6b35f"` |
+| <a id="022"></a> `0.2.2` | `"v0.2.2+commit.ef92f566"` |
+| <a id="030"></a> `0.3.0` | `"v0.3.0+commit.11d67369"` |
+| <a id="031"></a> `0.3.1` | `"v0.3.1+commit.c492d9be"` |
+| <a id="032"></a> `0.3.2` | `"v0.3.2+commit.81ae2a78"` |
+| <a id="033"></a> `0.3.3` | `"v0.3.3+commit.4dc1cb14"` |
+| <a id="034"></a> `0.3.4` | `"v0.3.4+commit.7dab8902"` |
+| <a id="035"></a> `0.3.5` | `"v0.3.5+commit.5f97274a"` |
+| <a id="036"></a> `0.3.6` | `"v0.3.6+commit.3fc68da5"` |
+| <a id="040"></a> `0.4.0` | `"v0.4.0+commit.acd334c9"` |
+| <a id="041"></a> `0.4.1` | `"v0.4.1+commit.4fc6fc2c"` |
+| <a id="0410"></a> `0.4.10` | `"v0.4.10+commit.f0d539ae"` |
+| <a id="0411"></a> `0.4.11` | `"v0.4.11+commit.68ef5810"` |
+| <a id="0412"></a> `0.4.12` | `"v0.4.12+commit.194ff033"` |
+| <a id="0413"></a> `0.4.13` | `"v0.4.13+commit.0fb4cb1a"` |
+| <a id="0414"></a> `0.4.14` | `"v0.4.14+commit.c2215d46"` |
+| <a id="0415"></a> `0.4.15` | `"v0.4.15+commit.bbb8e64f"` |
+| <a id="0416"></a> `0.4.16` | `"v0.4.16+commit.d7661dd9"` |
+| <a id="0417"></a> `0.4.17` | `"v0.4.17+commit.bdeb9e52"` |
+| <a id="0418"></a> `0.4.18` | `"v0.4.18+commit.9cf6e910"` |
+| <a id="0419"></a> `0.4.19` | `"v0.4.19+commit.c4cbbb05"` |
+| <a id="042"></a> `0.4.2` | `"v0.4.2+commit.af6afb04"` |
+| <a id="0420"></a> `0.4.20` | `"v0.4.20+commit.3155dd80"` |
+| <a id="0421"></a> `0.4.21` | `"v0.4.21+commit.dfe3193c"` |
+| <a id="0422"></a> `0.4.22` | `"v0.4.22+commit.4cb486ee"` |
+| <a id="0423"></a> `0.4.23` | `"v0.4.23+commit.124ca40d"` |
+| <a id="0424"></a> `0.4.24` | `"v0.4.24+commit.e67f0147"` |
+| <a id="0425"></a> `0.4.25` | `"v0.4.25+commit.59dbf8f1"` |
+| <a id="0426"></a> `0.4.26` | `"v0.4.26+commit.4563c3fc"` |
+| <a id="043"></a> `0.4.3` | `"v0.4.3+commit.2353da71"` |
+| <a id="044"></a> `0.4.4` | `"v0.4.4+commit.4633f3de"` |
+| <a id="045"></a> `0.4.5` | `"v0.4.5+commit.b318366e"` |
+| <a id="046"></a> `0.4.6` | `"v0.4.6+commit.2dabbdf0"` |
+| <a id="047"></a> `0.4.7` | `"v0.4.7+commit.822622cf"` |
+| <a id="048"></a> `0.4.8` | `"v0.4.8+commit.60cc1668"` |
+| <a id="049"></a> `0.4.9` | `"v0.4.9+commit.364da425"` |
+| <a id="050"></a> `0.5.0` | `"v0.5.0+commit.1d4f565a"` |
+| <a id="051"></a> `0.5.1` | `"v0.5.1+commit.c8a2cb62"` |
+| <a id="0510"></a> `0.5.10` | `"v0.5.10+commit.5a6ea5b1"` |
+| <a id="0511"></a> `0.5.11` | `"v0.5.11+commit.c082d0b4"` |
+| <a id="0512"></a> `0.5.12` | `"v0.5.12+commit.7709ece9"` |
+| <a id="0513"></a> `0.5.13` | `"v0.5.13+commit.5b0b510c"` |
+| <a id="0514"></a> `0.5.14` | `"v0.5.14+commit.01f1aaa4"` |
+| <a id="0515"></a> `0.5.15` | `"v0.5.15+commit.6a57276f"` |
+| <a id="0516"></a> `0.5.16` | `"v0.5.16+commit.9c3226ce"` |
+| <a id="0517"></a> `0.5.17` | `"v0.5.17+commit.d19bba13"` |
+| <a id="052"></a> `0.5.2` | `"v0.5.2+commit.1df8f40c"` |
+| <a id="053"></a> `0.5.3` | `"v0.5.3+commit.10d17f24"` |
+| <a id="054"></a> `0.5.4` | `"v0.5.4+commit.9549d8ff"` |
+| <a id="055"></a> `0.5.5` | `"v0.5.5+commit.47a71e8f"` |
+| <a id="056"></a> `0.5.6` | `"v0.5.6+commit.b259423e"` |
+| <a id="057"></a> `0.5.7` | `"v0.5.7+commit.6da8b019"` |
+| <a id="058"></a> `0.5.8` | `"v0.5.8+commit.23d335f2"` |
+| <a id="059"></a> `0.5.9` | `"v0.5.9+commit.e560f70d"` |
+| <a id="060"></a> `0.6.0` | `"v0.6.0+commit.26b70077"` |
+| <a id="061"></a> `0.6.1` | `"v0.6.1+commit.e6f7d5a4"` |
+| <a id="0610"></a> `0.6.10` | `"v0.6.10+commit.00c0fcaf"` |
+| <a id="0611"></a> `0.6.11` | `"v0.6.11+commit.5ef660b1"` |
+| <a id="0612"></a> `0.6.12` | `"v0.6.12+commit.27d51765"` |
+| <a id="062"></a> `0.6.2` | `"v0.6.2+commit.bacdbe57"` |
+| <a id="063"></a> `0.6.3` | `"v0.6.3+commit.8dda9521"` |
+| <a id="064"></a> `0.6.4` | `"v0.6.4+commit.1dca32f3"` |
+| <a id="065"></a> `0.6.5` | `"v0.6.5+commit.f956cc89"` |
+| <a id="066"></a> `0.6.6` | `"v0.6.6+commit.6c089d02"` |
+| <a id="067"></a> `0.6.7` | `"v0.6.7+commit.b8d736ae"` |
+| <a id="068"></a> `0.6.8` | `"v0.6.8+commit.0bbfe453"` |
+| <a id="069"></a> `0.6.9` | `"v0.6.9+commit.3e3065ac"` |
+| <a id="070"></a> `0.7.0` | `"v0.7.0+commit.9e61f92b"` |
+| <a id="071"></a> `0.7.1` | `"v0.7.1+commit.f4a555be"` |
+| <a id="072"></a> `0.7.2` | `"v0.7.2+commit.51b20bc0"` |
+| <a id="073"></a> `0.7.3` | `"v0.7.3+commit.9bfce1f6"` |
+| <a id="074"></a> `0.7.4` | `"v0.7.4+commit.3f05b770"` |
+| <a id="075"></a> `0.7.5` | `"v0.7.5+commit.eb77ed08"` |
+| <a id="076"></a> `0.7.6` | `"v0.7.6+commit.7338295f"` |
+| <a id="080"></a> `0.8.0` | `"v0.8.0+commit.c7dfd78e"` |
+| <a id="081"></a> `0.8.1` | `"v0.8.1+commit.df193b15"` |
+| <a id="0810"></a> `0.8.10` | `"v0.8.10+commit.fc410830"` |
+| <a id="0811"></a> `0.8.11` | `"v0.8.11+commit.d7f03943"` |
+| <a id="0812"></a> `0.8.12` | `"v0.8.12+commit.f00d7308"` |
+| <a id="0813"></a> `0.8.13` | `"v0.8.13+commit.abaa5c0e"` |
+| <a id="0814"></a> `0.8.14` | `"v0.8.14+commit.80d49f37"` |
+| <a id="0815"></a> `0.8.15` | `"v0.8.15+commit.e14f2714"` |
+| <a id="0816"></a> `0.8.16` | `"v0.8.16+commit.07a7930e"` |
+| <a id="0817"></a> `0.8.17` | `"v0.8.17+commit.8df45f5f"` |
+| <a id="0818"></a> `0.8.18` | `"v0.8.18+commit.87f61d96"` |
+| <a id="0819"></a> `0.8.19` | `"v0.8.19+commit.7dd6d404"` |
+| <a id="082"></a> `0.8.2` | `"v0.8.2+commit.661d1103"` |
+| <a id="0820"></a> `0.8.20` | `"v0.8.20+commit.a1b79de6"` |
+| <a id="0821"></a> `0.8.21` | `"v0.8.21+commit.d9974bed"` |
+| <a id="0822"></a> `0.8.22` | `"v0.8.22+commit.4fc1097e"` |
+| <a id="0823"></a> `0.8.23` | `"v0.8.23+commit.f704f362"` |
+| <a id="0824"></a> `0.8.24` | `"v0.8.24+commit.e11b9ed9.js"` |
+| <a id="0825"></a> `0.8.25` | `"v0.8.25+commit.b61c2a91.js"` |
+| <a id="0826"></a> `0.8.26` | `"v0.8.26+commit.8a97fa7a.js"` |
+| <a id="0827"></a> `0.8.27` | `"v0.8.27+commit.4a35a09.js"` |
+| <a id="0828"></a> `0.8.28` | `"v0.8.28+commit.c33e5a8c.js"` |
+| <a id="0829"></a> `0.8.29` | `"v0.8.29+commit.ab55807c.js"` |
+| <a id="083"></a> `0.8.3` | `"v0.8.3+commit.8d00100c"` |
+| <a id="0830"></a> `0.8.30` | `"v0.8.30+commit.73712a01.js"` |
+| <a id="084"></a> `0.8.4` | `"v0.8.4+commit.c7e474f2"` |
+| <a id="085"></a> `0.8.5` | `"v0.8.5+commit.a4f2e591"` |
+| <a id="086"></a> `0.8.6` | `"v0.8.6+commit.11564f7e"` |
+| <a id="087"></a> `0.8.7` | `"v0.8.7+commit.e28d00a7"` |
+| <a id="088"></a> `0.8.8` | `"v0.8.8+commit.dddeac2f"` |
+| <a id="089"></a> `0.8.9` | `"v0.8.9+commit.e5eed63a"` |

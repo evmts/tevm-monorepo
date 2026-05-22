@@ -12,9 +12,9 @@ Defined in: [packages/actions/src/eth/EthHandler.ts:153](https://github.com/evmt
 
 ## Parameters
 
-### request
-
-[`EthGetUncleCountByBlockNumberParams`](EthGetUncleCountByBlockNumberParams.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`EthGetUncleCountByBlockNumberParams`](EthGetUncleCountByBlockNumberParams.md) |
 
 ## Returns
 

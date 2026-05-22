@@ -8,8 +8,6 @@
 
 > **DeployResult** = [`CallResult`](CallResult.md)
 
-Defined in: tevm-monorepo/packages/actions/types/Deploy/DeployResult.d.ts:37
-
 Represents the result of a contract deployment on TEVM.
 This type extends the CallResult type, which includes properties like gas usage, logs, and errors.
 

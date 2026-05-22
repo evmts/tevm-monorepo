@@ -8,31 +8,20 @@
 
 > **createClient**\<`transport`, `chain`, `accountOrAddress`, `rpcSchema`\>(`parameters`): `object`
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/viem@2.49.3\_bufferutil@4.1.0\_typescript@6.0.3\_utf-8-validate@5.0.10\_zod@4.4.3/node\_modules/viem/\_types/clients/createClient.d.ts:118
-
 ## Type Parameters
 
-### transport
-
-`transport` *extends* `Transport`
-
-### chain
-
-`chain` *extends* `Chain` \| `undefined` = `undefined`
-
-### accountOrAddress
-
-`accountOrAddress` *extends* `` `0x${string}` `` \| [`Account`](../type-aliases/Account.md) \| `undefined` = `undefined`
-
-### rpcSchema
-
-`rpcSchema` *extends* `RpcSchema` \| `undefined` = `undefined`
+| Type Parameter | Default type |
+| ------ | ------ |
+| `transport` *extends* `Transport` | - |
+| `chain` *extends* `Chain` \| `undefined` | `undefined` |
+| `accountOrAddress` *extends* `` `0x${string}` `` \| [`Account`](../type-aliases/Account.md) \| `undefined` | `undefined` |
+| `rpcSchema` *extends* `RpcSchema` \| `undefined` | `undefined` |
 
 ## Parameters
 
-### parameters
-
-`ClientConfig`\<`transport`, `chain`, `accountOrAddress`, `rpcSchema`\>
+| Parameter | Type |
+| ------ | ------ |
+| `parameters` | `ClientConfig`\<`transport`, `chain`, `accountOrAddress`, `rpcSchema`\> |
 
 ## Returns
 
@@ -47,6 +36,8 @@ The Account of the Client.
 > `optional` **batch?**: `object`
 
 Flags for batch settings.
+
+#### Type Declaration
 
 #### batch.multicall?
 
@@ -116,7 +107,7 @@ Time (in ms) that cached data will remain in memory.
 
 \{ `request?`: (`parameters`) => `Promise`\<`` `0x${string}` ``\>; \}
 
-##### request?
+###### request?
 
 > `optional` **request?**: (`parameters`) => `Promise`\<`` `0x${string}` ``\>
 
@@ -124,9 +115,9 @@ A function that will be called to make the offchain CCIP lookup request.
 
 ###### Parameters
 
-###### parameters
-
-`CcipRequestParameters`
+| Parameter | Type |
+| ------ | ------ |
+| `parameters` | `CcipRequestParameters` |
 
 ###### Returns
 
@@ -160,15 +151,15 @@ Default block tag to use for RPC requests.
 
 #### Type Parameters
 
-##### client
-
-`client` *extends* `object` & `ExactPartial`\<`ExtendableProtectedActions`\<`transport`, `chain`, `accountOrAddress` *extends* `` `0x${string}` `` ? `object` : `accountOrAddress`\>\>
+| Type Parameter |
+| ------ |
+| `client` *extends* `object` & `ExactPartial`\<`ExtendableProtectedActions`\<`transport`, `chain`, `accountOrAddress` *extends* `` `0x${string}` `` ? `object` : `accountOrAddress`\>\> |
 
 #### Parameters
 
-##### fn
-
-(`client`) => `client`
+| Parameter | Type |
+| ------ | ------ |
+| `fn` | (`client`) => `client` |
 
 #### Returns
 

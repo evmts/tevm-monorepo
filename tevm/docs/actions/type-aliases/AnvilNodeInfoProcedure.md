@@ -8,15 +8,13 @@
 
 > **AnvilNodeInfoProcedure** = (`request`) => `Promise`\<[`AnvilNodeInfoJsonRpcResponse`](AnvilNodeInfoJsonRpcResponse.md)\>
 
-Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilProcedure.d.ts:115
-
 JSON-RPC procedure for `anvil_nodeInfo`
 
 ## Parameters
 
-### request
-
-[`AnvilNodeInfoJsonRpcRequest`](AnvilNodeInfoJsonRpcRequest.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`AnvilNodeInfoJsonRpcRequest`](AnvilNodeInfoJsonRpcRequest.md) |
 
 ## Returns
 

@@ -8,13 +8,11 @@
 
 > **createAddressFromString**(`str`): [`EthjsAddress`](../classes/EthjsAddress.md)
 
-Defined in: zevm/npm/zevm/dist/util.d.ts:174
-
 ## Parameters
 
-### str
-
-`string`
+| Parameter | Type |
+| ------ | ------ |
+| `str` | `string` |
 
 ## Returns
 

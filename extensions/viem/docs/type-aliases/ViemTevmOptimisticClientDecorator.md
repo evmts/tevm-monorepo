@@ -14,23 +14,17 @@ Defined in: [extensions/viem/src/ViemTevmOptimisticClientDecorator.ts:9](https:/
 
 ## Type Parameters
 
-### TTransport
-
-`TTransport` *extends* `Transport` = `Transport`
-
-### TChain
-
-`TChain` *extends* `Chain` \| `undefined` = `Chain` \| `undefined`
-
-### TAccount
-
-`TAccount` *extends* `Account` \| `undefined` = `Account` \| `undefined`
+| Type Parameter | Default type |
+| ------ | ------ |
+| `TTransport` *extends* `Transport` | `Transport` |
+| `TChain` *extends* `Chain` \| `undefined` | `Chain` \| `undefined` |
+| `TAccount` *extends* `Account` \| `undefined` | `Account` \| `undefined` |
 
 ## Parameters
 
-### client
-
-`Pick`\<`WalletClient`, `"request"` \| `"writeContract"`\>
+| Parameter | Type |
+| ------ | ------ |
+| `client` | `Pick`\<`WalletClient`, `"request"` \| `"writeContract"`\> |
 
 ## Returns
 

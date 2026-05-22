@@ -12,11 +12,10 @@ Defined in: [packages/actions/src/eth/ethAccountsHandler.js:6](https://github.co
 
 ## Parameters
 
-### params
-
-#### accounts
-
-readonly `Account`\<`` `0x${string}` ``\>[]
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `params` | \{ `accounts`: readonly `Account`\<`` `0x${string}` ``\>[]; \} | - |
+| `params.accounts` | readonly `Account`\<`` `0x${string}` ``\>[] | - |
 
 ## Returns
 

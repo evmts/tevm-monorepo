@@ -8,8 +8,6 @@
 
 > **CreateEvmOptions** = `object`
 
-Defined in: tevm-monorepo/packages/evm/dist/index.d.ts:99
-
 Options for [createEvm](https://tevm.sh/reference/tevm/evm/functions/createevm/)
 
 ## Example
@@ -45,137 +43,13 @@ The EVM is normally encapsolated by both `@tevm/vm` Vm, TevmNode, and MemoryClie
 
 ## Properties
 
-### allowUnlimitedContractSize?
-
-> `optional` **allowUnlimitedContractSize?**: `boolean`
-
-Defined in: tevm-monorepo/packages/evm/dist/index.d.ts:182
-
-Enable/disable unlimited contract size. Defaults to false.
-
-***
-
-### blockchain
-
-> **blockchain**: [`Chain`](../../blockchain/type-aliases/Chain.md)
-
-Defined in: tevm-monorepo/packages/evm/dist/index.d.ts:116
-
-***
-
-### common
-
-> **common**: [`Common`](../../common/type-aliases/Common.md)
-
-Defined in: tevm-monorepo/packages/evm/dist/index.d.ts:107
-
-Tevm common object backed by ZEVM common primitives
-
-***
-
-### customPrecompiles?
-
-> `optional` **customPrecompiles?**: [`CustomPrecompile`](CustomPrecompile.md)[]
-
-Defined in: tevm-monorepo/packages/evm/dist/index.d.ts:160
-
-Custom precompiles allow you to run arbitrary JavaScript code in the EVM.
-See the [Precompile guide](https://todo.todo) documentation for a deeper dive
-An ever growing standard library of precompiles is provided at `tevm/precompiles`
-
-#### Notice
-
-Not implemented yet [Implementation pr](https://github.com/evmts/tevm-monorepo/pull/728/files)
-
-Below example shows how to make a precompile so you can call `fs.writeFile` and `fs.readFile` in your contracts.
-Note: this specific precompile is also provided in the standard library
-
-For security precompiles can only be added statically when the vm is created.
-
-#### Example
-
-```ts
-import { createMemoryClient, defineCall, definePrecompile } from 'tevm'
-import { createContract } from '@tevm/contract'
-import fs from 'fs/promises'
-
-const Fs = createContract({
-  name: 'Fs',
-  humanReadableAbi: [
-    'function readFile(string path) returns (string)',
-    'function writeFile(string path, string data) returns (bool)',
-  ]
-})
-
-const fsPrecompile = definePrecompile({
-	contract: Fs,
-	address: '0xf2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2',
-	call: defineCall(Fs.abi, {
-		readFile: async ({ args }) => {
-			return {
-				returnValue: await fs.readFile(...args, 'utf8'),
-				executionGasUsed: 0n,
-			}
-		},
-		writeFile: async ({ args }) => {
-			await fs.writeFile(...args)
-			return { returnValue: true, executionGasUsed: 0n }
-		},
-	}),
-})
-
-const tevm = createMemoryClient({ customPrecompiles: [fsPrecompile] })
-
-***
-
-### customPredeploys?
-
-> `optional` **customPredeploys?**: `ReadonlyArray`\<[`Predeploy`](../../index/type-aliases/Predeploy.md)\<`any`, `any`\>\>
-
-Defined in: tevm-monorepo/packages/evm/dist/index.d.ts:178
-
-Custom predeploys allow you to deploy arbitrary EVM bytecode to an address.
-This is a convenience method and equivalent to calling tevm.setAccount() manually
-to set the contract code.
-```typescript
-const tevm = createMemoryClient({
-  customPredeploys: [
-    // can pass a `tevm Script` here as well
-    {
-       address: '0x420420...',
-       abi: [...],
-       deployedBytecode: '0x420420...',
-    }
-  ],
-})
-```
-
-***
-
-### loggingLevel?
-
-> `optional` **loggingLevel?**: `LogOptions`\[`"level"`\]
-
-Defined in: tevm-monorepo/packages/evm/dist/index.d.ts:103
-
-The logging level to run the evm at. Defaults to 'warn'
-
-***
-
-### profiler?
-
-> `optional` **profiler?**: `boolean`
-
-Defined in: tevm-monorepo/packages/evm/dist/index.d.ts:115
-
-Enable profiler. Defaults to false.
-
-***
-
-### stateManager
-
-> **stateManager**: [`StateManager`](../../state/interfaces/StateManager.md)
-
-Defined in: tevm-monorepo/packages/evm/dist/index.d.ts:111
-
-A custom Tevm state manager
+| Property | Type | Description |
+| ------ | ------ | ------ |
+| <a id="allowunlimitedcontractsize"></a> `allowUnlimitedContractSize?` | `boolean` | Enable/disable unlimited contract size. Defaults to false. |
+| <a id="blockchain"></a> `blockchain` | [`Chain`](../../blockchain/type-aliases/Chain.md) | - |
+| <a id="common"></a> `common` | [`Common`](../../common/type-aliases/Common.md) | Tevm common object backed by ZEVM common primitives |
+| <a id="customprecompiles"></a> `customPrecompiles?` | [`CustomPrecompile`](CustomPrecompile.md)[] | Custom precompiles allow you to run arbitrary JavaScript code in the EVM. See the [Precompile guide](https://todo.todo) documentation for a deeper dive An ever growing standard library of precompiles is provided at `tevm/precompiles` **Notice** Not implemented yet [Implementation pr](https://github.com/evmts/tevm-monorepo/pull/728/files) Below example shows how to make a precompile so you can call `fs.writeFile` and `fs.readFile` in your contracts. Note: this specific precompile is also provided in the standard library Precompiles can be added when the VM is created or later via `addCustomPrecompile`. **Example** ```ts import { createMemoryClient, defineCall, definePrecompile } from 'tevm' import { createContract } from '@tevm/contract' import fs from 'fs/promises' const Fs = createContract({ name: 'Fs', humanReadableAbi: [ 'function readFile(string path) returns (string)', 'function writeFile(string path, string data) returns (bool)', ] }) const fsPrecompile = definePrecompile({ 	contract: Fs, 	address: '0xf2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2', 	call: defineCall(Fs.abi, { 		readFile: async ({ args }) => { 			return { 				returnValue: await fs.readFile(...args, 'utf8'), 				executionGasUsed: 0n, 			} 		}, 		writeFile: async ({ args }) => { 			await fs.writeFile(...args) 			return { returnValue: true, executionGasUsed: 0n } 		}, 	}), }) const tevm = createMemoryClient({ customPrecompiles: [fsPrecompile] }) |
+| <a id="custompredeploys"></a> `customPredeploys?` | `ReadonlyArray`\<[`Predeploy`](../../index/type-aliases/Predeploy.md)\<`any`, `any`\>\> | Custom predeploys allow you to deploy arbitrary EVM bytecode to an address. This is a convenience method and equivalent to calling tevm.setAccount() manually to set the contract code. `const tevm = createMemoryClient({ customPredeploys: [ definePredeploy( MyContract.withAddress('0x4204200000000000000000000000000000000000'), ), ], })` |
+| <a id="logginglevel"></a> `loggingLevel?` | `LogOptions`\[`"level"`\] | The logging level to run the evm at. Defaults to 'warn' |
+| <a id="profiler"></a> `profiler?` | `boolean` | Enable profiler. Defaults to false. |
+| <a id="statemanager"></a> `stateManager` | [`StateManager`](../../state/interfaces/StateManager.md) | A custom Tevm state manager |

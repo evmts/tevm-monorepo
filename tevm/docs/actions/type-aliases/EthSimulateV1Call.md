@@ -8,96 +8,18 @@
 
 > **EthSimulateV1Call** = `object`
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthParams.d.ts:365
-
 Parameters for a single simulated call within a block
 
 ## Properties
 
-### data?
-
-> `readonly` `optional` **data?**: [`Hex`](Hex.md)
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthParams.d.ts:397
-
-The hash of the method signature and encoded parameters
-
-***
-
-### from?
-
-> `readonly` `optional` **from?**: [`Address`](Address.md)
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthParams.d.ts:369
-
-The address from which the transaction is sent
-
-***
-
-### gas?
-
-> `readonly` `optional` **gas?**: `bigint`
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthParams.d.ts:377
-
-The integer of gas provided for the transaction execution
-
-***
-
-### gasPrice?
-
-> `readonly` `optional` **gasPrice?**: `bigint`
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthParams.d.ts:381
-
-The integer of gasPrice used for each paid gas
-
-***
-
-### maxFeePerGas?
-
-> `readonly` `optional` **maxFeePerGas?**: `bigint`
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthParams.d.ts:385
-
-The max fee per gas (EIP-1559)
-
-***
-
-### maxPriorityFeePerGas?
-
-> `readonly` `optional` **maxPriorityFeePerGas?**: `bigint`
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthParams.d.ts:389
-
-The max priority fee per gas (EIP-1559)
-
-***
-
-### nonce?
-
-> `readonly` `optional` **nonce?**: `bigint`
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthParams.d.ts:401
-
-The nonce of the transaction
-
-***
-
-### to?
-
-> `readonly` `optional` **to?**: [`Address`](Address.md)
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthParams.d.ts:373
-
-The address to which the transaction is addressed
-
-***
-
-### value?
-
-> `readonly` `optional` **value?**: `bigint`
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthParams.d.ts:393
-
-The integer of value sent with this transaction
+| Property | Modifier | Type | Description |
+| ------ | ------ | ------ | ------ |
+| <a id="data"></a> `data?` | `readonly` | [`Hex`](Hex.md) | The hash of the method signature and encoded parameters |
+| <a id="from"></a> `from?` | `readonly` | [`Address`](Address.md) | The address from which the transaction is sent |
+| <a id="gas"></a> `gas?` | `readonly` | `bigint` | The integer of gas provided for the transaction execution |
+| <a id="gasprice"></a> `gasPrice?` | `readonly` | `bigint` | The integer of gasPrice used for each paid gas |
+| <a id="maxfeepergas"></a> `maxFeePerGas?` | `readonly` | `bigint` | The max fee per gas (EIP-1559) |
+| <a id="maxpriorityfeepergas"></a> `maxPriorityFeePerGas?` | `readonly` | `bigint` | The max priority fee per gas (EIP-1559) |
+| <a id="nonce"></a> `nonce?` | `readonly` | `bigint` | The nonce of the transaction |
+| <a id="to"></a> `to?` | `readonly` | [`Address`](Address.md) | The address to which the transaction is addressed |
+| <a id="value"></a> `value?` | `readonly` | `bigint` | The integer of value sent with this transaction |

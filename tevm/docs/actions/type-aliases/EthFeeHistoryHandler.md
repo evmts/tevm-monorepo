@@ -8,13 +8,11 @@
 
 > **EthFeeHistoryHandler** = (`request`) => `Promise`\<[`EthFeeHistoryResult`](EthFeeHistoryResult.md)\>
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthHandler.d.ts:12
-
 ## Parameters
 
-### request
-
-[`EthFeeHistoryParams`](EthFeeHistoryParams.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`EthFeeHistoryParams`](EthFeeHistoryParams.md) |
 
 ## Returns
 

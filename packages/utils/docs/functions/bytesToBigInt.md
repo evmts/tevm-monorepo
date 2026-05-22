@@ -16,17 +16,10 @@ Decodes a byte array into a bigint.
 
 ## Parameters
 
-### bytes
-
-`ByteArray`
-
-Byte array to decode.
-
-### opts?
-
-`BytesToBigIntOpts`
-
-Options.
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `bytes` | `ByteArray` | Byte array to decode. |
+| `opts?` | `BytesToBigIntOpts` | Options. |
 
 ## Returns
 

@@ -18,29 +18,14 @@ Defined in: zevm/npm/zevm/dist/util.d.ts:182
 
 #### Parameters
 
-##### nonce?
-
-`bigint` \| `null`
-
-##### balance?
-
-`bigint` \| `null`
-
-##### storageRoot?
-
-`Uint8Array`\<`ArrayBufferLike`\> \| `null`
-
-##### codeHash?
-
-`Uint8Array`\<`ArrayBufferLike`\> \| `null`
-
-##### codeSize?
-
-`number` \| `null`
-
-##### version?
-
-`number` \| `null`
+| Parameter | Type |
+| ------ | ------ |
+| `nonce?` | `bigint` \| `null` |
+| `balance?` | `bigint` \| `null` |
+| `storageRoot?` | `Uint8Array`\<`ArrayBufferLike`\> \| `null` |
+| `codeHash?` | `Uint8Array`\<`ArrayBufferLike`\> \| `null` |
+| `codeSize?` | `number` \| `null` |
+| `version?` | `number` \| `null` |
 
 #### Returns
 
@@ -48,51 +33,14 @@ Defined in: zevm/npm/zevm/dist/util.d.ts:182
 
 ## Properties
 
-### \_balance
-
-> **\_balance**: `bigint` \| `null`
-
-Defined in: zevm/npm/zevm/dist/util.d.ts:177
-
-***
-
-### \_codeHash
-
-> **\_codeHash**: `Uint8Array`\<`ArrayBufferLike`\> \| `null`
-
-Defined in: zevm/npm/zevm/dist/util.d.ts:179
-
-***
-
-### \_codeSize
-
-> **\_codeSize**: `number` \| `null`
-
-Defined in: zevm/npm/zevm/dist/util.d.ts:180
-
-***
-
-### \_nonce
-
-> **\_nonce**: `bigint` \| `null`
-
-Defined in: zevm/npm/zevm/dist/util.d.ts:176
-
-***
-
-### \_storageRoot
-
-> **\_storageRoot**: `Uint8Array`\<`ArrayBufferLike`\> \| `null`
-
-Defined in: zevm/npm/zevm/dist/util.d.ts:178
-
-***
-
-### \_version
-
-> **\_version**: `number` \| `null`
-
-Defined in: zevm/npm/zevm/dist/util.d.ts:181
+| Property | Type | Defined in |
+| ------ | ------ | ------ |
+| <a id="_balance"></a> `_balance` | `bigint` \| `null` | zevm/npm/zevm/dist/util.d.ts:177 |
+| <a id="_codehash"></a> `_codeHash` | `Uint8Array`\<`ArrayBufferLike`\> \| `null` | zevm/npm/zevm/dist/util.d.ts:179 |
+| <a id="_codesize"></a> `_codeSize` | `number` \| `null` | zevm/npm/zevm/dist/util.d.ts:180 |
+| <a id="_nonce"></a> `_nonce` | `bigint` \| `null` | zevm/npm/zevm/dist/util.d.ts:176 |
+| <a id="_storageroot"></a> `_storageRoot` | `Uint8Array`\<`ArrayBufferLike`\> \| `null` | zevm/npm/zevm/dist/util.d.ts:178 |
+| <a id="_version"></a> `_version` | `number` \| `null` | zevm/npm/zevm/dist/util.d.ts:181 |
 
 ## Accessors
 
@@ -116,9 +64,9 @@ Defined in: zevm/npm/zevm/dist/util.d.ts:188
 
 ##### Parameters
 
-###### balance
-
-`bigint`
+| Parameter | Type |
+| ------ | ------ |
+| `balance` | `bigint` |
 
 ##### Returns
 
@@ -146,9 +94,9 @@ Defined in: zevm/npm/zevm/dist/util.d.ts:192
 
 ##### Parameters
 
-###### codeHash
-
-`Uint8Array`
+| Parameter | Type |
+| ------ | ------ |
+| `codeHash` | `Uint8Array` |
 
 ##### Returns
 
@@ -176,9 +124,9 @@ Defined in: zevm/npm/zevm/dist/util.d.ts:194
 
 ##### Parameters
 
-###### codeSize
-
-`number`
+| Parameter | Type |
+| ------ | ------ |
+| `codeSize` | `number` |
 
 ##### Returns
 
@@ -206,9 +154,9 @@ Defined in: zevm/npm/zevm/dist/util.d.ts:186
 
 ##### Parameters
 
-###### nonce
-
-`bigint`
+| Parameter | Type |
+| ------ | ------ |
+| `nonce` | `bigint` |
 
 ##### Returns
 
@@ -236,9 +184,9 @@ Defined in: zevm/npm/zevm/dist/util.d.ts:190
 
 ##### Parameters
 
-###### storageRoot
-
-`Uint8Array`
+| Parameter | Type |
+| ------ | ------ |
+| `storageRoot` | `Uint8Array` |
 
 ##### Returns
 
@@ -266,9 +214,9 @@ Defined in: zevm/npm/zevm/dist/util.d.ts:184
 
 ##### Parameters
 
-###### version
-
-`number`
+| Parameter | Type |
+| ------ | ------ |
+| `version` | `number` |
 
 ##### Returns
 

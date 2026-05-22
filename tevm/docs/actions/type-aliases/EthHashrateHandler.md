@@ -8,13 +8,11 @@
 
 > **EthHashrateHandler** = (`request?`) => `Promise`\<[`EthHashrateResult`](EthHashrateResult.md)\>
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthHandler.d.ts:9
-
 ## Parameters
 
-### request?
-
-[`EthHashrateParams`](EthHashrateParams.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request?` | [`EthHashrateParams`](EthHashrateParams.md) |
 
 ## Returns
 

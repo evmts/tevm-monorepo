@@ -8,20 +8,9 @@
 
 > **SolcInputSourcesDestructibleSettings** = `object`
 
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:79
-
 ## Properties
 
-### content
-
-> **content**: `string`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:81
-
-***
-
-### keccak256?
-
-> `optional` **keccak256?**: `HexNumber`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:80
+| Property | Type |
+| ------ | ------ |
+| <a id="content"></a> `content` | `string` |
+| <a id="keccak256"></a> `keccak256?` | `HexNumber` |

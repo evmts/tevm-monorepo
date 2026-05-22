@@ -8,23 +8,18 @@
 
 > **StateAction**\<`T`\> = (`baseState`, `skipFetchingFromFork?`) => [`StateManager`](../interfaces/StateManager.md)\[`T`\]
 
-Defined in: tevm-monorepo/packages/state/dist/index.d.ts:242
-
 ## Type Parameters
 
-### T
-
-`T` *extends* keyof [`StateManager`](../interfaces/StateManager.md)
+| Type Parameter |
+| ------ |
+| `T` *extends* keyof [`StateManager`](../interfaces/StateManager.md) |
 
 ## Parameters
 
-### baseState
-
-[`BaseState`](BaseState.md)
-
-### skipFetchingFromFork?
-
-`boolean`
+| Parameter | Type |
+| ------ | ------ |
+| `baseState` | [`BaseState`](BaseState.md) |
+| `skipFetchingFromFork?` | `boolean` |
 
 ## Returns
 

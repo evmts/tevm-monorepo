@@ -8,6 +8,4 @@
 
 > **EthGetTransactionReceiptJsonRpcRequest** = [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"eth_getTransactionReceipt"`, readonly \[[`Hex`](../../index/type-aliases/Hex.md)\]\>
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthJsonRpcRequest.d.ts:160
-
 JSON-RPC request for `eth_getTransactionReceipt` procedure

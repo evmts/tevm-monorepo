@@ -8,13 +8,11 @@
 
 > **EthNewBlockFilterJsonRpcProcedure** = (`request`) => `Promise`\<[`EthNewBlockFilterJsonRpcResponse`](EthNewBlockFilterJsonRpcResponse.md)\>
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthProcedure.d.ts:42
-
 ## Parameters
 
-### request
-
-[`EthNewBlockFilterJsonRpcRequest`](EthNewBlockFilterJsonRpcRequest.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`EthNewBlockFilterJsonRpcRequest`](EthNewBlockFilterJsonRpcRequest.md) |
 
 ## Returns
 

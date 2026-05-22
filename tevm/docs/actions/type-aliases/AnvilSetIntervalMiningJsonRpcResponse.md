@@ -8,6 +8,4 @@
 
 > **AnvilSetIntervalMiningJsonRpcResponse** = [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"anvil_setIntervalMining"`, `SerializeToJson`\<[`AnvilSetIntervalMiningResult`](AnvilSetIntervalMiningResult.md)\>, `AnvilError`\>
 
-Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilJsonRpcResponse.d.ts:33
-
 JSON-RPC response for `anvil_setIntervalMining` procedure

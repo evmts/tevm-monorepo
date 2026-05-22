@@ -8,16 +8,10 @@
 
 > **DebugGetRawTransactionParams** = `object`
 
-Defined in: tevm-monorepo/packages/actions/types/debug/DebugParams.d.ts:240
-
 Params taken by `debug_getRawTransaction` handler
 
 ## Properties
 
-### hash
-
-> `readonly` **hash**: [`Hex`](Hex.md)
-
-Defined in: tevm-monorepo/packages/actions/types/debug/DebugParams.d.ts:244
-
-The transaction hash
+| Property | Modifier | Type | Description |
+| ------ | ------ | ------ | ------ |
+| <a id="hash"></a> `hash` | `readonly` | [`Hex`](Hex.md) | The transaction hash |

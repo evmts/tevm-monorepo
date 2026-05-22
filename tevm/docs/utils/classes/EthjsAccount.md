@@ -6,41 +6,22 @@
 
 # Class: EthjsAccount
 
-Defined in: zevm/npm/zevm/dist/util.d.ts:175
-
 ## Constructors
 
 ### Constructor
 
 > **new EthjsAccount**(`nonce?`, `balance?`, `storageRoot?`, `codeHash?`, `codeSize?`, `version?`): `Account`
 
-Defined in: zevm/npm/zevm/dist/util.d.ts:182
-
 #### Parameters
 
-##### nonce?
-
-`bigint` \| `null`
-
-##### balance?
-
-`bigint` \| `null`
-
-##### storageRoot?
-
-`Uint8Array`\<`ArrayBufferLike`\> \| `null`
-
-##### codeHash?
-
-`Uint8Array`\<`ArrayBufferLike`\> \| `null`
-
-##### codeSize?
-
-`number` \| `null`
-
-##### version?
-
-`number` \| `null`
+| Parameter | Type |
+| ------ | ------ |
+| `nonce?` | `bigint` \| `null` |
+| `balance?` | `bigint` \| `null` |
+| `storageRoot?` | `Uint8Array`\<`ArrayBufferLike`\> \| `null` |
+| `codeHash?` | `Uint8Array`\<`ArrayBufferLike`\> \| `null` |
+| `codeSize?` | `number` \| `null` |
+| `version?` | `number` \| `null` |
 
 #### Returns
 
@@ -48,51 +29,14 @@ Defined in: zevm/npm/zevm/dist/util.d.ts:182
 
 ## Properties
 
-### \_balance
-
-> **\_balance**: `bigint` \| `null`
-
-Defined in: zevm/npm/zevm/dist/util.d.ts:177
-
-***
-
-### \_codeHash
-
-> **\_codeHash**: `Uint8Array`\<`ArrayBufferLike`\> \| `null`
-
-Defined in: zevm/npm/zevm/dist/util.d.ts:179
-
-***
-
-### \_codeSize
-
-> **\_codeSize**: `number` \| `null`
-
-Defined in: zevm/npm/zevm/dist/util.d.ts:180
-
-***
-
-### \_nonce
-
-> **\_nonce**: `bigint` \| `null`
-
-Defined in: zevm/npm/zevm/dist/util.d.ts:176
-
-***
-
-### \_storageRoot
-
-> **\_storageRoot**: `Uint8Array`\<`ArrayBufferLike`\> \| `null`
-
-Defined in: zevm/npm/zevm/dist/util.d.ts:178
-
-***
-
-### \_version
-
-> **\_version**: `number` \| `null`
-
-Defined in: zevm/npm/zevm/dist/util.d.ts:181
+| Property | Type |
+| ------ | ------ |
+| <a id="_balance"></a> `_balance` | `bigint` \| `null` |
+| <a id="_codehash"></a> `_codeHash` | `Uint8Array`\<`ArrayBufferLike`\> \| `null` |
+| <a id="_codesize"></a> `_codeSize` | `number` \| `null` |
+| <a id="_nonce"></a> `_nonce` | `bigint` \| `null` |
+| <a id="_storageroot"></a> `_storageRoot` | `Uint8Array`\<`ArrayBufferLike`\> \| `null` |
+| <a id="_version"></a> `_version` | `number` \| `null` |
 
 ## Accessors
 
@@ -102,8 +46,6 @@ Defined in: zevm/npm/zevm/dist/util.d.ts:181
 
 > **get** **balance**(): `bigint`
 
-Defined in: zevm/npm/zevm/dist/util.d.ts:187
-
 ##### Returns
 
 `bigint`
@@ -112,13 +54,11 @@ Defined in: zevm/npm/zevm/dist/util.d.ts:187
 
 > **set** **balance**(`balance`): `void`
 
-Defined in: zevm/npm/zevm/dist/util.d.ts:188
-
 ##### Parameters
 
-###### balance
-
-`bigint`
+| Parameter | Type |
+| ------ | ------ |
+| `balance` | `bigint` |
 
 ##### Returns
 
@@ -132,8 +72,6 @@ Defined in: zevm/npm/zevm/dist/util.d.ts:188
 
 > **get** **codeHash**(): `Uint8Array`
 
-Defined in: zevm/npm/zevm/dist/util.d.ts:191
-
 ##### Returns
 
 `Uint8Array`
@@ -142,13 +80,11 @@ Defined in: zevm/npm/zevm/dist/util.d.ts:191
 
 > **set** **codeHash**(`codeHash`): `void`
 
-Defined in: zevm/npm/zevm/dist/util.d.ts:192
-
 ##### Parameters
 
-###### codeHash
-
-`Uint8Array`
+| Parameter | Type |
+| ------ | ------ |
+| `codeHash` | `Uint8Array` |
 
 ##### Returns
 
@@ -162,8 +98,6 @@ Defined in: zevm/npm/zevm/dist/util.d.ts:192
 
 > **get** **codeSize**(): `number`
 
-Defined in: zevm/npm/zevm/dist/util.d.ts:193
-
 ##### Returns
 
 `number`
@@ -172,13 +106,11 @@ Defined in: zevm/npm/zevm/dist/util.d.ts:193
 
 > **set** **codeSize**(`codeSize`): `void`
 
-Defined in: zevm/npm/zevm/dist/util.d.ts:194
-
 ##### Parameters
 
-###### codeSize
-
-`number`
+| Parameter | Type |
+| ------ | ------ |
+| `codeSize` | `number` |
 
 ##### Returns
 
@@ -192,8 +124,6 @@ Defined in: zevm/npm/zevm/dist/util.d.ts:194
 
 > **get** **nonce**(): `bigint`
 
-Defined in: zevm/npm/zevm/dist/util.d.ts:185
-
 ##### Returns
 
 `bigint`
@@ -202,13 +132,11 @@ Defined in: zevm/npm/zevm/dist/util.d.ts:185
 
 > **set** **nonce**(`nonce`): `void`
 
-Defined in: zevm/npm/zevm/dist/util.d.ts:186
-
 ##### Parameters
 
-###### nonce
-
-`bigint`
+| Parameter | Type |
+| ------ | ------ |
+| `nonce` | `bigint` |
 
 ##### Returns
 
@@ -222,8 +150,6 @@ Defined in: zevm/npm/zevm/dist/util.d.ts:186
 
 > **get** **storageRoot**(): `Uint8Array`
 
-Defined in: zevm/npm/zevm/dist/util.d.ts:189
-
 ##### Returns
 
 `Uint8Array`
@@ -232,13 +158,11 @@ Defined in: zevm/npm/zevm/dist/util.d.ts:189
 
 > **set** **storageRoot**(`storageRoot`): `void`
 
-Defined in: zevm/npm/zevm/dist/util.d.ts:190
-
 ##### Parameters
 
-###### storageRoot
-
-`Uint8Array`
+| Parameter | Type |
+| ------ | ------ |
+| `storageRoot` | `Uint8Array` |
 
 ##### Returns
 
@@ -252,8 +176,6 @@ Defined in: zevm/npm/zevm/dist/util.d.ts:190
 
 > **get** **version**(): `number`
 
-Defined in: zevm/npm/zevm/dist/util.d.ts:183
-
 ##### Returns
 
 `number`
@@ -262,13 +184,11 @@ Defined in: zevm/npm/zevm/dist/util.d.ts:183
 
 > **set** **version**(`version`): `void`
 
-Defined in: zevm/npm/zevm/dist/util.d.ts:184
-
 ##### Parameters
 
-###### version
-
-`number`
+| Parameter | Type |
+| ------ | ------ |
+| `version` | `number` |
 
 ##### Returns
 
@@ -280,8 +200,6 @@ Defined in: zevm/npm/zevm/dist/util.d.ts:184
 
 > **\_validate**(): `void`
 
-Defined in: zevm/npm/zevm/dist/util.d.ts:195
-
 #### Returns
 
 `void`
@@ -291,8 +209,6 @@ Defined in: zevm/npm/zevm/dist/util.d.ts:195
 ### isContract()
 
 > **isContract**(): `boolean`
-
-Defined in: zevm/npm/zevm/dist/util.d.ts:199
 
 #### Returns
 
@@ -304,8 +220,6 @@ Defined in: zevm/npm/zevm/dist/util.d.ts:199
 
 > **isEmpty**(): `boolean`
 
-Defined in: zevm/npm/zevm/dist/util.d.ts:200
-
 #### Returns
 
 `boolean`
@@ -315,8 +229,6 @@ Defined in: zevm/npm/zevm/dist/util.d.ts:200
 ### raw()
 
 > **raw**(): `Uint8Array`\<`ArrayBufferLike`\>[]
-
-Defined in: zevm/npm/zevm/dist/util.d.ts:196
 
 #### Returns
 
@@ -328,8 +240,6 @@ Defined in: zevm/npm/zevm/dist/util.d.ts:196
 
 > **serialize**(): `Uint8Array`
 
-Defined in: zevm/npm/zevm/dist/util.d.ts:197
-
 #### Returns
 
 `Uint8Array`
@@ -339,8 +249,6 @@ Defined in: zevm/npm/zevm/dist/util.d.ts:197
 ### serializeWithPartialInfo()
 
 > **serializeWithPartialInfo**(): `Uint8Array`
-
-Defined in: zevm/npm/zevm/dist/util.d.ts:198
 
 #### Returns
 

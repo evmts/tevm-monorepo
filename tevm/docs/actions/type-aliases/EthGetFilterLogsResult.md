@@ -8,6 +8,4 @@
 
 > **EthGetFilterLogsResult** = [`FilterLog`](FilterLog.md)[]
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthResult.d.ts:100
-
 JSON-RPC response for `eth_getFilterLogs` procedure

@@ -8,19 +8,15 @@
 
 > **LoadStateHandler** = (`params`) => `Promise`\<[`LoadStateResult`](LoadStateResult.md)\>
 
-Defined in: tevm-monorepo/packages/actions/types/LoadState/LoadStateHandlerType.d.ts:39
-
 Loads a previously dumped state into the VM.
 
 State can be dumped as follows:
 
 ## Parameters
 
-### params
-
-[`LoadStateParams`](LoadStateParams.md)
-
-The parameters for loading the state.
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `params` | [`LoadStateParams`](LoadStateParams.md) | The parameters for loading the state. |
 
 ## Returns
 

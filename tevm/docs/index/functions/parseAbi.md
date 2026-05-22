@@ -8,23 +8,19 @@
 
 > **parseAbi**\<`signatures`\>(`signatures`): [`ParseAbi`](../type-aliases/ParseAbi.md)\<`signatures`\>
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/abitype@1.2.4\_typescript@6.0.3\_zod@4.4.3/node\_modules/abitype/dist/types/human-readable/parseAbi.d.ts:37
-
 Parses human-readable ABI into JSON [Abi](../type-aliases/Abi.md)
 
 ## Type Parameters
 
-### signatures
-
-`signatures` *extends* readonly `string`[]
-
-Human-Readable ABI
+| Type Parameter | Description |
+| ------ | ------ |
+| `signatures` *extends* readonly `string`[] | Human-Readable ABI |
 
 ## Parameters
 
-### signatures
-
-`signatures`\[`"length"`\] *extends* `0` ? \[`"Error: At least one signature required"`\] : `Signatures`\<`signatures`\> *extends* `signatures` ? `signatures` : `Signatures`\<`signatures`\>
+| Parameter | Type |
+| ------ | ------ |
+| `signatures` | `signatures`\[`"length"`\] *extends* `0` ? \[`"Error: At least one signature required"`\] : `Signatures`\<`signatures`\> *extends* `signatures` ? `signatures` : `Signatures`\<`signatures`\> |
 
 ## Returns
 

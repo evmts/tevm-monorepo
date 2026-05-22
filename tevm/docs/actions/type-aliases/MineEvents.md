@@ -8,8 +8,6 @@
 
 > **MineEvents** = `object`
 
-Defined in: tevm-monorepo/packages/actions/types/Mine/MineEvents.d.ts:22
-
 Event handlers for mining operations
 
 ## Example
@@ -31,96 +29,8 @@ const result = await mine(client, {
 
 ## Properties
 
-### onBlock?
-
-> `optional` **onBlock?**: (`block`, `next?`) => `void`
-
-Defined in: tevm-monorepo/packages/actions/types/Mine/MineEvents.d.ts:28
-
-Handler called for each new block mined
-
-#### Parameters
-
-##### block
-
-[`Block`](../../block/classes/Block.md)
-
-The newly mined block
-
-##### next?
-
-() => `void`
-
-Function to continue execution - must be called to proceed
-
-#### Returns
-
-`void`
-
-***
-
-### onLog?
-
-> `optional` **onLog?**: (`log`, `receipt`, `next?`) => `void`
-
-Defined in: tevm-monorepo/packages/actions/types/Mine/MineEvents.d.ts:42
-
-Handler called for each transaction log generated during mining
-
-#### Parameters
-
-##### log
-
-[`TxReceipt`](../../receipt-manager/type-aliases/TxReceipt.md)\[`"logs"`\]\[`number`\]
-
-The transaction log
-
-##### receipt
-
-[`TxReceipt`](../../receipt-manager/type-aliases/TxReceipt.md)
-
-The receipt containing the log
-
-##### next?
-
-() => `void`
-
-Function to continue execution - must be called to proceed
-
-#### Returns
-
-`void`
-
-***
-
-### onReceipt?
-
-> `optional` **onReceipt?**: (`receipt`, `blockHash`, `next?`) => `void`
-
-Defined in: tevm-monorepo/packages/actions/types/Mine/MineEvents.d.ts:35
-
-Handler called for each transaction receipt generated during mining
-
-#### Parameters
-
-##### receipt
-
-[`TxReceipt`](../../receipt-manager/type-aliases/TxReceipt.md)
-
-The transaction receipt
-
-##### blockHash
-
-[`Hex`](../../index/type-aliases/Hex.md)
-
-The hash of the block containing the receipt
-
-##### next?
-
-() => `void`
-
-Function to continue execution - must be called to proceed
-
-#### Returns
-
-`void`
+| Property | Type | Description |
+| ------ | ------ | ------ |
+| <a id="onblock"></a> `onBlock?` | (`block`, `next?`) => `void` | Handler called for each new block mined |
+| <a id="onlog"></a> `onLog?` | (`log`, `receipt`, `next?`) => `void` | Handler called for each transaction log generated during mining |
+| <a id="onreceipt"></a> `onReceipt?` | (`receipt`, `blockHash`, `next?`) => `void` | Handler called for each transaction receipt generated during mining |

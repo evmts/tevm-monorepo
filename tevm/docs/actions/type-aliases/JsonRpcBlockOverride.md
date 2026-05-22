@@ -8,62 +8,16 @@
 
 > **JsonRpcBlockOverride** = `object`
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthJsonRpcRequest.d.ts:272
-
 Block override for simulateV1
 
 ## Properties
 
-### baseFeePerGas?
-
-> `optional` **baseFeePerGas?**: [`Hex`](../../index/type-aliases/Hex.md)
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthJsonRpcRequest.d.ts:278
-
-***
-
-### blobBaseFee?
-
-> `optional` **blobBaseFee?**: [`Hex`](../../index/type-aliases/Hex.md)
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthJsonRpcRequest.d.ts:279
-
-***
-
-### feeRecipient?
-
-> `optional` **feeRecipient?**: [`Address`](../../index/type-aliases/Address.md)
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthJsonRpcRequest.d.ts:276
-
-***
-
-### gasLimit?
-
-> `optional` **gasLimit?**: [`Hex`](../../index/type-aliases/Hex.md)
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthJsonRpcRequest.d.ts:275
-
-***
-
-### number?
-
-> `optional` **number?**: [`Hex`](../../index/type-aliases/Hex.md)
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthJsonRpcRequest.d.ts:273
-
-***
-
-### prevRandao?
-
-> `optional` **prevRandao?**: [`Hex`](../../index/type-aliases/Hex.md)
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthJsonRpcRequest.d.ts:277
-
-***
-
-### time?
-
-> `optional` **time?**: [`Hex`](../../index/type-aliases/Hex.md)
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthJsonRpcRequest.d.ts:274
+| Property | Type |
+| ------ | ------ |
+| <a id="basefeepergas"></a> `baseFeePerGas?` | [`Hex`](../../index/type-aliases/Hex.md) |
+| <a id="blobbasefee"></a> `blobBaseFee?` | [`Hex`](../../index/type-aliases/Hex.md) |
+| <a id="feerecipient"></a> `feeRecipient?` | [`Address`](../../index/type-aliases/Address.md) |
+| <a id="gaslimit"></a> `gasLimit?` | [`Hex`](../../index/type-aliases/Hex.md) |
+| <a id="number"></a> `number?` | [`Hex`](../../index/type-aliases/Hex.md) |
+| <a id="prevrandao"></a> `prevRandao?` | [`Hex`](../../index/type-aliases/Hex.md) |
+| <a id="time"></a> `time?` | [`Hex`](../../index/type-aliases/Hex.md) |

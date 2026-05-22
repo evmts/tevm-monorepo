@@ -8,13 +8,11 @@
 
 > **gasPriceHandler**(`__namedParameters`): [`EthGasPriceHandler`](../type-aliases/EthGasPriceHandler.md)
 
-Defined in: tevm-monorepo/packages/actions/types/eth/gasPriceHandler.d.ts:1
-
 ## Parameters
 
-### \_\_namedParameters
-
-[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{ \}\>
+| Parameter | Type |
+| ------ | ------ |
+| `__namedParameters` | [`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{ \}\> |
 
 ## Returns
 

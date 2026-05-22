@@ -12,9 +12,9 @@ Defined in: [packages/actions/src/eth/gasPriceProcedure.js:9](https://github.com
 
 ## Parameters
 
-### options
-
-`TevmNode`\<`"fork"` \| `"normal"`, \{ \}\>
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `options` | `TevmNode`\<`"fork"` \| `"normal"`, \{ \}\> | - |
 
 ## Returns
 

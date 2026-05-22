@@ -15,6 +15,6 @@ It replaces bigint with hex strings and sets with arrays.
 
 ## Type Parameters
 
-### T
-
-`T`
+| Type Parameter |
+| ------ |
+| `T` |

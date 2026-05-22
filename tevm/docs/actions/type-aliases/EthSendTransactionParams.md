@@ -8,8 +8,6 @@
 
 > **EthSendTransactionParams** = [`CallParams`](CallParams.md)
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthParams.d.ts:251
-
 **`Experimental`**
 
 Based on the JSON-RPC request for `eth_sendTransaction` procedure

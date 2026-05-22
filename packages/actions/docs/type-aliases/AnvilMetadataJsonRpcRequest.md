@@ -8,6 +8,6 @@
 
 > **AnvilMetadataJsonRpcRequest** = `JsonRpcRequest`\<`"anvil_metadata"`, \[\]\>
 
-Defined in: [packages/actions/src/anvil/AnvilJsonRpcRequest.ts:192](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilJsonRpcRequest.ts#L192)
+Defined in: [packages/actions/src/anvil/AnvilJsonRpcRequest.ts:196](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilJsonRpcRequest.ts#L196)
 
 JSON-RPC request for `anvil_metadata` method

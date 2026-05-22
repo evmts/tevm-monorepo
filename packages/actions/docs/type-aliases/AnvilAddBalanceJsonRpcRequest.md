@@ -8,6 +8,6 @@
 
 > **AnvilAddBalanceJsonRpcRequest** = `JsonRpcRequest`\<`"anvil_addBalance"`, readonly \[`Address`, `Hex`\]\>
 
-Defined in: [packages/actions/src/anvil/AnvilJsonRpcRequest.ts:210](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilJsonRpcRequest.ts#L210)
+Defined in: [packages/actions/src/anvil/AnvilJsonRpcRequest.ts:214](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilJsonRpcRequest.ts#L214)
 
 JSON-RPC request for `anvil_addBalance` method

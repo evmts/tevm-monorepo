@@ -12,9 +12,9 @@ Defined in: [packages/actions/src/eth/EthHandler.ts:183](https://github.com/evmt
 
 ## Parameters
 
-### request
-
-[`EthMiningParams`](EthMiningParams.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`EthMiningParams`](EthMiningParams.md) |
 
 ## Returns
 

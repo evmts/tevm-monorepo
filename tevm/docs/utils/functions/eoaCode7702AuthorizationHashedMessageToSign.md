@@ -8,13 +8,11 @@
 
 > **eoaCode7702AuthorizationHashedMessageToSign**(`input`): `Uint8Array`
 
-Defined in: zevm/npm/zevm/dist/util.d.ts:215
-
 ## Parameters
 
-### input
-
-`EOACode7702AuthorizationListItemUnsigned` \| `EOACode7702AuthorizationListBytesItemUnsigned`
+| Parameter | Type |
+| ------ | ------ |
+| `input` | `EOACode7702AuthorizationListItemUnsigned` \| `EOACode7702AuthorizationListBytesItemUnsigned` |
 
 ## Returns
 

@@ -12,9 +12,9 @@ Defined in: zevm/npm/zevm/dist/util.d.ts:219
 
 ## Parameters
 
-### input
-
-`EOACode7702AuthorizationListBytesItem` \| `EOACode7702AuthorizationListItem`
+| Parameter | Type |
+| ------ | ------ |
+| `input` | `EOACode7702AuthorizationListBytesItem` \| `EOACode7702AuthorizationListItem` |
 
 ## Returns
 

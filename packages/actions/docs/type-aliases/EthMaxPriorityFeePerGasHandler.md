@@ -12,9 +12,9 @@ Defined in: [packages/actions/src/eth/EthHandler.ts:115](https://github.com/evmt
 
 ## Parameters
 
-### request?
-
-[`EthMaxPriorityFeePerGasParams`](EthMaxPriorityFeePerGasParams.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request?` | [`EthMaxPriorityFeePerGasParams`](EthMaxPriorityFeePerGasParams.md) |
 
 ## Returns
 

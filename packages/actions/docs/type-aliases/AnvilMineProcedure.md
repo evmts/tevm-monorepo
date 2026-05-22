@@ -14,9 +14,9 @@ JSON-RPC procedure for `anvil_mine`
 
 ## Parameters
 
-### request
-
-[`AnvilMineJsonRpcRequest`](AnvilMineJsonRpcRequest.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`AnvilMineJsonRpcRequest`](AnvilMineJsonRpcRequest.md) |
 
 ## Returns
 

@@ -8,31 +8,17 @@
 
 > **ContractResult**\<`TAbi`, `TFunctionName`, `ErrorType`\> = `Omit`\<[`CallResult`](CallResult.md), `"errors"`\> & `object` \| [`CallResult`](CallResult.md)\<`ErrorType`\> & `object`
 
-Defined in: tevm-monorepo/packages/actions/types/Contract/ContractResult.d.ts:45
-
 The result type for a TEVM contract call.
 
 This type extends the `CallResult` type with additional contract-specific fields, and it supports both success and error states.
 
 ## Type Parameters
 
-### TAbi
-
-`TAbi` *extends* [`Abi`](Abi.md) \| readonly `unknown`[] = [`Abi`](Abi.md)
-
-The ABI type.
-
-### TFunctionName
-
-`TFunctionName` *extends* [`ContractFunctionName`](../../index/type-aliases/ContractFunctionName.md)\<`TAbi`\> = [`ContractFunctionName`](../../index/type-aliases/ContractFunctionName.md)\<`TAbi`\>
-
-The function name type from the ABI.
-
-### ErrorType
-
-`ErrorType` = [`TevmContractError`](TevmContractError.md)
-
-The error type.
+| Type Parameter | Default type | Description |
+| ------ | ------ | ------ |
+| `TAbi` *extends* [`Abi`](Abi.md) \| readonly `unknown`[] | [`Abi`](Abi.md) | The ABI type. |
+| `TFunctionName` *extends* [`ContractFunctionName`](../../index/type-aliases/ContractFunctionName.md)\<`TAbi`\> | [`ContractFunctionName`](../../index/type-aliases/ContractFunctionName.md)\<`TAbi`\> | The function name type from the ABI. |
+| `ErrorType` | [`TevmContractError`](TevmContractError.md) | The error type. |
 
 ## Example
 

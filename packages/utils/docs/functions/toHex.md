@@ -17,17 +17,10 @@ Encodes a string, number, bigint, or ByteArray into a hex string
 
 ## Parameters
 
-### value
-
-`string` \| `number` \| `bigint` \| `boolean` \| `ByteArray`
-
-Value to encode.
-
-### opts?
-
-`ToHexParameters`
-
-Options.
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `value` | `string` \| `number` \| `bigint` \| `boolean` \| `ByteArray` | Value to encode. |
+| `opts?` | `ToHexParameters` | Options. |
 
 ## Returns
 

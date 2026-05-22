@@ -8,8 +8,6 @@
 
 > **StateOverrideSet** = `object`
 
-Defined in: tevm-monorepo/packages/actions/types/common/StateOverrideSet.d.ts:26
-
 The state override set is an optional address-to-state mapping, where each entry specifies some state to be ephemerally overridden prior to executing the call. Each address maps to an object containing:
 This option cannot be used when `createTransaction` is set to `true`
 

@@ -8,13 +8,11 @@
 
 > **EthGetUncleByBlockNumberAndIndexJsonRpcProcedure** = (`request`) => `Promise`\<[`EthGetUncleByBlockNumberAndIndexJsonRpcResponse`](EthGetUncleByBlockNumberAndIndexJsonRpcResponse.md)\>
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthProcedure.d.ts:33
-
 ## Parameters
 
-### request
-
-[`EthGetUncleByBlockNumberAndIndexJsonRpcRequest`](EthGetUncleByBlockNumberAndIndexJsonRpcRequest.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`EthGetUncleByBlockNumberAndIndexJsonRpcRequest`](EthGetUncleByBlockNumberAndIndexJsonRpcRequest.md) |
 
 ## Returns
 

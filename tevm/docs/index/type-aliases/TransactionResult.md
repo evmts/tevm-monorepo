@@ -8,183 +8,33 @@
 
 > **TransactionResult** = `object`
 
-Defined in: tevm-monorepo/packages/actions/types/common/TransactionResult.d.ts:6
-
 The type returned by transaction related
 json rpc procedures
 
 ## Properties
 
-### accessList?
-
-> `readonly` `optional` **accessList?**: `ReadonlyArray`\<\{ `address`: [`Hex`](../../actions/type-aliases/Hex.md); `storageKeys`: `ReadonlyArray`\<[`Hex`](../../actions/type-aliases/Hex.md)\>; \}\>
-
-Defined in: tevm-monorepo/packages/actions/types/common/TransactionResult.d.ts:25
-
-***
-
-### blobVersionedHashes?
-
-> `readonly` `optional` **blobVersionedHashes?**: `ReadonlyArray`\<[`Hex`](../../actions/type-aliases/Hex.md)\>
-
-Defined in: tevm-monorepo/packages/actions/types/common/TransactionResult.d.ts:30
-
-***
-
-### blockHash
-
-> `readonly` **blockHash**: [`Hex`](../../actions/type-aliases/Hex.md)
-
-Defined in: tevm-monorepo/packages/actions/types/common/TransactionResult.d.ts:7
-
-***
-
-### blockNumber
-
-> `readonly` **blockNumber**: [`Hex`](../../actions/type-aliases/Hex.md)
-
-Defined in: tevm-monorepo/packages/actions/types/common/TransactionResult.d.ts:8
-
-***
-
-### chainId?
-
-> `readonly` `optional` **chainId?**: [`Hex`](../../actions/type-aliases/Hex.md)
-
-Defined in: tevm-monorepo/packages/actions/types/common/TransactionResult.d.ts:21
-
-***
-
-### from
-
-> `readonly` **from**: [`Hex`](../../actions/type-aliases/Hex.md)
-
-Defined in: tevm-monorepo/packages/actions/types/common/TransactionResult.d.ts:9
-
-***
-
-### gas
-
-> `readonly` **gas**: [`Hex`](../../actions/type-aliases/Hex.md)
-
-Defined in: tevm-monorepo/packages/actions/types/common/TransactionResult.d.ts:10
-
-***
-
-### gasPrice
-
-> `readonly` **gasPrice**: [`Hex`](../../actions/type-aliases/Hex.md)
-
-Defined in: tevm-monorepo/packages/actions/types/common/TransactionResult.d.ts:11
-
-***
-
-### hash
-
-> `readonly` **hash**: [`Hex`](../../actions/type-aliases/Hex.md)
-
-Defined in: tevm-monorepo/packages/actions/types/common/TransactionResult.d.ts:12
-
-***
-
-### input
-
-> `readonly` **input**: [`Hex`](../../actions/type-aliases/Hex.md)
-
-Defined in: tevm-monorepo/packages/actions/types/common/TransactionResult.d.ts:13
-
-***
-
-### isImpersonated?
-
-> `readonly` `optional` **isImpersonated?**: `boolean`
-
-Defined in: tevm-monorepo/packages/actions/types/common/TransactionResult.d.ts:31
-
-***
-
-### maxFeePerBlobGas?
-
-> `readonly` `optional` **maxFeePerBlobGas?**: [`Hex`](../../actions/type-aliases/Hex.md)
-
-Defined in: tevm-monorepo/packages/actions/types/common/TransactionResult.d.ts:29
-
-***
-
-### maxFeePerGas?
-
-> `readonly` `optional` **maxFeePerGas?**: [`Hex`](../../actions/type-aliases/Hex.md)
-
-Defined in: tevm-monorepo/packages/actions/types/common/TransactionResult.d.ts:22
-
-***
-
-### maxPriorityFeePerGas?
-
-> `readonly` `optional` **maxPriorityFeePerGas?**: [`Hex`](../../actions/type-aliases/Hex.md)
-
-Defined in: tevm-monorepo/packages/actions/types/common/TransactionResult.d.ts:23
-
-***
-
-### nonce
-
-> `readonly` **nonce**: [`Hex`](../../actions/type-aliases/Hex.md)
-
-Defined in: tevm-monorepo/packages/actions/types/common/TransactionResult.d.ts:14
-
-***
-
-### r
-
-> `readonly` **r**: [`Hex`](../../actions/type-aliases/Hex.md)
-
-Defined in: tevm-monorepo/packages/actions/types/common/TransactionResult.d.ts:19
-
-***
-
-### s
-
-> `readonly` **s**: [`Hex`](../../actions/type-aliases/Hex.md)
-
-Defined in: tevm-monorepo/packages/actions/types/common/TransactionResult.d.ts:20
-
-***
-
-### to
-
-> `readonly` **to**: [`Hex`](../../actions/type-aliases/Hex.md)
-
-Defined in: tevm-monorepo/packages/actions/types/common/TransactionResult.d.ts:15
-
-***
-
-### transactionIndex
-
-> `readonly` **transactionIndex**: [`Hex`](../../actions/type-aliases/Hex.md)
-
-Defined in: tevm-monorepo/packages/actions/types/common/TransactionResult.d.ts:16
-
-***
-
-### type?
-
-> `readonly` `optional` **type?**: [`Hex`](../../actions/type-aliases/Hex.md)
-
-Defined in: tevm-monorepo/packages/actions/types/common/TransactionResult.d.ts:24
-
-***
-
-### v
-
-> `readonly` **v**: [`Hex`](../../actions/type-aliases/Hex.md)
-
-Defined in: tevm-monorepo/packages/actions/types/common/TransactionResult.d.ts:18
-
-***
-
-### value
-
-> `readonly` **value**: [`Hex`](../../actions/type-aliases/Hex.md)
-
-Defined in: tevm-monorepo/packages/actions/types/common/TransactionResult.d.ts:17
+| Property | Modifier | Type |
+| ------ | ------ | ------ |
+| <a id="accesslist"></a> `accessList?` | `readonly` | `ReadonlyArray`\<\{ `address`: [`Hex`](../../actions/type-aliases/Hex.md); `storageKeys`: `ReadonlyArray`\<[`Hex`](../../actions/type-aliases/Hex.md)\>; \}\> |
+| <a id="authorizationlist"></a> `authorizationList?` | `readonly` | `ReadonlyArray`\<\{ `address`: [`Hex`](../../actions/type-aliases/Hex.md); `chainId`: [`Hex`](../../actions/type-aliases/Hex.md); `nonce`: [`Hex`](../../actions/type-aliases/Hex.md); `r`: [`Hex`](../../actions/type-aliases/Hex.md); `s`: [`Hex`](../../actions/type-aliases/Hex.md); `yParity`: [`Hex`](../../actions/type-aliases/Hex.md); \}\> |
+| <a id="blobversionedhashes"></a> `blobVersionedHashes?` | `readonly` | `ReadonlyArray`\<[`Hex`](../../actions/type-aliases/Hex.md)\> |
+| <a id="blockhash"></a> `blockHash` | `readonly` | [`Hex`](../../actions/type-aliases/Hex.md) |
+| <a id="blocknumber"></a> `blockNumber` | `readonly` | [`Hex`](../../actions/type-aliases/Hex.md) |
+| <a id="chainid"></a> `chainId?` | `readonly` | [`Hex`](../../actions/type-aliases/Hex.md) |
+| <a id="from"></a> `from` | `readonly` | [`Hex`](../../actions/type-aliases/Hex.md) |
+| <a id="gas"></a> `gas` | `readonly` | [`Hex`](../../actions/type-aliases/Hex.md) |
+| <a id="gasprice"></a> `gasPrice` | `readonly` | [`Hex`](../../actions/type-aliases/Hex.md) |
+| <a id="hash"></a> `hash` | `readonly` | [`Hex`](../../actions/type-aliases/Hex.md) |
+| <a id="input"></a> `input` | `readonly` | [`Hex`](../../actions/type-aliases/Hex.md) |
+| <a id="isimpersonated"></a> `isImpersonated?` | `readonly` | `boolean` |
+| <a id="maxfeeperblobgas"></a> `maxFeePerBlobGas?` | `readonly` | [`Hex`](../../actions/type-aliases/Hex.md) |
+| <a id="maxfeepergas"></a> `maxFeePerGas?` | `readonly` | [`Hex`](../../actions/type-aliases/Hex.md) |
+| <a id="maxpriorityfeepergas"></a> `maxPriorityFeePerGas?` | `readonly` | [`Hex`](../../actions/type-aliases/Hex.md) |
+| <a id="nonce"></a> `nonce` | `readonly` | [`Hex`](../../actions/type-aliases/Hex.md) |
+| <a id="r"></a> `r` | `readonly` | [`Hex`](../../actions/type-aliases/Hex.md) |
+| <a id="s"></a> `s` | `readonly` | [`Hex`](../../actions/type-aliases/Hex.md) |
+| <a id="to"></a> `to` | `readonly` | [`Hex`](../../actions/type-aliases/Hex.md) |
+| <a id="transactionindex"></a> `transactionIndex` | `readonly` | [`Hex`](../../actions/type-aliases/Hex.md) |
+| <a id="type"></a> `type?` | `readonly` | [`Hex`](../../actions/type-aliases/Hex.md) |
+| <a id="v"></a> `v` | `readonly` | [`Hex`](../../actions/type-aliases/Hex.md) |
+| <a id="value"></a> `value` | `readonly` | [`Hex`](../../actions/type-aliases/Hex.md) |

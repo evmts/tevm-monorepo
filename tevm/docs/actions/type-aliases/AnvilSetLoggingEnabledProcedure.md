@@ -8,15 +8,13 @@
 
 > **AnvilSetLoggingEnabledProcedure** = (`request`) => `Promise`\<[`AnvilSetLoggingEnabledJsonRpcResponse`](AnvilSetLoggingEnabledJsonRpcResponse.md)\>
 
-Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilProcedure.d.ts:127
-
 JSON-RPC procedure for `anvil_setLoggingEnabled`
 
 ## Parameters
 
-### request
-
-[`AnvilSetLoggingEnabledJsonRpcRequest`](AnvilSetLoggingEnabledJsonRpcRequest.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`AnvilSetLoggingEnabledJsonRpcRequest`](AnvilSetLoggingEnabledJsonRpcRequest.md) |
 
 ## Returns
 

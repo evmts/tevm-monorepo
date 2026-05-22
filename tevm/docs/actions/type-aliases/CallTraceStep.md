@@ -8,76 +8,16 @@
 
 > **CallTraceStep** = `object`
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthResult.d.ts:353
-
 A single call trace step for V2 debugging
 
 ## Properties
 
-### depth
-
-> **depth**: `number`
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthResult.d.ts:373
-
-The current depth of the call stack
-
-***
-
-### gas
-
-> **gas**: `bigint`
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthResult.d.ts:365
-
-The gas remaining
-
-***
-
-### gasCost
-
-> **gasCost**: `bigint`
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthResult.d.ts:369
-
-The gas cost of this operation
-
-***
-
-### memory?
-
-> `optional` **memory?**: [`Hex`](Hex.md)
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthResult.d.ts:381
-
-The memory contents (if requested)
-
-***
-
-### op
-
-> **op**: `string`
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthResult.d.ts:357
-
-The opcode executed
-
-***
-
-### pc
-
-> **pc**: `number`
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthResult.d.ts:361
-
-The program counter
-
-***
-
-### stack?
-
-> `optional` **stack?**: [`Hex`](Hex.md)[]
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthResult.d.ts:377
-
-The stack contents (top items)
+| Property | Type | Description |
+| ------ | ------ | ------ |
+| <a id="depth"></a> `depth` | `number` | The current depth of the call stack |
+| <a id="gas"></a> `gas` | `bigint` | The gas remaining |
+| <a id="gascost"></a> `gasCost` | `bigint` | The gas cost of this operation |
+| <a id="memory"></a> `memory?` | [`Hex`](Hex.md) | The memory contents (if requested) |
+| <a id="op"></a> `op` | `string` | The opcode executed |
+| <a id="pc"></a> `pc` | `number` | The program counter |
+| <a id="stack"></a> `stack?` | [`Hex`](Hex.md)[] | The stack contents (top items) |

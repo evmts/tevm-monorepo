@@ -8,17 +8,13 @@
 
 > **getDifficulty**(`headerData`): `bigint` \| `null`
 
-Defined in: tevm-monorepo/packages/block/types/helpers.d.ts:38
-
 Extracts the difficulty value from block header data
 
 ## Parameters
 
-### headerData
-
-[`HeaderData`](../interfaces/HeaderData.md)
-
-The header data object to extract difficulty from
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `headerData` | [`HeaderData`](../interfaces/HeaderData.md) | The header data object to extract difficulty from |
 
 ## Returns
 

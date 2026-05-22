@@ -28,11 +28,9 @@ This is the recommended way to create Address instances throughout TEVM.
 
 ## Parameters
 
-### address
-
-`string` \| `number` \| `bigint` \| `Address` \| `Uint8Array`\<`ArrayBufferLike`\>
-
-The input to create an address from
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `address` | `string` \| `number` \| `bigint` \| `Address` \| `Uint8Array`\<`ArrayBufferLike`\> | The input to create an address from |
 
 ## Returns
 

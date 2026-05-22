@@ -8,6 +8,4 @@
 
 > **AnvilEnableTracesJsonRpcResponse** = [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"anvil_enableTraces"`, `null`, `AnvilError`\>
 
-Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilJsonRpcResponse.d.ts:161
-
 JSON-RPC response for `anvil_enableTraces` procedure

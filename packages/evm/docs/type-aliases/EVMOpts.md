@@ -8,8 +8,6 @@
 
 > **EVMOpts** = `ZevmEVMOpts`
 
-Defined in: [packages/evm/src/EvmOpts.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/src/EvmOpts.ts#L21)
-
 The options available to pass to the EVM. Inferred from ZEVM.
 
 ## Example

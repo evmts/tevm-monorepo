@@ -8,8 +8,6 @@
 
 > **TevmSendApi** = `object`
 
-Defined in: tevm-monorepo/packages/decorators/dist/index.d.ts:1834
-
 API interface for sending JSON-RPC requests to Tevm
 Provides methods for both single and bulk requests
 
@@ -39,16 +37,7 @@ await client.sendBulk([
 
 ## Properties
 
-### send
-
-> **send**: [`TevmJsonRpcRequestHandler`](../../actions/type-aliases/TevmJsonRpcRequestHandler.md)
-
-Defined in: tevm-monorepo/packages/decorators/dist/index.d.ts:1835
-
-***
-
-### sendBulk
-
-> **sendBulk**: [`TevmJsonRpcBulkRequestHandler`](../../actions/type-aliases/TevmJsonRpcBulkRequestHandler.md)
-
-Defined in: tevm-monorepo/packages/decorators/dist/index.d.ts:1836
+| Property | Type |
+| ------ | ------ |
+| <a id="send"></a> `send` | [`TevmJsonRpcRequestHandler`](../../actions/type-aliases/TevmJsonRpcRequestHandler.md) |
+| <a id="sendbulk"></a> `sendBulk` | [`TevmJsonRpcBulkRequestHandler`](../../actions/type-aliases/TevmJsonRpcBulkRequestHandler.md) |

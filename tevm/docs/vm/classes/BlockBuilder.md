@@ -6,25 +6,18 @@
 
 # Class: BlockBuilder
 
-Defined in: tevm-monorepo/packages/vm/types/actions/BlockBuilder.d.ts:8
-
 ## Constructors
 
 ### Constructor
 
 > **new BlockBuilder**(`vm`, `opts`): `BlockBuilder`
 
-Defined in: tevm-monorepo/packages/vm/types/actions/BlockBuilder.d.ts:32
-
 #### Parameters
 
-##### vm
-
-`BaseVm`
-
-##### opts
-
-[`BuildBlockOpts`](../interfaces/BuildBlockOpts.md)
+| Parameter | Type |
+| ------ | ------ |
+| `vm` | `BaseVm` |
+| `opts` | [`BuildBlockOpts`](../interfaces/BuildBlockOpts.md) |
 
 #### Returns
 
@@ -32,23 +25,10 @@ Defined in: tevm-monorepo/packages/vm/types/actions/BlockBuilder.d.ts:32
 
 ## Properties
 
-### blobGasUsed
-
-> **blobGasUsed**: `bigint`
-
-Defined in: tevm-monorepo/packages/vm/types/actions/BlockBuilder.d.ts:16
-
-The cumulative blob gas used by the blobs in a block
-
-***
-
-### gasUsed
-
-> **gasUsed**: `bigint`
-
-Defined in: tevm-monorepo/packages/vm/types/actions/BlockBuilder.d.ts:12
-
-The cumulative gas used by the transactions added to the block.
+| Property | Type | Description |
+| ------ | ------ | ------ |
+| <a id="blobgasused"></a> `blobGasUsed` | `bigint` | The cumulative blob gas used by the blobs in a block |
+| <a id="gasused"></a> `gasUsed` | `bigint` | The cumulative gas used by the transactions added to the block. |
 
 ## Accessors
 
@@ -57,8 +37,6 @@ The cumulative gas used by the transactions added to the block.
 #### Get Signature
 
 > **get** **minerValue**(): `bigint`
-
-Defined in: tevm-monorepo/packages/vm/types/actions/BlockBuilder.d.ts:31
 
 ##### Returns
 
@@ -72,8 +50,6 @@ Defined in: tevm-monorepo/packages/vm/types/actions/BlockBuilder.d.ts:31
 
 > **get** **transactionReceipts**(): [`TxReceipt`](../type-aliases/TxReceipt.md)[]
 
-Defined in: tevm-monorepo/packages/vm/types/actions/BlockBuilder.d.ts:30
-
 ##### Returns
 
 [`TxReceipt`](../type-aliases/TxReceipt.md)[]
@@ -84,8 +60,6 @@ Defined in: tevm-monorepo/packages/vm/types/actions/BlockBuilder.d.ts:30
 
 > **addTransaction**(`tx`, `__namedParameters?`): `Promise`\<[`RunTxResult`](../interfaces/RunTxResult.md)\>
 
-Defined in: tevm-monorepo/packages/vm/types/actions/BlockBuilder.d.ts:64
-
 Run and add a transaction to the block being built.
 Please note that this modifies the state of the VM.
 Throws if the transaction's gasLimit is greater than
@@ -93,13 +67,10 @@ the remaining gas in the block.
 
 #### Parameters
 
-##### tx
-
-[`TypedTransaction`](../../tx/type-aliases/TypedTransaction.md) \| [`ImpersonatedTx`](../../tx/interfaces/ImpersonatedTx.md)
-
-##### \_\_namedParameters?
-
-`Pick`\<[`RunTxOpts`](../interfaces/RunTxOpts.md), `"skipBalance"` \| `"skipNonce"` \| `"skipHardForkValidation"`\>
+| Parameter | Type |
+| ------ | ------ |
+| `tx` | [`TypedTransaction`](../../tx/type-aliases/TypedTransaction.md) \| [`ImpersonatedTx`](../../tx/interfaces/ImpersonatedTx.md) |
+| `__namedParameters?` | `Pick`\<[`RunTxOpts`](../interfaces/RunTxOpts.md), `"skipBalance"` \| `"skipNonce"` \| `"skipHardForkValidation"`\> |
 
 #### Returns
 
@@ -110,8 +81,6 @@ the remaining gas in the block.
 ### build()
 
 > **build**(`sealOpts?`): `Promise`\<[`Block`](../../block/classes/Block.md)\>
-
-Defined in: tevm-monorepo/packages/vm/types/actions/BlockBuilder.d.ts:80
 
 This method returns the finalized block.
 It also:
@@ -125,9 +94,9 @@ as the signer will be awarded the txs amount spent on gas as they are added.
 
 #### Parameters
 
-##### sealOpts?
-
-[`SealBlockOpts`](../interfaces/SealBlockOpts.md)
+| Parameter | Type |
+| ------ | ------ |
+| `sealOpts?` | [`SealBlockOpts`](../interfaces/SealBlockOpts.md) |
 
 #### Returns
 
@@ -139,8 +108,6 @@ as the signer will be awarded the txs amount spent on gas as they are added.
 
 > **getStatus**(): [`BlockStatus`](../type-aliases/BlockStatus.md)
 
-Defined in: tevm-monorepo/packages/vm/types/actions/BlockBuilder.d.ts:37
-
 #### Returns
 
 [`BlockStatus`](../type-aliases/BlockStatus.md)
@@ -151,8 +118,6 @@ Defined in: tevm-monorepo/packages/vm/types/actions/BlockBuilder.d.ts:37
 
 > **initState**(): `Promise`\<`void`\>
 
-Defined in: tevm-monorepo/packages/vm/types/actions/BlockBuilder.d.ts:81
-
 #### Returns
 
 `Promise`\<`void`\>
@@ -162,8 +127,6 @@ Defined in: tevm-monorepo/packages/vm/types/actions/BlockBuilder.d.ts:81
 ### logsBloom()
 
 > **logsBloom**(): `Uint8Array`\<`ArrayBufferLike`\>
-
-Defined in: tevm-monorepo/packages/vm/types/actions/BlockBuilder.d.ts:45
 
 Calculates and returns the logs bloom for the block.
 
@@ -177,8 +140,6 @@ Calculates and returns the logs bloom for the block.
 
 > **receiptTrie**(): `Promise`\<`Uint8Array`\<`ArrayBufferLike`\>\>
 
-Defined in: tevm-monorepo/packages/vm/types/actions/BlockBuilder.d.ts:49
-
 Calculates and returns the receiptTrie for the block.
 
 #### Returns
@@ -191,8 +152,6 @@ Calculates and returns the receiptTrie for the block.
 
 > **revert**(): `Promise`\<`void`\>
 
-Defined in: tevm-monorepo/packages/vm/types/actions/BlockBuilder.d.ts:68
-
 Reverts the checkpoint on the StateManager to reset the state from any transactions that have been run.
 
 #### Returns
@@ -204,8 +163,6 @@ Reverts the checkpoint on the StateManager to reset the state from any transacti
 ### transactionsTrie()
 
 > **transactionsTrie**(): `Promise`\<`Uint8Array`\<`ArrayBufferLike`\>\>
-
-Defined in: tevm-monorepo/packages/vm/types/actions/BlockBuilder.d.ts:41
 
 Calculates and returns the transactionsTrie for the block.
 

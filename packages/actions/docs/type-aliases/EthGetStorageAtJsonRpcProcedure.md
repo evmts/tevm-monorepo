@@ -12,9 +12,9 @@ Defined in: [packages/actions/src/eth/EthProcedure.ts:167](https://github.com/ev
 
 ## Parameters
 
-### request
-
-[`EthGetStorageAtJsonRpcRequest`](EthGetStorageAtJsonRpcRequest.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`EthGetStorageAtJsonRpcRequest`](EthGetStorageAtJsonRpcRequest.md) |
 
 ## Returns
 

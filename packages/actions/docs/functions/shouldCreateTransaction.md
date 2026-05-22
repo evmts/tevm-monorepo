@@ -16,13 +16,10 @@ Determines if a transaction should be created based on the parameters
 
 ## Parameters
 
-### params
-
-[`CallParams`](../type-aliases/CallParams.md)\<`boolean`\>
-
-### runTxResult
-
-`RunTxResult`
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `params` | [`CallParams`](../type-aliases/CallParams.md)\<`boolean`\> | - |
+| `runTxResult` | `RunTxResult` | - |
 
 ## Returns
 

@@ -14,8 +14,6 @@ Based on the JSON-RPC request for `eth_getBlockTransactionCountByNumber` procedu
 
 ## Properties
 
-### blockTag?
-
-> `readonly` `optional` **blockTag?**: [`BlockParam`](BlockParam.md)
-
-Defined in: [packages/actions/src/eth/EthParams.ts:148](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L148)
+| Property | Modifier | Type | Defined in |
+| ------ | ------ | ------ | ------ |
+| <a id="blocktag"></a> `blockTag?` | `readonly` | [`BlockParam`](BlockParam.md) | [packages/actions/src/eth/EthParams.ts:148](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L148) |

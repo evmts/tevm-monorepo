@@ -14,21 +14,11 @@ Recovers the public key from a signature
 
 ## Parameters
 
-### params
-
-The parameters
-
-#### hash
-
-`` `0x${string}` ``
-
-The message hash
-
-#### signature
-
-`Signature`
-
-The signature
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `params` | \{ `hash`: `` `0x${string}` ``; `signature`: `Signature`; \} | The parameters |
+| `params.hash` | `` `0x${string}` `` | The message hash |
+| `params.signature` | `Signature` | The signature |
 
 ## Returns
 

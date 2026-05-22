@@ -14,11 +14,9 @@ Mines a block including all transactions in the mempool.
 
 ## Parameters
 
-### params?
-
-[`MineParams`](MineParams.md)
-
-The parameters for the mine action.
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `params?` | [`MineParams`](MineParams.md) | The parameters for the mine action. |
 
 ## Returns
 

@@ -8,45 +8,20 @@
 
 > **ethGetBlockReceiptsHandler**(`client`): [`EthGetBlockReceiptsHandler`](../type-aliases/EthGetBlockReceiptsHandler.md)
 
-Defined in: [packages/actions/src/eth/ethGetBlockReceiptsHandler.js:49](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/ethGetBlockReceiptsHandler.js#L49)
+Defined in: [packages/actions/src/eth/ethGetBlockReceiptsHandler.js:29](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/ethGetBlockReceiptsHandler.js#L29)
 
-Retrieves all transaction receipts for a given block.
-
-This handler provides efficient bulk retrieval of receipts for all transactions in a block.
-It supports both block numbers and block hashes as identifiers.
+Retrieves all transaction receipts for a given block by number, tag, or hash.
 
 ## Parameters
 
-### client
-
-`TevmNode`\<`"fork"` \| `"normal"`, \{ \}\>
-
-The Tevm client instance
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `client` | `TevmNode`\<`"fork"` \| `"normal"`, \{ \}\> | - |
 
 ## Returns
 
 [`EthGetBlockReceiptsHandler`](../type-aliases/EthGetBlockReceiptsHandler.md)
 
-The handler function
-
 ## Throws
 
-If the block is not found or if there's an error processing receipts
-
-## Example
-
-```javascript
-import { createTevmNode } from '@tevm/node'
-import { ethGetBlockReceiptsHandler } from '@tevm/actions'
-
-const client = await createTevmNode()
-const handler = ethGetBlockReceiptsHandler(client)
-
-// Get receipts by block number
-const receipts = await handler({ blockTag: 1000n })
-
-// Get receipts by block hash
-const receiptsByHash = await handler({
-  blockHash: '0x1234567890abcdef...'
-})
-```
+If the block is not found or receipts cannot be processed.

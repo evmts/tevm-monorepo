@@ -8,17 +8,12 @@
 
 > **solcCompile**(`solc`, `input`): [`SolcOutput`](../type-aliases/SolcOutput.md)
 
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solc.d.ts:9
-
 ## Parameters
 
-### solc
-
-`any`
-
-### input
-
-[`SolcInputDescription`](../type-aliases/SolcInputDescription.md)
+| Parameter | Type |
+| ------ | ------ |
+| `solc` | `any` |
+| `input` | [`SolcInputDescription`](../type-aliases/SolcInputDescription.md)\<[`SolcLanguage`](../type-aliases/SolcLanguage.md)\> |
 
 ## Returns
 

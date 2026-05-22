@@ -12,9 +12,9 @@ Defined in: [tevm-monorepo/packages/state/src/createStateManager.js:36](https://
 
 ## Parameters
 
-### options
-
-[`StateOptions`](../type-aliases/StateOptions.md)
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `options` | [`StateOptions`](../type-aliases/StateOptions.md) | - |
 
 ## Returns
 

@@ -12,20 +12,7 @@ Event emitted when a new contract is created
 
 ## Properties
 
-### address
-
-> **address**: `Address`
-
-Defined in: [packages/actions/src/common/CallEvents.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/CallEvents.ts#L9)
-
-Address of the newly created contract
-
-***
-
-### code
-
-> **code**: `Uint8Array`
-
-Defined in: [packages/actions/src/common/CallEvents.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/CallEvents.ts#L11)
-
-Deployed contract bytecode
+| Property | Type | Description | Defined in |
+| ------ | ------ | ------ | ------ |
+| <a id="address"></a> `address` | `Address` | Address of the newly created contract | [packages/actions/src/common/CallEvents.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/CallEvents.ts#L9) |
+| <a id="code"></a> `code` | `Uint8Array` | Deployed contract bytecode | [packages/actions/src/common/CallEvents.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/CallEvents.ts#L11) |

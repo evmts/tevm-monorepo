@@ -18,31 +18,19 @@ Note: This is the internal logic used by higher-level APIs such as `tevmCall`.
 
 ## Parameters
 
-### client
-
-`TevmNode`\<`"fork"` \| `"normal"`, \{ \}\>
-
-The TEVM base client instance.
-
-### options?
-
-Optional parameters.
-
-#### throwOnFail?
-
-`boolean` = `true`
-
-Whether to throw an error on failure.
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `client` | `TevmNode`\<`"fork"` \| `"normal"`, \{ \}\> | - |
+| `options?` | \{ `throwOnFail?`: `boolean`; \} | - |
+| `options.throwOnFail?` | `boolean` | - |
 
 ## Returns
 
 [`CallHandler`](../type-aliases/CallHandler.md)
 
-The call handler function.
-
 ## Throws
 
-If `throwOnFail` is true, returns `TevmCallError` as value.
+If `throwOnFail` is true; otherwise returned in the result.
 
 ## Example
 

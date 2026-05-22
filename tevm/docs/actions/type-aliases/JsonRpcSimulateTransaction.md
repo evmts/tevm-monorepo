@@ -8,8 +8,6 @@
 
 > **JsonRpcSimulateTransaction** = [`JsonRpcTransaction`](JsonRpcTransaction.md) & `object`
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthJsonRpcRequest.d.ts:253
-
 JSON-RPC transaction for simulateV1
 
 ## Type Declaration

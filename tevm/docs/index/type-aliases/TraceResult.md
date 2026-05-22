@@ -8,38 +8,13 @@
 
 > **TraceResult** = `object`
 
-Defined in: tevm-monorepo/packages/actions/types/common/TraceResult.d.ts:4
-
 Result from `debug_*` with no tracer
 
 ## Properties
 
-### failed
-
-> **failed**: `boolean`
-
-Defined in: tevm-monorepo/packages/actions/types/common/TraceResult.d.ts:5
-
-***
-
-### gas
-
-> **gas**: `bigint`
-
-Defined in: tevm-monorepo/packages/actions/types/common/TraceResult.d.ts:6
-
-***
-
-### returnValue
-
-> **returnValue**: [`Hex`](../../actions/type-aliases/Hex.md)
-
-Defined in: tevm-monorepo/packages/actions/types/common/TraceResult.d.ts:7
-
-***
-
-### structLogs
-
-> **structLogs**: [`StructLog`](../../actions/type-aliases/StructLog.md)[]
-
-Defined in: tevm-monorepo/packages/actions/types/common/TraceResult.d.ts:8
+| Property | Type |
+| ------ | ------ |
+| <a id="failed"></a> `failed` | `boolean` |
+| <a id="gas"></a> `gas` | `bigint` |
+| <a id="returnvalue"></a> `returnValue` | [`Hex`](../../actions/type-aliases/Hex.md) |
+| <a id="structlogs"></a> `structLogs` | [`StructLog`](../../actions/type-aliases/StructLog.md)[] |

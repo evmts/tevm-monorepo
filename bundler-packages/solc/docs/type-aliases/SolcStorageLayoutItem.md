@@ -8,7 +8,7 @@
 
 > **SolcStorageLayoutItem**\<`T`\> = `object`
 
-Defined in: [solcTypes.ts:444](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L444)
+Defined in: [solcTypes.ts:470](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L470)
 
 An item present in the contract's storage
 
@@ -18,66 +18,17 @@ An item present in the contract's storage
 
 ## Type Parameters
 
-### T
-
-`T` *extends* [`SolcStorageLayoutTypes`](SolcStorageLayoutTypes.md) = [`SolcStorageLayoutTypes`](SolcStorageLayoutTypes.md)
+| Type Parameter | Default type |
+| ------ | ------ |
+| `T` *extends* [`SolcStorageLayoutTypes`](SolcStorageLayoutTypes.md) | [`SolcStorageLayoutTypes`](SolcStorageLayoutTypes.md) |
 
 ## Properties
 
-### astId
-
-> **astId**: `number`
-
-Defined in: [solcTypes.ts:448](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L448)
-
-The id of the AST node of the state variable's declaration
-
-***
-
-### contract
-
-> **contract**: `string`
-
-Defined in: [solcTypes.ts:452](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L452)
-
-The name of the contract including its path as prefix
-
-***
-
-### label
-
-> **label**: `string`
-
-Defined in: [solcTypes.ts:456](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L456)
-
-The name of the state variable
-
-***
-
-### offset
-
-> **offset**: `number`
-
-Defined in: [solcTypes.ts:460](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L460)
-
-The offset in bytes within the storage slot according to the encoding
-
-***
-
-### slot
-
-> **slot**: `string`
-
-Defined in: [solcTypes.ts:464](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L464)
-
-The storage slot where the state variable resides or starts
-
-***
-
-### type
-
-> **type**: keyof `T`
-
-Defined in: [solcTypes.ts:468](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L468)
-
-The identifier used as a key to the variable's type information in the [SolcStorageLayoutTypes](SolcStorageLayoutTypes.md) record
+| Property | Type | Description | Defined in |
+| ------ | ------ | ------ | ------ |
+| <a id="astid"></a> `astId` | `number` | The id of the AST node of the state variable's declaration | [solcTypes.ts:474](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L474) |
+| <a id="contract"></a> `contract` | `string` | The name of the contract including its path as prefix | [solcTypes.ts:478](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L478) |
+| <a id="label"></a> `label` | `string` | The name of the state variable | [solcTypes.ts:482](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L482) |
+| <a id="offset"></a> `offset` | `number` | The offset in bytes within the storage slot according to the encoding | [solcTypes.ts:486](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L486) |
+| <a id="slot"></a> `slot` | `string` | The storage slot where the state variable resides or starts | [solcTypes.ts:490](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L490) |
+| <a id="type"></a> `type` | keyof `T` | The identifier used as a key to the variable's type information in the [SolcStorageLayoutTypes](SolcStorageLayoutTypes.md) record | [solcTypes.ts:494](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L494) |

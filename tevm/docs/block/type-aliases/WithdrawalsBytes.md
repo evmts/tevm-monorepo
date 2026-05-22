@@ -8,8 +8,6 @@
 
 > **WithdrawalsBytes** = `Uint8Array`[]
 
-Defined in: tevm-monorepo/packages/block/types/types.d.ts:224
-
 Represents the raw byte representation of Ethereum withdrawal objects
 
 Each element in the array is a serialized withdrawal object from the Beacon chain.

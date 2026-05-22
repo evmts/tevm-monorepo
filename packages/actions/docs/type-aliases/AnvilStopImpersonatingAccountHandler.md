@@ -12,9 +12,9 @@ Defined in: [packages/actions/src/anvil/AnvilHandler.ts:53](https://github.com/e
 
 ## Parameters
 
-### params
-
-[`AnvilStopImpersonatingAccountParams`](AnvilStopImpersonatingAccountParams.md)
+| Parameter | Type |
+| ------ | ------ |
+| `params` | [`AnvilStopImpersonatingAccountParams`](AnvilStopImpersonatingAccountParams.md) |
 
 ## Returns
 

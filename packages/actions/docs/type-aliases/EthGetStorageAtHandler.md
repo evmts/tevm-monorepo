@@ -12,9 +12,9 @@ Defined in: [packages/actions/src/eth/EthHandler.ts:143](https://github.com/evmt
 
 ## Parameters
 
-### request
-
-[`EthGetStorageAtParams`](EthGetStorageAtParams.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`EthGetStorageAtParams`](EthGetStorageAtParams.md) |
 
 ## Returns
 

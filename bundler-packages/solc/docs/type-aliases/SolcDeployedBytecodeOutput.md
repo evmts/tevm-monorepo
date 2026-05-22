@@ -8,16 +8,10 @@
 
 > **SolcDeployedBytecodeOutput** = `object`
 
-Defined in: [solcTypes.ts:606](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L606)
+Defined in: [solcTypes.ts:632](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L632)
 
 ## Properties
 
-### immutableReferences
-
-> **immutableReferences**: `object`
-
-Defined in: [solcTypes.ts:608](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L608)
-
-#### Index Signature
-
-\[`astID`: `string`\]: `object`[]
+| Property | Type | Defined in |
+| ------ | ------ | ------ |
+| <a id="immutablereferences"></a> `immutableReferences` | `object` | [solcTypes.ts:634](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L634) |

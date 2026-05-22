@@ -8,76 +8,16 @@
 
 > **SolcOptimizerDetails** = `object`
 
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:18
-
 ## Properties
 
-### constantOptimizer
-
-> **constantOptimizer**: `boolean`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:25
-
-***
-
-### cse
-
-> **cse**: `boolean`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:24
-
-***
-
-### deduplicate
-
-> **deduplicate**: `boolean`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:23
-
-***
-
-### inliner
-
-> **inliner**: `boolean`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:20
-
-***
-
-### jumpdestRemover
-
-> **jumpdestRemover**: `boolean`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:21
-
-***
-
-### orderLiterals
-
-> **orderLiterals**: `boolean`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:22
-
-***
-
-### peephole
-
-> **peephole**: `boolean`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:19
-
-***
-
-### yul
-
-> **yul**: `boolean`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:26
-
-***
-
-### yulDetails
-
-> **yulDetails**: [`SolcYulDetails`](SolcYulDetails.md)
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:27
+| Property | Type |
+| ------ | ------ |
+| <a id="constantoptimizer"></a> `constantOptimizer?` | `boolean` |
+| <a id="cse"></a> `cse?` | `boolean` |
+| <a id="deduplicate"></a> `deduplicate?` | `boolean` |
+| <a id="inliner"></a> `inliner?` | `boolean` |
+| <a id="jumpdestremover"></a> `jumpdestRemover?` | `boolean` |
+| <a id="orderliterals"></a> `orderLiterals?` | `boolean` |
+| <a id="peephole"></a> `peephole?` | `boolean` |
+| <a id="yul"></a> `yul?` | `boolean` |
+| <a id="yuldetails"></a> `yulDetails?` | [`SolcYulDetails`](SolcYulDetails.md) |

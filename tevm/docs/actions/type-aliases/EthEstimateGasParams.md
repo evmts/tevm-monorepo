@@ -8,7 +8,5 @@
 
 > **EthEstimateGasParams** = [`CallParams`](CallParams.md)
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthParams.d.ts:65
-
 Based on the JSON-RPC request for `eth_estimateGas` procedure
 This type is a placeholder

@@ -8,44 +8,12 @@
 
 > **SolcGeneratedSource** = `object`
 
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:302
-
 ## Properties
 
-### ast
-
-> **ast**: `any`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:303
-
-***
-
-### contents
-
-> **contents**: `string`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:304
-
-***
-
-### id
-
-> **id**: `number`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:305
-
-***
-
-### language
-
-> **language**: `string`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:306
-
-***
-
-### name
-
-> **name**: `string`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:307
+| Property | Type |
+| ------ | ------ |
+| <a id="ast"></a> `ast` | [`SolcAst`](SolcAst.md) |
+| <a id="contents"></a> `contents` | `string` |
+| <a id="id"></a> `id` | `number` |
+| <a id="language"></a> `language` | `string` |
+| <a id="name"></a> `name` | `string` |

@@ -8,22 +8,11 @@
 
 > **EthGetBlockByHashParams** = `object`
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthParams.d.ts:106
-
 Based on the JSON-RPC request for `eth_getBlockByHash` procedure
 
 ## Properties
 
-### blockHash
-
-> `readonly` **blockHash**: [`Hex`](Hex.md)
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthParams.d.ts:107
-
-***
-
-### fullTransactionObjects
-
-> `readonly` **fullTransactionObjects**: `boolean`
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthParams.d.ts:108
+| Property | Modifier | Type |
+| ------ | ------ | ------ |
+| <a id="blockhash"></a> `blockHash` | `readonly` | [`Hex`](Hex.md) |
+| <a id="fulltransactionobjects"></a> `fullTransactionObjects` | `readonly` | `boolean` |

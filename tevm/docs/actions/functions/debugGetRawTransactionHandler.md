@@ -8,13 +8,11 @@
 
 > **debugGetRawTransactionHandler**(`client`): [`DebugGetRawTransactionHandler`](../type-aliases/DebugGetRawTransactionHandler.md)
 
-Defined in: tevm-monorepo/packages/actions/types/debug/debugGetRawTransactionHandler.d.ts:1
-
 ## Parameters
 
-### client
-
-[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{ \}\>
+| Parameter | Type |
+| ------ | ------ |
+| `client` | [`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{ \}\> |
 
 ## Returns
 

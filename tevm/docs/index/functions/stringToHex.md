@@ -8,23 +8,16 @@
 
 > **stringToHex**(`value_`, `opts?`): `` `0x${string}` ``
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/viem@2.49.3\_bufferutil@4.1.0\_typescript@6.0.3\_utf-8-validate@5.0.10\_zod@4.4.3/node\_modules/viem/\_types/utils/encoding/toHex.d.ts:147
-
 Encodes a UTF-8 string into a hex string
 
 - Docs: https://viem.sh/docs/utilities/toHex#stringtohex
 
 ## Parameters
 
-### value\_
-
-`string`
-
-### opts?
-
-`StringToHexOpts`
-
-Options.
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `value_` | `string` | - |
+| `opts?` | `StringToHexOpts` | Options. |
 
 ## Returns
 

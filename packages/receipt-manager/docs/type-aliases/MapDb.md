@@ -12,11 +12,9 @@ Defined in: zevm/npm/zevm/dist/receipt-manager.d.ts:6
 
 ## Properties
 
-### \_cache
-
-> **\_cache**: `Map`\<`PrefixedHexString`, `Uint8Array`\>
-
-Defined in: zevm/npm/zevm/dist/receipt-manager.d.ts:7
+| Property | Type | Defined in |
+| ------ | ------ | ------ |
+| <a id="_cache"></a> `_cache` | `Map`\<`PrefixedHexString`, `Uint8Array`\> | zevm/npm/zevm/dist/receipt-manager.d.ts:7 |
 
 ## Methods
 
@@ -40,13 +38,10 @@ Defined in: zevm/npm/zevm/dist/receipt-manager.d.ts:10
 
 #### Parameters
 
-##### type
-
-[`DbType`](DbType.md)
-
-##### hash
-
-`Uint8Array`
+| Parameter | Type |
+| ------ | ------ |
+| `type` | [`DbType`](DbType.md) |
+| `hash` | `Uint8Array` |
 
 #### Returns
 
@@ -62,13 +57,10 @@ Defined in: zevm/npm/zevm/dist/receipt-manager.d.ts:9
 
 #### Parameters
 
-##### type
-
-[`DbType`](DbType.md)
-
-##### hash
-
-`Uint8Array`
+| Parameter | Type |
+| ------ | ------ |
+| `type` | [`DbType`](DbType.md) |
+| `hash` | `Uint8Array` |
 
 #### Returns
 
@@ -84,17 +76,11 @@ Defined in: zevm/npm/zevm/dist/receipt-manager.d.ts:8
 
 #### Parameters
 
-##### type
-
-[`DbType`](DbType.md)
-
-##### hash
-
-`Uint8Array`
-
-##### value
-
-`Uint8Array`
+| Parameter | Type |
+| ------ | ------ |
+| `type` | [`DbType`](DbType.md) |
+| `hash` | `Uint8Array` |
+| `value` | `Uint8Array` |
 
 #### Returns
 

@@ -8,7 +8,5 @@
 
 > **TxReceiptWithType** = `PreByzantiumTxReceiptWithType` \| `PostByzantiumTxReceiptWithType`
 
-Defined in: tevm-monorepo/packages/receipt-manager/types/ReceiptManager.d.ts:80
-
 TxReceiptWithType extends TxReceipt to provide transaction type information
 This is used when the receipt needs to include the transaction type (EIP-2718)

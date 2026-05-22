@@ -8,13 +8,11 @@
 
 > **EthGetTransactionCountHandler** = (`request`) => `Promise`\<[`EthGetTransactionCountResult`](EthGetTransactionCountResult.md)\>
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthHandler.d.ts:23
-
 ## Parameters
 
-### request
-
-[`EthGetTransactionCountParams`](EthGetTransactionCountParams.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`EthGetTransactionCountParams`](EthGetTransactionCountParams.md) |
 
 ## Returns
 

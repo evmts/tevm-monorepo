@@ -8,8 +8,6 @@
 
 > **EIP1193RequestOptions** = `object`
 
-Defined in: tevm-monorepo/packages/decorators/dist/index.d.ts:330
-
 Options for EIP-1193 compatible JSON-RPC requests.
 Controls retry behavior for network requests to Ethereum providers.
 
@@ -35,16 +33,7 @@ await node.request({
 
 ## Properties
 
-### retryCount?
-
-> `optional` **retryCount?**: `number`
-
-Defined in: tevm-monorepo/packages/decorators/dist/index.d.ts:332
-
-***
-
-### retryDelay?
-
-> `optional` **retryDelay?**: `number`
-
-Defined in: tevm-monorepo/packages/decorators/dist/index.d.ts:331
+| Property | Type |
+| ------ | ------ |
+| <a id="retrycount"></a> `retryCount?` | `number` |
+| <a id="retrydelay"></a> `retryDelay?` | `number` |

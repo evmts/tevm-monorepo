@@ -8,13 +8,11 @@
 
 > **EthGetBlockReceiptsHandler** = (`request`) => `Promise`\<[`EthGetBlockReceiptsResult`](EthGetBlockReceiptsResult.md)\>
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthHandler.d.ts:30
-
 ## Parameters
 
-### request
-
-[`EthGetBlockReceiptsParams`](EthGetBlockReceiptsParams.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`EthGetBlockReceiptsParams`](EthGetBlockReceiptsParams.md) |
 
 ## Returns
 

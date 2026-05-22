@@ -12,19 +12,16 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/viem@2.49.3\_bufferutil@4.1.0\_typ
 
 ## Type Parameters
 
-### packedAbiTypes
-
-`packedAbiTypes` *extends* readonly `unknown`[] \| readonly `PackedAbiType`[]
+| Type Parameter |
+| ------ |
+| `packedAbiTypes` *extends* readonly `unknown`[] \| readonly `PackedAbiType`[] |
 
 ## Parameters
 
-### types
-
-`packedAbiTypes`
-
-### values
-
-`EncodePackedValues`\<`packedAbiTypes`\>
+| Parameter | Type |
+| ------ | ------ |
+| `types` | `packedAbiTypes` |
+| `values` | `EncodePackedValues`\<`packedAbiTypes`\> |
 
 ## Returns
 

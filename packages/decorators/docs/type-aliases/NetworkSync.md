@@ -34,30 +34,8 @@ if (syncStatus !== false) {
 
 ## Properties
 
-### currentBlock
-
-> **currentBlock**: [`Quantity`](Quantity.md)
-
-Defined in: [eip1193/NetworkSync.ts:45](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/NetworkSync.ts#L45)
-
-The current block number
-
-***
-
-### highestBlock
-
-> **highestBlock**: [`Quantity`](Quantity.md)
-
-Defined in: [eip1193/NetworkSync.ts:47](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/NetworkSync.ts#L47)
-
-Number of latest block on the network
-
-***
-
-### startingBlock
-
-> **startingBlock**: [`Quantity`](Quantity.md)
-
-Defined in: [eip1193/NetworkSync.ts:49](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/NetworkSync.ts#L49)
-
-Block number at which syncing started
+| Property | Type | Description | Defined in |
+| ------ | ------ | ------ | ------ |
+| <a id="currentblock"></a> `currentBlock` | [`Quantity`](Quantity.md) | The current block number | [eip1193/NetworkSync.ts:45](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/NetworkSync.ts#L45) |
+| <a id="highestblock"></a> `highestBlock` | [`Quantity`](Quantity.md) | Number of latest block on the network | [eip1193/NetworkSync.ts:47](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/NetworkSync.ts#L47) |
+| <a id="startingblock"></a> `startingBlock` | [`Quantity`](Quantity.md) | Block number at which syncing started | [eip1193/NetworkSync.ts:49](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/NetworkSync.ts#L49) |

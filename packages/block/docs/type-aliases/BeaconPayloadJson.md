@@ -42,152 +42,24 @@ async function getExecutionPayload(blockNumber: number) {
 
 ## Properties
 
-### base\_fee\_per\_gas
-
-> **base\_fee\_per\_gas**: `Hex`
-
-Defined in: [packages/block/src/from-beacon-payload.ts:53](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/from-beacon-payload.ts#L53)
-
-***
-
-### blob\_gas\_used?
-
-> `optional` **blob\_gas\_used?**: `Hex`
-
-Defined in: [packages/block/src/from-beacon-payload.ts:57](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/from-beacon-payload.ts#L57)
-
-***
-
-### block\_hash
-
-> **block\_hash**: `Hex`
-
-Defined in: [packages/block/src/from-beacon-payload.ts:54](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/from-beacon-payload.ts#L54)
-
-***
-
-### block\_number
-
-> **block\_number**: `Hex`
-
-Defined in: [packages/block/src/from-beacon-payload.ts:48](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/from-beacon-payload.ts#L48)
-
-***
-
-### excess\_blob\_gas?
-
-> `optional` **excess\_blob\_gas?**: `Hex`
-
-Defined in: [packages/block/src/from-beacon-payload.ts:58](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/from-beacon-payload.ts#L58)
-
-***
-
-### execution\_witness?
-
-> `optional` **execution\_witness?**: [`VerkleExecutionWitness`](../interfaces/VerkleExecutionWitness.md)
-
-Defined in: [packages/block/src/from-beacon-payload.ts:61](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/from-beacon-payload.ts#L61)
-
-***
-
-### extra\_data
-
-> **extra\_data**: `Hex`
-
-Defined in: [packages/block/src/from-beacon-payload.ts:52](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/from-beacon-payload.ts#L52)
-
-***
-
-### fee\_recipient
-
-> **fee\_recipient**: `Hex`
-
-Defined in: [packages/block/src/from-beacon-payload.ts:43](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/from-beacon-payload.ts#L43)
-
-***
-
-### gas\_limit
-
-> **gas\_limit**: `Hex`
-
-Defined in: [packages/block/src/from-beacon-payload.ts:49](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/from-beacon-payload.ts#L49)
-
-***
-
-### gas\_used
-
-> **gas\_used**: `Hex`
-
-Defined in: [packages/block/src/from-beacon-payload.ts:50](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/from-beacon-payload.ts#L50)
-
-***
-
-### logs\_bloom
-
-> **logs\_bloom**: `Hex`
-
-Defined in: [packages/block/src/from-beacon-payload.ts:46](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/from-beacon-payload.ts#L46)
-
-***
-
-### parent\_beacon\_block\_root?
-
-> `optional` **parent\_beacon\_block\_root?**: `Hex`
-
-Defined in: [packages/block/src/from-beacon-payload.ts:59](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/from-beacon-payload.ts#L59)
-
-***
-
-### parent\_hash
-
-> **parent\_hash**: `Hex`
-
-Defined in: [packages/block/src/from-beacon-payload.ts:42](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/from-beacon-payload.ts#L42)
-
-***
-
-### prev\_randao
-
-> **prev\_randao**: `Hex`
-
-Defined in: [packages/block/src/from-beacon-payload.ts:47](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/from-beacon-payload.ts#L47)
-
-***
-
-### receipts\_root
-
-> **receipts\_root**: `Hex`
-
-Defined in: [packages/block/src/from-beacon-payload.ts:45](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/from-beacon-payload.ts#L45)
-
-***
-
-### state\_root
-
-> **state\_root**: `Hex`
-
-Defined in: [packages/block/src/from-beacon-payload.ts:44](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/from-beacon-payload.ts#L44)
-
-***
-
-### timestamp
-
-> **timestamp**: `Hex`
-
-Defined in: [packages/block/src/from-beacon-payload.ts:51](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/from-beacon-payload.ts#L51)
-
-***
-
-### transactions
-
-> **transactions**: `Hex`[]
-
-Defined in: [packages/block/src/from-beacon-payload.ts:55](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/from-beacon-payload.ts#L55)
-
-***
-
-### withdrawals?
-
-> `optional` **withdrawals?**: `BeaconWithdrawal`[]
-
-Defined in: [packages/block/src/from-beacon-payload.ts:56](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/from-beacon-payload.ts#L56)
+| Property | Type | Defined in |
+| ------ | ------ | ------ |
+| <a id="base_fee_per_gas"></a> `base_fee_per_gas` | `Hex` | [packages/block/src/from-beacon-payload.ts:53](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/from-beacon-payload.ts#L53) |
+| <a id="blob_gas_used"></a> `blob_gas_used?` | `Hex` | [packages/block/src/from-beacon-payload.ts:57](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/from-beacon-payload.ts#L57) |
+| <a id="block_hash"></a> `block_hash` | `Hex` | [packages/block/src/from-beacon-payload.ts:54](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/from-beacon-payload.ts#L54) |
+| <a id="block_number"></a> `block_number` | `Hex` | [packages/block/src/from-beacon-payload.ts:48](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/from-beacon-payload.ts#L48) |
+| <a id="excess_blob_gas"></a> `excess_blob_gas?` | `Hex` | [packages/block/src/from-beacon-payload.ts:58](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/from-beacon-payload.ts#L58) |
+| <a id="execution_witness"></a> `execution_witness?` | [`VerkleExecutionWitness`](../interfaces/VerkleExecutionWitness.md) | [packages/block/src/from-beacon-payload.ts:61](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/from-beacon-payload.ts#L61) |
+| <a id="extra_data"></a> `extra_data` | `Hex` | [packages/block/src/from-beacon-payload.ts:52](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/from-beacon-payload.ts#L52) |
+| <a id="fee_recipient"></a> `fee_recipient` | `Hex` | [packages/block/src/from-beacon-payload.ts:43](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/from-beacon-payload.ts#L43) |
+| <a id="gas_limit"></a> `gas_limit` | `Hex` | [packages/block/src/from-beacon-payload.ts:49](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/from-beacon-payload.ts#L49) |
+| <a id="gas_used"></a> `gas_used` | `Hex` | [packages/block/src/from-beacon-payload.ts:50](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/from-beacon-payload.ts#L50) |
+| <a id="logs_bloom"></a> `logs_bloom` | `Hex` | [packages/block/src/from-beacon-payload.ts:46](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/from-beacon-payload.ts#L46) |
+| <a id="parent_beacon_block_root"></a> `parent_beacon_block_root?` | `Hex` | [packages/block/src/from-beacon-payload.ts:59](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/from-beacon-payload.ts#L59) |
+| <a id="parent_hash"></a> `parent_hash` | `Hex` | [packages/block/src/from-beacon-payload.ts:42](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/from-beacon-payload.ts#L42) |
+| <a id="prev_randao"></a> `prev_randao` | `Hex` | [packages/block/src/from-beacon-payload.ts:47](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/from-beacon-payload.ts#L47) |
+| <a id="receipts_root"></a> `receipts_root` | `Hex` | [packages/block/src/from-beacon-payload.ts:45](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/from-beacon-payload.ts#L45) |
+| <a id="state_root"></a> `state_root` | `Hex` | [packages/block/src/from-beacon-payload.ts:44](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/from-beacon-payload.ts#L44) |
+| <a id="timestamp"></a> `timestamp` | `Hex` | [packages/block/src/from-beacon-payload.ts:51](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/from-beacon-payload.ts#L51) |
+| <a id="transactions"></a> `transactions` | `Hex`[] | [packages/block/src/from-beacon-payload.ts:55](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/from-beacon-payload.ts#L55) |
+| <a id="withdrawals"></a> `withdrawals?` | `BeaconWithdrawal`[] | [packages/block/src/from-beacon-payload.ts:56](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/from-beacon-payload.ts#L56) |

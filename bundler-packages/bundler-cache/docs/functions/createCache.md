@@ -22,23 +22,11 @@ caching across different build systems.
 
 ## Parameters
 
-### cacheDir
-
-`string`
-
-Directory where cache files will be stored (relative to cwd)
-
-### fs
-
-[`FileAccessObject`](../type-aliases/FileAccessObject.md)
-
-File system interface for reading/writing
-
-### cwd
-
-`string`
-
-Current working directory, used as base for resolving paths
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `cacheDir` | `string` | Directory where cache files will be stored (relative to cwd) |
+| `fs` | [`FileAccessObject`](../type-aliases/FileAccessObject.md) | File system interface for reading/writing |
+| `cwd` | `string` | Current working directory, used as base for resolving paths |
 
 ## Returns
 

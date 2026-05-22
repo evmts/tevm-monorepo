@@ -6,102 +6,17 @@
 
 # Interface: Solc
 
-Defined in: [solcTypes.ts:885](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L885)
+Defined in: [solcTypes.ts:911](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L911)
 
 ## Properties
 
-### compile
-
-> **compile**: (`input`) => [`SolcOutput`](../type-aliases/SolcOutput.md)
-
-Defined in: [solcTypes.ts:891](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L891)
-
-#### Parameters
-
-##### input
-
-[`SolcInputDescription`](../type-aliases/SolcInputDescription.md)
-
-#### Returns
-
-[`SolcOutput`](../type-aliases/SolcOutput.md)
-
-***
-
-### features
-
-> **features**: `FeaturesConfig`
-
-Defined in: [solcTypes.ts:890](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L890)
-
-***
-
-### license
-
-> **license**: `string`
-
-Defined in: [solcTypes.ts:888](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L888)
-
-***
-
-### loadRemoteVersion
-
-> **loadRemoteVersion**: (`versionString`, `callback`) => `void`
-
-Defined in: [solcTypes.ts:892](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L892)
-
-#### Parameters
-
-##### versionString
-
-`string`
-
-##### callback
-
-(`err`, `solc?`) => `void`
-
-#### Returns
-
-`void`
-
-***
-
-### lowlevel
-
-> **lowlevel**: `LowLevelConfig`
-
-Defined in: [solcTypes.ts:889](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L889)
-
-***
-
-### semver
-
-> **semver**: `string`
-
-Defined in: [solcTypes.ts:887](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L887)
-
-***
-
-### setupMethods
-
-> **setupMethods**: (`soljson`) => `void`
-
-Defined in: [solcTypes.ts:893](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L893)
-
-#### Parameters
-
-##### soljson
-
-`any`
-
-#### Returns
-
-`void`
-
-***
-
-### version
-
-> **version**: `string`
-
-Defined in: [solcTypes.ts:886](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L886)
+| Property | Type | Defined in |
+| ------ | ------ | ------ |
+| <a id="compile"></a> `compile` | \<`T`\>(`input`) => [`SolcOutput`](../type-aliases/SolcOutput.md) | [solcTypes.ts:917](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L917) |
+| <a id="features"></a> `features` | `FeaturesConfig` | [solcTypes.ts:916](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L916) |
+| <a id="license"></a> `license` | `string` | [solcTypes.ts:914](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L914) |
+| <a id="loadremoteversion"></a> `loadRemoteVersion` | (`versionString`, `callback`) => `void` | [solcTypes.ts:918](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L918) |
+| <a id="lowlevel"></a> `lowlevel` | `LowLevelConfig` | [solcTypes.ts:915](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L915) |
+| <a id="semver"></a> `semver` | `string` | [solcTypes.ts:913](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L913) |
+| <a id="setupmethods"></a> `setupMethods` | (`soljson`) => `void` | [solcTypes.ts:919](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L919) |
+| <a id="version"></a> `version` | `string` | [solcTypes.ts:912](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L912) |

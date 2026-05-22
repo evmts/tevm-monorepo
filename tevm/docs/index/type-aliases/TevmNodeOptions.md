@@ -8,8 +8,6 @@
 
 > **TevmNodeOptions**\<`TCommon`\> = [`StateOptions`](StateOptions.md) & `object`
 
-Defined in: tevm-monorepo/packages/node/dist/index.d.ts:104
-
 Options for creating an Tevm MemoryClient instance
 
 ## Type Declaration
@@ -37,6 +35,13 @@ import { createMemoryClient } from 'tevm'}
 const client = createMemoryClient({ chain: optimism })
 ````
 `
+
+### consensus?
+
+> `readonly` `optional` **consensus?**: `ConsensusService`
+
+Consensus service used for trust assumptions and proof-backed reads.
+Defaults to a no-op trusted service in normal in-memory mode.
 
 ### customPrecompiles?
 
@@ -109,6 +114,36 @@ const tevm = createMemoryClient({
 })
 ```
 
+### exExHooks?
+
+> `readonly` `optional` **exExHooks?**: readonly [`ExExHook`](../../node/type-aliases/ExExHook.md)[]
+
+### lightSync?
+
+> `readonly` `optional` **lightSync?**: `object`
+
+#### Type Declaration
+
+#### lightSync.defaultCheckpoint?
+
+> `readonly` `optional` **defaultCheckpoint?**: `string`
+
+#### lightSync.explicitCheckpoint?
+
+> `readonly` `optional` **explicitCheckpoint?**: `string`
+
+#### lightSync.maxCheckpointAgeMs?
+
+> `readonly` `optional` **maxCheckpointAgeMs?**: `number`
+
+#### lightSync.persistedCheckpointPath?
+
+> `readonly` `optional` **persistedCheckpointPath?**: `string`
+
+#### lightSync.strictCheckpointAge?
+
+> `readonly` `optional` **strictCheckpointAge?**: `boolean`
+
 ### loggingLevel?
 
 > `readonly` `optional` **loggingLevel?**: `LogOptions`\[`"level"`\]
@@ -153,6 +188,6 @@ Enable profiler. Defaults to false.
 
 ## Type Parameters
 
-### TCommon
-
-`TCommon` *extends* [`Common`](../../common/type-aliases/Common.md) = [`Common`](../../common/type-aliases/Common.md)
+| Type Parameter | Default type |
+| ------ | ------ |
+| `TCommon` *extends* [`Common`](../../common/type-aliases/Common.md) | [`Common`](../../common/type-aliases/Common.md) |

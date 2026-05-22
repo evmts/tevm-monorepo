@@ -14,9 +14,9 @@ JSON-RPC procedure for `anvil_setBalance`
 
 ## Parameters
 
-### request
-
-[`AnvilSetBalanceJsonRpcRequest`](AnvilSetBalanceJsonRpcRequest.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`AnvilSetBalanceJsonRpcRequest`](AnvilSetBalanceJsonRpcRequest.md) |
 
 ## Returns
 

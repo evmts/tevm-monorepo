@@ -10,12 +10,7 @@
 
 ## Properties
 
-### epoch
-
-> **epoch**: `number`
-
-***
-
-### period
-
-> **period**: `number`
+| Property | Type |
+| ------ | ------ |
+| <a id="epoch"></a> `epoch` | `number` |
+| <a id="period"></a> `period` | `number` |

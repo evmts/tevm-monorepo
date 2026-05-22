@@ -8,8 +8,6 @@
 
 > **DumpStateParams**\<`TThrowOnFail`\> = [`BaseParams`](../../index/type-aliases/BaseParams.md)\<`TThrowOnFail`\> & `object`
 
-Defined in: tevm-monorepo/packages/actions/types/DumpState/DumpStateParams.d.ts:3
-
 ## Type Declaration
 
 ### blockTag?
@@ -23,6 +21,6 @@ Block tag to fetch account from
 
 ## Type Parameters
 
-### TThrowOnFail
-
-`TThrowOnFail` *extends* `boolean` = `boolean`
+| Type Parameter | Default type |
+| ------ | ------ |
+| `TThrowOnFail` *extends* `boolean` | `boolean` |

@@ -12,11 +12,10 @@ Defined in: [packages/jsonrpc/src/createJsonRpcFetcher.js:19](https://github.com
 
 ## Parameters
 
-### client
-
-#### request
-
-`EIP1193RequestFn`\<`undefined`, `false`\>
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `client` | \{ `request`: `EIP1193RequestFn`\<`undefined`, `false`\>; \} | - |
+| `client.request` | `EIP1193RequestFn`\<`undefined`, `false`\> | - |
 
 ## Returns
 

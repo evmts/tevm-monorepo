@@ -12,9 +12,9 @@ Defined in: [packages/actions/src/eth/EthProcedure.ts:127](https://github.com/ev
 
 ## Parameters
 
-### request
-
-[`EthMaxPriorityFeePerGasJsonRpcRequest`](EthMaxPriorityFeePerGasJsonRpcRequest.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`EthMaxPriorityFeePerGasJsonRpcRequest`](EthMaxPriorityFeePerGasJsonRpcRequest.md) |
 
 ## Returns
 

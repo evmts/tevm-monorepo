@@ -12,9 +12,9 @@ Defined in: [packages/actions/src/eth/EthProcedure.ts:117](https://github.com/ev
 
 ## Parameters
 
-### request
-
-[`EthCoinbaseJsonRpcRequest`](EthCoinbaseJsonRpcRequest.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`EthCoinbaseJsonRpcRequest`](EthCoinbaseJsonRpcRequest.md) |
 
 ## Returns
 

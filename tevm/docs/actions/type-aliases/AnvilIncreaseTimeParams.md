@@ -8,16 +8,10 @@
 
 > **AnvilIncreaseTimeParams** = `object`
 
-Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilParams.d.ts:306
-
 Params for `anvil_increaseTime` handler
 
 ## Properties
 
-### seconds
-
-> `readonly` **seconds**: `bigint`
-
-Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilParams.d.ts:310
-
-The number of seconds to increase time by
+| Property | Modifier | Type | Description |
+| ------ | ------ | ------ | ------ |
+| <a id="seconds"></a> `seconds` | `readonly` | `bigint` | The number of seconds to increase time by |

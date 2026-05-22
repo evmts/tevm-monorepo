@@ -35,1367 +35,165 @@ const balance = await node.request({
 
 ## Properties
 
-### eth\_blobGasPrice
-
-> **eth\_blobGasPrice**: `object`
-
-Defined in: [eip1193/JsonRpcSchemaPublic.ts:114](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L114)
-
-#### Method
-
-> **Method**: `"eth_blobGasPrice"`
-
-#### Parameters?
-
-> `optional` **Parameters?**: `undefined`
-
-#### ReturnType
-
-> **ReturnType**: `Quantity`
-
-#### Description
-
-Returns the current blob price of gas expressed in wei
-
-#### Example
-
-```ts
-provider.request({ method: 'eth_blobGasPrice' })
-// => '0x09184e72a000'
-```
-
-***
-
-### eth\_blockNumber
-
-> **eth\_blockNumber**: `object`
-
-Defined in: [eip1193/JsonRpcSchemaPublic.ts:126](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L126)
-
-#### Method
-
-> **Method**: `"eth_blockNumber"`
-
-#### Parameters?
-
-> `optional` **Parameters?**: `undefined`
-
-#### ReturnType
-
-> **ReturnType**: `Quantity`
-
-#### Description
-
-Returns the number of the most recent block seen by this client
-
-#### Example
-
-```ts
-provider.request({ method: 'eth_blockNumber' })
-// => '0x1b4'
-```
-
-***
-
-### eth\_call
-
-> **eth\_call**: `object`
-
-Defined in: [eip1193/JsonRpcSchemaPublic.ts:138](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L138)
-
-#### Method
-
-> **Method**: `"eth_call"`
-
-#### Parameters
-
-> **Parameters**: \[`Partial`\<`TransactionRequest`\>\] \| \[`Partial`\<`TransactionRequest`\>, `BlockNumber` \| `BlockTag` \| `BlockIdentifier`\] \| \[`Partial`\<`TransactionRequest`\>, `BlockNumber` \| `BlockTag` \| `BlockIdentifier`, `RpcStateOverride`\]
-
-#### ReturnType
-
-> **ReturnType**: `Hex`
-
-#### Description
-
-Executes a new message call immediately without submitting a transaction to the network
-
-#### Example
-
-```ts
-provider.request({ method: 'eth_call', params: [{ to: '0x...', data: '0x...' }] })
-// => '0x...'
-```
-
-***
-
-### eth\_chainId
-
-> **eth\_chainId**: `object`
-
-Defined in: [eip1193/JsonRpcSchemaPublic.ts:156](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L156)
-
-#### Method
-
-> **Method**: `"eth_chainId"`
-
-#### Parameters?
-
-> `optional` **Parameters?**: `undefined`
-
-#### ReturnType
-
-> **ReturnType**: `Quantity`
-
-#### Description
-
-Returns the chain ID associated with the current network
-
-#### Example
-
-```ts
-provider.request({ method: 'eth_chainId' })
-// => '1'
-```
-
-***
-
-### eth\_coinbase
-
-> **eth\_coinbase**: `object`
-
-Defined in: [eip1193/JsonRpcSchemaPublic.ts:167](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L167)
-
-#### Method
-
-> **Method**: `"eth_coinbase"`
-
-#### Parameters?
-
-> `optional` **Parameters?**: `undefined`
-
-#### ReturnType
-
-> **ReturnType**: `Address`
-
-#### Description
-
-Returns the client coinbase address.
-
-#### Example
-
-```ts
-provider.request({ method: 'eth_coinbase' })
-// => '0x...'
-```
-
-***
-
-### eth\_estimateGas
-
-> **eth\_estimateGas**: `object`
-
-Defined in: [eip1193/JsonRpcSchemaPublic.ts:182](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L182)
-
-#### Method
-
-> **Method**: `"eth_estimateGas"`
-
-#### Parameters
-
-> **Parameters**: \[`TransactionRequest`\] \| \[`TransactionRequest`, `BlockNumber` \| `BlockTag`\]
-
-#### ReturnType
-
-> **ReturnType**: `Quantity`
-
-#### Description
-
-Estimates the gas necessary to complete a transaction without submitting it to the network
-
-#### Example
-
-```ts
-provider.request({
- method: 'eth_estimateGas',
- params: [{ from: '0x...', to: '0x...', value: '0x...' }]
-})
-// => '0x5208'
-```
-
-***
-
-### eth\_feeHistory
-
-> **eth\_feeHistory**: `object`
-
-Defined in: [eip1193/JsonRpcSchemaPublic.ts:202](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L202)
-
-#### Method
-
-> **Method**: `"eth_feeHistory"`
-
-#### Parameters
-
-> **Parameters**: \[`Quantity`, `BlockNumber` \| `BlockTag`, `number`[] \| `undefined`\]
-
-#### ReturnType
-
-> **ReturnType**: `FeeHistory`
-
-#### Description
-
-Returns a collection of historical gas information
-
-#### Example
-
-```ts
-provider.request({
- method: 'eth_feeHistory',
- params: ['4', 'latest', ['25', '75']]
-})
-// => {
-//   oldestBlock: '0x1',
-//   baseFeePerGas: ['0x1', '0x2', '0x3', '0x4'],
-//   gasUsedRatio: ['0x1', '0x2', '0x3', '0x4'],
-//   reward: [['0x1', '0x2'], ['0x3', '0x4'], ['0x5', '0x6'], ['0x7', '0x8']]
-// }
-```
-
-***
-
-### eth\_gasPrice
-
-> **eth\_gasPrice**: `object`
-
-Defined in: [eip1193/JsonRpcSchemaPublic.ts:221](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L221)
-
-#### Method
-
-> **Method**: `"eth_gasPrice"`
-
-#### Parameters?
-
-> `optional` **Parameters?**: `undefined`
-
-#### ReturnType
-
-> **ReturnType**: `Quantity`
-
-#### Description
-
-Returns the current price of gas expressed in wei
-
-#### Example
-
-```ts
-provider.request({ method: 'eth_gasPrice' })
-// => '0x09184e72a000'
-```
-
-***
-
-### eth\_getBalance
-
-> **eth\_getBalance**: `object`
-
-Defined in: [eip1193/JsonRpcSchemaPublic.ts:233](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L233)
-
-#### Method
-
-> **Method**: `"eth_getBalance"`
-
-#### Parameters
-
-> **Parameters**: \[`Address`, `BlockNumber` \| `BlockTag` \| `BlockIdentifier`\]
-
-#### ReturnType
-
-> **ReturnType**: `Quantity`
-
-#### Description
-
-Returns the balance of an address in wei
-
-#### Example
-
-```ts
-provider.request({ method: 'eth_getBalance', params: ['0x...', 'latest'] })
-// => '0x12a05...'
-```
-
-***
-
-### eth\_getBlockByHash
-
-> **eth\_getBlockByHash**: `object`
-
-Defined in: [eip1193/JsonRpcSchemaPublic.ts:250](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L250)
-
-#### Method
-
-> **Method**: `"eth_getBlockByHash"`
-
-#### Parameters
-
-> **Parameters**: \[[`Hash`](Hash.md), `boolean`\]
-
-#### ReturnType
-
-> **ReturnType**: `Block` \| `null`
-
-#### Description
-
-Returns information about a block specified by hash
-
-#### Link
-
-https://eips.ethereum.org/EIPS/eip-1474
-
-#### Example
-
-```ts
-provider.request({ method: 'eth_getBlockByHash', params: ['0x...', true] })
-// => {
-//   number: '0x1b4',
-//   hash: '0x...',
-//   parentHash: '0x...',
-//   ...
-// }
-```
-
-***
-
-### eth\_getBlockByNumber
-
-> **eth\_getBlockByNumber**: `object`
-
-Defined in: [eip1193/JsonRpcSchemaPublic.ts:272](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L272)
-
-#### Method
-
-> **Method**: `"eth_getBlockByNumber"`
-
-#### Parameters
-
-> **Parameters**: \[`BlockNumber` \| `BlockTag`, `boolean`\]
-
-#### ReturnType
-
-> **ReturnType**: `Block` \| `null`
-
-#### Description
-
-Returns information about a block specified by number
-
-#### Link
-
-https://eips.ethereum.org/EIPS/eip-1474
-
-#### Example
-
-```ts
-provider.request({ method: 'eth_getBlockByNumber', params: ['0x1b4', true] })
-// => {
-//   number: '0x1b4',
-//   hash: '0x...',
-//   parentHash: '0x...',
-//   ...
-// }
-```
-
-***
-
-### eth\_getBlockTransactionCountByHash
-
-> **eth\_getBlockTransactionCountByHash**: `object`
-
-Defined in: [eip1193/JsonRpcSchemaPublic.ts:289](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L289)
-
-#### Method
-
-> **Method**: `"eth_getBlockTransactionCountByHash"`
-
-#### Parameters
-
-> **Parameters**: \[[`Hash`](Hash.md)\]
-
-#### ReturnType
-
-> **ReturnType**: `Quantity`
-
-#### Description
-
-Returns the number of transactions in a block specified by block hash
-
-#### Link
-
-https://eips.ethereum.org/EIPS/eip-1474
-
-#### Example
-
-```ts
-provider.request({ method: 'eth_getBlockTransactionCountByHash', params: ['0x...'] })
-// => '0x1'
-```
-
-***
-
-### eth\_getBlockTransactionCountByNumber
-
-> **eth\_getBlockTransactionCountByNumber**: `object`
-
-Defined in: [eip1193/JsonRpcSchemaPublic.ts:301](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L301)
-
-#### Method
-
-> **Method**: `"eth_getBlockTransactionCountByNumber"`
-
-#### Parameters
-
-> **Parameters**: \[`BlockNumber` \| `BlockTag`\]
-
-#### ReturnType
-
-> **ReturnType**: `Quantity`
-
-#### Description
-
-Returns the number of transactions in a block specified by block number
-
-#### Link
-
-https://eips.ethereum.org/EIPS/eip-1474
-
-#### Example
-
-```ts
-provider.request({ method: 'eth_getBlockTransactionCountByNumber', params: ['0x1b4'] })
-// => '0x1'
-```
-
-***
-
-### eth\_getCode
-
-> **eth\_getCode**: `object`
-
-Defined in: [eip1193/JsonRpcSchemaPublic.ts:313](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L313)
-
-#### Method
-
-> **Method**: `"eth_getCode"`
-
-#### Parameters
-
-> **Parameters**: \[`Address`, `BlockNumber` \| `BlockTag` \| `BlockIdentifier`\]
-
-#### ReturnType
-
-> **ReturnType**: `Hex`
-
-#### Description
-
-Returns the contract code stored at a given address
-
-#### Link
-
-https://eips.ethereum.org/EIPS/eip-1474
-
-#### Example
-
-```ts
-provider.request({ method: 'eth_getCode', params: ['0x...', 'latest'] })
-// => '0x...'
-```
-
-***
-
-### eth\_getFilterChanges
-
-> **eth\_getFilterChanges**: `object`
-
-Defined in: [eip1193/JsonRpcSchemaPublic.ts:325](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L325)
-
-#### Method
-
-> **Method**: `"eth_getFilterChanges"`
-
-#### Parameters
-
-> **Parameters**: \[`Quantity`\]
-
-#### ReturnType
-
-> **ReturnType**: `Log`[] \| `Hex`[]
-
-#### Description
-
-Returns a list of all logs based on filter ID since the last log retrieval
-
-#### Link
-
-https://eips.ethereum.org/EIPS/eip-1474
-
-#### Example
-
-```ts
-provider.request({ method: 'eth_getFilterChanges', params: ['0x...'] })
-// => [{ ... }, { ... }]
-```
-
-***
-
-### eth\_getFilterLogs
-
-> **eth\_getFilterLogs**: `object`
-
-Defined in: [eip1193/JsonRpcSchemaPublic.ts:337](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L337)
-
-#### Method
-
-> **Method**: `"eth_getFilterLogs"`
-
-#### Parameters
-
-> **Parameters**: \[`Quantity`\]
-
-#### ReturnType
-
-> **ReturnType**: `Log`[]
-
-#### Description
-
-Returns a list of all logs based on filter ID
-
-#### Link
-
-https://eips.ethereum.org/EIPS/eip-1474
-
-#### Example
-
-```ts
-provider.request({ method: 'eth_getFilterLogs', params: ['0x...'] })
-// => [{ ... }, { ... }]
-```
-
-***
-
-### eth\_getLogs
-
-> **eth\_getLogs**: `object`
-
-Defined in: [eip1193/JsonRpcSchemaPublic.ts:349](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L349)
-
-#### Method
-
-> **Method**: `"eth_getLogs"`
-
-#### Parameters
-
-> **Parameters**: \[`object` & \{ `blockHash?`: `never`; `fromBlock?`: `BlockNumber` \| `BlockTag`; `toBlock?`: `BlockNumber` \| `BlockTag`; \} \| \{ `blockHash?`: [`Hash`](Hash.md); `fromBlock?`: `never`; `toBlock?`: `never`; \}\]
-
-#### ReturnType
-
-> **ReturnType**: `Log`[]
-
-#### Description
-
-Returns a list of all logs based on a filter object
-
-#### Link
-
-https://eips.ethereum.org/EIPS/eip-1474
-
-#### Example
-
-```ts
-provider.request({ method: 'eth_getLogs', params: [{ fromBlock: '0x...', toBlock: '0x...', address: '0x...', topics: ['0x...'] }] })
-// => [{ ... }, { ... }]
-```
-
-***
-
-### eth\_getProof
-
-> **eth\_getProof**: `object`
-
-Defined in: [eip1193/JsonRpcSchemaPublic.ts:379](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L379)
-
-#### Method
-
-> **Method**: `"eth_getProof"`
-
-#### Parameters
-
-> **Parameters**: \[`Address`, [`Hash`](Hash.md)[], `BlockNumber` \| `BlockTag`\]
-
-#### ReturnType
-
-> **ReturnType**: `Proof`
-
-#### Description
-
-Returns the account and storage values of the specified account including the Merkle-proof.
-
-#### Link
-
-https://eips.ethereum.org/EIPS/eip-1186
-
-#### Example
-
-```ts
-provider.request({ method: 'eth_getProof', params: ['0x...', ['0x...'], 'latest'] })
-// => {
-//   ...
-// }
-```
-
-***
-
-### eth\_getStorageAt
-
-> **eth\_getStorageAt**: `object`
-
-Defined in: [eip1193/JsonRpcSchemaPublic.ts:397](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L397)
-
-#### Method
-
-> **Method**: `"eth_getStorageAt"`
-
-#### Parameters
-
-> **Parameters**: \[`Address`, `Quantity`, `BlockNumber` \| `BlockTag` \| `BlockIdentifier`\]
-
-#### ReturnType
-
-> **ReturnType**: `Hex`
-
-#### Description
-
-Returns the value from a storage position at an address
-
-#### Link
-
-https://eips.ethereum.org/EIPS/eip-1474
-
-#### Example
-
-```ts
-provider.request({ method: 'eth_getStorageAt', params: ['0x...', '0x...', 'latest'] })
-// => '0x...'
-```
-
-***
-
-### eth\_getTransactionByBlockHashAndIndex
-
-> **eth\_getTransactionByBlockHashAndIndex**: `object`
-
-Defined in: [eip1193/JsonRpcSchemaPublic.ts:409](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L409)
-
-#### Method
-
-> **Method**: `"eth_getTransactionByBlockHashAndIndex"`
-
-#### Parameters
-
-> **Parameters**: \[[`Hash`](Hash.md), `Quantity`\]
-
-#### ReturnType
-
-> **ReturnType**: `Transaction` \| `null`
-
-#### Description
-
-Returns information about a transaction specified by block hash and transaction index
-
-#### Link
-
-https://eips.ethereum.org/EIPS/eip-1474
-
-#### Example
-
-```ts
-provider.request({ method: 'eth_getTransactionByBlockHashAndIndex', params: ['0x...', '0x...'] })
-// => { ... }
-```
-
-***
-
-### eth\_getTransactionByBlockNumberAndIndex
-
-> **eth\_getTransactionByBlockNumberAndIndex**: `object`
-
-Defined in: [eip1193/JsonRpcSchemaPublic.ts:421](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L421)
-
-#### Method
-
-> **Method**: `"eth_getTransactionByBlockNumberAndIndex"`
-
-#### Parameters
-
-> **Parameters**: \[`BlockNumber` \| `BlockTag`, `Quantity`\]
-
-#### ReturnType
-
-> **ReturnType**: `Transaction` \| `null`
-
-#### Description
-
-Returns information about a transaction specified by block number and transaction index
-
-#### Link
-
-https://eips.ethereum.org/EIPS/eip-1474
-
-#### Example
-
-```ts
-provider.request({ method: 'eth_getTransactionByBlockNumberAndIndex', params: ['0x...', '0x...'] })
-// => { ... }
-```
-
-***
-
-### eth\_getTransactionByHash
-
-> **eth\_getTransactionByHash**: `object`
-
-Defined in: [eip1193/JsonRpcSchemaPublic.ts:433](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L433)
-
-#### Method
-
-> **Method**: `"eth_getTransactionByHash"`
-
-#### Parameters
-
-> **Parameters**: \[[`Hash`](Hash.md)\]
-
-#### ReturnType
-
-> **ReturnType**: `Transaction` \| `null`
-
-#### Description
-
-Returns information about a transaction specified by hash
-
-#### Link
-
-https://eips.ethereum.org/EIPS/eip-1474
-
-#### Example
-
-```ts
-provider.request({ method: 'eth_getTransactionByHash', params: ['0x...'] })
-// => { ... }
-```
-
-***
-
-### eth\_getTransactionCount
-
-> **eth\_getTransactionCount**: `object`
-
-Defined in: [eip1193/JsonRpcSchemaPublic.ts:445](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L445)
-
-#### Method
-
-> **Method**: `"eth_getTransactionCount"`
-
-#### Parameters
-
-> **Parameters**: \[`Address`, `BlockNumber` \| `BlockTag` \| `BlockIdentifier`\]
-
-#### ReturnType
-
-> **ReturnType**: `Quantity`
-
-#### Description
-
-Returns the number of transactions sent from an address
-
-#### Link
-
-https://eips.ethereum.org/EIPS/eip-1474
-
-#### Example
-
-```ts
-provider.request({ method: 'eth_getTransactionCount', params: ['0x...', 'latest'] })
-// => '0x1'
-```
-
-***
-
-### eth\_getTransactionReceipt
-
-> **eth\_getTransactionReceipt**: `object`
-
-Defined in: [eip1193/JsonRpcSchemaPublic.ts:457](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L457)
-
-#### Method
-
-> **Method**: `"eth_getTransactionReceipt"`
-
-#### Parameters
-
-> **Parameters**: \[[`Hash`](Hash.md)\]
-
-#### ReturnType
-
-> **ReturnType**: `TransactionReceipt` \| `null`
-
-#### Description
-
-Returns the receipt of a transaction specified by hash
-
-#### Link
-
-https://eips.ethereum.org/EIPS/eip-1474
-
-#### Example
-
-```ts
-provider.request({ method: 'eth_getTransactionReceipt', params: ['0x...'] })
-// => { ... }
-```
-
-***
-
-### eth\_getUncleByBlockHashAndIndex
-
-> **eth\_getUncleByBlockHashAndIndex**: `object`
-
-Defined in: [eip1193/JsonRpcSchemaPublic.ts:469](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L469)
-
-#### Method
-
-> **Method**: `"eth_getUncleByBlockHashAndIndex"`
-
-#### Parameters
-
-> **Parameters**: \[[`Hash`](Hash.md), `Quantity`\]
-
-#### ReturnType
-
-> **ReturnType**: `Uncle` \| `null`
-
-#### Description
-
-Returns information about an uncle specified by block hash and uncle index position
-
-#### Link
-
-https://eips.ethereum.org/EIPS/eip-1474
-
-#### Example
-
-```ts
-provider.request({ method: 'eth_getUncleByBlockHashAndIndex', params: ['0x...', '0x...'] })
-// => { ... }
-```
-
-***
-
-### eth\_getUncleByBlockNumberAndIndex
-
-> **eth\_getUncleByBlockNumberAndIndex**: `object`
-
-Defined in: [eip1193/JsonRpcSchemaPublic.ts:481](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L481)
-
-#### Method
-
-> **Method**: `"eth_getUncleByBlockNumberAndIndex"`
-
-#### Parameters
-
-> **Parameters**: \[`BlockNumber` \| `BlockTag`, `Quantity`\]
-
-#### ReturnType
-
-> **ReturnType**: `Uncle` \| `null`
-
-#### Description
-
-Returns information about an uncle specified by block number and uncle index position
-
-#### Link
-
-https://eips.ethereum.org/EIPS/eip-1474
-
-#### Example
-
-```ts
-provider.request({ method: 'eth_getUncleByBlockNumberAndIndex', params: ['0x...', '0x...'] })
-// => { ... }
-```
-
-***
-
-### eth\_getUncleCountByBlockHash
-
-> **eth\_getUncleCountByBlockHash**: `object`
-
-Defined in: [eip1193/JsonRpcSchemaPublic.ts:493](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L493)
-
-#### Method
-
-> **Method**: `"eth_getUncleCountByBlockHash"`
-
-#### Parameters
-
-> **Parameters**: \[[`Hash`](Hash.md)\]
-
-#### ReturnType
-
-> **ReturnType**: `Quantity`
-
-#### Description
-
-Returns the number of uncles in a block specified by block hash
-
-#### Link
-
-https://eips.ethereum.org/EIPS/eip-1474
-
-#### Example
-
-```ts
-provider.request({ method: 'eth_getUncleCountByBlockHash', params: ['0x...'] })
-// => '0x1'
-```
-
-***
-
-### eth\_getUncleCountByBlockNumber
-
-> **eth\_getUncleCountByBlockNumber**: `object`
-
-Defined in: [eip1193/JsonRpcSchemaPublic.ts:505](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L505)
-
-#### Method
-
-> **Method**: `"eth_getUncleCountByBlockNumber"`
-
-#### Parameters
-
-> **Parameters**: \[`BlockNumber` \| `BlockTag`\]
-
-#### ReturnType
-
-> **ReturnType**: `Quantity`
-
-#### Description
-
-Returns the number of uncles in a block specified by block number
-
-#### Link
-
-https://eips.ethereum.org/EIPS/eip-1474
-
-#### Example
-
-```ts
-provider.request({ method: 'eth_getUncleCountByBlockNumber', params: ['0x...'] })
-// => '0x1'
-```
-
-***
-
-### eth\_maxPriorityFeePerGas
-
-> **eth\_maxPriorityFeePerGas**: `object`
-
-Defined in: [eip1193/JsonRpcSchemaPublic.ts:517](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L517)
-
-#### Method
-
-> **Method**: `"eth_maxPriorityFeePerGas"`
-
-#### Parameters?
-
-> `optional` **Parameters?**: `undefined`
-
-#### ReturnType
-
-> **ReturnType**: `Quantity`
-
-#### Description
-
-Returns the current maxPriorityFeePerGas in wei.
-
-#### Link
-
-https://ethereum.github.io/execution-apis/api-documentation/
-
-#### Example
-
-```ts
-provider.request({ method: 'eth_maxPriorityFeePerGas' })
-// => '0x5f5e100'
-```
-
-***
-
-### eth\_newBlockFilter
-
-> **eth\_newBlockFilter**: `object`
-
-Defined in: [eip1193/JsonRpcSchemaPublic.ts:529](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L529)
-
-#### Method
-
-> **Method**: `"eth_newBlockFilter"`
-
-#### Parameters?
-
-> `optional` **Parameters?**: `undefined`
-
-#### ReturnType
-
-> **ReturnType**: `Quantity`
-
-#### Description
-
-Creates a filter to listen for new blocks that can be used with `eth_getFilterChanges`
-
-#### Link
-
-https://eips.ethereum.org/EIPS/eip-1474
-
-#### Example
-
-```ts
-provider.request({ method: 'eth_newBlockFilter' })
-// => '0x1'
-```
-
-***
-
-### eth\_newFilter
-
-> **eth\_newFilter**: `object`
-
-Defined in: [eip1193/JsonRpcSchemaPublic.ts:541](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L541)
-
-#### Method
-
-> **Method**: `"eth_newFilter"`
-
-#### Parameters
-
-> **Parameters**: \[`object`\]
-
-#### ReturnType
-
-> **ReturnType**: `Quantity`
-
-#### Description
-
-Creates a filter to listen for specific state changes that can then be used with `eth_getFilterChanges`
-
-#### Link
-
-https://eips.ethereum.org/EIPS/eip-1474
-
-#### Example
-
-```ts
-provider.request({ method: 'eth_newFilter', params: [{ fromBlock: '0x...', toBlock: '0x...', address: '0x...', topics: ['0x...'] }] })
-// => '0x1'
-```
-
-***
-
-### eth\_newPendingTransactionFilter
-
-> **eth\_newPendingTransactionFilter**: `object`
-
-Defined in: [eip1193/JsonRpcSchemaPublic.ts:560](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L560)
-
-#### Method
-
-> **Method**: `"eth_newPendingTransactionFilter"`
-
-#### Parameters?
-
-> `optional` **Parameters?**: `undefined`
-
-#### ReturnType
-
-> **ReturnType**: `Quantity`
-
-#### Description
-
-Creates a filter to listen for new pending transactions that can be used with `eth_getFilterChanges`
-
-#### Link
-
-https://eips.ethereum.org/EIPS/eip-1474
-
-#### Example
-
-```ts
-provider.request({ method: 'eth_newPendingTransactionFilter' })
-// => '0x1'
-```
-
-***
-
-### eth\_protocolVersion
-
-> **eth\_protocolVersion**: `object`
-
-Defined in: [eip1193/JsonRpcSchemaPublic.ts:572](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L572)
-
-#### Method
-
-> **Method**: `"eth_protocolVersion"`
-
-#### Parameters?
-
-> `optional` **Parameters?**: `undefined`
-
-#### ReturnType
-
-> **ReturnType**: `string`
-
-#### Description
-
-Returns the current Ethereum protocol version
-
-#### Link
-
-https://eips.ethereum.org/EIPS/eip-1474
-
-#### Example
-
-```ts
-provider.request({ method: 'eth_protocolVersion' })
-// => '54'
-```
-
-***
-
-### eth\_sendRawTransaction
-
-> **eth\_sendRawTransaction**: `object`
-
-Defined in: [eip1193/JsonRpcSchemaPublic.ts:584](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L584)
-
-#### Method
-
-> **Method**: `"eth_sendRawTransaction"`
-
-#### Parameters
-
-> **Parameters**: \[`Hex`\]
-
-#### ReturnType
-
-> **ReturnType**: [`Hash`](Hash.md)
-
-#### Description
-
-Sends a **signed** transaction to the network
-
-#### Link
-
-https://eips.ethereum.org/EIPS/eip-1474
-
-#### Example
-
-```ts
-provider.request({ method: 'eth_sendRawTransaction', params: ['0x...'] })
-// => '0x...'
-```
-
-***
-
-### eth\_uninstallFilter
-
-> **eth\_uninstallFilter**: `object`
-
-Defined in: [eip1193/JsonRpcSchemaPublic.ts:596](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L596)
-
-#### Method
-
-> **Method**: `"eth_uninstallFilter"`
-
-#### Parameters
-
-> **Parameters**: \[`Quantity`\]
-
-#### ReturnType
-
-> **ReturnType**: `boolean`
-
-#### Description
-
-Destroys a filter based on filter ID
-
-#### Link
-
-https://eips.ethereum.org/EIPS/eip-1474
-
-#### Example
-
-```ts
-provider.request({ method: 'eth_uninstallFilter', params: ['0x1'] })
-// => true
-```
-
-***
-
-### net\_listening
-
-> **net\_listening**: `object`
-
-Defined in: [eip1193/JsonRpcSchemaPublic.ts:78](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L78)
-
-#### Method
-
-> **Method**: `"net_listening"`
-
-#### Parameters?
-
-> `optional` **Parameters?**: `undefined`
-
-#### ReturnType
-
-> **ReturnType**: `boolean`
-
-#### Description
-
-Determines if this client is listening for new network connections
-
-#### Example
-
-```ts
-provider.request({ method: 'net_listening' })
-// => true
-```
-
-***
-
-### net\_peerCount
-
-> **net\_peerCount**: `object`
-
-Defined in: [eip1193/JsonRpcSchemaPublic.ts:90](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L90)
-
-#### Method
-
-> **Method**: `"net_peerCount"`
-
-#### Parameters?
-
-> `optional` **Parameters?**: `undefined`
-
-#### ReturnType
-
-> **ReturnType**: `Quantity`
-
-#### Description
-
-Returns the number of peers currently connected to this client
-
-#### Example
-
-```ts
-provider.request({ method: 'net_peerCount' })
-// => '0x1'
-```
-
-***
-
-### net\_version
-
-> **net\_version**: `object`
-
-Defined in: [eip1193/JsonRpcSchemaPublic.ts:102](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L102)
-
-#### Method
-
-> **Method**: `"net_version"`
-
-#### Parameters?
-
-> `optional` **Parameters?**: `undefined`
-
-#### ReturnType
-
-> **ReturnType**: `Quantity`
-
-#### Description
-
-Returns the chain ID associated with the current network
-
-#### Example
-
-```ts
-provider.request({ method: 'net_version' })
-// => '1'
-```
-
-***
-
-### web3\_clientVersion
-
-> **web3\_clientVersion**: `object`
-
-Defined in: [eip1193/JsonRpcSchemaPublic.ts:54](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L54)
-
-#### Method
-
-> **Method**: `"web3_clientVersion"`
-
-#### Parameters?
-
-> `optional` **Parameters?**: `undefined`
-
-#### ReturnType
-
-> **ReturnType**: `string`
-
-#### Description
-
-Returns the version of the current client
-
-#### Example
-
-```ts
-provider.request({ method: 'web3_clientVersion' })
-// => 'MetaMask/v1.0.0'
-```
-
-***
-
-### web3\_sha3
-
-> **web3\_sha3**: `object`
-
-Defined in: [eip1193/JsonRpcSchemaPublic.ts:66](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L66)
-
-#### Method
-
-> **Method**: `"web3_sha3"`
-
-#### Parameters
-
-> **Parameters**: \[[`Hash`](Hash.md)\]
-
-#### ReturnType
-
-> **ReturnType**: `string`
-
-#### Description
-
-Hashes data using the Keccak-256 algorithm
-
-#### Example
-
-```ts
-provider.request({ method: 'web3_sha3', params: ['0x68656c6c6f20776f726c64'] })
-// => '0xc94770007dda54cF92009BFF0dE90c06F603a09f'
-```
+| Property | Type | Description | Defined in |
+| ------ | ------ | ------ | ------ |
+| <a id="eth_blobbasefee"></a> `eth_blobBaseFee` | `object` | **Description** Returns the current blob price of gas expressed in wei **Example** `provider.request({ method: 'eth_blobBaseFee' }) // => '0x09184e72a000'` | [eip1193/JsonRpcSchemaPublic.ts:114](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L114) |
+| `eth_blobBaseFee.Method` | `"eth_blobBaseFee"` | - | [eip1193/JsonRpcSchemaPublic.ts:115](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L115) |
+| `eth_blobBaseFee.Parameters?` | `undefined` | - | [eip1193/JsonRpcSchemaPublic.ts:116](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L116) |
+| `eth_blobBaseFee.ReturnType` | `Quantity` | - | [eip1193/JsonRpcSchemaPublic.ts:117](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L117) |
+| <a id="eth_blocknumber"></a> `eth_blockNumber` | `object` | **Description** Returns the number of the most recent block seen by this client **Example** `provider.request({ method: 'eth_blockNumber' }) // => '0x1b4'` | [eip1193/JsonRpcSchemaPublic.ts:126](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L126) |
+| `eth_blockNumber.Method` | `"eth_blockNumber"` | - | [eip1193/JsonRpcSchemaPublic.ts:127](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L127) |
+| `eth_blockNumber.Parameters?` | `undefined` | - | [eip1193/JsonRpcSchemaPublic.ts:128](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L128) |
+| `eth_blockNumber.ReturnType` | `Quantity` | - | [eip1193/JsonRpcSchemaPublic.ts:129](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L129) |
+| <a id="eth_call"></a> `eth_call` | `object` | **Description** Executes a new message call immediately without submitting a transaction to the network **Example** `provider.request({ method: 'eth_call', params: [{ to: '0x...', data: '0x...' }] }) // => '0x...'` | [eip1193/JsonRpcSchemaPublic.ts:138](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L138) |
+| `eth_call.Method` | `"eth_call"` | - | [eip1193/JsonRpcSchemaPublic.ts:139](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L139) |
+| `eth_call.Parameters` | \[`Partial`\<`TransactionRequest`\>\] \| \[`Partial`\<`TransactionRequest`\>, `BlockNumber` \| `BlockTag` \| `BlockIdentifier`\] \| \[`Partial`\<`TransactionRequest`\>, `BlockNumber` \| `BlockTag` \| `BlockIdentifier`, `RpcStateOverride`\] | - | [eip1193/JsonRpcSchemaPublic.ts:140](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L140) |
+| `eth_call.ReturnType` | `Hex` | - | [eip1193/JsonRpcSchemaPublic.ts:148](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L148) |
+| <a id="eth_chainid"></a> `eth_chainId` | `object` | **Description** Returns the chain ID associated with the current network **Example** `provider.request({ method: 'eth_chainId' }) // => '1'` | [eip1193/JsonRpcSchemaPublic.ts:156](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L156) |
+| `eth_chainId.Method` | `"eth_chainId"` | - | [eip1193/JsonRpcSchemaPublic.ts:157](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L157) |
+| `eth_chainId.Parameters?` | `undefined` | - | [eip1193/JsonRpcSchemaPublic.ts:158](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L158) |
+| `eth_chainId.ReturnType` | `Quantity` | - | [eip1193/JsonRpcSchemaPublic.ts:159](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L159) |
+| <a id="eth_coinbase"></a> `eth_coinbase` | `object` | **Description** Returns the client coinbase address. **Example** `provider.request({ method: 'eth_coinbase' }) // => '0x...'` | [eip1193/JsonRpcSchemaPublic.ts:167](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L167) |
+| `eth_coinbase.Method` | `"eth_coinbase"` | - | [eip1193/JsonRpcSchemaPublic.ts:168](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L168) |
+| `eth_coinbase.Parameters?` | `undefined` | - | [eip1193/JsonRpcSchemaPublic.ts:169](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L169) |
+| `eth_coinbase.ReturnType` | `Address` | - | [eip1193/JsonRpcSchemaPublic.ts:170](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L170) |
+| <a id="eth_estimategas"></a> `eth_estimateGas` | `object` | **Description** Estimates the gas necessary to complete a transaction without submitting it to the network **Example** `provider.request({ method: 'eth_estimateGas', params: [{ from: '0x...', to: '0x...', value: '0x...' }] }) // => '0x5208'` | [eip1193/JsonRpcSchemaPublic.ts:182](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L182) |
+| `eth_estimateGas.Method` | `"eth_estimateGas"` | - | [eip1193/JsonRpcSchemaPublic.ts:183](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L183) |
+| `eth_estimateGas.Parameters` | \[`TransactionRequest`\] \| \[`TransactionRequest`, `BlockNumber` \| `BlockTag`\] | - | [eip1193/JsonRpcSchemaPublic.ts:184](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L184) |
+| `eth_estimateGas.ReturnType` | `Quantity` | - | [eip1193/JsonRpcSchemaPublic.ts:185](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L185) |
+| <a id="eth_feehistory"></a> `eth_feeHistory` | `object` | **Description** Returns a collection of historical gas information **Example** `provider.request({ method: 'eth_feeHistory', params: ['4', 'latest', ['25', '75']] }) // => { // oldestBlock: '0x1', // baseFeePerGas: ['0x1', '0x2', '0x3', '0x4'], // gasUsedRatio: ['0x1', '0x2', '0x3', '0x4'], // reward: [['0x1', '0x2'], ['0x3', '0x4'], ['0x5', '0x6'], ['0x7', '0x8']] // }` | [eip1193/JsonRpcSchemaPublic.ts:202](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L202) |
+| `eth_feeHistory.Method` | `"eth_feeHistory"` | - | [eip1193/JsonRpcSchemaPublic.ts:203](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L203) |
+| `eth_feeHistory.Parameters` | \[`Quantity`, `BlockNumber` \| `BlockTag`, `number`[] \| `undefined`\] | - | [eip1193/JsonRpcSchemaPublic.ts:204](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L204) |
+| `eth_feeHistory.ReturnType` | `FeeHistory` | - | [eip1193/JsonRpcSchemaPublic.ts:212](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L212) |
+| <a id="eth_gasprice"></a> `eth_gasPrice` | `object` | **Description** Returns the current price of gas expressed in wei **Example** `provider.request({ method: 'eth_gasPrice' }) // => '0x09184e72a000'` | [eip1193/JsonRpcSchemaPublic.ts:221](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L221) |
+| `eth_gasPrice.Method` | `"eth_gasPrice"` | - | [eip1193/JsonRpcSchemaPublic.ts:222](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L222) |
+| `eth_gasPrice.Parameters?` | `undefined` | - | [eip1193/JsonRpcSchemaPublic.ts:223](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L223) |
+| `eth_gasPrice.ReturnType` | `Quantity` | - | [eip1193/JsonRpcSchemaPublic.ts:224](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L224) |
+| <a id="eth_getbalance"></a> `eth_getBalance` | `object` | **Description** Returns the balance of an address in wei **Example** `provider.request({ method: 'eth_getBalance', params: ['0x...', 'latest'] }) // => '0x12a05...'` | [eip1193/JsonRpcSchemaPublic.ts:233](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L233) |
+| `eth_getBalance.Method` | `"eth_getBalance"` | - | [eip1193/JsonRpcSchemaPublic.ts:234](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L234) |
+| `eth_getBalance.Parameters` | \[`Address`, `BlockNumber` \| `BlockTag` \| `BlockIdentifier`\] | - | [eip1193/JsonRpcSchemaPublic.ts:235](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L235) |
+| `eth_getBalance.ReturnType` | `Quantity` | - | [eip1193/JsonRpcSchemaPublic.ts:236](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L236) |
+| <a id="eth_getblockbyhash"></a> `eth_getBlockByHash` | `object` | **Description** Returns information about a block specified by hash **Link** https://eips.ethereum.org/EIPS/eip-1474 **Example** `provider.request({ method: 'eth_getBlockByHash', params: ['0x...', true] }) // => { // number: '0x1b4', // hash: '0x...', // parentHash: '0x...', // ... // }` | [eip1193/JsonRpcSchemaPublic.ts:250](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L250) |
+| `eth_getBlockByHash.Method` | `"eth_getBlockByHash"` | - | [eip1193/JsonRpcSchemaPublic.ts:251](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L251) |
+| `eth_getBlockByHash.Parameters` | \[[`Hash`](Hash.md), `boolean`\] | - | [eip1193/JsonRpcSchemaPublic.ts:252](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L252) |
+| `eth_getBlockByHash.ReturnType` | `Block` \| `null` | - | [eip1193/JsonRpcSchemaPublic.ts:258](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L258) |
+| <a id="eth_getblockbynumber"></a> `eth_getBlockByNumber` | `object` | **Description** Returns information about a block specified by number **Link** https://eips.ethereum.org/EIPS/eip-1474 **Example** `provider.request({ method: 'eth_getBlockByNumber', params: ['0x1b4', true] }) // => { // number: '0x1b4', // hash: '0x...', // parentHash: '0x...', // ... // }` | [eip1193/JsonRpcSchemaPublic.ts:272](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L272) |
+| `eth_getBlockByNumber.Method` | `"eth_getBlockByNumber"` | - | [eip1193/JsonRpcSchemaPublic.ts:273](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L273) |
+| `eth_getBlockByNumber.Parameters` | \[`BlockNumber` \| `BlockTag`, `boolean`\] | - | [eip1193/JsonRpcSchemaPublic.ts:274](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L274) |
+| `eth_getBlockByNumber.ReturnType` | `Block` \| `null` | - | [eip1193/JsonRpcSchemaPublic.ts:280](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L280) |
+| <a id="eth_getblocktransactioncountbyhash"></a> `eth_getBlockTransactionCountByHash` | `object` | **Description** Returns the number of transactions in a block specified by block hash **Link** https://eips.ethereum.org/EIPS/eip-1474 **Example** `provider.request({ method: 'eth_getBlockTransactionCountByHash', params: ['0x...'] }) // => '0x1'` | [eip1193/JsonRpcSchemaPublic.ts:289](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L289) |
+| `eth_getBlockTransactionCountByHash.Method` | `"eth_getBlockTransactionCountByHash"` | - | [eip1193/JsonRpcSchemaPublic.ts:290](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L290) |
+| `eth_getBlockTransactionCountByHash.Parameters` | \[[`Hash`](Hash.md)\] | - | [eip1193/JsonRpcSchemaPublic.ts:291](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L291) |
+| `eth_getBlockTransactionCountByHash.ReturnType` | `Quantity` | - | [eip1193/JsonRpcSchemaPublic.ts:292](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L292) |
+| <a id="eth_getblocktransactioncountbynumber"></a> `eth_getBlockTransactionCountByNumber` | `object` | **Description** Returns the number of transactions in a block specified by block number **Link** https://eips.ethereum.org/EIPS/eip-1474 **Example** `provider.request({ method: 'eth_getBlockTransactionCountByNumber', params: ['0x1b4'] }) // => '0x1'` | [eip1193/JsonRpcSchemaPublic.ts:301](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L301) |
+| `eth_getBlockTransactionCountByNumber.Method` | `"eth_getBlockTransactionCountByNumber"` | - | [eip1193/JsonRpcSchemaPublic.ts:302](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L302) |
+| `eth_getBlockTransactionCountByNumber.Parameters` | \[`BlockNumber` \| `BlockTag`\] | - | [eip1193/JsonRpcSchemaPublic.ts:303](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L303) |
+| `eth_getBlockTransactionCountByNumber.ReturnType` | `Quantity` | - | [eip1193/JsonRpcSchemaPublic.ts:304](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L304) |
+| <a id="eth_getcode"></a> `eth_getCode` | `object` | **Description** Returns the contract code stored at a given address **Link** https://eips.ethereum.org/EIPS/eip-1474 **Example** `provider.request({ method: 'eth_getCode', params: ['0x...', 'latest'] }) // => '0x...'` | [eip1193/JsonRpcSchemaPublic.ts:313](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L313) |
+| `eth_getCode.Method` | `"eth_getCode"` | - | [eip1193/JsonRpcSchemaPublic.ts:314](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L314) |
+| `eth_getCode.Parameters` | \[`Address`, `BlockNumber` \| `BlockTag` \| `BlockIdentifier`\] | - | [eip1193/JsonRpcSchemaPublic.ts:315](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L315) |
+| `eth_getCode.ReturnType` | `Hex` | - | [eip1193/JsonRpcSchemaPublic.ts:316](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L316) |
+| <a id="eth_getfilterchanges"></a> `eth_getFilterChanges` | `object` | **Description** Returns a list of all logs based on filter ID since the last log retrieval **Link** https://eips.ethereum.org/EIPS/eip-1474 **Example** `provider.request({ method: 'eth_getFilterChanges', params: ['0x...'] }) // => [{ ... }, { ... }]` | [eip1193/JsonRpcSchemaPublic.ts:325](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L325) |
+| `eth_getFilterChanges.Method` | `"eth_getFilterChanges"` | - | [eip1193/JsonRpcSchemaPublic.ts:326](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L326) |
+| `eth_getFilterChanges.Parameters` | \[`Quantity`\] | - | [eip1193/JsonRpcSchemaPublic.ts:327](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L327) |
+| `eth_getFilterChanges.ReturnType` | `Log`[] \| `Hex`[] | - | [eip1193/JsonRpcSchemaPublic.ts:328](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L328) |
+| <a id="eth_getfilterlogs"></a> `eth_getFilterLogs` | `object` | **Description** Returns a list of all logs based on filter ID **Link** https://eips.ethereum.org/EIPS/eip-1474 **Example** `provider.request({ method: 'eth_getFilterLogs', params: ['0x...'] }) // => [{ ... }, { ... }]` | [eip1193/JsonRpcSchemaPublic.ts:337](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L337) |
+| `eth_getFilterLogs.Method` | `"eth_getFilterLogs"` | - | [eip1193/JsonRpcSchemaPublic.ts:338](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L338) |
+| `eth_getFilterLogs.Parameters` | \[`Quantity`\] | - | [eip1193/JsonRpcSchemaPublic.ts:339](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L339) |
+| `eth_getFilterLogs.ReturnType` | `Log`[] | - | [eip1193/JsonRpcSchemaPublic.ts:340](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L340) |
+| <a id="eth_getlogs"></a> `eth_getLogs` | `object` | **Description** Returns a list of all logs based on a filter object **Link** https://eips.ethereum.org/EIPS/eip-1474 **Example** `provider.request({ method: 'eth_getLogs', params: [{ fromBlock: '0x...', toBlock: '0x...', address: '0x...', topics: ['0x...'] }] }) // => [{ ... }, { ... }]` | [eip1193/JsonRpcSchemaPublic.ts:349](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L349) |
+| `eth_getLogs.Method` | `"eth_getLogs"` | - | [eip1193/JsonRpcSchemaPublic.ts:350](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L350) |
+| `eth_getLogs.Parameters` | \[`object` & \{ `blockHash?`: `never`; `fromBlock?`: `BlockNumber` \| `BlockTag`; `toBlock?`: `BlockNumber` \| `BlockTag`; \} \| \{ `blockHash?`: [`Hash`](Hash.md); `fromBlock?`: `never`; `toBlock?`: `never`; \}\] | - | [eip1193/JsonRpcSchemaPublic.ts:351](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L351) |
+| `eth_getLogs.ReturnType` | `Log`[] | - | [eip1193/JsonRpcSchemaPublic.ts:368](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L368) |
+| <a id="eth_getproof"></a> `eth_getProof` | `object` | **Description** Returns the account and storage values of the specified account including the Merkle-proof. **Link** https://eips.ethereum.org/EIPS/eip-1186 **Example** `provider.request({ method: 'eth_getProof', params: ['0x...', ['0x...'], 'latest'] }) // => { // ... // }` | [eip1193/JsonRpcSchemaPublic.ts:379](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L379) |
+| `eth_getProof.Method` | `"eth_getProof"` | - | [eip1193/JsonRpcSchemaPublic.ts:380](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L380) |
+| `eth_getProof.Parameters` | \[`Address`, [`Hash`](Hash.md)[], `BlockNumber` \| `BlockTag`\] | - | [eip1193/JsonRpcSchemaPublic.ts:381](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L381) |
+| `eth_getProof.ReturnType` | `Proof` | - | [eip1193/JsonRpcSchemaPublic.ts:388](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L388) |
+| <a id="eth_getstorageat"></a> `eth_getStorageAt` | `object` | **Description** Returns the value from a storage position at an address **Link** https://eips.ethereum.org/EIPS/eip-1474 **Example** `provider.request({ method: 'eth_getStorageAt', params: ['0x...', '0x...', 'latest'] }) // => '0x...'` | [eip1193/JsonRpcSchemaPublic.ts:397](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L397) |
+| `eth_getStorageAt.Method` | `"eth_getStorageAt"` | - | [eip1193/JsonRpcSchemaPublic.ts:398](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L398) |
+| `eth_getStorageAt.Parameters` | \[`Address`, `Quantity`, `BlockNumber` \| `BlockTag` \| `BlockIdentifier`\] | - | [eip1193/JsonRpcSchemaPublic.ts:399](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L399) |
+| `eth_getStorageAt.ReturnType` | `Hex` | - | [eip1193/JsonRpcSchemaPublic.ts:400](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L400) |
+| <a id="eth_gettransactionbyblockhashandindex"></a> `eth_getTransactionByBlockHashAndIndex` | `object` | **Description** Returns information about a transaction specified by block hash and transaction index **Link** https://eips.ethereum.org/EIPS/eip-1474 **Example** `provider.request({ method: 'eth_getTransactionByBlockHashAndIndex', params: ['0x...', '0x...'] }) // => { ... }` | [eip1193/JsonRpcSchemaPublic.ts:409](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L409) |
+| `eth_getTransactionByBlockHashAndIndex.Method` | `"eth_getTransactionByBlockHashAndIndex"` | - | [eip1193/JsonRpcSchemaPublic.ts:410](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L410) |
+| `eth_getTransactionByBlockHashAndIndex.Parameters` | \[[`Hash`](Hash.md), `Quantity`\] | - | [eip1193/JsonRpcSchemaPublic.ts:411](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L411) |
+| `eth_getTransactionByBlockHashAndIndex.ReturnType` | `Transaction` \| `null` | - | [eip1193/JsonRpcSchemaPublic.ts:412](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L412) |
+| <a id="eth_gettransactionbyblocknumberandindex"></a> `eth_getTransactionByBlockNumberAndIndex` | `object` | **Description** Returns information about a transaction specified by block number and transaction index **Link** https://eips.ethereum.org/EIPS/eip-1474 **Example** `provider.request({ method: 'eth_getTransactionByBlockNumberAndIndex', params: ['0x...', '0x...'] }) // => { ... }` | [eip1193/JsonRpcSchemaPublic.ts:421](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L421) |
+| `eth_getTransactionByBlockNumberAndIndex.Method` | `"eth_getTransactionByBlockNumberAndIndex"` | - | [eip1193/JsonRpcSchemaPublic.ts:422](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L422) |
+| `eth_getTransactionByBlockNumberAndIndex.Parameters` | \[`BlockNumber` \| `BlockTag`, `Quantity`\] | - | [eip1193/JsonRpcSchemaPublic.ts:423](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L423) |
+| `eth_getTransactionByBlockNumberAndIndex.ReturnType` | `Transaction` \| `null` | - | [eip1193/JsonRpcSchemaPublic.ts:424](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L424) |
+| <a id="eth_gettransactionbyhash"></a> `eth_getTransactionByHash` | `object` | **Description** Returns information about a transaction specified by hash **Link** https://eips.ethereum.org/EIPS/eip-1474 **Example** `provider.request({ method: 'eth_getTransactionByHash', params: ['0x...'] }) // => { ... }` | [eip1193/JsonRpcSchemaPublic.ts:433](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L433) |
+| `eth_getTransactionByHash.Method` | `"eth_getTransactionByHash"` | - | [eip1193/JsonRpcSchemaPublic.ts:434](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L434) |
+| `eth_getTransactionByHash.Parameters` | \[[`Hash`](Hash.md)\] | - | [eip1193/JsonRpcSchemaPublic.ts:435](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L435) |
+| `eth_getTransactionByHash.ReturnType` | `Transaction` \| `null` | - | [eip1193/JsonRpcSchemaPublic.ts:436](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L436) |
+| <a id="eth_gettransactioncount"></a> `eth_getTransactionCount` | `object` | **Description** Returns the number of transactions sent from an address **Link** https://eips.ethereum.org/EIPS/eip-1474 **Example** `provider.request({ method: 'eth_getTransactionCount', params: ['0x...', 'latest'] }) // => '0x1'` | [eip1193/JsonRpcSchemaPublic.ts:445](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L445) |
+| `eth_getTransactionCount.Method` | `"eth_getTransactionCount"` | - | [eip1193/JsonRpcSchemaPublic.ts:446](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L446) |
+| `eth_getTransactionCount.Parameters` | \[`Address`, `BlockNumber` \| `BlockTag` \| `BlockIdentifier`\] | - | [eip1193/JsonRpcSchemaPublic.ts:447](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L447) |
+| `eth_getTransactionCount.ReturnType` | `Quantity` | - | [eip1193/JsonRpcSchemaPublic.ts:448](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L448) |
+| <a id="eth_gettransactionreceipt"></a> `eth_getTransactionReceipt` | `object` | **Description** Returns the receipt of a transaction specified by hash **Link** https://eips.ethereum.org/EIPS/eip-1474 **Example** `provider.request({ method: 'eth_getTransactionReceipt', params: ['0x...'] }) // => { ... }` | [eip1193/JsonRpcSchemaPublic.ts:457](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L457) |
+| `eth_getTransactionReceipt.Method` | `"eth_getTransactionReceipt"` | - | [eip1193/JsonRpcSchemaPublic.ts:458](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L458) |
+| `eth_getTransactionReceipt.Parameters` | \[[`Hash`](Hash.md)\] | - | [eip1193/JsonRpcSchemaPublic.ts:459](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L459) |
+| `eth_getTransactionReceipt.ReturnType` | `TransactionReceipt` \| `null` | - | [eip1193/JsonRpcSchemaPublic.ts:460](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L460) |
+| <a id="eth_getunclebyblockhashandindex"></a> `eth_getUncleByBlockHashAndIndex` | `object` | **Description** Returns information about an uncle specified by block hash and uncle index position **Link** https://eips.ethereum.org/EIPS/eip-1474 **Example** `provider.request({ method: 'eth_getUncleByBlockHashAndIndex', params: ['0x...', '0x...'] }) // => { ... }` | [eip1193/JsonRpcSchemaPublic.ts:469](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L469) |
+| `eth_getUncleByBlockHashAndIndex.Method` | `"eth_getUncleByBlockHashAndIndex"` | - | [eip1193/JsonRpcSchemaPublic.ts:470](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L470) |
+| `eth_getUncleByBlockHashAndIndex.Parameters` | \[[`Hash`](Hash.md), `Quantity`\] | - | [eip1193/JsonRpcSchemaPublic.ts:471](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L471) |
+| `eth_getUncleByBlockHashAndIndex.ReturnType` | `Uncle` \| `null` | - | [eip1193/JsonRpcSchemaPublic.ts:472](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L472) |
+| <a id="eth_getunclebyblocknumberandindex"></a> `eth_getUncleByBlockNumberAndIndex` | `object` | **Description** Returns information about an uncle specified by block number and uncle index position **Link** https://eips.ethereum.org/EIPS/eip-1474 **Example** `provider.request({ method: 'eth_getUncleByBlockNumberAndIndex', params: ['0x...', '0x...'] }) // => { ... }` | [eip1193/JsonRpcSchemaPublic.ts:481](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L481) |
+| `eth_getUncleByBlockNumberAndIndex.Method` | `"eth_getUncleByBlockNumberAndIndex"` | - | [eip1193/JsonRpcSchemaPublic.ts:482](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L482) |
+| `eth_getUncleByBlockNumberAndIndex.Parameters` | \[`BlockNumber` \| `BlockTag`, `Quantity`\] | - | [eip1193/JsonRpcSchemaPublic.ts:483](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L483) |
+| `eth_getUncleByBlockNumberAndIndex.ReturnType` | `Uncle` \| `null` | - | [eip1193/JsonRpcSchemaPublic.ts:484](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L484) |
+| <a id="eth_getunclecountbyblockhash"></a> `eth_getUncleCountByBlockHash` | `object` | **Description** Returns the number of uncles in a block specified by block hash **Link** https://eips.ethereum.org/EIPS/eip-1474 **Example** `provider.request({ method: 'eth_getUncleCountByBlockHash', params: ['0x...'] }) // => '0x1'` | [eip1193/JsonRpcSchemaPublic.ts:493](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L493) |
+| `eth_getUncleCountByBlockHash.Method` | `"eth_getUncleCountByBlockHash"` | - | [eip1193/JsonRpcSchemaPublic.ts:494](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L494) |
+| `eth_getUncleCountByBlockHash.Parameters` | \[[`Hash`](Hash.md)\] | - | [eip1193/JsonRpcSchemaPublic.ts:495](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L495) |
+| `eth_getUncleCountByBlockHash.ReturnType` | `Quantity` | - | [eip1193/JsonRpcSchemaPublic.ts:496](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L496) |
+| <a id="eth_getunclecountbyblocknumber"></a> `eth_getUncleCountByBlockNumber` | `object` | **Description** Returns the number of uncles in a block specified by block number **Link** https://eips.ethereum.org/EIPS/eip-1474 **Example** `provider.request({ method: 'eth_getUncleCountByBlockNumber', params: ['0x...'] }) // => '0x1'` | [eip1193/JsonRpcSchemaPublic.ts:505](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L505) |
+| `eth_getUncleCountByBlockNumber.Method` | `"eth_getUncleCountByBlockNumber"` | - | [eip1193/JsonRpcSchemaPublic.ts:506](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L506) |
+| `eth_getUncleCountByBlockNumber.Parameters` | \[`BlockNumber` \| `BlockTag`\] | - | [eip1193/JsonRpcSchemaPublic.ts:507](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L507) |
+| `eth_getUncleCountByBlockNumber.ReturnType` | `Quantity` | - | [eip1193/JsonRpcSchemaPublic.ts:508](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L508) |
+| <a id="eth_maxpriorityfeepergas"></a> `eth_maxPriorityFeePerGas` | `object` | **Description** Returns the current maxPriorityFeePerGas in wei. **Link** https://ethereum.github.io/execution-apis/api-documentation/ **Example** `provider.request({ method: 'eth_maxPriorityFeePerGas' }) // => '0x5f5e100'` | [eip1193/JsonRpcSchemaPublic.ts:517](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L517) |
+| `eth_maxPriorityFeePerGas.Method` | `"eth_maxPriorityFeePerGas"` | - | [eip1193/JsonRpcSchemaPublic.ts:518](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L518) |
+| `eth_maxPriorityFeePerGas.Parameters?` | `undefined` | - | [eip1193/JsonRpcSchemaPublic.ts:519](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L519) |
+| `eth_maxPriorityFeePerGas.ReturnType` | `Quantity` | - | [eip1193/JsonRpcSchemaPublic.ts:520](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L520) |
+| <a id="eth_newblockfilter"></a> `eth_newBlockFilter` | `object` | **Description** Creates a filter to listen for new blocks that can be used with `eth_getFilterChanges` **Link** https://eips.ethereum.org/EIPS/eip-1474 **Example** `provider.request({ method: 'eth_newBlockFilter' }) // => '0x1'` | [eip1193/JsonRpcSchemaPublic.ts:529](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L529) |
+| `eth_newBlockFilter.Method` | `"eth_newBlockFilter"` | - | [eip1193/JsonRpcSchemaPublic.ts:530](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L530) |
+| `eth_newBlockFilter.Parameters?` | `undefined` | - | [eip1193/JsonRpcSchemaPublic.ts:531](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L531) |
+| `eth_newBlockFilter.ReturnType` | `Quantity` | - | [eip1193/JsonRpcSchemaPublic.ts:532](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L532) |
+| <a id="eth_newfilter"></a> `eth_newFilter` | `object` | **Description** Creates a filter to listen for specific state changes that can then be used with `eth_getFilterChanges` **Link** https://eips.ethereum.org/EIPS/eip-1474 **Example** `provider.request({ method: 'eth_newFilter', params: [{ fromBlock: '0x...', toBlock: '0x...', address: '0x...', topics: ['0x...'] }] }) // => '0x1'` | [eip1193/JsonRpcSchemaPublic.ts:541](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L541) |
+| `eth_newFilter.Method` | `"eth_newFilter"` | - | [eip1193/JsonRpcSchemaPublic.ts:542](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L542) |
+| `eth_newFilter.Parameters` | \[`object`\] | - | [eip1193/JsonRpcSchemaPublic.ts:543](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L543) |
+| `eth_newFilter.ReturnType` | `Quantity` | - | [eip1193/JsonRpcSchemaPublic.ts:551](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L551) |
+| <a id="eth_newpendingtransactionfilter"></a> `eth_newPendingTransactionFilter` | `object` | **Description** Creates a filter to listen for new pending transactions that can be used with `eth_getFilterChanges` **Link** https://eips.ethereum.org/EIPS/eip-1474 **Example** `provider.request({ method: 'eth_newPendingTransactionFilter' }) // => '0x1'` | [eip1193/JsonRpcSchemaPublic.ts:560](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L560) |
+| `eth_newPendingTransactionFilter.Method` | `"eth_newPendingTransactionFilter"` | - | [eip1193/JsonRpcSchemaPublic.ts:561](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L561) |
+| `eth_newPendingTransactionFilter.Parameters?` | `undefined` | - | [eip1193/JsonRpcSchemaPublic.ts:562](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L562) |
+| `eth_newPendingTransactionFilter.ReturnType` | `Quantity` | - | [eip1193/JsonRpcSchemaPublic.ts:563](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L563) |
+| <a id="eth_protocolversion"></a> `eth_protocolVersion` | `object` | **Description** Returns the current Ethereum protocol version **Link** https://eips.ethereum.org/EIPS/eip-1474 **Example** `provider.request({ method: 'eth_protocolVersion' }) // => '54'` | [eip1193/JsonRpcSchemaPublic.ts:572](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L572) |
+| `eth_protocolVersion.Method` | `"eth_protocolVersion"` | - | [eip1193/JsonRpcSchemaPublic.ts:573](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L573) |
+| `eth_protocolVersion.Parameters?` | `undefined` | - | [eip1193/JsonRpcSchemaPublic.ts:574](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L574) |
+| `eth_protocolVersion.ReturnType` | `string` | - | [eip1193/JsonRpcSchemaPublic.ts:575](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L575) |
+| <a id="eth_sendrawtransaction"></a> `eth_sendRawTransaction` | `object` | **Description** Sends a **signed** transaction to the network **Link** https://eips.ethereum.org/EIPS/eip-1474 **Example** `provider.request({ method: 'eth_sendRawTransaction', params: ['0x...'] }) // => '0x...'` | [eip1193/JsonRpcSchemaPublic.ts:584](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L584) |
+| `eth_sendRawTransaction.Method` | `"eth_sendRawTransaction"` | - | [eip1193/JsonRpcSchemaPublic.ts:585](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L585) |
+| `eth_sendRawTransaction.Parameters` | \[`Hex`\] | - | [eip1193/JsonRpcSchemaPublic.ts:586](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L586) |
+| `eth_sendRawTransaction.ReturnType` | [`Hash`](Hash.md) | - | [eip1193/JsonRpcSchemaPublic.ts:587](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L587) |
+| <a id="eth_uninstallfilter"></a> `eth_uninstallFilter` | `object` | **Description** Destroys a filter based on filter ID **Link** https://eips.ethereum.org/EIPS/eip-1474 **Example** `provider.request({ method: 'eth_uninstallFilter', params: ['0x1'] }) // => true` | [eip1193/JsonRpcSchemaPublic.ts:596](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L596) |
+| `eth_uninstallFilter.Method` | `"eth_uninstallFilter"` | - | [eip1193/JsonRpcSchemaPublic.ts:597](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L597) |
+| `eth_uninstallFilter.Parameters` | \[`Quantity`\] | - | [eip1193/JsonRpcSchemaPublic.ts:598](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L598) |
+| `eth_uninstallFilter.ReturnType` | `boolean` | - | [eip1193/JsonRpcSchemaPublic.ts:599](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L599) |
+| <a id="net_listening"></a> `net_listening` | `object` | **Description** Determines if this client is listening for new network connections **Example** `provider.request({ method: 'net_listening' }) // => true` | [eip1193/JsonRpcSchemaPublic.ts:78](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L78) |
+| `net_listening.Method` | `"net_listening"` | - | [eip1193/JsonRpcSchemaPublic.ts:79](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L79) |
+| `net_listening.Parameters?` | `undefined` | - | [eip1193/JsonRpcSchemaPublic.ts:80](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L80) |
+| `net_listening.ReturnType` | `boolean` | - | [eip1193/JsonRpcSchemaPublic.ts:81](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L81) |
+| <a id="net_peercount"></a> `net_peerCount` | `object` | **Description** Returns the number of peers currently connected to this client **Example** `provider.request({ method: 'net_peerCount' }) // => '0x1'` | [eip1193/JsonRpcSchemaPublic.ts:90](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L90) |
+| `net_peerCount.Method` | `"net_peerCount"` | - | [eip1193/JsonRpcSchemaPublic.ts:91](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L91) |
+| `net_peerCount.Parameters?` | `undefined` | - | [eip1193/JsonRpcSchemaPublic.ts:92](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L92) |
+| `net_peerCount.ReturnType` | `Quantity` | - | [eip1193/JsonRpcSchemaPublic.ts:93](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L93) |
+| <a id="net_version"></a> `net_version` | `object` | **Description** Returns the chain ID associated with the current network **Example** `provider.request({ method: 'net_version' }) // => '1'` | [eip1193/JsonRpcSchemaPublic.ts:102](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L102) |
+| `net_version.Method` | `"net_version"` | - | [eip1193/JsonRpcSchemaPublic.ts:103](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L103) |
+| `net_version.Parameters?` | `undefined` | - | [eip1193/JsonRpcSchemaPublic.ts:104](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L104) |
+| `net_version.ReturnType` | `Quantity` | - | [eip1193/JsonRpcSchemaPublic.ts:105](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L105) |
+| <a id="web3_clientversion"></a> `web3_clientVersion` | `object` | **Description** Returns the version of the current client **Example** `provider.request({ method: 'web3_clientVersion' }) // => 'MetaMask/v1.0.0'` | [eip1193/JsonRpcSchemaPublic.ts:54](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L54) |
+| `web3_clientVersion.Method` | `"web3_clientVersion"` | - | [eip1193/JsonRpcSchemaPublic.ts:55](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L55) |
+| `web3_clientVersion.Parameters?` | `undefined` | - | [eip1193/JsonRpcSchemaPublic.ts:56](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L56) |
+| `web3_clientVersion.ReturnType` | `string` | - | [eip1193/JsonRpcSchemaPublic.ts:57](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L57) |
+| <a id="web3_sha3"></a> `web3_sha3` | `object` | **Description** Hashes data using the Keccak-256 algorithm **Example** `provider.request({ method: 'web3_sha3', params: ['0x68656c6c6f20776f726c64'] }) // => '0xc94770007dda54cF92009BFF0dE90c06F603a09f'` | [eip1193/JsonRpcSchemaPublic.ts:66](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L66) |
+| `web3_sha3.Method` | `"web3_sha3"` | - | [eip1193/JsonRpcSchemaPublic.ts:67](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L67) |
+| `web3_sha3.Parameters` | \[[`Hash`](Hash.md)\] | - | [eip1193/JsonRpcSchemaPublic.ts:68](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L68) |
+| `web3_sha3.ReturnType` | `string` | - | [eip1193/JsonRpcSchemaPublic.ts:69](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L69) |

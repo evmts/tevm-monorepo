@@ -14,9 +14,9 @@ Determines if an unknown type is a valid block tag
 
 ## Parameters
 
-### blockTag
-
-`unknown`
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `blockTag` | `unknown` | - |
 
 ## Returns
 

@@ -14,16 +14,7 @@ Based on the JSON-RPC request for `eth_getTransactionByBlockNumberAndIndex` proc
 
 ## Properties
 
-### blockTag?
-
-> `readonly` `optional` **blockTag?**: [`BlockParam`](BlockParam.md)
-
-Defined in: [packages/actions/src/eth/EthParams.ts:215](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L215)
-
-***
-
-### index
-
-> `readonly` **index**: [`Hex`](Hex.md)
-
-Defined in: [packages/actions/src/eth/EthParams.ts:216](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L216)
+| Property | Modifier | Type | Defined in |
+| ------ | ------ | ------ | ------ |
+| <a id="blocktag"></a> `blockTag?` | `readonly` | [`BlockParam`](BlockParam.md) | [packages/actions/src/eth/EthParams.ts:215](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L215) |
+| <a id="index"></a> `index` | `readonly` | [`Hex`](Hex.md) | [packages/actions/src/eth/EthParams.ts:216](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L216) |

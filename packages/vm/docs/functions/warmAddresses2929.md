@@ -12,21 +12,12 @@ Defined in: [packages/vm/src/actions/warmAddresses2929.js:9](https://github.com/
 
 ## Parameters
 
-### vm
-
-`BaseVm`
-
-### caller
-
-`Address`
-
-### to
-
-`Address` \| `undefined`
-
-### coinbase
-
-`Address`
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `vm` | `BaseVm` | - |
+| `caller` | `Address` | - |
+| `to` | `Address` \| `undefined` | - |
+| `coinbase` | `Address` | - |
 
 ## Returns
 

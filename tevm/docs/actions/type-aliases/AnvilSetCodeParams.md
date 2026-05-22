@@ -8,26 +8,11 @@
 
 > **AnvilSetCodeParams** = `object`
 
-Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilParams.d.ts:101
-
 Params for `anvil_setCode` handler
 
 ## Properties
 
-### address
-
-> `readonly` **address**: [`Address`](Address.md)
-
-Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilParams.d.ts:105
-
-The address to set the code for
-
-***
-
-### code
-
-> `readonly` **code**: [`Hex`](Hex.md)
-
-Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilParams.d.ts:109
-
-The code to set
+| Property | Modifier | Type | Description |
+| ------ | ------ | ------ | ------ |
+| <a id="address"></a> `address` | `readonly` | [`Address`](Address.md) | The address to set the code for |
+| <a id="code"></a> `code` | `readonly` | [`Hex`](Hex.md) | The code to set |

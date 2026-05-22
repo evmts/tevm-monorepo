@@ -8,8 +8,6 @@
 
 > **JsonRpcSimulateV2CallResult** = [`JsonRpcSimulateCallResult`](JsonRpcSimulateCallResult.md) & `object`
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthJsonRpcResponse.d.ts:337
-
 JSON-RPC response call result for eth_simulateV2 (extends V1)
 
 ## Type Declaration

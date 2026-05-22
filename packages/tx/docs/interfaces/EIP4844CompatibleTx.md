@@ -12,199 +12,35 @@
 
 ## Type Parameters
 
-### T
-
-`T` *extends* [`TransactionType`](../type-aliases/TransactionType.md) = [`TransactionType`](../type-aliases/TransactionType.md)
+| Type Parameter | Default type |
+| ------ | ------ |
+| `T` *extends* [`TransactionType`](../type-aliases/TransactionType.md) | [`TransactionType`](../type-aliases/TransactionType.md) |
 
 ## Properties
 
-### accessList
-
-> `readonly` **accessList**: `AccessListBytes`
-
-#### Inherited from
-
-[`EIP1559CompatibleTx`](EIP1559CompatibleTx.md).[`accessList`](EIP1559CompatibleTx.md#accesslist)
-
-***
-
-### blobs?
-
-> `optional` **blobs?**: `Uint8Array`\<`ArrayBufferLike`\>[]
-
-***
-
-### blobVersionedHashes
-
-> **blobVersionedHashes**: `Uint8Array`\<`ArrayBufferLike`\>[]
-
-***
-
-### cache
-
-> `readonly` **cache**: `TransactionCache`
-
-#### Inherited from
-
-[`EIP1559CompatibleTx`](EIP1559CompatibleTx.md).[`cache`](EIP1559CompatibleTx.md#cache)
-
-***
-
-### chainId
-
-> `readonly` **chainId**: `bigint`
-
-#### Inherited from
-
-[`EIP1559CompatibleTx`](EIP1559CompatibleTx.md).[`chainId`](EIP1559CompatibleTx.md#chainid)
-
-***
-
-### common
-
-> `readonly` **common**: `Common`
-
-#### Inherited from
-
-[`EIP1559CompatibleTx`](EIP1559CompatibleTx.md).[`common`](EIP1559CompatibleTx.md#common)
-
-***
-
-### data
-
-> `readonly` **data**: `Uint8Array`
-
-#### Inherited from
-
-[`EIP1559CompatibleTx`](EIP1559CompatibleTx.md).[`data`](EIP1559CompatibleTx.md#data)
-
-***
-
-### gasLimit
-
-> `readonly` **gasLimit**: `bigint`
-
-#### Inherited from
-
-[`EIP1559CompatibleTx`](EIP1559CompatibleTx.md).[`gasLimit`](EIP1559CompatibleTx.md#gaslimit)
-
-***
-
-### kzgCommitments?
-
-> `optional` **kzgCommitments?**: `Uint8Array`\<`ArrayBufferLike`\>[]
-
-***
-
-### kzgProofs?
-
-> `optional` **kzgProofs?**: `Uint8Array`\<`ArrayBufferLike`\>[]
-
-***
-
-### maxFeePerBlobGas
-
-> `readonly` **maxFeePerBlobGas**: `bigint`
-
-***
-
-### maxFeePerGas
-
-> `readonly` **maxFeePerGas**: `bigint`
-
-#### Inherited from
-
-[`EIP1559CompatibleTx`](EIP1559CompatibleTx.md).[`maxFeePerGas`](EIP1559CompatibleTx.md#maxfeepergas)
-
-***
-
-### maxPriorityFeePerGas
-
-> `readonly` **maxPriorityFeePerGas**: `bigint`
-
-#### Inherited from
-
-[`EIP1559CompatibleTx`](EIP1559CompatibleTx.md).[`maxPriorityFeePerGas`](EIP1559CompatibleTx.md#maxpriorityfeepergas)
-
-***
-
-### nonce
-
-> `readonly` **nonce**: `bigint`
-
-#### Inherited from
-
-[`EIP1559CompatibleTx`](EIP1559CompatibleTx.md).[`nonce`](EIP1559CompatibleTx.md#nonce)
-
-***
-
-### r?
-
-> `readonly` `optional` **r?**: `bigint`
-
-#### Inherited from
-
-[`EIP1559CompatibleTx`](EIP1559CompatibleTx.md).[`r`](EIP1559CompatibleTx.md#r)
-
-***
-
-### s?
-
-> `readonly` `optional` **s?**: `bigint`
-
-#### Inherited from
-
-[`EIP1559CompatibleTx`](EIP1559CompatibleTx.md).[`s`](EIP1559CompatibleTx.md#s)
-
-***
-
-### to?
-
-> `readonly` `optional` **to?**: `Address`
-
-#### Inherited from
-
-[`EIP1559CompatibleTx`](EIP1559CompatibleTx.md).[`to`](EIP1559CompatibleTx.md#to)
-
-***
-
-### txOptions
-
-> **txOptions**: [`TxOptions`](TxOptions.md)
-
-#### Inherited from
-
-[`EIP1559CompatibleTx`](EIP1559CompatibleTx.md).[`txOptions`](EIP1559CompatibleTx.md#txoptions)
-
-***
-
-### type
-
-> **type**: [`TransactionType`](../type-aliases/TransactionType.md)
-
-#### Inherited from
-
-[`EIP1559CompatibleTx`](EIP1559CompatibleTx.md).[`type`](EIP1559CompatibleTx.md#type)
-
-***
-
-### v?
-
-> `readonly` `optional` **v?**: `bigint`
-
-#### Inherited from
-
-[`EIP1559CompatibleTx`](EIP1559CompatibleTx.md).[`v`](EIP1559CompatibleTx.md#v)
-
-***
-
-### value
-
-> `readonly` **value**: `bigint`
-
-#### Inherited from
-
-[`EIP1559CompatibleTx`](EIP1559CompatibleTx.md).[`value`](EIP1559CompatibleTx.md#value)
+| Property | Modifier | Type | Inherited from |
+| ------ | ------ | ------ | ------ |
+| <a id="accesslist"></a> `accessList` | `readonly` | `AccessListBytes` | [`EIP1559CompatibleTx`](EIP1559CompatibleTx.md).[`accessList`](EIP1559CompatibleTx.md#accesslist) |
+| <a id="blobs"></a> `blobs?` | `public` | `Uint8Array`\<`ArrayBufferLike`\>[] | - |
+| <a id="blobversionedhashes"></a> `blobVersionedHashes` | `public` | `Uint8Array`\<`ArrayBufferLike`\>[] | - |
+| <a id="cache"></a> `cache` | `readonly` | `TransactionCache` | [`EIP1559CompatibleTx`](EIP1559CompatibleTx.md).[`cache`](EIP1559CompatibleTx.md#cache) |
+| <a id="chainid"></a> `chainId` | `readonly` | `bigint` | [`EIP1559CompatibleTx`](EIP1559CompatibleTx.md).[`chainId`](EIP1559CompatibleTx.md#chainid) |
+| <a id="common"></a> `common` | `readonly` | `Common` | [`EIP1559CompatibleTx`](EIP1559CompatibleTx.md).[`common`](EIP1559CompatibleTx.md#common) |
+| <a id="data"></a> `data` | `readonly` | `Uint8Array` | [`EIP1559CompatibleTx`](EIP1559CompatibleTx.md).[`data`](EIP1559CompatibleTx.md#data) |
+| <a id="gaslimit"></a> `gasLimit` | `readonly` | `bigint` | [`EIP1559CompatibleTx`](EIP1559CompatibleTx.md).[`gasLimit`](EIP1559CompatibleTx.md#gaslimit) |
+| <a id="kzgcommitments"></a> `kzgCommitments?` | `public` | `Uint8Array`\<`ArrayBufferLike`\>[] | - |
+| <a id="kzgproofs"></a> `kzgProofs?` | `public` | `Uint8Array`\<`ArrayBufferLike`\>[] | - |
+| <a id="maxfeeperblobgas"></a> `maxFeePerBlobGas` | `readonly` | `bigint` | - |
+| <a id="maxfeepergas"></a> `maxFeePerGas` | `readonly` | `bigint` | [`EIP1559CompatibleTx`](EIP1559CompatibleTx.md).[`maxFeePerGas`](EIP1559CompatibleTx.md#maxfeepergas) |
+| <a id="maxpriorityfeepergas"></a> `maxPriorityFeePerGas` | `readonly` | `bigint` | [`EIP1559CompatibleTx`](EIP1559CompatibleTx.md).[`maxPriorityFeePerGas`](EIP1559CompatibleTx.md#maxpriorityfeepergas) |
+| <a id="nonce"></a> `nonce` | `readonly` | `bigint` | [`EIP1559CompatibleTx`](EIP1559CompatibleTx.md).[`nonce`](EIP1559CompatibleTx.md#nonce) |
+| <a id="r"></a> `r?` | `readonly` | `bigint` | [`EIP1559CompatibleTx`](EIP1559CompatibleTx.md).[`r`](EIP1559CompatibleTx.md#r) |
+| <a id="s"></a> `s?` | `readonly` | `bigint` | [`EIP1559CompatibleTx`](EIP1559CompatibleTx.md).[`s`](EIP1559CompatibleTx.md#s) |
+| <a id="to"></a> `to?` | `readonly` | `Address` | [`EIP1559CompatibleTx`](EIP1559CompatibleTx.md).[`to`](EIP1559CompatibleTx.md#to) |
+| <a id="txoptions"></a> `txOptions` | `public` | [`TxOptions`](TxOptions.md) | [`EIP1559CompatibleTx`](EIP1559CompatibleTx.md).[`txOptions`](EIP1559CompatibleTx.md#txoptions) |
+| <a id="type"></a> `type` | `public` | [`TransactionType`](../type-aliases/TransactionType.md) | [`EIP1559CompatibleTx`](EIP1559CompatibleTx.md).[`type`](EIP1559CompatibleTx.md#type) |
+| <a id="v"></a> `v?` | `readonly` | `bigint` | [`EIP1559CompatibleTx`](EIP1559CompatibleTx.md).[`v`](EIP1559CompatibleTx.md#v) |
+| <a id="value"></a> `value` | `readonly` | `bigint` | [`EIP1559CompatibleTx`](EIP1559CompatibleTx.md).[`value`](EIP1559CompatibleTx.md#value) |
 
 ## Methods
 
@@ -214,21 +50,12 @@
 
 #### Parameters
 
-##### v
-
-`bigint`
-
-##### r
-
-`bigint` \| `Uint8Array`\<`ArrayBufferLike`\>
-
-##### s
-
-`bigint` \| `Uint8Array`\<`ArrayBufferLike`\>
-
-##### convertV?
-
-`boolean`
+| Parameter | Type |
+| ------ | ------ |
+| `v` | `bigint` |
+| `r` | `bigint` \| `Uint8Array`\<`ArrayBufferLike`\> |
+| `s` | `bigint` \| `Uint8Array`\<`ArrayBufferLike`\> |
+| `convertV?` | `boolean` |
 
 #### Returns
 
@@ -476,13 +303,10 @@
 
 #### Parameters
 
-##### privateKey
-
-`Uint8Array`
-
-##### extraEntropy?
-
-`boolean` \| `Uint8Array`\<`ArrayBufferLike`\>
+| Parameter | Type |
+| ------ | ------ |
+| `privateKey` | `Uint8Array` |
+| `extraEntropy?` | `boolean` \| `Uint8Array`\<`ArrayBufferLike`\> |
 
 #### Returns
 
@@ -500,9 +324,9 @@
 
 #### Parameters
 
-##### capability
-
-`number`
+| Parameter | Type |
+| ------ | ------ |
+| `capability` | `number` |
 
 #### Returns
 

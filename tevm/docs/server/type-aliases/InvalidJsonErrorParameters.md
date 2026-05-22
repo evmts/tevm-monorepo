@@ -8,76 +8,16 @@
 
 > **InvalidJsonErrorParameters** = `object`
 
-Defined in: tevm-monorepo/packages/server/types/errors/InvalidJsonError.d.ts:49
-
 Parameters for constructing an [InvalidJsonError](../classes/InvalidJsonError.md).
 
 ## Properties
 
-### cause?
-
-> `optional` **cause?**: [`BaseError`](../../errors/classes/BaseError.md) \| `Error`
-
-Defined in: tevm-monorepo/packages/server/types/errors/InvalidJsonError.d.ts:69
-
-- The cause of the error.
-
-***
-
-### details?
-
-> `optional` **details?**: `string`
-
-Defined in: tevm-monorepo/packages/server/types/errors/InvalidJsonError.d.ts:73
-
-- Details of the error.
-
-***
-
-### docsBaseUrl?
-
-> `optional` **docsBaseUrl?**: `string`
-
-Defined in: tevm-monorepo/packages/server/types/errors/InvalidJsonError.d.ts:53
-
-- Base URL for the documentation.
-
-***
-
-### docsPath?
-
-> `optional` **docsPath?**: `string`
-
-Defined in: tevm-monorepo/packages/server/types/errors/InvalidJsonError.d.ts:57
-
-- Path to the documentation.
-
-***
-
-### docsSlug?
-
-> `optional` **docsSlug?**: `string`
-
-Defined in: tevm-monorepo/packages/server/types/errors/InvalidJsonError.d.ts:61
-
-- Slug for the documentation.
-
-***
-
-### meta?
-
-> `optional` **meta?**: `object`
-
-Defined in: tevm-monorepo/packages/server/types/errors/InvalidJsonError.d.ts:77
-
-- Optional object containing additional information about the error.
-
-***
-
-### metaMessages?
-
-> `optional` **metaMessages?**: `string`[]
-
-Defined in: tevm-monorepo/packages/server/types/errors/InvalidJsonError.d.ts:65
-
-- Additional meta messages.
+| Property | Type | Description |
+| ------ | ------ | ------ |
+| <a id="cause"></a> `cause?` | [`BaseError`](../../errors/classes/BaseError.md) \| `Error` | - The cause of the error. |
+| <a id="details"></a> `details?` | `string` | - Details of the error. |
+| <a id="docsbaseurl"></a> `docsBaseUrl?` | `string` | - Base URL for the documentation. |
+| <a id="docspath"></a> `docsPath?` | `string` | - Path to the documentation. |
+| <a id="docsslug"></a> `docsSlug?` | `string` | - Slug for the documentation. |
+| <a id="meta"></a> `meta?` | `object` | - Optional object containing additional information about the error. |
+| <a id="metamessages"></a> `metaMessages?` | `string`[] | - Additional meta messages. |

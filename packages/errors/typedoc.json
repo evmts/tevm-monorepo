@@ -1,12 +1,18 @@
 {
 	"$schema": "https://typedoc.org/schema.json",
 	"out": "./docs",
-	"entryPoints": ["./src/index.ts"],
-	"plugin": ["typedoc-plugin-markdown"],
+	"entryPoints": [
+		"./src/index.ts"
+	],
+	"plugin": [
+		"typedoc-plugin-markdown"
+	],
 	"gitRevision": "main",
 	"excludeExternals": true,
 	"excludeInternal": true,
 	"disableSources": true,
 	"cleanOutputDir": true,
-	"preserveLinkText": true
+	"preserveLinkText": true,
+	"parametersFormat": "table",
+	"propertiesFormat": "table"
 }

@@ -8,26 +8,11 @@
 
 > **AnvilMineParams** = `object`
 
-Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilParams.d.ts:62
-
 Params for `anvil_mine` handler
 
 ## Properties
 
-### blockCount?
-
-> `readonly` `optional` **blockCount?**: `number`
-
-Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilParams.d.ts:66
-
-Number of blocks to mine. Defaults to 1
-
-***
-
-### interval?
-
-> `readonly` `optional` **interval?**: `number`
-
-Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilParams.d.ts:70
-
-mineing interval
+| Property | Modifier | Type | Description |
+| ------ | ------ | ------ | ------ |
+| <a id="blockcount"></a> `blockCount?` | `readonly` | `number` | Number of blocks to mine. Defaults to 1 |
+| <a id="interval"></a> `interval?` | `readonly` | `number` | mineing interval |

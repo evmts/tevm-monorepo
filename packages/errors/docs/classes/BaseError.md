@@ -63,27 +63,12 @@ This class is abstract and should be extended by other error classes.
 
 #### Parameters
 
-##### shortMessage
-
-`string`
-
-A short, human-readable summary of the error.
-
-##### args
-
-[`BaseErrorParameters`](../interfaces/BaseErrorParameters.md)
-
-##### \_tag
-
-`string`
-
-Internal tag for the error.
-
-##### code?
-
-`number` = `0`
-
-Error code analogous to the code in JSON RPC error.
+| Parameter | Type | Default value | Description |
+| ------ | ------ | ------ | ------ |
+| `shortMessage` | `string` | `undefined` | A short, human-readable summary of the error. |
+| `args` | [`BaseErrorParameters`](../interfaces/BaseErrorParameters.md) | `undefined` | - |
+| `_tag` | `string` | `undefined` | Internal tag for the error. |
+| `code?` | `number` | `0` | Error code analogous to the code in JSON RPC error. |
 
 #### Returns
 
@@ -95,55 +80,16 @@ Error code analogous to the code in JSON RPC error.
 
 ## Properties
 
-### \_tag
-
-> **\_tag**: `string`
-
-***
-
-### cause
-
-> **cause**: `any`
-
-#### Inherited from
-
-`Error.cause`
-
-***
-
-### code
-
-> **code**: `number`
-
-***
-
-### details
-
-> **details**: `string`
-
-***
-
-### docsPath
-
-> **docsPath**: `string` \| `undefined`
-
-***
-
-### metaMessages
-
-> **metaMessages**: `string`[] \| `undefined`
-
-***
-
-### shortMessage
-
-> **shortMessage**: `string`
-
-***
-
-### version
-
-> **version**: `string`
+| Property | Type | Inherited from |
+| ------ | ------ | ------ |
+| <a id="_tag"></a> `_tag` | `string` | - |
+| <a id="cause"></a> `cause` | `any` | `Error.cause` |
+| <a id="code"></a> `code` | `number` | - |
+| <a id="details"></a> `details` | `string` | - |
+| <a id="docspath"></a> `docsPath` | `string` \| `undefined` | - |
+| <a id="metamessages"></a> `metaMessages` | `string`[] \| `undefined` | - |
+| <a id="shortmessage"></a> `shortMessage` | `string` | - |
+| <a id="version"></a> `version` | `string` | - |
 
 ## Methods
 
@@ -155,11 +101,9 @@ Walks through the error chain.
 
 #### Parameters
 
-##### fn?
-
-`Function`
-
-A function to execute on each error in the chain.
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `fn?` | `Function` | A function to execute on each error in the chain. |
 
 #### Returns
 

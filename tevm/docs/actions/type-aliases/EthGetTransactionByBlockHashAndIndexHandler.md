@@ -8,13 +8,11 @@
 
 > **EthGetTransactionByBlockHashAndIndexHandler** = (`request`) => `Promise`\<[`EthGetTransactionByBlockHashAndIndexResult`](EthGetTransactionByBlockHashAndIndexResult.md)\>
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthHandler.d.ts:27
-
 ## Parameters
 
-### request
-
-[`EthGetTransactionByBlockHashAndIndexParams`](EthGetTransactionByBlockHashAndIndexParams.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`EthGetTransactionByBlockHashAndIndexParams`](EthGetTransactionByBlockHashAndIndexParams.md) |
 
 ## Returns
 

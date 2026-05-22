@@ -10,13 +10,10 @@
 
 ## Parameters
 
-### common
-
-`Common`
-
-### customPrecompiles?
-
-`CustomPrecompile`[]
+| Parameter | Type |
+| ------ | ------ |
+| `common` | `Common` |
+| `customPrecompiles?` | `CustomPrecompile`[] |
 
 ## Returns
 

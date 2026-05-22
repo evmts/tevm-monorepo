@@ -12,9 +12,9 @@ Defined in: [packages/actions/src/anvil/AnvilHandler.ts:66](https://github.com/e
 
 ## Parameters
 
-### params
-
-[`AnvilDropTransactionParams`](AnvilDropTransactionParams.md)
+| Parameter | Type |
+| ------ | ------ |
+| `params` | [`AnvilDropTransactionParams`](AnvilDropTransactionParams.md) |
 
 ## Returns
 

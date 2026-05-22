@@ -11,3 +11,6 @@
 Defined in: [packages/actions/src/Call/handleEvmError.js:90](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/handleEvmError.js#L90)
 
 ## Type Parameters
+
+| Type Parameter |
+| ------ |

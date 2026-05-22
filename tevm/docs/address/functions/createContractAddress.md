@@ -8,17 +8,12 @@
 
 > **createContractAddress**(`from`, `nonce`): [`Address`](../classes/Address.md)
 
-Defined in: tevm-monorepo/packages/address/types/createContractAddress.d.ts:1
-
 ## Parameters
 
-### from
-
-[`EthjsAddress`](../../utils/classes/EthjsAddress.md)
-
-### nonce
-
-`bigint`
+| Parameter | Type |
+| ------ | ------ |
+| `from` | [`EthjsAddress`](../../utils/classes/EthjsAddress.md) |
+| `nonce` | `bigint` |
 
 ## Returns
 

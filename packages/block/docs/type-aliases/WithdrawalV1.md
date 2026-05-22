@@ -43,32 +43,9 @@ function processWithdrawals(withdrawals: WithdrawalV1[]): void {
 
 ## Properties
 
-### address
-
-> **address**: `Hex`
-
-Defined in: [packages/block/src/types.ts:529](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L529)
-
-***
-
-### amount
-
-> **amount**: `Hex`
-
-Defined in: [packages/block/src/types.ts:530](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L530)
-
-***
-
-### index
-
-> **index**: `Hex`
-
-Defined in: [packages/block/src/types.ts:527](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L527)
-
-***
-
-### validatorIndex
-
-> **validatorIndex**: `Hex`
-
-Defined in: [packages/block/src/types.ts:528](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L528)
+| Property | Type | Defined in |
+| ------ | ------ | ------ |
+| <a id="address"></a> `address` | `Hex` | [packages/block/src/types.ts:529](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L529) |
+| <a id="amount"></a> `amount` | `Hex` | [packages/block/src/types.ts:530](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L530) |
+| <a id="index"></a> `index` | `Hex` | [packages/block/src/types.ts:527](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L527) |
+| <a id="validatorindex"></a> `validatorIndex` | `Hex` | [packages/block/src/types.ts:528](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L528) |

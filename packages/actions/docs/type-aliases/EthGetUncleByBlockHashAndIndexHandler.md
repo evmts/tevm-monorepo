@@ -12,9 +12,9 @@ Defined in: [packages/actions/src/eth/EthHandler.ts:175](https://github.com/evmt
 
 ## Parameters
 
-### request
-
-[`EthGetUncleByBlockHashAndIndexParams`](EthGetUncleByBlockHashAndIndexParams.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`EthGetUncleByBlockHashAndIndexParams`](EthGetUncleByBlockHashAndIndexParams.md) |
 
 ## Returns
 

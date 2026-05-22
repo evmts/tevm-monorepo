@@ -6,6 +6,4 @@
 
 # Type Alias: AnvilSetStorageAtResult
 
-> **AnvilSetStorageAtResult** = `null`
-
-Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilResult.d.ts:15
+> **AnvilSetStorageAtResult** = `boolean`

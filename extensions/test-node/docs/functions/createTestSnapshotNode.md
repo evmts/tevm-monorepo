@@ -14,11 +14,9 @@ Creates a test snapshot node that automatically caches RPC responses
 
 ## Parameters
 
-### options
-
-[`TestSnapshotNodeOptions`](../type-aliases/TestSnapshotNodeOptions.md)
-
-Configuration options for the node
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `options` | [`TestSnapshotNodeOptions`](../type-aliases/TestSnapshotNodeOptions.md) | Configuration options for the node |
 
 ## Returns
 

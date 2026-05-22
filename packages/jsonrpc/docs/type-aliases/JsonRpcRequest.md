@@ -28,10 +28,7 @@ Helper type for creating JSON-RPC request types
 
 ## Type Parameters
 
-### TMethod
-
-`TMethod` *extends* `string`
-
-### TParams
-
-`TParams`
+| Type Parameter |
+| ------ |
+| `TMethod` *extends* `string` |
+| `TParams` |

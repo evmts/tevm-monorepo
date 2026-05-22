@@ -8,13 +8,11 @@
 
 > **validateRunTx**(`vm`): (`opts`) => `Promise`\<\{ `block`: [`Block`](../../block/classes/Block.md); `blockGasUsed?`: `bigint`; `preserveJournal`: `boolean`; `reportAccessList?`: `boolean`; `reportPreimages?`: `boolean`; `skipBalance?`: `boolean`; `skipBlockGasLimitValidation?`: `boolean`; `skipHardForkValidation?`: `boolean`; `skipNonce?`: `boolean`; `tx`: [`TypedTransaction`](../../tx/type-aliases/TypedTransaction.md); \}\>
 
-Defined in: tevm-monorepo/packages/vm/types/actions/validateRunTx.d.ts:1
-
 ## Parameters
 
-### vm
-
-`BaseVm`
+| Parameter | Type |
+| ------ | ------ |
+| `vm` | `BaseVm` |
 
 ## Returns
 

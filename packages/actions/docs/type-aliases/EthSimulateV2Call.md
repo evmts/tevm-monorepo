@@ -8,7 +8,7 @@
 
 > **EthSimulateV2Call** = [`EthSimulateV1Call`](EthSimulateV1Call.md) & `object`
 
-Defined in: [packages/actions/src/eth/EthParams.ts:481](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L481)
+Defined in: [packages/actions/src/eth/EthParams.ts:488](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L488)
 
 Parameters for a single simulated call within a block (V2)
 Extends V1 with additional tracing and gas estimation options

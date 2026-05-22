@@ -8,6 +8,4 @@
 
 > **AnvilIncreaseTimeJsonRpcRequest** = [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"anvil_increaseTime"`, readonly \[[`Hex`](../../index/type-aliases/Hex.md)\]\>
 
-Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilJsonRpcRequest.d.ts:165
-
 JSON-RPC request for `anvil_increaseTime` method

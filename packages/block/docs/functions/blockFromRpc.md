@@ -14,23 +14,11 @@ Creates a new block object from Ethereum JSON RPC.
 
 ## Parameters
 
-### blockParams
-
-[`JsonRpcBlock`](../interfaces/JsonRpcBlock.md)
-
-Ethereum JSON RPC of block (eth_getBlockByNumber)
-
-### options
-
-[`BlockOptions`](../interfaces/BlockOptions.md)
-
-An object describing the blockchain
-
-### uncles?
-
-`any`[] = `[]`
-
-Optional list of Ethereum JSON RPC of uncles (eth_getUncleByBlockHashAndIndex)
+| Parameter | Type | Default value | Description |
+| ------ | ------ | ------ | ------ |
+| `blockParams` | [`JsonRpcBlock`](../interfaces/JsonRpcBlock.md) | `undefined` | Ethereum JSON RPC of block (eth_getBlockByNumber) |
+| `options` | [`BlockOptions`](../interfaces/BlockOptions.md) | `undefined` | An object describing the blockchain |
+| `uncles` | `any`[] | `[]` | Optional list of Ethereum JSON RPC of uncles (eth_getUncleByBlockHashAndIndex) |
 
 ## Returns
 

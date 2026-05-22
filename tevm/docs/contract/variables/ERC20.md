@@ -8,8 +8,6 @@
 
 > `const` **ERC20**: [`Contract`](../../index/type-aliases/Contract.md)
 
-Defined in: tevm-monorepo/packages/contract/types/contract-lib/ERC20.d.ts:34
-
 Bytecode and ABI for the ERC20 contract from OpenZeppelin.
 This constant represents a standard ERC20 token implementation.
 

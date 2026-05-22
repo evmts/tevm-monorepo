@@ -17,23 +17,16 @@ Decodes a hex string into a string, number, bigint, boolean, or byte array.
 
 ## Type Parameters
 
-### to
-
-`to` *extends* `"string"` \| `"number"` \| `"bigint"` \| `"boolean"` \| `"bytes"`
+| Type Parameter |
+| ------ |
+| `to` *extends* `"string"` \| `"number"` \| `"bigint"` \| `"boolean"` \| `"bytes"` |
 
 ## Parameters
 
-### hex
-
-`` `0x${string}` ``
-
-Hex string to decode.
-
-### toOrOpts
-
-`FromHexParameters`\<`to`\>
-
-Type to convert to or options.
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `hex` | `` `0x${string}` `` | Hex string to decode. |
+| `toOrOpts` | `FromHexParameters`\<`to`\> | Type to convert to or options. |
 
 ## Returns
 

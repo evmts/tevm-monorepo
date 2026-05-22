@@ -23,17 +23,10 @@ Creates a new ReceiptsManager instance
 
 #### Parameters
 
-##### mapDb
-
-[`MapDb`](../type-aliases/MapDb.md)
-
-The database instance for storing receipts and indexes
-
-##### chain
-
-`Chain`
-
-The blockchain instance for retrieving blocks
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `mapDb` | [`MapDb`](../type-aliases/MapDb.md) | The database instance for storing receipts and indexes |
+| `chain` | `Chain` | The blockchain instance for retrieving blocks |
 
 #### Returns
 
@@ -41,56 +34,13 @@ The blockchain instance for retrieving blocks
 
 ## Properties
 
-### chain
-
-> `readonly` **chain**: `Chain`
-
-Defined in: [tevm-monorepo/packages/receipt-manager/src/ReceiptManager.ts:220](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/ReceiptManager.ts#L220)
-
-The blockchain instance for retrieving blocks
-
-***
-
-### GET\_LOGS\_BLOCK\_RANGE\_LIMIT
-
-> **GET\_LOGS\_BLOCK\_RANGE\_LIMIT**: `number` = `2500`
-
-Defined in: [tevm-monorepo/packages/receipt-manager/src/ReceiptManager.ts:239](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/ReceiptManager.ts#L239)
-
-Maximum block range that can be queried in a single getLogs call
-This prevents excessive computational load from large queries
-
-***
-
-### GET\_LOGS\_LIMIT
-
-> **GET\_LOGS\_LIMIT**: `number` = `10000`
-
-Defined in: [tevm-monorepo/packages/receipt-manager/src/ReceiptManager.ts:227](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/ReceiptManager.ts#L227)
-
-Maximum number of logs to return in getLogs
-This prevents excessive memory usage and response size
-
-***
-
-### GET\_LOGS\_LIMIT\_MEGABYTES
-
-> **GET\_LOGS\_LIMIT\_MEGABYTES**: `number` = `150`
-
-Defined in: [tevm-monorepo/packages/receipt-manager/src/ReceiptManager.ts:233](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/ReceiptManager.ts#L233)
-
-Maximum size of getLogs response in megabytes
-This prevents excessive memory usage and response size
-
-***
-
-### mapDb
-
-> `readonly` **mapDb**: [`MapDb`](../type-aliases/MapDb.md)
-
-Defined in: [tevm-monorepo/packages/receipt-manager/src/ReceiptManager.ts:219](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/ReceiptManager.ts#L219)
-
-The database instance for storing receipts and indexes
+| Property | Modifier | Type | Default value | Description | Defined in |
+| ------ | ------ | ------ | ------ | ------ | ------ |
+| <a id="chain"></a> `chain` | `readonly` | `Chain` | `undefined` | The blockchain instance for retrieving blocks | [tevm-monorepo/packages/receipt-manager/src/ReceiptManager.ts:220](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/ReceiptManager.ts#L220) |
+| <a id="get_logs_block_range_limit"></a> `GET_LOGS_BLOCK_RANGE_LIMIT` | `public` | `number` | `2500` | Maximum block range that can be queried in a single getLogs call This prevents excessive computational load from large queries | [tevm-monorepo/packages/receipt-manager/src/ReceiptManager.ts:239](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/ReceiptManager.ts#L239) |
+| <a id="get_logs_limit"></a> `GET_LOGS_LIMIT` | `public` | `number` | `10000` | Maximum number of logs to return in getLogs This prevents excessive memory usage and response size | [tevm-monorepo/packages/receipt-manager/src/ReceiptManager.ts:227](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/ReceiptManager.ts#L227) |
+| <a id="get_logs_limit_megabytes"></a> `GET_LOGS_LIMIT_MEGABYTES` | `public` | `number` | `150` | Maximum size of getLogs response in megabytes This prevents excessive memory usage and response size | [tevm-monorepo/packages/receipt-manager/src/ReceiptManager.ts:233](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/ReceiptManager.ts#L233) |
+| <a id="mapdb"></a> `mapDb` | `readonly` | [`MapDb`](../type-aliases/MapDb.md) | `undefined` | The database instance for storing receipts and indexes | [tevm-monorepo/packages/receipt-manager/src/ReceiptManager.ts:219](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/ReceiptManager.ts#L219) |
 
 ## Methods
 
@@ -105,11 +55,9 @@ Useful for creating a snapshot of the current state
 
 #### Parameters
 
-##### chain
-
-`Chain`
-
-The new chain reference to use
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `chain` | `Chain` | The new chain reference to use |
 
 #### Returns
 
@@ -130,11 +78,9 @@ Used when removing or replacing block data
 
 #### Parameters
 
-##### block
-
-`Block`
-
-The block whose receipts should be deleted
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `block` | `Block` | The block whose receipts should be deleted |
 
 #### Returns
 
@@ -163,29 +109,12 @@ Enforces size and count limits to prevent excessive resource usage
 
 #### Parameters
 
-##### from
-
-`Block`
-
-The starting block
-
-##### to
-
-`Block`
-
-The ending block
-
-##### addresses?
-
-`Uint8Array`\<`ArrayBufferLike`\>[]
-
-Optional array of addresses to filter logs by
-
-##### topics?
-
-(`Uint8Array`\<`ArrayBufferLike`\> \| `Uint8Array`\<`ArrayBufferLike`\>[] \| `null`)[] = `[]`
-
-Optional array of topics to filter logs by, can include arrays and nulls
+| Parameter | Type | Default value | Description |
+| ------ | ------ | ------ | ------ |
+| `from` | `Block` | `undefined` | The starting block |
+| `to` | `Block` | `undefined` | The ending block |
+| `addresses?` | `Uint8Array`\<`ArrayBufferLike`\>[] | `undefined` | Optional array of addresses to filter logs by |
+| `topics?` | (`Uint8Array`\<`ArrayBufferLike`\> \| `Uint8Array`\<`ArrayBufferLike`\>[] \| `null`)[] | `[]` | Optional array of topics to filter logs by, can include arrays and nulls |
 
 #### Returns
 
@@ -219,11 +148,9 @@ Also returns additional metadata needed for JSON-RPC responses
 
 #### Parameters
 
-##### txHash
-
-`Uint8Array`
-
-The transaction hash to look up
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `txHash` | `Uint8Array` | The transaction hash to look up |
 
 #### Returns
 
@@ -256,23 +183,11 @@ Can optionally calculate bloom filters and include transaction types
 
 ##### Parameters
 
-###### blockHash
-
-`Uint8Array`
-
-The hash of the block to get receipts for
-
-###### calcBloom?
-
-`boolean`
-
-Whether to calculate and include bloom filters (default: false)
-
-###### includeTxType?
-
-`true`
-
-Whether to include transaction types in the receipts (default: false)
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `blockHash` | `Uint8Array` | The hash of the block to get receipts for |
+| `calcBloom?` | `boolean` | Whether to calculate and include bloom filters (default: false) |
+| `includeTxType?` | `true` | Whether to include transaction types in the receipts (default: false) |
 
 ##### Returns
 
@@ -301,23 +216,11 @@ Can optionally calculate bloom filters and include transaction types
 
 ##### Parameters
 
-###### blockHash
-
-`Uint8Array`
-
-The hash of the block to get receipts for
-
-###### calcBloom?
-
-`boolean`
-
-Whether to calculate and include bloom filters (default: false)
-
-###### includeTxType?
-
-`false`
-
-Whether to include transaction types in the receipts (default: false)
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `blockHash` | `Uint8Array` | The hash of the block to get receipts for |
+| `calcBloom?` | `boolean` | Whether to calculate and include bloom filters (default: false) |
+| `includeTxType?` | `false` | Whether to include transaction types in the receipts (default: false) |
 
 ##### Returns
 
@@ -348,17 +251,10 @@ Also builds and saves transaction hash indexes for efficient lookups
 
 #### Parameters
 
-##### block
-
-`Block`
-
-The block containing the transactions
-
-##### receipts
-
-[`TxReceipt`](../type-aliases/TxReceipt.md)[]
-
-The transaction receipts to save
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `block` | `Block` | The block containing the transactions |
+| `receipts` | [`TxReceipt`](../type-aliases/TxReceipt.md)[] | The transaction receipts to save |
 
 #### Returns
 

@@ -8,19 +8,13 @@
 
 > **mineHandler**(`client`, `options?`): [`MineHandler`](../type-aliases/MineHandler.md)
 
-Defined in: tevm-monorepo/packages/actions/types/Mine/mineHandler.d.ts:1
-
 ## Parameters
 
-### client
-
-[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{ \}\>
-
-### options?
-
-#### throwOnFail?
-
-`boolean`
+| Parameter | Type |
+| ------ | ------ |
+| `client` | [`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{ \}\> |
+| `options?` | \{ `throwOnFail?`: `boolean`; \} |
+| `options.throwOnFail?` | `boolean` |
 
 ## Returns
 

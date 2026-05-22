@@ -12,9 +12,9 @@ Defined in: zevm/npm/zevm/dist/util.d.ts:151
 
 ## Parameters
 
-### bytes
-
-`Uint8Array`
+| Parameter | Type |
+| ------ | ------ |
+| `bytes` | `Uint8Array` |
 
 ## Returns
 

@@ -8,23 +8,14 @@
 
 > **createBlockFromRLP**(`serialized`, `opts`): [`Block`](../classes/Block.md)
 
-Defined in: tevm-monorepo/packages/block/types/index.d.ts:27
-
 Creates a block from a RLP-serialized block
 
 ## Parameters
 
-### serialized
-
-`Uint8Array`
-
-The serialized block data
-
-### opts
-
-[`BlockOptions`](../interfaces/BlockOptions.md)
-
-Options for the block
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `serialized` | `Uint8Array` | The serialized block data |
+| `opts` | [`BlockOptions`](../interfaces/BlockOptions.md) | Options for the block |
 
 ## Returns
 

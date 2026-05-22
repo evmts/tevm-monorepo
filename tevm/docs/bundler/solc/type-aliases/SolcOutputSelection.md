@@ -8,8 +8,6 @@
 
 > **SolcOutputSelection** = `object`
 
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:35
-
 ## Index Signature
 
 \[`fileName`: `string`\]: `object` & `object`

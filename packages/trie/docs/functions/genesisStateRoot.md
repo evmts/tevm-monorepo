@@ -12,9 +12,9 @@ Derives the stateRoot of the genesis block based on genesis allocations
 
 ## Parameters
 
-### genesisState
-
-`GenesisState`
+| Parameter | Type |
+| ------ | ------ |
+| `genesisState` | `GenesisState` |
 
 ## Returns
 

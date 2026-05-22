@@ -16,11 +16,9 @@ This low-level function is used internally by higher-level functions like `contr
 
 ## Parameters
 
-### action
-
-[`CallHandlerParams`](CallHandlerParams.md)
-
-The parameters for the call, including optional event handlers.
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `action` | [`CallHandlerParams`](CallHandlerParams.md) | The parameters for the call, including optional event handlers. |
 
 ## Returns
 

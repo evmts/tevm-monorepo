@@ -8,6 +8,4 @@
 
 > **AnvilSetNextBlockTimestampJsonRpcResponse** = [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"anvil_setNextBlockTimestamp"`, `SerializeToJson`\<[`AnvilSetNextBlockTimestampResult`](AnvilSetNextBlockTimestampResult.md)\>, `AnvilError`\>
 
-Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilJsonRpcResponse.d.ts:145
-
 JSON-RPC response for `anvil_setNextBlockTimestamp` procedure

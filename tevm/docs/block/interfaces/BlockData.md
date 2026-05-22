@@ -6,58 +6,15 @@
 
 # Interface: BlockData
 
-Defined in: tevm-monorepo/packages/block/types/types.d.ts:185
-
 A block's data.
 
 ## Properties
 
-### executionWitness?
-
-> `optional` **executionWitness?**: [`VerkleExecutionWitness`](VerkleExecutionWitness.md) \| `null`
-
-Defined in: tevm-monorepo/packages/block/types/types.d.ts:197
-
-EIP-6800: Verkle Proof Data (experimental)
-
-***
-
-### header?
-
-> `optional` **header?**: [`HeaderData`](HeaderData.md)
-
-Defined in: tevm-monorepo/packages/block/types/types.d.ts:189
-
-Header data for the block
-
-***
-
-### requests?
-
-> `optional` **requests?**: [`ClRequest`](../classes/ClRequest.md)[]
-
-Defined in: tevm-monorepo/packages/block/types/types.d.ts:193
-
-***
-
-### transactions?
-
-> `optional` **transactions?**: (`LegacyTxData` \| `AccessList2930TxData` \| `FeeMarketEIP1559TxData` \| `BlobEIP4844TxData` \| [`EOACodeEIP7702TxData`](../../tx/interfaces/EOACodeEIP7702TxData.md))[]
-
-Defined in: tevm-monorepo/packages/block/types/types.d.ts:190
-
-***
-
-### uncleHeaders?
-
-> `optional` **uncleHeaders?**: [`HeaderData`](HeaderData.md)[]
-
-Defined in: tevm-monorepo/packages/block/types/types.d.ts:191
-
-***
-
-### withdrawals?
-
-> `optional` **withdrawals?**: [`WithdrawalData`](../../utils/type-aliases/WithdrawalData.md)[]
-
-Defined in: tevm-monorepo/packages/block/types/types.d.ts:192
+| Property | Type | Description |
+| ------ | ------ | ------ |
+| <a id="executionwitness"></a> `executionWitness?` | [`VerkleExecutionWitness`](VerkleExecutionWitness.md) \| `null` | EIP-6800: Verkle proof data payload shape (experimental). Tevm does not execute Verkle/state-witness blocks. |
+| <a id="header"></a> `header?` | [`HeaderData`](HeaderData.md) | Header data for the block |
+| <a id="requests"></a> `requests?` | [`ClRequest`](../classes/ClRequest.md)[] | - |
+| <a id="transactions"></a> `transactions?` | (`LegacyTxData` \| `AccessList2930TxData` \| `FeeMarketEIP1559TxData` \| `BlobEIP4844TxData` \| [`EOACodeEIP7702TxData`](../../tx/interfaces/EOACodeEIP7702TxData.md))[] | - |
+| <a id="uncleheaders"></a> `uncleHeaders?` | [`HeaderData`](HeaderData.md)[] | - |
+| <a id="withdrawals"></a> `withdrawals?` | [`WithdrawalData`](../../utils/type-aliases/WithdrawalData.md)[] | - |

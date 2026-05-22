@@ -8,71 +8,17 @@
 
 > **ChainOptions** = `object`
 
-Defined in: tevm-monorepo/packages/blockchain/types/ChainOptions.d.ts:8
-
 Options passed into `createChain` to initialize a Chain object
 
 ## Properties
 
-### common
-
-> **common**: [`Common`](../../common/type-aliases/Common.md)
-
-Defined in: tevm-monorepo/packages/blockchain/types/ChainOptions.d.ts:16
-
-A Common instance
-
-***
-
-### fork?
-
-> `optional` **fork?**: `object`
-
-Defined in: tevm-monorepo/packages/blockchain/types/ChainOptions.d.ts:25
-
-Optional fork config for forking a live chain
-
-#### blockTag?
-
-> `optional` **blockTag?**: [`BlockTag`](../../index/type-aliases/BlockTag.md) \| `bigint` \| `` `0x${string}` ``
-
-Optional block tag to fork
-Defaults to 'latest'
-
-#### transport
-
-> **transport**: `object`
-
-EIP-1193 request function to fetch forked blocks with
-
-##### transport.request
-
-> **request**: `EIP1193RequestFn`
-
-***
-
-### genesisBlock?
-
-> `optional` **genesisBlock?**: [`Block`](../../block/classes/Block.md)
-
-Defined in: tevm-monorepo/packages/blockchain/types/ChainOptions.d.ts:20
-
-Override the genesis block. If fork is provided it will be fetched from fork. Otherwise a default genesis is provided.
-
-***
-
-### genesisStateRoot?
-
-> `optional` **genesisStateRoot?**: `Uint8Array`
-
-Defined in: tevm-monorepo/packages/blockchain/types/ChainOptions.d.ts:21
-
-***
-
-### loggingLevel?
-
-> `optional` **loggingLevel?**: `LogOptions`\[`"level"`\]
-
-Defined in: tevm-monorepo/packages/blockchain/types/ChainOptions.d.ts:12
-
-Logging level of blockchain package. Defaults to `warn`
+| Property | Type | Description |
+| ------ | ------ | ------ |
+| <a id="common"></a> `common` | [`Common`](../../common/type-aliases/Common.md) | A Common instance |
+| <a id="fork"></a> `fork?` | `object` | Optional fork config for forking a live chain |
+| `fork.blockTag?` | [`BlockTag`](../../index/type-aliases/BlockTag.md) \| `bigint` \| `` `0x${string}` `` | Optional block tag to fork Defaults to 'latest' |
+| `fork.transport` | `object` | EIP-1193 request function to fetch forked blocks with |
+| `fork.transport.request` | `EIP1193RequestFn` | - |
+| <a id="genesisblock"></a> `genesisBlock?` | [`Block`](../../block/classes/Block.md) | Override the genesis block. If fork is provided it will be fetched from fork. Otherwise a default genesis is provided. |
+| <a id="genesisstateroot"></a> `genesisStateRoot?` | `Uint8Array` | - |
+| <a id="logginglevel"></a> `loggingLevel?` | `LogOptions`\[`"level"`\] | Logging level of blockchain package. Defaults to `warn` |

@@ -8,13 +8,11 @@
 
 > **getProvider**(`provider`): `string`
 
-Defined in: zevm/npm/zevm/dist/util.d.ts:242
-
 ## Parameters
 
-### provider
-
-`ProviderLike`
+| Parameter | Type |
+| ------ | ------ |
+| `provider` | `ProviderLike` |
 
 ## Returns
 

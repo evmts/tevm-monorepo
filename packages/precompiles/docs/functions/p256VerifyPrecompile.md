@@ -8,7 +8,7 @@
 
 > **p256VerifyPrecompile**(): `object`
 
-Defined in: [p256verify.precompile.ts:27](https://github.com/evmts/tevm-monorepo/blob/main/packages/precompiles/src/p256verify.precompile.ts#L27)
+Defined in: [p256verify.precompile.ts:30](https://github.com/evmts/tevm-monorepo/blob/main/packages/precompiles/src/p256verify.precompile.ts#L30)
 
 Creates the p256verify precompile as specified in RIP-7212
 Verifies ECDSA signatures on the secp256r1 (P-256) curve
@@ -25,24 +25,16 @@ The p256verify precompile object
 
 ### function
 
-> **function**: (`input`) => `object`
+> **function**: (`input`) => \{ `exceptionError`: `EVMError`; `executionGasUsed`: `bigint`; `returnValue`: `Uint8Array`\<`ArrayBuffer`\>; \} \| \{ `exceptionError?`: `undefined`; `executionGasUsed`: `bigint`; `returnValue`: `ByteArray`; \}
 
 #### Parameters
 
-##### input
-
-###### data
-
-`Uint8Array`
+| Parameter | Type |
+| ------ | ------ |
+| `input` | \{ `data`: `Uint8Array`; `gasLimit`: `bigint`; \} |
+| `input.data` | `Uint8Array` |
+| `input.gasLimit` | `bigint` |
 
 #### Returns
 
-`object`
-
-##### executionGasUsed
-
-> **executionGasUsed**: `bigint`
-
-##### returnValue
-
-> **returnValue**: `ByteArray`
+\{ `exceptionError`: `EVMError`; `executionGasUsed`: `bigint`; `returnValue`: `Uint8Array`\<`ArrayBuffer`\>; \} \| \{ `exceptionError?`: `undefined`; `executionGasUsed`: `bigint`; `returnValue`: `ByteArray`; \}

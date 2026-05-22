@@ -39,88 +39,9 @@ Object.entries(handlers).forEach(([event, handler]) => {
 
 ## Properties
 
-### afterBlock
-
-> **afterBlock**: (`data`, `resolve?`) => `void`
-
-Defined in: [packages/vm/src/utils/VMEvents.ts:34](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/VMEvents.ts#L34)
-
-#### Parameters
-
-##### data
-
-[`AfterBlockEvent`](../interfaces/AfterBlockEvent.md)
-
-##### resolve?
-
-(`result?`) => `void`
-
-#### Returns
-
-`void`
-
-***
-
-### afterTx
-
-> **afterTx**: (`data`, `resolve?`) => `void`
-
-Defined in: [packages/vm/src/utils/VMEvents.ts:36](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/VMEvents.ts#L36)
-
-#### Parameters
-
-##### data
-
-[`AfterTxEvent`](../interfaces/AfterTxEvent.md)
-
-##### resolve?
-
-(`result?`) => `void`
-
-#### Returns
-
-`void`
-
-***
-
-### beforeBlock
-
-> **beforeBlock**: (`data`, `resolve?`) => `void`
-
-Defined in: [packages/vm/src/utils/VMEvents.ts:33](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/VMEvents.ts#L33)
-
-#### Parameters
-
-##### data
-
-`Block`
-
-##### resolve?
-
-(`result?`) => `void`
-
-#### Returns
-
-`void`
-
-***
-
-### beforeTx
-
-> **beforeTx**: (`data`, `resolve?`) => `void`
-
-Defined in: [packages/vm/src/utils/VMEvents.ts:35](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/VMEvents.ts#L35)
-
-#### Parameters
-
-##### data
-
-`TypedTransaction`
-
-##### resolve?
-
-(`result?`) => `void`
-
-#### Returns
-
-`void`
+| Property | Type | Defined in |
+| ------ | ------ | ------ |
+| <a id="afterblock"></a> `afterBlock` | (`data`, `resolve?`) => `void` | [packages/vm/src/utils/VMEvents.ts:34](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/VMEvents.ts#L34) |
+| <a id="aftertx"></a> `afterTx` | (`data`, `resolve?`) => `void` | [packages/vm/src/utils/VMEvents.ts:36](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/VMEvents.ts#L36) |
+| <a id="beforeblock"></a> `beforeBlock` | (`data`, `resolve?`) => `void` | [packages/vm/src/utils/VMEvents.ts:33](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/VMEvents.ts#L33) |
+| <a id="beforetx"></a> `beforeTx` | (`data`, `resolve?`) => `void` | [packages/vm/src/utils/VMEvents.ts:35](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/VMEvents.ts#L35) |

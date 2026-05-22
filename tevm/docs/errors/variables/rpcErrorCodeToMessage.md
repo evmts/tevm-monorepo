@@ -7,5 +7,3 @@
 # Variable: rpcErrorCodeToMessage
 
 > `const` **rpcErrorCodeToMessage**: `Record`\<[`RpcErrorCode`](../type-aliases/RpcErrorCode.md), `string`\>
-
-Defined in: tevm-monorepo/packages/errors/types/rpcErrorToMessage.d.ts:4

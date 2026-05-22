@@ -14,9 +14,9 @@ Typesafe way to create an Tevm CompilerConfig
 
 ## Parameters
 
-### configFactory
-
-[`ConfigFactory`](../../types/type-aliases/ConfigFactory.md)
+| Parameter | Type |
+| ------ | ------ |
+| `configFactory` | [`ConfigFactory`](../../types/type-aliases/ConfigFactory.md) |
 
 ## Returns
 
@@ -28,9 +28,9 @@ Typesafe way to create an Tevm CompilerConfig
 
 #### Parameters
 
-##### configFilePath
-
-`string`
+| Parameter | Type |
+| ------ | ------ |
+| `configFilePath` | `string` |
 
 #### Returns
 

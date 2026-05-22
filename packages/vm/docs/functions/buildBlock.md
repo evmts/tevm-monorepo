@@ -12,9 +12,9 @@ Defined in: [packages/vm/src/actions/buildBlock.ts:8](https://github.com/evmts/t
 
 ## Parameters
 
-### vm
-
-`BaseVm`
+| Parameter | Type |
+| ------ | ------ |
+| `vm` | `BaseVm` |
 
 ## Returns
 

@@ -14,9 +14,9 @@ JSON-RPC procedure for `anvil_setNextBlockTimestamp`
 
 ## Parameters
 
-### request
-
-[`AnvilSetNextBlockTimestampJsonRpcRequest`](AnvilSetNextBlockTimestampJsonRpcRequest.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`AnvilSetNextBlockTimestampJsonRpcRequest`](AnvilSetNextBlockTimestampJsonRpcRequest.md) |
 
 ## Returns
 

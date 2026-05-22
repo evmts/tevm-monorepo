@@ -8,6 +8,4 @@
 
 > **AnvilStopImpersonatingAccountJsonRpcRequest** = [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"anvil_stopImpersonatingAccount"`, readonly \[[`Address`](../../index/type-aliases/Address.md)\]\>
 
-Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilJsonRpcRequest.d.ts:13
-
 JSON-RPC request for `anvil_stopImpersonatingAccount` method

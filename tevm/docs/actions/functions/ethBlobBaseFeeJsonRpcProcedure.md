@@ -8,13 +8,11 @@
 
 > **ethBlobBaseFeeJsonRpcProcedure**(`client`): [`EthBlobBaseFeeJsonRpcProcedure`](../type-aliases/EthBlobBaseFeeJsonRpcProcedure.md)
 
-Defined in: tevm-monorepo/packages/actions/types/eth/ethBlobBaseFeeProcedure.d.ts:1
-
 ## Parameters
 
-### client
-
-[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{ \}\>
+| Parameter | Type |
+| ------ | ------ |
+| `client` | [`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{ \}\> |
 
 ## Returns
 

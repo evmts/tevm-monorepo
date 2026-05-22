@@ -12,19 +12,16 @@ Defined in: [packages/actions/src/debug/DebugHandler.ts:26](https://github.com/e
 
 ## Type Parameters
 
-### TTracer
-
-`TTracer` *extends* `"callTracer"` \| `"prestateTracer"` \| `"4byteTracer"` \| `"flatCallTracer"` \| `"muxTracer"` = `"callTracer"` \| `"prestateTracer"` \| `"4byteTracer"` \| `"flatCallTracer"` \| `"muxTracer"`
-
-### TDiffMode
-
-`TDiffMode` *extends* `boolean` = `boolean`
+| Type Parameter | Default type |
+| ------ | ------ |
+| `TTracer` *extends* `"callTracer"` \| `"prestateTracer"` \| `"4byteTracer"` \| `"flatCallTracer"` \| `"muxTracer"` | `"callTracer"` \| `"prestateTracer"` \| `"4byteTracer"` \| `"flatCallTracer"` \| `"muxTracer"` |
+| `TDiffMode` *extends* `boolean` | `boolean` |
 
 ## Parameters
 
-### params
-
-[`DebugTraceCallParams`](DebugTraceCallParams.md)\<`TTracer`, `TDiffMode`\>
+| Parameter | Type |
+| ------ | ------ |
+| `params` | [`DebugTraceCallParams`](DebugTraceCallParams.md)\<`TTracer`, `TDiffMode`\> |
 
 ## Returns
 

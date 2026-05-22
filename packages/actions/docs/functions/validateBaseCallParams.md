@@ -17,9 +17,9 @@ Validates that the parameters are correct with zod
 
 ## Parameters
 
-### action
-
-[`BaseCallParams`](../type-aliases/BaseCallParams.md)\<`boolean`\>
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `action` | [`BaseCallParams`](../type-aliases/BaseCallParams.md)\<`boolean`\> | - |
 
 ## Returns
 

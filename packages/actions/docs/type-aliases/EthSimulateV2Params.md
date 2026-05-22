@@ -8,7 +8,7 @@
 
 > **EthSimulateV2Params** = `object`
 
-Defined in: [packages/actions/src/eth/EthParams.ts:516](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L516)
+Defined in: [packages/actions/src/eth/EthParams.ts:523](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L523)
 
 Based on the JSON-RPC request for `eth_simulateV2` procedure
 Extends V1 with additional features:
@@ -19,73 +19,12 @@ Extends V1 with additional features:
 
 ## Properties
 
-### blockStateCalls
-
-> `readonly` **blockStateCalls**: readonly [`EthSimulateV2BlockStateCall`](EthSimulateV2BlockStateCall.md)[]
-
-Defined in: [packages/actions/src/eth/EthParams.ts:521](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L521)
-
-Array of block state calls to simulate. Each block can have its own
-state overrides and multiple calls.
-
-***
-
-### blockTag?
-
-> `readonly` `optional` **blockTag?**: [`BlockParam`](BlockParam.md)
-
-Defined in: [packages/actions/src/eth/EthParams.ts:537](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L537)
-
-The block number or tag to execute the simulation against
-
-***
-
-### includeCallTraces?
-
-> `readonly` `optional` **includeCallTraces?**: `boolean`
-
-Defined in: [packages/actions/src/eth/EthParams.ts:547](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L547)
-
-Whether to include call traces in the response.
-V2 feature: provides detailed execution traces for debugging.
-
-***
-
-### includeContractCreationEvents?
-
-> `readonly` `optional` **includeContractCreationEvents?**: `boolean`
-
-Defined in: [packages/actions/src/eth/EthParams.ts:542](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L542)
-
-Whether to include contract creation events in the logs.
-V2 feature: emits a synthetic log when contracts are deployed.
-
-***
-
-### returnFullTransactions?
-
-> `readonly` `optional` **returnFullTransactions?**: `boolean`
-
-Defined in: [packages/actions/src/eth/EthParams.ts:533](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L533)
-
-Whether to return full transaction objects in the response
-
-***
-
-### traceTransfers?
-
-> `readonly` `optional` **traceTransfers?**: `boolean`
-
-Defined in: [packages/actions/src/eth/EthParams.ts:525](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L525)
-
-Whether to trace ETH transfers (adds Transfer logs for native ETH)
-
-***
-
-### validation?
-
-> `readonly` `optional` **validation?**: `boolean`
-
-Defined in: [packages/actions/src/eth/EthParams.ts:529](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L529)
-
-Whether to validate transactions (check signatures, nonces, etc.)
+| Property | Modifier | Type | Description | Defined in |
+| ------ | ------ | ------ | ------ | ------ |
+| <a id="blockstatecalls"></a> `blockStateCalls` | `readonly` | readonly [`EthSimulateV2BlockStateCall`](EthSimulateV2BlockStateCall.md)[] | Array of block state calls to simulate. Each block can have its own state overrides and multiple calls. | [packages/actions/src/eth/EthParams.ts:528](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L528) |
+| <a id="blocktag"></a> `blockTag?` | `readonly` | [`BlockParam`](BlockParam.md) | The block number or tag to execute the simulation against | [packages/actions/src/eth/EthParams.ts:544](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L544) |
+| <a id="includecalltraces"></a> `includeCallTraces?` | `readonly` | `boolean` | Whether to include call traces in the response. V2 feature: provides detailed execution traces for debugging. | [packages/actions/src/eth/EthParams.ts:554](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L554) |
+| <a id="includecontractcreationevents"></a> `includeContractCreationEvents?` | `readonly` | `boolean` | Whether to include contract creation events in the logs. V2 feature: emits a synthetic log when contracts are deployed. | [packages/actions/src/eth/EthParams.ts:549](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L549) |
+| <a id="returnfulltransactions"></a> `returnFullTransactions?` | `readonly` | `boolean` | Whether to return full transaction objects in the response | [packages/actions/src/eth/EthParams.ts:540](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L540) |
+| <a id="tracetransfers"></a> `traceTransfers?` | `readonly` | `boolean` | Whether to trace ETH transfers (adds Transfer logs for native ETH) | [packages/actions/src/eth/EthParams.ts:532](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L532) |
+| <a id="validation"></a> `validation?` | `readonly` | `boolean` | Whether to validate transactions (check signatures, nonces, etc.) | [packages/actions/src/eth/EthParams.ts:536](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L536) |

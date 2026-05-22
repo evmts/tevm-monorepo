@@ -8,16 +8,14 @@
 
 > **createEvm**(`__namedParameters`): `Promise`\<[`EvmType`](../type-aliases/EvmType.md)\>
 
-Defined in: [packages/evm/src/createEvm.js:30](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/src/createEvm.js#L30)
-
-Creates the Tevm Evm to execute ethereum bytecode internally.
+Creates the Tevm EVM to execute Ethereum bytecode internally.
 Wraps ZEVM EVM primitives with Tevm defaults.
 
 ## Parameters
 
-### \_\_namedParameters
-
-[`CreateEvmOptions`](../type-aliases/CreateEvmOptions.md)
+| Parameter | Type |
+| ------ | ------ |
+| `__namedParameters` | [`CreateEvmOptions`](../type-aliases/CreateEvmOptions.md) |
 
 ## Returns
 

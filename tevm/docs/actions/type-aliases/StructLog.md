@@ -8,68 +8,16 @@
 
 > **StructLog** = `object`
 
-Defined in: tevm-monorepo/packages/actions/types/common/StructLog.d.ts:2
-
 ## Properties
 
-### depth
-
-> `readonly` **depth**: `number`
-
-Defined in: tevm-monorepo/packages/actions/types/common/StructLog.d.ts:3
-
-***
-
-### error?
-
-> `readonly` `optional` **error?**: `object`
-
-Defined in: tevm-monorepo/packages/actions/types/common/StructLog.d.ts:9
-
-#### error
-
-> **error**: `string`
-
-#### errorType
-
-> **errorType**: `string`
-
-***
-
-### gas
-
-> `readonly` **gas**: `bigint`
-
-Defined in: tevm-monorepo/packages/actions/types/common/StructLog.d.ts:4
-
-***
-
-### gasCost
-
-> `readonly` **gasCost**: `bigint`
-
-Defined in: tevm-monorepo/packages/actions/types/common/StructLog.d.ts:5
-
-***
-
-### op
-
-> `readonly` **op**: `string`
-
-Defined in: tevm-monorepo/packages/actions/types/common/StructLog.d.ts:6
-
-***
-
-### pc
-
-> `readonly` **pc**: `number`
-
-Defined in: tevm-monorepo/packages/actions/types/common/StructLog.d.ts:7
-
-***
-
-### stack
-
-> `readonly` **stack**: [`Hex`](Hex.md)[]
-
-Defined in: tevm-monorepo/packages/actions/types/common/StructLog.d.ts:8
+| Property | Modifier | Type |
+| ------ | ------ | ------ |
+| <a id="depth"></a> `depth` | `readonly` | `number` |
+| <a id="error"></a> `error?` | `readonly` | `object` |
+| `error.error` | `public` | `string` |
+| `error.errorType` | `public` | `string` |
+| <a id="gas"></a> `gas` | `readonly` | `bigint` |
+| <a id="gascost"></a> `gasCost` | `readonly` | `bigint` |
+| <a id="op"></a> `op` | `readonly` | `string` |
+| <a id="pc"></a> `pc` | `readonly` | `number` |
+| <a id="stack"></a> `stack` | `readonly` | [`Hex`](Hex.md)[] |

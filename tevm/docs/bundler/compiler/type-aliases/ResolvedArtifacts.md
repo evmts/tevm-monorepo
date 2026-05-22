@@ -8,6 +8,4 @@
 
 > **ResolvedArtifacts** = `ResolvedArtifacts`
 
-Defined in: tevm-monorepo/bundler-packages/compiler/types/src/index.d.ts:26
-
 ./types.ts

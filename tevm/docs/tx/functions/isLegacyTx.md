@@ -12,11 +12,9 @@ Type guard to check if transaction is a Legacy transaction
 
 ## Parameters
 
-### tx
-
-[`TypedTransaction`](../type-aliases/TypedTransaction.md)
-
-The transaction to check
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `tx` | [`TypedTransaction`](../type-aliases/TypedTransaction.md) | The transaction to check |
 
 ## Returns
 

@@ -29,13 +29,10 @@ varying data types.
 
 #### Parameters
 
-##### txData
-
-`AccessList2930TxData`
-
-##### opts?
-
-[`TxOptions`](../interfaces/TxOptions.md)
+| Parameter | Type |
+| ------ | ------ |
+| `txData` | `AccessList2930TxData` |
+| `opts?` | [`TxOptions`](../interfaces/TxOptions.md) |
 
 #### Returns
 
@@ -43,151 +40,24 @@ varying data types.
 
 ## Properties
 
-### accessList
-
-> `readonly` **accessList**: `AccessListBytes`
-
-***
-
-### activeCapabilities
-
-> `protected` **activeCapabilities**: `number`[]
-
-List of tx type defining EIPs,
-e.g. 1559 (fee market) and 2930 (access lists)
-for FeeMarket1559Tx objects
-
-***
-
-### cache
-
-> `readonly` **cache**: `TransactionCache`
-
-#### Implementation of
-
-[`EIP4844CompatibleTx`](../interfaces/EIP4844CompatibleTx.md).[`cache`](../interfaces/EIP4844CompatibleTx.md#cache)
-
-***
-
-### chainId
-
-> `readonly` **chainId**: `bigint`
-
-***
-
-### common
-
-> `readonly` **common**: `Common`
-
-#### Implementation of
-
-[`EIP4844CompatibleTx`](../interfaces/EIP4844CompatibleTx.md).[`common`](../interfaces/EIP4844CompatibleTx.md#common)
-
-***
-
-### data
-
-> `readonly` **data**: `Uint8Array`
-
-#### Implementation of
-
-[`EIP4844CompatibleTx`](../interfaces/EIP4844CompatibleTx.md).[`data`](../interfaces/EIP4844CompatibleTx.md#data)
-
-***
-
-### gasLimit
-
-> `readonly` **gasLimit**: `bigint`
-
-#### Implementation of
-
-[`EIP4844CompatibleTx`](../interfaces/EIP4844CompatibleTx.md).[`gasLimit`](../interfaces/EIP4844CompatibleTx.md#gaslimit)
-
-***
-
-### gasPrice
-
-> `readonly` **gasPrice**: `bigint`
-
-***
-
-### nonce
-
-> `readonly` **nonce**: `bigint`
-
-#### Implementation of
-
-[`EIP4844CompatibleTx`](../interfaces/EIP4844CompatibleTx.md).[`nonce`](../interfaces/EIP4844CompatibleTx.md#nonce)
-
-***
-
-### r?
-
-> `readonly` `optional` **r?**: `bigint`
-
-#### Implementation of
-
-[`EIP4844CompatibleTx`](../interfaces/EIP4844CompatibleTx.md).[`r`](../interfaces/EIP4844CompatibleTx.md#r)
-
-***
-
-### s?
-
-> `readonly` `optional` **s?**: `bigint`
-
-#### Implementation of
-
-[`EIP4844CompatibleTx`](../interfaces/EIP4844CompatibleTx.md).[`s`](../interfaces/EIP4844CompatibleTx.md#s)
-
-***
-
-### to?
-
-> `readonly` `optional` **to?**: `Address`
-
-#### Implementation of
-
-[`EIP4844CompatibleTx`](../interfaces/EIP4844CompatibleTx.md).[`to`](../interfaces/EIP4844CompatibleTx.md#to)
-
-***
-
-### txOptions
-
-> `readonly` **txOptions**: [`TxOptions`](../interfaces/TxOptions.md)
-
-#### Implementation of
-
-[`EIP4844CompatibleTx`](../interfaces/EIP4844CompatibleTx.md).[`txOptions`](../interfaces/EIP4844CompatibleTx.md#txoptions)
-
-***
-
-### type
-
-> **type**: `1`
-
-#### Implementation of
-
-[`EIP4844CompatibleTx`](../interfaces/EIP4844CompatibleTx.md).[`type`](../interfaces/EIP4844CompatibleTx.md#type)
-
-***
-
-### v?
-
-> `readonly` `optional` **v?**: `bigint`
-
-#### Implementation of
-
-[`EIP4844CompatibleTx`](../interfaces/EIP4844CompatibleTx.md).[`v`](../interfaces/EIP4844CompatibleTx.md#v)
-
-***
-
-### value
-
-> `readonly` **value**: `bigint`
-
-#### Implementation of
-
-[`EIP4844CompatibleTx`](../interfaces/EIP4844CompatibleTx.md).[`value`](../interfaces/EIP4844CompatibleTx.md#value)
+| Property | Modifier | Type | Description |
+| ------ | ------ | ------ | ------ |
+| <a id="accesslist"></a> `accessList` | `readonly` | `AccessListBytes` | - |
+| <a id="activecapabilities"></a> `activeCapabilities` | `protected` | `number`[] | List of tx type defining EIPs, e.g. 1559 (fee market) and 2930 (access lists) for FeeMarket1559Tx objects |
+| <a id="cache"></a> `cache` | `readonly` | `TransactionCache` | - |
+| <a id="chainid"></a> `chainId` | `readonly` | `bigint` | - |
+| <a id="common"></a> `common` | `readonly` | `Common` | - |
+| <a id="data"></a> `data` | `readonly` | `Uint8Array` | - |
+| <a id="gaslimit"></a> `gasLimit` | `readonly` | `bigint` | - |
+| <a id="gasprice"></a> `gasPrice` | `readonly` | `bigint` | - |
+| <a id="nonce"></a> `nonce` | `readonly` | `bigint` | - |
+| <a id="r"></a> `r?` | `readonly` | `bigint` | - |
+| <a id="s"></a> `s?` | `readonly` | `bigint` | - |
+| <a id="to"></a> `to?` | `readonly` | `Address` | - |
+| <a id="txoptions"></a> `txOptions` | `readonly` | [`TxOptions`](../interfaces/TxOptions.md) | - |
+| <a id="type"></a> `type` | `public` | `1` | - |
+| <a id="v"></a> `v?` | `readonly` | `bigint` | - |
+| <a id="value"></a> `value` | `readonly` | `bigint` | - |
 
 ## Methods
 
@@ -199,23 +69,11 @@ Adds the provided signature values and returns a new transaction instance.
 
 #### Parameters
 
-##### v
-
-`bigint`
-
-Recovery parameter (y-parity)
-
-##### r
-
-`bigint` \| `Uint8Array`\<`ArrayBufferLike`\>
-
-`r` component of the signature
-
-##### s
-
-`bigint` \| `Uint8Array`\<`ArrayBufferLike`\>
-
-`s` component of the signature
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `v` | `bigint` | Recovery parameter (y-parity) |
+| `r` | `bigint` \| `Uint8Array`\<`ArrayBufferLike`\> | `r` component of the signature |
+| `s` | `bigint` \| `Uint8Array`\<`ArrayBufferLike`\> | `s` component of the signature |
 
 #### Returns
 
@@ -267,9 +125,9 @@ The amount of gas paid for the data in this tx
 
 #### Parameters
 
-##### baseFee?
-
-`bigint`
+| Parameter | Type |
+| ------ | ------ |
+| `baseFee?` | `bigint` |
 
 #### Returns
 
@@ -544,17 +402,10 @@ Signs the transaction with the provided private key and returns a new instance.
 
 #### Parameters
 
-##### privateKey
-
-`Uint8Array`
-
-32-byte private key
-
-##### extraEntropy?
-
-`boolean` \| `Uint8Array`\<`ArrayBufferLike`\>
-
-Optional entropy fed into the signing algorithm
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `privateKey` | `Uint8Array` | 32-byte private key |
+| `extraEntropy?` | `boolean` \| `Uint8Array`\<`ArrayBufferLike`\> | Optional entropy fed into the signing algorithm |
 
 #### Returns
 
@@ -589,9 +440,9 @@ on all supported capabilities.
 
 #### Parameters
 
-##### capability
-
-`number`
+| Parameter | Type |
+| ------ | ------ |
+| `capability` | `number` |
 
 #### Returns
 

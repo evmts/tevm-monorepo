@@ -14,9 +14,9 @@ Mine JSON-RPC tevm procedure mines 1 or more blocks
 
 ## Parameters
 
-### request
-
-[`MineJsonRpcRequest`](MineJsonRpcRequest.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`MineJsonRpcRequest`](MineJsonRpcRequest.md) |
 
 ## Returns
 

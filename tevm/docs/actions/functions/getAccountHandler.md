@@ -8,19 +8,13 @@
 
 > **getAccountHandler**(`client`, `options?`): [`GetAccountHandler`](../type-aliases/GetAccountHandler.md)
 
-Defined in: tevm-monorepo/packages/actions/types/GetAccount/getAccountHandler.d.ts:1
-
 ## Parameters
 
-### client
-
-[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{ \}\>
-
-### options?
-
-#### throwOnFail?
-
-`boolean`
+| Parameter | Type |
+| ------ | ------ |
+| `client` | [`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{ \}\> |
+| `options?` | \{ `throwOnFail?`: `boolean`; \} |
+| `options.throwOnFail?` | `boolean` |
 
 ## Returns
 

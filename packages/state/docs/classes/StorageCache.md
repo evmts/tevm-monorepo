@@ -22,9 +22,9 @@ Defined in: zevm/npm/zevm/dist/statemanager.d.ts:92
 
 #### Parameters
 
-##### opts
-
-`CacheOpts`
+| Parameter | Type |
+| ------ | ------ |
+| `opts` | `CacheOpts` |
 
 #### Returns
 
@@ -36,63 +36,14 @@ Defined in: zevm/npm/zevm/dist/statemanager.d.ts:92
 
 ## Properties
 
-### \_checkpoints
-
-> **\_checkpoints**: `number`
-
-Defined in: zevm/npm/zevm/dist/statemanager.d.ts:66
-
-#### Inherited from
-
-`Cache._checkpoints`
-
-***
-
-### \_diffCache
-
-> **\_diffCache**: `Map`\<`string`, `DiffStorageCacheMap`\>[]
-
-Defined in: zevm/npm/zevm/dist/statemanager.d.ts:91
-
-***
-
-### \_lruCache
-
-> **\_lruCache**: `SimpleLRUCache`\<`string`, `StorageCacheMap`\> \| `undefined`
-
-Defined in: zevm/npm/zevm/dist/statemanager.d.ts:89
-
-***
-
-### \_orderedMapCache
-
-> **\_orderedMapCache**: `SimpleOrderedMap`\<`string`, `StorageCacheMap`\> \| `undefined`
-
-Defined in: zevm/npm/zevm/dist/statemanager.d.ts:90
-
-***
-
-### \_stats
-
-> **\_stats**: `CacheStats`
-
-Defined in: zevm/npm/zevm/dist/statemanager.d.ts:67
-
-#### Inherited from
-
-`Cache._stats`
-
-***
-
-### DEBUG
-
-> `protected` `readonly` **DEBUG**: `false` = `false`
-
-Defined in: zevm/npm/zevm/dist/statemanager.d.ts:68
-
-#### Inherited from
-
-`Cache.DEBUG`
+| Property | Modifier | Type | Default value | Inherited from | Defined in |
+| ------ | ------ | ------ | ------ | ------ | ------ |
+| <a id="_checkpoints"></a> `_checkpoints` | `public` | `number` | `undefined` | `Cache._checkpoints` | zevm/npm/zevm/dist/statemanager.d.ts:66 |
+| <a id="_diffcache"></a> `_diffCache` | `public` | `Map`\<`string`, `DiffStorageCacheMap`\>[] | `undefined` | - | zevm/npm/zevm/dist/statemanager.d.ts:91 |
+| <a id="_lrucache"></a> `_lruCache` | `public` | `SimpleLRUCache`\<`string`, `StorageCacheMap`\> \| `undefined` | `undefined` | - | zevm/npm/zevm/dist/statemanager.d.ts:89 |
+| <a id="_orderedmapcache"></a> `_orderedMapCache` | `public` | `SimpleOrderedMap`\<`string`, `StorageCacheMap`\> \| `undefined` | `undefined` | - | zevm/npm/zevm/dist/statemanager.d.ts:90 |
+| <a id="_stats"></a> `_stats` | `public` | `CacheStats` | `undefined` | `Cache._stats` | zevm/npm/zevm/dist/statemanager.d.ts:67 |
+| <a id="debug"></a> `DEBUG` | `readonly` | `false` | `false` | `Cache.DEBUG` | zevm/npm/zevm/dist/statemanager.d.ts:68 |
 
 ## Methods
 
@@ -104,9 +55,9 @@ Defined in: zevm/npm/zevm/dist/statemanager.d.ts:69
 
 #### Parameters
 
-##### \_message
-
-`string`
+| Parameter | Type |
+| ------ | ------ |
+| `_message` | `string` |
 
 #### Returns
 
@@ -126,13 +77,10 @@ Defined in: zevm/npm/zevm/dist/statemanager.d.ts:93
 
 #### Parameters
 
-##### addressHex
-
-`string`
-
-##### keyHex
-
-`string`
+| Parameter | Type |
+| ------ | ------ |
+| `addressHex` | `string` |
+| `keyHex` | `string` |
 
 #### Returns
 
@@ -172,9 +120,9 @@ Defined in: zevm/npm/zevm/dist/statemanager.d.ts:97
 
 #### Parameters
 
-##### address
-
-`Address`
+| Parameter | Type |
+| ------ | ------ |
+| `address` | `Address` |
 
 #### Returns
 
@@ -202,13 +150,10 @@ Defined in: zevm/npm/zevm/dist/statemanager.d.ts:96
 
 #### Parameters
 
-##### address
-
-`Address`
-
-##### key
-
-`Uint8Array`
+| Parameter | Type |
+| ------ | ------ |
+| `address` | `Address` |
+| `key` | `Uint8Array` |
 
 #### Returns
 
@@ -224,9 +169,9 @@ Defined in: zevm/npm/zevm/dist/statemanager.d.ts:105
 
 #### Parameters
 
-##### address
-
-`Address`
+| Parameter | Type |
+| ------ | ------ |
+| `address` | `Address` |
 
 #### Returns
 
@@ -254,13 +199,10 @@ Defined in: zevm/npm/zevm/dist/statemanager.d.ts:95
 
 #### Parameters
 
-##### address
-
-`Address`
-
-##### key
-
-`Uint8Array`
+| Parameter | Type |
+| ------ | ------ |
+| `address` | `Address` |
+| `key` | `Uint8Array` |
 
 #### Returns
 
@@ -276,17 +218,11 @@ Defined in: zevm/npm/zevm/dist/statemanager.d.ts:94
 
 #### Parameters
 
-##### address
-
-`Address`
-
-##### key
-
-`Uint8Array`
-
-##### value
-
-`Uint8Array`
+| Parameter | Type |
+| ------ | ------ |
+| `address` | `Address` |
+| `key` | `Uint8Array` |
+| `value` | `Uint8Array` |
 
 #### Returns
 
@@ -326,9 +262,9 @@ Defined in: zevm/npm/zevm/dist/statemanager.d.ts:103
 
 #### Parameters
 
-##### reset?
-
-`boolean`
+| Parameter | Type |
+| ------ | ------ |
+| `reset?` | `boolean` |
 
 #### Returns
 

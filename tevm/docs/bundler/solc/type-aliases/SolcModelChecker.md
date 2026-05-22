@@ -8,92 +8,18 @@
 
 > **SolcModelChecker** = `object`
 
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:45
-
 ## Properties
 
-### contracts
-
-> **contracts**: [`SolcModelCheckerContracts`](SolcModelCheckerContracts.md)
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:46
-
-***
-
-### divModNoSlacks?
-
-> `optional` **divModNoSlacks?**: `boolean`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:47
-
-***
-
-### engine?
-
-> `optional` **engine?**: `"all"` \| `"bmc"` \| `"chc"` \| `"none"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:48
-
-***
-
-### extCalls
-
-> **extCalls**: `"trusted"` \| `"untrusted"`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:49
-
-***
-
-### invariants
-
-> **invariants**: (`"contract"` \| `"reentrancy"`)[]
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:50
-
-***
-
-### showProved?
-
-> `optional` **showProved?**: `boolean`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:51
-
-***
-
-### showUnproved?
-
-> `optional` **showUnproved?**: `boolean`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:52
-
-***
-
-### showUnsupported?
-
-> `optional` **showUnsupported?**: `boolean`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:53
-
-***
-
-### solvers
-
-> **solvers**: (`"cvc4"` \| `"smtlib2"` \| `"z3"`)[]
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:54
-
-***
-
-### targets?
-
-> `optional` **targets?**: (`"underflow"` \| `"overflow"` \| `"assert"`)[]
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:55
-
-***
-
-### timeout?
-
-> `optional` **timeout?**: `boolean`
-
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:56
+| Property | Type |
+| ------ | ------ |
+| <a id="contracts"></a> `contracts?` | [`SolcModelCheckerContracts`](SolcModelCheckerContracts.md) |
+| <a id="divmodnoslacks"></a> `divModNoSlacks?` | `boolean` |
+| <a id="engine"></a> `engine?` | `"all"` \| `"bmc"` \| `"chc"` \| `"none"` |
+| <a id="extcalls"></a> `extCalls?` | `"trusted"` \| `"untrusted"` |
+| <a id="invariants"></a> `invariants?` | (`"contract"` \| `"reentrancy"`)[] |
+| <a id="showproved"></a> `showProved?` | `boolean` |
+| <a id="showunproved"></a> `showUnproved?` | `boolean` |
+| <a id="showunsupported"></a> `showUnsupported?` | `boolean` |
+| <a id="solvers"></a> `solvers?` | (`"cvc4"` \| `"smtlib2"` \| `"z3"`)[] |
+| <a id="targets"></a> `targets?` | (`"underflow"` \| `"overflow"` \| `"assert"`)[] |
+| <a id="timeout"></a> `timeout?` | `boolean` |

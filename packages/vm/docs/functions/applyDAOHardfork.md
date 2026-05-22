@@ -14,9 +14,9 @@ Apply the DAO fork changes to the VM
 
 ## Parameters
 
-### evm
-
-`Evm$1`
+| Parameter | Type |
+| ------ | ------ |
+| `evm` | `Evm$1` |
 
 ## Returns
 

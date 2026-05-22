@@ -6,7 +6,7 @@
 
 # Interface: VerkleProof
 
-Defined in: [packages/block/src/types.ts:89](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L89)
+Defined in: [packages/block/src/types.ts:90](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L90)
 
 Represents a Verkle proof payload shape used by upstream specs.
 
@@ -33,52 +33,13 @@ function verifyProof(proof: VerkleProof, key: Hex, value: Hex, commitment: Hex):
 
 ## Properties
 
-### commitmentsByPath
-
-> **commitmentsByPath**: `` `0x${string}` ``[]
-
-Defined in: [packages/block/src/types.ts:90](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L90)
-
-***
-
-### d
-
-> **d**: `` `0x${string}` ``
-
-Defined in: [packages/block/src/types.ts:91](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L91)
-
-***
-
-### depthExtensionPresent
-
-> **depthExtensionPresent**: `` `0x${string}` ``
-
-Defined in: [packages/block/src/types.ts:92](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L92)
-
-***
-
-### ipaProof
-
-> **ipaProof**: `object`
-
-Defined in: [packages/block/src/types.ts:93](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L93)
-
-#### cl
-
-> **cl**: `` `0x${string}` ``[]
-
-#### cr
-
-> **cr**: `` `0x${string}` ``[]
-
-#### finalEvaluation
-
-> **finalEvaluation**: `` `0x${string}` ``
-
-***
-
-### otherStems
-
-> **otherStems**: `` `0x${string}` ``[]
-
-Defined in: [packages/block/src/types.ts:98](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L98)
+| Property | Type | Defined in |
+| ------ | ------ | ------ |
+| <a id="commitmentsbypath"></a> `commitmentsByPath` | `` `0x${string}` ``[] | [packages/block/src/types.ts:91](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L91) |
+| <a id="d"></a> `d` | `` `0x${string}` `` | [packages/block/src/types.ts:92](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L92) |
+| <a id="depthextensionpresent"></a> `depthExtensionPresent` | `` `0x${string}` `` | [packages/block/src/types.ts:93](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L93) |
+| <a id="ipaproof"></a> `ipaProof` | `object` | [packages/block/src/types.ts:94](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L94) |
+| `ipaProof.cl` | `` `0x${string}` ``[] | [packages/block/src/types.ts:95](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L95) |
+| `ipaProof.cr` | `` `0x${string}` ``[] | [packages/block/src/types.ts:96](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L96) |
+| `ipaProof.finalEvaluation` | `` `0x${string}` `` | [packages/block/src/types.ts:97](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L97) |
+| <a id="otherstems"></a> `otherStems` | `` `0x${string}` ``[] | [packages/block/src/types.ts:99](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L99) |

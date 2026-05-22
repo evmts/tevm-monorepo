@@ -8,6 +8,4 @@
 
 > **ModuleInfo** = `ModuleInfo`
 
-Defined in: tevm-monorepo/bundler-packages/compiler/types/src/index.d.ts:22
-
 ./types.ts

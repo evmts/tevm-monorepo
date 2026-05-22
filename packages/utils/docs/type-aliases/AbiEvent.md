@@ -14,32 +14,9 @@ ABI ["event"](https://docs.soliditylang.org/en/latest/abi-spec.html#events) type
 
 ## Properties
 
-### anonymous?
-
-> `optional` **anonymous?**: `boolean`
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/abitype@1.2.4\_typescript@6.0.3\_zod@4.4.3/node\_modules/abitype/dist/types/abi.d.ts:105
-
-***
-
-### inputs
-
-> **inputs**: readonly `AbiEventParameter`[]
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/abitype@1.2.4\_typescript@6.0.3\_zod@4.4.3/node\_modules/abitype/dist/types/abi.d.ts:106
-
-***
-
-### name
-
-> **name**: `string`
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/abitype@1.2.4\_typescript@6.0.3\_zod@4.4.3/node\_modules/abitype/dist/types/abi.d.ts:107
-
-***
-
-### type
-
-> **type**: `"event"`
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/abitype@1.2.4\_typescript@6.0.3\_zod@4.4.3/node\_modules/abitype/dist/types/abi.d.ts:104
+| Property | Type | Defined in |
+| ------ | ------ | ------ |
+| <a id="anonymous"></a> `anonymous?` | `boolean` | tevm-monorepo/node\_modules/.pnpm/abitype@1.2.4\_typescript@6.0.3\_zod@4.4.3/node\_modules/abitype/dist/types/abi.d.ts:105 |
+| <a id="inputs"></a> `inputs` | readonly `AbiEventParameter`[] | tevm-monorepo/node\_modules/.pnpm/abitype@1.2.4\_typescript@6.0.3\_zod@4.4.3/node\_modules/abitype/dist/types/abi.d.ts:106 |
+| <a id="name"></a> `name` | `string` | tevm-monorepo/node\_modules/.pnpm/abitype@1.2.4\_typescript@6.0.3\_zod@4.4.3/node\_modules/abitype/dist/types/abi.d.ts:107 |
+| <a id="type"></a> `type` | `"event"` | tevm-monorepo/node\_modules/.pnpm/abitype@1.2.4\_typescript@6.0.3\_zod@4.4.3/node\_modules/abitype/dist/types/abi.d.ts:104 |

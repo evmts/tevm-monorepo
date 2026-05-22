@@ -8,64 +8,13 @@
 
 > **AnvilNodeInfoResult** = `object`
 
-Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilResult.d.ts:30
-
 ## Properties
 
-### chainId
-
-> **chainId**: `number`
-
-Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilResult.d.ts:38
-
-The chain ID
-
-***
-
-### currentBlockNumber
-
-> **currentBlockNumber**: `number`
-
-Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilResult.d.ts:32
-
-The current environment (production, staging, etc.)
-
-***
-
-### currentBlockTimestamp
-
-> **currentBlockTimestamp**: `number`
-
-Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilResult.d.ts:34
-
-The current block timestamp
-
-***
-
-### forkUrl?
-
-> `optional` **forkUrl?**: `string`
-
-Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilResult.d.ts:36
-
-Whether the node is in fork mode
-
-***
-
-### hardfork
-
-> **hardfork**: `string`
-
-Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilResult.d.ts:40
-
-The hardfork
-
-***
-
-### miningMode
-
-> **miningMode**: `"auto"` \| `"manual"` \| `"interval"`
-
-Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilResult.d.ts:42
-
-The mining configuration
+| Property | Type | Description |
+| ------ | ------ | ------ |
+| <a id="chainid"></a> `chainId` | `number` | The chain ID |
+| <a id="currentblocknumber"></a> `currentBlockNumber` | `number` | The current environment (production, staging, etc.) |
+| <a id="currentblocktimestamp"></a> `currentBlockTimestamp` | `number` | The current block timestamp |
+| <a id="forkurl"></a> `forkUrl?` | `string` | Whether the node is in fork mode |
+| <a id="hardfork"></a> `hardfork` | `string` | The hardfork |
+| <a id="miningmode"></a> `miningMode` | `"auto"` \| `"manual"` \| `"interval"` | The mining configuration |

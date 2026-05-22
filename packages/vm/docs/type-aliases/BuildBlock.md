@@ -12,9 +12,9 @@ Defined in: [packages/vm/src/actions/buildBlock.ts:5](https://github.com/evmts/t
 
 ## Parameters
 
-### opts
-
-[`BuildBlockOpts`](../interfaces/BuildBlockOpts.md)
+| Parameter | Type |
+| ------ | ------ |
+| `opts` | [`BuildBlockOpts`](../interfaces/BuildBlockOpts.md) |
 
 ## Returns
 

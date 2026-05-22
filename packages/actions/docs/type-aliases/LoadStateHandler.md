@@ -16,11 +16,9 @@ State can be dumped as follows:
 
 ## Parameters
 
-### params
-
-[`LoadStateParams`](LoadStateParams.md)
-
-The parameters for loading the state.
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `params` | [`LoadStateParams`](LoadStateParams.md) | The parameters for loading the state. |
 
 ## Returns
 

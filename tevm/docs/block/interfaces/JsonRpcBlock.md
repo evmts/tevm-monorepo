@@ -6,236 +6,36 @@
 
 # Interface: JsonRpcBlock
 
-Defined in: tevm-monorepo/packages/block/types/types.d.ts:442
-
 ## Properties
 
-### baseFeePerGas?
-
-> `optional` **baseFeePerGas?**: `string`
-
-Defined in: tevm-monorepo/packages/block/types/types.d.ts:463
-
-***
-
-### blobGasUsed?
-
-> `optional` **blobGasUsed?**: `string`
-
-Defined in: tevm-monorepo/packages/block/types/types.d.ts:466
-
-***
-
-### difficulty
-
-> **difficulty**: `string`
-
-Defined in: tevm-monorepo/packages/block/types/types.d.ts:454
-
-***
-
-### excessBlobGas?
-
-> `optional` **excessBlobGas?**: `string`
-
-Defined in: tevm-monorepo/packages/block/types/types.d.ts:467
-
-***
-
-### executionWitness?
-
-> `optional` **executionWitness?**: [`VerkleExecutionWitness`](VerkleExecutionWitness.md) \| `null`
-
-Defined in: tevm-monorepo/packages/block/types/types.d.ts:469
-
-***
-
-### extraData
-
-> **extraData**: `string`
-
-Defined in: tevm-monorepo/packages/block/types/types.d.ts:456
-
-***
-
-### gasLimit
-
-> **gasLimit**: `string`
-
-Defined in: tevm-monorepo/packages/block/types/types.d.ts:458
-
-***
-
-### gasUsed
-
-> **gasUsed**: `string`
-
-Defined in: tevm-monorepo/packages/block/types/types.d.ts:459
-
-***
-
-### hash
-
-> **hash**: `string`
-
-Defined in: tevm-monorepo/packages/block/types/types.d.ts:444
-
-***
-
-### logsBloom
-
-> **logsBloom**: `string`
-
-Defined in: tevm-monorepo/packages/block/types/types.d.ts:449
-
-***
-
-### miner
-
-> **miner**: `string`
-
-Defined in: tevm-monorepo/packages/block/types/types.d.ts:453
-
-***
-
-### mixHash?
-
-> `optional` **mixHash?**: `string`
-
-Defined in: tevm-monorepo/packages/block/types/types.d.ts:446
-
-***
-
-### nonce
-
-> **nonce**: `string`
-
-Defined in: tevm-monorepo/packages/block/types/types.d.ts:447
-
-***
-
-### number
-
-> **number**: `string`
-
-Defined in: tevm-monorepo/packages/block/types/types.d.ts:443
-
-***
-
-### parentBeaconBlockRoot?
-
-> `optional` **parentBeaconBlockRoot?**: `string`
-
-Defined in: tevm-monorepo/packages/block/types/types.d.ts:468
-
-***
-
-### parentHash
-
-> **parentHash**: `string`
-
-Defined in: tevm-monorepo/packages/block/types/types.d.ts:445
-
-***
-
-### receiptsRoot
-
-> **receiptsRoot**: `string`
-
-Defined in: tevm-monorepo/packages/block/types/types.d.ts:452
-
-***
-
-### requests?
-
-> `optional` **requests?**: `string`[]
-
-Defined in: tevm-monorepo/packages/block/types/types.d.ts:471
-
-***
-
-### requestsRoot?
-
-> `optional` **requestsRoot?**: `string`
-
-Defined in: tevm-monorepo/packages/block/types/types.d.ts:470
-
-***
-
-### sha3Uncles
-
-> **sha3Uncles**: `string`
-
-Defined in: tevm-monorepo/packages/block/types/types.d.ts:448
-
-***
-
-### size
-
-> **size**: `string`
-
-Defined in: tevm-monorepo/packages/block/types/types.d.ts:457
-
-***
-
-### stateRoot
-
-> **stateRoot**: `string`
-
-Defined in: tevm-monorepo/packages/block/types/types.d.ts:451
-
-***
-
-### timestamp
-
-> **timestamp**: `string`
-
-Defined in: tevm-monorepo/packages/block/types/types.d.ts:460
-
-***
-
-### totalDifficulty
-
-> **totalDifficulty**: `string`
-
-Defined in: tevm-monorepo/packages/block/types/types.d.ts:455
-
-***
-
-### transactions
-
-> **transactions**: (`string` \| [`JsonRpcTx`](../../tx/interfaces/JsonRpcTx.md))[]
-
-Defined in: tevm-monorepo/packages/block/types/types.d.ts:461
-
-***
-
-### transactionsRoot
-
-> **transactionsRoot**: `string`
-
-Defined in: tevm-monorepo/packages/block/types/types.d.ts:450
-
-***
-
-### uncles
-
-> **uncles**: `` `0x${string}` ``[] \| `string`[]
-
-Defined in: tevm-monorepo/packages/block/types/types.d.ts:462
-
-***
-
-### withdrawals?
-
-> `optional` **withdrawals?**: [`JsonRpcWithdrawal`](../../utils/interfaces/JsonRpcWithdrawal.md)[]
-
-Defined in: tevm-monorepo/packages/block/types/types.d.ts:464
-
-***
-
-### withdrawalsRoot?
-
-> `optional` **withdrawalsRoot?**: `string`
-
-Defined in: tevm-monorepo/packages/block/types/types.d.ts:465
+| Property | Type |
+| ------ | ------ |
+| <a id="basefeepergas"></a> `baseFeePerGas?` | `string` |
+| <a id="blobgasused"></a> `blobGasUsed?` | `string` |
+| <a id="difficulty"></a> `difficulty` | `string` |
+| <a id="excessblobgas"></a> `excessBlobGas?` | `string` |
+| <a id="executionwitness"></a> `executionWitness?` | [`VerkleExecutionWitness`](VerkleExecutionWitness.md) \| `null` |
+| <a id="extradata"></a> `extraData` | `string` |
+| <a id="gaslimit"></a> `gasLimit` | `string` |
+| <a id="gasused"></a> `gasUsed` | `string` |
+| <a id="hash"></a> `hash` | `string` |
+| <a id="logsbloom"></a> `logsBloom` | `string` |
+| <a id="miner"></a> `miner` | `string` |
+| <a id="mixhash"></a> `mixHash?` | `string` |
+| <a id="nonce"></a> `nonce` | `string` |
+| <a id="number"></a> `number` | `string` |
+| <a id="parentbeaconblockroot"></a> `parentBeaconBlockRoot?` | `string` |
+| <a id="parenthash"></a> `parentHash` | `string` |
+| <a id="receiptsroot"></a> `receiptsRoot` | `string` |
+| <a id="requests"></a> `requests?` | `string`[] |
+| <a id="requestsroot"></a> `requestsRoot?` | `string` |
+| <a id="sha3uncles"></a> `sha3Uncles` | `string` |
+| <a id="size"></a> `size` | `string` |
+| <a id="stateroot"></a> `stateRoot` | `string` |
+| <a id="timestamp"></a> `timestamp` | `string` |
+| <a id="totaldifficulty"></a> `totalDifficulty` | `string` |
+| <a id="transactions"></a> `transactions` | (`string` \| [`JsonRpcTx`](../../tx/interfaces/JsonRpcTx.md))[] |
+| <a id="transactionsroot"></a> `transactionsRoot` | `string` |
+| <a id="uncles"></a> `uncles` | `` `0x${string}` ``[] \| `string`[] |
+| <a id="withdrawals"></a> `withdrawals?` | [`JsonRpcWithdrawal`](../../utils/interfaces/JsonRpcWithdrawal.md)[] |
+| <a id="withdrawalsroot"></a> `withdrawalsRoot?` | `string` |

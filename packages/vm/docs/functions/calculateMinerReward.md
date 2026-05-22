@@ -12,13 +12,10 @@ Defined in: [packages/vm/src/actions/calculateMinerReward.ts:1](https://github.c
 
 ## Parameters
 
-### minerReward
-
-`bigint`
-
-### ommersNum
-
-`number`
+| Parameter | Type |
+| ------ | ------ |
+| `minerReward` | `bigint` |
+| `ommersNum` | `number` |
 
 ## Returns
 

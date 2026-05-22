@@ -12,9 +12,9 @@ Defined in: [packages/actions/src/eth/EthProcedure.ts:105](https://github.com/ev
 
 ## Parameters
 
-### request
-
-[`EthBlobBaseFeeJsonRpcRequest`](EthBlobBaseFeeJsonRpcRequest.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`EthBlobBaseFeeJsonRpcRequest`](EthBlobBaseFeeJsonRpcRequest.md) |
 
 ## Returns
 

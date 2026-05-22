@@ -12,9 +12,9 @@ Defined in: [packages/vm/src/actions/accumulateParentBeaconBlockRoot.ts:6](https
 
 ## Parameters
 
-### vm
-
-`BaseVm`
+| Parameter | Type |
+| ------ | ------ |
+| `vm` | `BaseVm` |
 
 ## Returns
 

@@ -8,56 +8,13 @@
 
 > **AnvilMetadataResult** = `object`
 
-Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilResult.d.ts:44
-
 ## Properties
 
-### chainId
-
-> **chainId**: `number`
-
-Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilResult.d.ts:48
-
-Chain ID
-
-***
-
-### clientVersion
-
-> **clientVersion**: `string`
-
-Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilResult.d.ts:46
-
-Client version (e.g., "tevm/1.0.0")
-
-***
-
-### forked?
-
-> `optional` **forked?**: `object`
-
-Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilResult.d.ts:50
-
-Whether the node is in fork mode
-
-#### blockNumber
-
-> **blockNumber**: `number`
-
-The block number the fork was created from
-
-#### url
-
-> **url**: `string`
-
-The URL being forked
-
-***
-
-### snapshots
-
-> **snapshots**: `Record`\<`string`, `string`\>
-
-Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilResult.d.ts:57
-
-Snapshots taken (for evm_snapshot/evm_revert)
+| Property | Type | Description |
+| ------ | ------ | ------ |
+| <a id="chainid"></a> `chainId` | `number` | Chain ID |
+| <a id="clientversion"></a> `clientVersion` | `string` | Client version (e.g., "tevm/1.0.0") |
+| <a id="forked"></a> `forked?` | `object` | Whether the node is in fork mode |
+| `forked.blockNumber` | `number` | The block number the fork was created from |
+| `forked.url` | `string` | The URL being forked |
+| <a id="snapshots"></a> `snapshots` | `Record`\<`string`, `string`\> | Snapshots taken (for evm_snapshot/evm_revert) |

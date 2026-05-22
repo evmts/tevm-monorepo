@@ -8,134 +8,25 @@
 
 > **TransactionReceiptResult** = `object`
 
-Defined in: tevm-monorepo/packages/actions/types/common/TransactionReceiptResult.d.ts:6
-
 Transaction receipt result type for eth JSON-RPC procedures
 
 ## Properties
 
-### blobGasPrice?
-
-> `readonly` `optional` **blobGasPrice?**: `bigint`
-
-Defined in: tevm-monorepo/packages/actions/types/common/TransactionReceiptResult.d.ts:22
-
-***
-
-### blobGasUsed?
-
-> `readonly` `optional` **blobGasUsed?**: `bigint`
-
-Defined in: tevm-monorepo/packages/actions/types/common/TransactionReceiptResult.d.ts:21
-
-***
-
-### blockHash
-
-> `readonly` **blockHash**: [`Hex`](Hex.md)
-
-Defined in: tevm-monorepo/packages/actions/types/common/TransactionReceiptResult.d.ts:7
-
-***
-
-### blockNumber
-
-> `readonly` **blockNumber**: `bigint`
-
-Defined in: tevm-monorepo/packages/actions/types/common/TransactionReceiptResult.d.ts:8
-
-***
-
-### contractAddress
-
-> `readonly` **contractAddress**: [`Hex`](Hex.md) \| `null`
-
-Defined in: tevm-monorepo/packages/actions/types/common/TransactionReceiptResult.d.ts:9
-
-***
-
-### cumulativeGasUsed
-
-> `readonly` **cumulativeGasUsed**: `bigint`
-
-Defined in: tevm-monorepo/packages/actions/types/common/TransactionReceiptResult.d.ts:10
-
-***
-
-### effectiveGasPrice
-
-> `readonly` **effectiveGasPrice**: `bigint`
-
-Defined in: tevm-monorepo/packages/actions/types/common/TransactionReceiptResult.d.ts:11
-
-***
-
-### from
-
-> `readonly` **from**: [`Hex`](Hex.md)
-
-Defined in: tevm-monorepo/packages/actions/types/common/TransactionReceiptResult.d.ts:12
-
-***
-
-### gasUsed
-
-> `readonly` **gasUsed**: `bigint`
-
-Defined in: tevm-monorepo/packages/actions/types/common/TransactionReceiptResult.d.ts:13
-
-***
-
-### logs
-
-> `readonly` **logs**: readonly [`FilterLog`](FilterLog.md)[]
-
-Defined in: tevm-monorepo/packages/actions/types/common/TransactionReceiptResult.d.ts:14
-
-***
-
-### logsBloom
-
-> `readonly` **logsBloom**: [`Hex`](Hex.md)
-
-Defined in: tevm-monorepo/packages/actions/types/common/TransactionReceiptResult.d.ts:15
-
-***
-
-### root?
-
-> `readonly` `optional` **root?**: [`Hex`](Hex.md)
-
-Defined in: tevm-monorepo/packages/actions/types/common/TransactionReceiptResult.d.ts:17
-
-***
-
-### status?
-
-> `readonly` `optional` **status?**: [`Hex`](Hex.md)
-
-Defined in: tevm-monorepo/packages/actions/types/common/TransactionReceiptResult.d.ts:16
-
-***
-
-### to
-
-> `readonly` **to**: [`Hex`](Hex.md) \| `null`
-
-Defined in: tevm-monorepo/packages/actions/types/common/TransactionReceiptResult.d.ts:18
-
-***
-
-### transactionHash
-
-> `readonly` **transactionHash**: [`Hex`](Hex.md)
-
-Defined in: tevm-monorepo/packages/actions/types/common/TransactionReceiptResult.d.ts:19
-
-***
-
-### transactionIndex
-
-> `readonly` **transactionIndex**: `bigint`
-
-Defined in: tevm-monorepo/packages/actions/types/common/TransactionReceiptResult.d.ts:20
+| Property | Modifier | Type |
+| ------ | ------ | ------ |
+| <a id="blobgasprice"></a> `blobGasPrice?` | `readonly` | `bigint` |
+| <a id="blobgasused"></a> `blobGasUsed?` | `readonly` | `bigint` |
+| <a id="blockhash"></a> `blockHash` | `readonly` | [`Hex`](Hex.md) |
+| <a id="blocknumber"></a> `blockNumber` | `readonly` | `bigint` |
+| <a id="contractaddress"></a> `contractAddress` | `readonly` | [`Hex`](Hex.md) \| `null` |
+| <a id="cumulativegasused"></a> `cumulativeGasUsed` | `readonly` | `bigint` |
+| <a id="effectivegasprice"></a> `effectiveGasPrice` | `readonly` | `bigint` |
+| <a id="from"></a> `from` | `readonly` | [`Hex`](Hex.md) |
+| <a id="gasused"></a> `gasUsed` | `readonly` | `bigint` |
+| <a id="logs"></a> `logs` | `readonly` | readonly [`FilterLog`](FilterLog.md)[] |
+| <a id="logsbloom"></a> `logsBloom` | `readonly` | [`Hex`](Hex.md) |
+| <a id="root"></a> `root?` | `readonly` | [`Hex`](Hex.md) |
+| <a id="status"></a> `status?` | `readonly` | [`Hex`](Hex.md) |
+| <a id="to"></a> `to` | `readonly` | [`Hex`](Hex.md) \| `null` |
+| <a id="transactionhash"></a> `transactionHash` | `readonly` | [`Hex`](Hex.md) |
+| <a id="transactionindex"></a> `transactionIndex` | `readonly` | `bigint` |

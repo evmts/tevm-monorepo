@@ -8,8 +8,6 @@
 
 > **SolcBytecodeOutput** = `object` & `Omit`\<[`SolcDeployedBytecodeOutput`](SolcDeployedBytecodeOutput.md), `"immutableReferences"`\>
 
-Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:271
-
 ## Type Declaration
 
 ### functionDebugData

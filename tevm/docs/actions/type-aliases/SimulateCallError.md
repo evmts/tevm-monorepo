@@ -8,36 +8,12 @@
 
 > **SimulateCallError** = `object`
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthResult.d.ts:273
-
 Error information for a simulated call
 
 ## Properties
 
-### code
-
-> **code**: `number`
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthResult.d.ts:277
-
-Error code
-
-***
-
-### data?
-
-> `optional` **data?**: [`Hex`](Hex.md)
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthResult.d.ts:285
-
-Optional data (e.g., revert reason)
-
-***
-
-### message
-
-> **message**: `string`
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthResult.d.ts:281
-
-Error message
+| Property | Type | Description |
+| ------ | ------ | ------ |
+| <a id="code"></a> `code` | `number` | Error code |
+| <a id="data"></a> `data?` | [`Hex`](Hex.md) | Optional data (e.g., revert reason) |
+| <a id="message"></a> `message` | `string` | Error message |

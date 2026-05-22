@@ -8,15 +8,13 @@
 
 > **AnvilMineDetailedProcedure** = (`request`) => `Promise`\<[`AnvilMineDetailedJsonRpcResponse`](AnvilMineDetailedJsonRpcResponse.md)\>
 
-Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilProcedure.d.ts:159
-
 JSON-RPC procedure for `anvil_mineDetailed`
 
 ## Parameters
 
-### request
-
-[`AnvilMineDetailedJsonRpcRequest`](AnvilMineDetailedJsonRpcRequest.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`AnvilMineDetailedJsonRpcRequest`](AnvilMineDetailedJsonRpcRequest.md) |
 
 ## Returns
 

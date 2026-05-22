@@ -8,106 +8,19 @@
 
 > **JsonRpcCallTrace** = `object`
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthJsonRpcResponse.d.ts:312
-
 JSON-RPC call trace for eth_simulateV2
 
 ## Properties
 
-### calls?
-
-> `optional` **calls?**: `JsonRpcCallTrace`[]
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthJsonRpcResponse.d.ts:332
-
-Sub-calls
-
-***
-
-### error?
-
-> `optional` **error?**: `string`
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthJsonRpcResponse.d.ts:330
-
-Error message if call failed
-
-***
-
-### from
-
-> **from**: [`Address`](../../index/type-aliases/Address.md)
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthJsonRpcResponse.d.ts:316
-
-Sender address
-
-***
-
-### gas
-
-> **gas**: [`Hex`](../../index/type-aliases/Hex.md)
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthJsonRpcResponse.d.ts:322
-
-Gas provided
-
-***
-
-### gasUsed
-
-> **gasUsed**: [`Hex`](../../index/type-aliases/Hex.md)
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthJsonRpcResponse.d.ts:324
-
-Gas used
-
-***
-
-### input
-
-> **input**: [`Hex`](../../index/type-aliases/Hex.md)
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthJsonRpcResponse.d.ts:326
-
-Input data
-
-***
-
-### output
-
-> **output**: [`Hex`](../../index/type-aliases/Hex.md)
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthJsonRpcResponse.d.ts:328
-
-Output data
-
-***
-
-### to?
-
-> `optional` **to?**: [`Address`](../../index/type-aliases/Address.md)
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthJsonRpcResponse.d.ts:318
-
-Recipient or created contract address
-
-***
-
-### type
-
-> **type**: `string`
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthJsonRpcResponse.d.ts:314
-
-Call type (CALL, DELEGATECALL, STATICCALL, CREATE, CREATE2)
-
-***
-
-### value?
-
-> `optional` **value?**: [`Hex`](../../index/type-aliases/Hex.md)
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthJsonRpcResponse.d.ts:320
-
-Value transferred
+| Property | Type | Description |
+| ------ | ------ | ------ |
+| <a id="calls"></a> `calls?` | `JsonRpcCallTrace`[] | Sub-calls |
+| <a id="error"></a> `error?` | `string` | Error message if call failed |
+| <a id="from"></a> `from` | [`Address`](../../index/type-aliases/Address.md) | Sender address |
+| <a id="gas"></a> `gas` | [`Hex`](../../index/type-aliases/Hex.md) | Gas provided |
+| <a id="gasused"></a> `gasUsed` | [`Hex`](../../index/type-aliases/Hex.md) | Gas used |
+| <a id="input"></a> `input` | [`Hex`](../../index/type-aliases/Hex.md) | Input data |
+| <a id="output"></a> `output` | [`Hex`](../../index/type-aliases/Hex.md) | Output data |
+| <a id="to"></a> `to?` | [`Address`](../../index/type-aliases/Address.md) | Recipient or created contract address |
+| <a id="type"></a> `type` | `string` | Call type (CALL, DELEGATECALL, STATICCALL, CREATE, CREATE2) |
+| <a id="value"></a> `value?` | [`Hex`](../../index/type-aliases/Hex.md) | Value transferred |

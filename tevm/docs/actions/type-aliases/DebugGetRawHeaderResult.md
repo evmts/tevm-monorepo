@@ -8,8 +8,6 @@
 
 > **DebugGetRawHeaderResult** = [`Hex`](Hex.md)
 
-Defined in: tevm-monorepo/packages/actions/types/debug/DebugResult.d.ts:225
-
 Result from `debug_getRawHeader`
 
 Returns the RLP-encoded block header as a hex string

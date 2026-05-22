@@ -10,12 +10,7 @@
 
 ## Properties
 
-### address
-
-> **address**: `PrefixedHexString`
-
-***
-
-### storageKeys
-
-> **storageKeys**: `PrefixedHexString`[]
+| Property | Type |
+| ------ | ------ |
+| <a id="address"></a> `address` | `PrefixedHexString` |
+| <a id="storagekeys"></a> `storageKeys` | `PrefixedHexString`[] |

@@ -8,14 +8,10 @@
 
 > **EthGetTransactionReceiptParams** = `object`
 
-Defined in: tevm-monorepo/packages/actions/types/eth/EthParams.d.ts:204
-
 Based on the JSON-RPC request for `eth_getTransactionReceipt` procedure
 
 ## Properties
 
-### hash
-
-> `readonly` **hash**: [`Hex`](Hex.md)
-
-Defined in: tevm-monorepo/packages/actions/types/eth/EthParams.d.ts:205
+| Property | Modifier | Type |
+| ------ | ------ | ------ |
+| <a id="hash"></a> `hash` | `readonly` | [`Hex`](Hex.md) |

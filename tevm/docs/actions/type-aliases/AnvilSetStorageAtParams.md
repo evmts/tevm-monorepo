@@ -8,36 +8,12 @@
 
 > **AnvilSetStorageAtParams** = `object`
 
-Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilParams.d.ts:127
-
 Params for `anvil_setStorageAt` handler
 
 ## Properties
 
-### address
-
-> `readonly` **address**: [`Address`](Address.md)
-
-Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilParams.d.ts:131
-
-The address to set the storage for
-
-***
-
-### position
-
-> `readonly` **position**: [`Hex`](Hex.md) \| `BigInt`
-
-Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilParams.d.ts:135
-
-The position in storage to set
-
-***
-
-### value
-
-> `readonly` **value**: [`Hex`](Hex.md) \| `BigInt`
-
-Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilParams.d.ts:139
-
-The value to set
+| Property | Modifier | Type | Description |
+| ------ | ------ | ------ | ------ |
+| <a id="address"></a> `address` | `readonly` | [`Address`](Address.md) | The address to set the storage for |
+| <a id="position"></a> `position` | `readonly` | [`Hex`](Hex.md) \| `BigInt` | The position in storage to set |
+| <a id="value"></a> `value` | `readonly` | [`Hex`](Hex.md) \| `BigInt` | The value to set |

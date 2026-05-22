@@ -12,9 +12,9 @@ Defined in: [packages/actions/src/anvil/AnvilHandler.ts:96](https://github.com/e
 
 ## Parameters
 
-### params
-
-[`AnvilSetRpcUrlParams`](AnvilSetRpcUrlParams.md)
+| Parameter | Type |
+| ------ | ------ |
+| `params` | [`AnvilSetRpcUrlParams`](AnvilSetRpcUrlParams.md) |
 
 ## Returns
 

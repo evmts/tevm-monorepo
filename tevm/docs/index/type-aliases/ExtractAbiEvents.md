@@ -8,17 +8,13 @@
 
 > **ExtractAbiEvents**\<`abi`\> = `Extract`\<`abi`\[`number`\], \{ `type`: `"event"`; \}\>
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/abitype@1.2.4\_typescript@6.0.3\_zod@4.4.3/node\_modules/abitype/dist/types/utils.d.ts:196
-
 Extracts all [AbiEvent](AbiEvent.md) types from [Abi](Abi.md).
 
 ## Type Parameters
 
-### abi
-
-`abi` *extends* [`Abi`](Abi.md)
-
-[Abi](Abi.md) to extract events from
+| Type Parameter | Description |
+| ------ | ------ |
+| `abi` *extends* [`Abi`](Abi.md) | [Abi](Abi.md) to extract events from |
 
 ## Returns
 

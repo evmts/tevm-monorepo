@@ -8,8 +8,6 @@
 
 > `const` **esbuildPluginTevm**: (`options?`) => `any`
 
-Defined in: tevm-monorepo/bundler-packages/esbuild/types/esbuildPluginTevm.d.ts:111
-
 Creates an esbuild plugin for Tevm that enables direct Solidity imports in JavaScript
 and TypeScript code.
 
@@ -19,11 +17,10 @@ bytecode, and type information, allowing you to interact with them in a type-saf
 
 ## Parameters
 
-### options?
-
-#### solc?
-
-`CompilerOption`
+| Parameter | Type |
+| ------ | ------ |
+| `options?` | \{ `solc?`: `CompilerOption`; \} |
+| `options.solc?` | `CompilerOption` |
 
 ## Returns
 

@@ -8,16 +8,14 @@
 
 > **LoadStateJsonRpcProcedure** = (`request`) => `Promise`\<[`LoadStateJsonRpcResponse`](LoadStateJsonRpcResponse.md)\>
 
-Defined in: tevm-monorepo/packages/actions/types/LoadState/LoadStateJsonRpcProcedure.d.ts:16
-
 Procedure for handling script JSON-RPC requests
 Procedure for handling tevm_loadState JSON-RPC requests
 
 ## Parameters
 
-### request
-
-[`LoadStateJsonRpcRequest`](LoadStateJsonRpcRequest.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`LoadStateJsonRpcRequest`](LoadStateJsonRpcRequest.md) |
 
 ## Returns
 

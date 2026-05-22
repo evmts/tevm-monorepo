@@ -8,16 +8,9 @@
 
 > **Client** = `object`
 
-Defined in: tevm-monorepo/packages/server/types/Client.d.ts:3
-
 ## Properties
 
-### transport
-
-> **transport**: `object`
-
-Defined in: tevm-monorepo/packages/server/types/Client.d.ts:4
-
-#### tevm
-
-> **tevm**: [`MemoryClient`](../../index/type-aliases/MemoryClient.md)\<`any`, `any`\>\[`"transport"`\]\[`"tevm"`\]
+| Property | Type |
+| ------ | ------ |
+| <a id="transport"></a> `transport` | `object` |
+| `transport.tevm` | [`MemoryClient`](../../index/type-aliases/MemoryClient.md)\<`any`, `any`\>\[`"transport"`\]\[`"tevm"`\] |

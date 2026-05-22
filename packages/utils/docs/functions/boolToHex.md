@@ -16,17 +16,10 @@ Encodes a boolean into a hex string
 
 ## Parameters
 
-### value
-
-`boolean`
-
-Value to encode.
-
-### opts?
-
-`BoolToHexOpts`
-
-Options.
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `value` | `boolean` | Value to encode. |
+| `opts?` | `BoolToHexOpts` | Options. |
 
 ## Returns
 

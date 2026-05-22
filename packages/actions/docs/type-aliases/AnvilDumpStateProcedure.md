@@ -14,9 +14,9 @@ JSON-RPC procedure for `anvil_dumpState`
 
 ## Parameters
 
-### request
-
-[`AnvilDumpStateJsonRpcRequest`](AnvilDumpStateJsonRpcRequest.md)
+| Parameter | Type |
+| ------ | ------ |
+| `request` | [`AnvilDumpStateJsonRpcRequest`](AnvilDumpStateJsonRpcRequest.md) |
 
 ## Returns
 
