@@ -9,10 +9,21 @@ import { putAccount } from './putAccount.js'
  * @type {import("../state-types/index.js").StateAction<'modifyAccountFields'>}
  */
 export const modifyAccountFields = (baseState) => async (address, accountFields) => {
-	const account = (await getAccount(baseState)(address)) ?? createAccount({})
-	account.nonce = accountFields.nonce ?? account.nonce
-	account.balance = accountFields.balance ?? account.balance
-	account.storageRoot = accountFields.storageRoot ?? account.storageRoot
-	account.codeHash = accountFields.codeHash ?? account.codeHash
-	await putAccount(baseState)(address, /** @type {any} */ (account))
+	const account = await getAccount(baseState)(address)
+	/** @type {Parameters<typeof createAccount>[0]} */
+	const accountData = {
+		nonce: accountFields.nonce ?? account?.nonce ?? 0n,
+		balance: accountFields.balance ?? account?.balance ?? 0n,
+	}
+	const storageRoot = accountFields.storageRoot ?? account?.storageRoot
+	const codeHash = accountFields.codeHash ?? account?.codeHash
+
+	if (storageRoot !== undefined) {
+		accountData.storageRoot = storageRoot
+	}
+	if (codeHash !== undefined) {
+		accountData.codeHash = codeHash
+	}
+
+	await putAccount(baseState)(address, /** @type {any} */ (createAccount(accountData)))
 }

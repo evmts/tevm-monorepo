@@ -2,9 +2,11 @@ import { createAddress } from '@tevm/address'
 import { createAccount } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
 import { createBaseState } from '../createBaseState.js'
+import { checkpoint } from './checkpoint.js'
 import { getAccount } from './getAccount.js'
 import { modifyAccountFields } from './modifyAccountFields.js'
 import { putAccount } from './putAccount.js'
+import { revert } from './revert.js'
 
 describe(modifyAccountFields.name, () => {
 	it('allows you to modify account fields with a partial config', async () => {
@@ -137,5 +139,20 @@ describe(modifyAccountFields.name, () => {
 		const account = await getAccount(state)(address)
 		expect(account?.nonce).toBe(4n) // Changed
 		expect(account?.balance).toBe(50n) // Should keep original value when undefined is passed
+	})
+
+	it('does not mutate the checkpointed account in place', async () => {
+		const state = createBaseState({})
+		await state.ready()
+		const address = createAddress(`0x${'06'.repeat(20)}`)
+
+		await putAccount(state)(address, createAccount({ nonce: 1n, balance: 100n }))
+		await checkpoint(state)()
+
+		await modifyAccountFields(state)(address, { balance: 200n })
+		expect((await getAccount(state)(address))?.balance).toBe(200n)
+
+		await revert(state)()
+		expect((await getAccount(state)(address))?.balance).toBe(100n)
 	})
 })
