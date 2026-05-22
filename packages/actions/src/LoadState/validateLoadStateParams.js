@@ -9,19 +9,8 @@ import { zLoadStateParams } from './zLoadStateParams.js'
 /**
  * Validates the parameters for loading the state into the VM.
  *
- * @param {import('./LoadStateParams.js').LoadStateParams} action - The parameters for the load state action.
- * @returns {Array<ValidateLoadStateParamsError>} - An array of errors, if any.
- *
- * @example
- * ```typescript
- * import { validateLoadStateParams } from 'tevm/actions'
- *
- * const params = { state: {...}  }
- * const errors = validateLoadStateParams(params)
- * if (errors.length > 0) {
- *   console.error('Validation errors:', errors)
- * }
- * ```
+ * @param {import('./LoadStateParams.js').LoadStateParams} action
+ * @returns {Array<ValidateLoadStateParamsError>}
  */
 export const validateLoadStateParams = (action) => {
 	/**

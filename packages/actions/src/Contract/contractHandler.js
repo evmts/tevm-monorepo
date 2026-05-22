@@ -12,11 +12,11 @@ import { validateContractParams } from './validateContractParams.js'
  *
  * Note: This is the internal logic used by higher-level APIs such as `tevmContract`.
  *
- * @param {import('@tevm/node').TevmNode} client - The TEVM base client instance.
- * @param {object} [options] - Optional parameters.
- * @param {boolean} [options.throwOnFail=true] - Whether to throw an error on failure.
- * @returns {import("../Contract/ContractHandlerType.js").ContractHandler} The contract handler function.
- * @throws {import('./TevmCallError.js').TevmCallError} If `throwOnFail` is true, returns `TevmCallError` as value.
+ * @param {import('@tevm/node').TevmNode} client
+ * @param {object} [options]
+ * @param {boolean} [options.throwOnFail=true]
+ * @returns {import("../Contract/ContractHandlerType.js").ContractHandler}
+ * @throws {import('./TevmCallError.js').TevmCallError} If `throwOnFail` is true; otherwise returned in the result.
  *
  * @example
  * ```typescript

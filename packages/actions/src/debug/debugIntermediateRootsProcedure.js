@@ -10,36 +10,9 @@ import { forkAndCacheBlock } from '../internal/forkAndCacheBlock.js'
  * has been executed. This is useful for understanding how state changes incrementally
  * as each transaction in a block is processed.
  *
- * @param {import('@tevm/node').TevmNode} client - The TEVM node instance
- * @returns {import('./DebugProcedure.js').DebugIntermediateRootsProcedure} A handler function for debug_intermediateRoots requests
- * @throws {Error} If the block cannot be found
- * @throws {Error} If the parent block's state root is not available and cannot be forked
- *
- * @example
- * ```javascript
- * import { createTevmNode } from '@tevm/node'
- * import { debugIntermediateRootsJsonRpcProcedure } from '@tevm/actions'
- *
- * // Create a node with automatic mining
- * const node = createTevmNode({ miningConfig: { type: 'auto' } })
- *
- * // Get the latest block number
- * const blockNumber = await node.getBlockNumber()
- *
- * // Create the debug procedure handler
- * const debugProcedure = debugIntermediateRootsJsonRpcProcedure(node)
- *
- * // Get intermediate roots for the block
- * const response = await debugProcedure({
- *   jsonrpc: '2.0',
- *   method: 'debug_intermediateRoots',
- *   params: [blockNumber],
- *   id: 1
- * })
- *
- * console.log('Intermediate state roots:', response.result)
- * // Output: ['0x...', '0x...', ...] - one root per transaction
- * ```
+ * @param {import('@tevm/node').TevmNode} client
+ * @returns {import('./DebugProcedure.js').DebugIntermediateRootsProcedure}
+ * @throws {Error} If the block cannot be found or its parent state cannot be forked.
  */
 export const debugIntermediateRootsJsonRpcProcedure = (client) => {
 	/**

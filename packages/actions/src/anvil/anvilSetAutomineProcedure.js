@@ -2,23 +2,6 @@
  * Request handler for anvil_setAutomine JSON-RPC requests.
  * @param {import('@tevm/node').TevmNode} client
  * @returns {import('./AnvilProcedure.js').AnvilSetAutomineProcedure}
- * @example
- * ```typescript
- * import { createTevmNode } from '@tevm/node'
- * import { anvilSetAutomineJsonRpcProcedure } from '@tevm/actions'
- *
- * const node = createTevmNode()
- * const procedure = anvilSetAutomineJsonRpcProcedure(node)
- *
- * const result = await procedure({
- *   jsonrpc: '2.0',
- *   method: 'anvil_setAutomine',
- *   params: [true],
- *   id: 1
- * })
- *
- * console.log(result) // { jsonrpc: '2.0', method: 'anvil_setAutomine', result: null, id: 1 }
- * ```
  */
 export const anvilSetAutomineJsonRpcProcedure = (client) => {
 	return async (request) => {

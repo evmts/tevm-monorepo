@@ -8,31 +8,6 @@ import { numberToHex } from '@tevm/utils'
  * Currently only works in forked mode as TEVM does not merklelize state locally.
  * @param {import('@tevm/node').TevmNode} client
  * @returns {import('./EthHandler.js').EthGetProofHandler}
- * @example
- * ```javascript
- * import { createTevmNode } from '@tevm/node'
- * import { ethGetProofHandler } from '@tevm/actions'
- *
- * const node = createTevmNode({
- *   fork: { transport: http('https://mainnet.optimism.io') }
- * })
- * const handler = ethGetProofHandler(node)
- * const proof = await handler({
- *   address: '0x1234567890123456789012345678901234567890',
- *   storageKeys: ['0x0000000000000000000000000000000000000000000000000000000000000000'],
- *   blockTag: 'latest',
- * })
- * console.log(proof)
- * // {
- * //   address: '0x1234567890123456789012345678901234567890',
- * //   accountProof: ['0x...', ...],
- * //   balance: '0x0',
- * //   codeHash: '0x...',
- * //   nonce: '0x0',
- * //   storageHash: '0x...',
- * //   storageProof: [{ key: '0x...', value: '0x...', proof: ['0x...'] }]
- * // }
- * ```
  */
 export const ethGetProofHandler = (client) => {
 	const { forkTransport } = client

@@ -1,9 +1,10 @@
 import { decodeAbiParameters, hexToString, toFunctionSelector } from 'viem'
 
 /**
- * Decodes basic revert data similar to Anvil's approach
- * @param {import('@tevm/utils').Hex | string | undefined} data - The revert data
- * @returns {string} - The decoded reason or 'execution reverted' if not decodable
+ * Decodes basic revert data similar to Anvil's approach.
+ * Falls back to `'execution reverted'` when the data cannot be decoded.
+ * @param {import('@tevm/utils').Hex | string | undefined} data
+ * @returns {string}
  */
 // TODO: replace with ox utils once (if) shipped (ExecutionError/EVMError)
 // https://github.com/wevm/ox/discussions/83

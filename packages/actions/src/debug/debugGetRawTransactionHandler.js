@@ -4,17 +4,6 @@ import { bytesToHex, hexToBytes } from '@tevm/utils'
  * Returns the raw transaction bytes by transaction hash
  * @param {import('@tevm/node').TevmNode} client
  * @returns {import('./DebugHandler.js').DebugGetRawTransactionHandler}
- * @example
- * ```javascript
- * import { createMemoryClient } from '@tevm/memory-client'
- * import { debugGetRawTransactionHandler } from '@tevm/actions'
- *
- * const client = createMemoryClient()
- * const handler = debugGetRawTransactionHandler(client)
- *
- * const rawTx = await handler({ hash: '0x1234...' })
- * console.log(rawTx) // '0x...' (hex-encoded transaction)
- * ```
  */
 export const debugGetRawTransactionHandler =
 	(client) =>

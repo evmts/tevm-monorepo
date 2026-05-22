@@ -7,16 +7,6 @@ import { blockNumberHandler } from './blockNumberHandler.js'
  * Returns the current maximum priority fee per gas (tip).
  * @param {import('@tevm/node').TevmNode} client
  * @returns {import('./EthHandler.js').EthMaxPriorityFeePerGasHandler}
- * @example
- * ```javascript
- * import { createTevmNode } from '@tevm/node'
- * import { maxPriorityFeePerGasHandler } from '@tevm/actions'
- *
- * const node = createTevmNode()
- * const handler = maxPriorityFeePerGasHandler(node)
- * const maxPriorityFeePerGas = await handler()
- * console.log(maxPriorityFeePerGas) // e.g., 1000000000n (1 gwei)
- * ```
  */
 export const maxPriorityFeePerGasHandler = ({ forkTransport, getVm, ...client }) => {
 	/**

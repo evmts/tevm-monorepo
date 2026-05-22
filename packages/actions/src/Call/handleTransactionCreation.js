@@ -5,12 +5,12 @@ import { shouldAddToBlockchain, shouldCreateTransaction } from './shouldCreateTr
 /**
  * Handles the creation of a transaction based on the call parameters and execution result.
  *
- * @param {import('@tevm/node').TevmNode} client - The TEVM base client instance.
- * @param {import('./CallParams.js').CallParams} params - The call parameters.
- * @param {import('./executeCall.js').ExecuteCallResult} executedCall - The result of the executed call.
- * @param {import('@evmts/zevm/evm').EvmRunCallOpts} evmInput - The EVM input parameters.
- * @returns {Promise<{hash: import('@tevm/utils').Hex | undefined, errors?: never} | {hash?: never, errors: Array<import('./TevmCallError.js').TevmCallError>}>} A promise that resolves to the transaction hash or undefined.
- * @throws {never} Returns errors as values
+ * @param {import('@tevm/node').TevmNode} client
+ * @param {import('./CallParams.js').CallParams} params
+ * @param {import('./executeCall.js').ExecuteCallResult} executedCall
+ * @param {import('@evmts/zevm/evm').EvmRunCallOpts} evmInput
+ * @returns {Promise<{hash: import('@tevm/utils').Hex | undefined, errors?: never} | {hash?: never, errors: Array<import('./TevmCallError.js').TevmCallError>}>}
+ * @throws {never}
  */
 export const handleTransactionCreation = async (client, params, executedCall, evmInput) => {
 	/**

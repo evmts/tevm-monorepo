@@ -4,9 +4,9 @@ import { getPendingClient } from '../internal/getPendingClient.js'
 import { maybeThrowOnFail } from '../internal/maybeThrowOnFail.js'
 
 /**
- * Converts TevmState with BigInt values to SerializableTevmState with Hex strings
- * @param {import('@tevm/state').TevmState} state - The state to convert
- * @returns {import('@tevm/state').SerializableTevmState} The serializable state
+ * Converts TevmState (bigint fields) into SerializableTevmState (hex-string fields).
+ * @param {import('@tevm/state').TevmState} state
+ * @returns {import('@tevm/state').SerializableTevmState}
  */
 const serializeState = (state) => {
 	/** @type {import('@tevm/state').SerializableTevmState} */
@@ -36,10 +36,10 @@ const serializeState = (state) => {
 /**
  * Creates a handler for dumping the TEVM state.
  *
- * @param {import("@tevm/node").TevmNode} client - The TEVM client instance.
- * @param {object} [options] - Optional settings.
- * @param {boolean} [options.throwOnFail] - Whether to throw an error if the state dump fails.
- * @returns {import('../DumpState/DumpStateHandlerType.js').DumpStateHandler} - The state dump handler function.
+ * @param {import("@tevm/node").TevmNode} client
+ * @param {object} [options]
+ * @param {boolean} [options.throwOnFail]
+ * @returns {import('../DumpState/DumpStateHandlerType.js').DumpStateHandler}
  *
  * @example
  * ```typescript

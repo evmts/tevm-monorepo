@@ -12,43 +12,9 @@ import { traceCallHandler } from './traceCallHandler.js'
  * traces for each transaction. This can generate large amounts of data for
  * block ranges with many transactions, so use with caution.
  *
- * @param {import('@tevm/node').TevmNode} client - The TEVM node instance
- * @returns {import('./DebugProcedure.js').DebugTraceChainProcedure} A handler function for debug_traceChain requests
- * @throws {Error} If any block in the range cannot be found
- * @throws {Error} If the parent block's state root is not available and cannot be forked
- *
- * @example
- * ```javascript
- * import { createTevmNode } from '@tevm/node'
- * import { debugTraceChainJsonRpcProcedure } from '@tevm/actions'
- *
- * // Create a node with automatic mining
- * const node = createTevmNode({ miningConfig: { type: 'auto' } })
- *
- * // Get the current block number
- * const currentBlock = await node.getBlockNumber()
- *
- * // Create the debug procedure handler
- * const debugProcedure = debugTraceChainJsonRpcProcedure(node)
- *
- * // Trace all transactions between two blocks
- * const response = await debugProcedure({
- *   jsonrpc: '2.0',
- *   method: 'debug_traceChain',
- *   params: [
- *     currentBlock - 5n, // Start block
- *     currentBlock,      // End block
- *     {
- *       tracer: 'callTracer',
- *       tracerConfig: {}
- *     }
- *   ],
- *   id: 1
- * })
- *
- * console.log('Chain traces:', response.result)
- * // Output: Array of block results, each containing traces for all transactions
- * ```
+ * @param {import('@tevm/node').TevmNode} client
+ * @returns {import('./DebugProcedure.js').DebugTraceChainProcedure}
+ * @throws {Error} If any block in the range cannot be found or its parent state cannot be forked.
  */
 export const debugTraceChainJsonRpcProcedure = (client) => {
 	/**

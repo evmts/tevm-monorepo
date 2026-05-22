@@ -20,31 +20,11 @@ const uintEquals = (a, b) => {
 }
 
 /**
- * Retrieves all transaction receipts for a given block.
+ * Retrieves all transaction receipts for a given block by number, tag, or hash.
  *
- * This handler provides efficient bulk retrieval of receipts for all transactions in a block.
- * It supports both block numbers and block hashes as identifiers.
- *
- * @param {import('@tevm/node').TevmNode} client - The Tevm client instance
- * @returns {import('./EthHandler.js').EthGetBlockReceiptsHandler} The handler function
- * @throws {Error} If the block is not found or if there's an error processing receipts
- *
- * @example
- * ```javascript
- * import { createTevmNode } from '@tevm/node'
- * import { ethGetBlockReceiptsHandler } from '@tevm/actions'
- *
- * const client = await createTevmNode()
- * const handler = ethGetBlockReceiptsHandler(client)
- *
- * // Get receipts by block number
- * const receipts = await handler({ blockTag: 1000n })
- *
- * // Get receipts by block hash
- * const receiptsByHash = await handler({
- *   blockHash: '0x1234567890abcdef...'
- * })
- * ```
+ * @param {import('@tevm/node').TevmNode} client
+ * @returns {import('./EthHandler.js').EthGetBlockReceiptsHandler}
+ * @throws {Error} If the block is not found or receipts cannot be processed.
  */
 export const ethGetBlockReceiptsHandler = (client) => async (params) => {
 	const vm = await client.getVm().then((vm) => vm.deepCopy())

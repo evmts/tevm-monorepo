@@ -1,12 +1,12 @@
 import { bytesToHex } from '@tevm/utils'
 
 /**
- * Helper function to call an event handler with a next callback
+ * Helper to invoke an event handler with an optional second parameter and a next callback.
  * @template T
  * @template A
- * @param {((data: T, secondParam?: A, next?: () => void) => void | Promise<void>) | undefined} handler - Event handler to call
- * @param {T} data - Data to pass to the handler
- * @param {A | undefined} [secondParam] - Optional second parameter
+ * @param {((data: T, secondParam?: A, next?: () => void) => void | Promise<void>) | undefined} handler
+ * @param {T} data
+ * @param {A | undefined} [secondParam]
  * @returns {Promise<void>}
  */
 const callHandler = async (handler, data, secondParam) => {

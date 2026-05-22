@@ -4,9 +4,9 @@ import { maybeThrowOnFail } from '../internal/maybeThrowOnFail.js'
 import { validateLoadStateParams } from './validateLoadStateParams.js'
 
 /**
- * Converts SerializableTevmState with Hex strings to TevmState with BigInt values
- * @param {import('@tevm/state').SerializableTevmState} serializedState - The serialized state to convert
- * @returns {import('@tevm/state').TevmState} The deserialized state
+ * Converts SerializableTevmState (hex-string fields) into TevmState (bigint fields).
+ * @param {import('@tevm/state').SerializableTevmState} serializedState
+ * @returns {import('@tevm/state').TevmState}
  */
 const deserializeState = (serializedState) => {
 	/** @type {import('@tevm/state').TevmState} */
@@ -36,10 +36,10 @@ const deserializeState = (serializedState) => {
  * @internal
  * Creates a handler for loading a previously dumped state into the VM.
  *
- * @param {import("@tevm/node").TevmNode} client - The base client instance.
- * @param {object} [options] - Optional configuration.
- * @param {boolean} [options.throwOnFail] - Whether to throw an error when a failure occurs.
- * @returns {import('./LoadStateHandlerType.js').LoadStateHandler} - The handler function.
+ * @param {import("@tevm/node").TevmNode} client
+ * @param {object} [options]
+ * @param {boolean} [options.throwOnFail]
+ * @returns {import('./LoadStateHandlerType.js').LoadStateHandler}
  *
  * @example
  * ```typescript

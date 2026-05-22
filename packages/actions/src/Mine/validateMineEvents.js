@@ -1,8 +1,7 @@
 /**
- * Validates mining event handlers
- * These are not part of the JSON-RPC interface but are used internally for mining operations
- * @param {unknown} events - The event handlers to validate
- * @returns {{ isValid: boolean, errors: Array<{path: string, message: string}> }} - Validation result
+ * Validates mining event handlers (internal — not part of the JSON-RPC interface).
+ * @param {unknown} events
+ * @returns {{ isValid: boolean, errors: Array<{path: string, message: string}> }}
  */
 export const validateMineEvents = (events) => {
 	if (typeof events !== 'object' || events === null) {

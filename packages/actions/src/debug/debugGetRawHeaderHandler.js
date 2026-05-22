@@ -4,17 +4,6 @@ import { bytesToHex, hexToBigInt } from '@tevm/utils'
  * Returns the RLP-encoded block header by block number or tag
  * @param {import('@tevm/node').TevmNode} client
  * @returns {import('./DebugHandler.js').DebugGetRawHeaderHandler}
- * @example
- * ```javascript
- * import { createMemoryClient } from '@tevm/memory-client'
- * import { debugGetRawHeaderHandler } from '@tevm/actions'
- *
- * const client = createMemoryClient()
- * const handler = debugGetRawHeaderHandler(client)
- *
- * const rawHeader = await handler({ blockTag: 'latest' })
- * console.log(rawHeader) // '0x...' (hex-encoded RLP)
- * ```
  */
 export const debugGetRawHeaderHandler =
 	(client) =>

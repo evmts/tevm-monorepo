@@ -5,22 +5,6 @@ import { debugGetRawHeaderHandler } from './debugGetRawHeaderHandler.js'
  * Request handler for debug_getRawHeader JSON-RPC requests.
  * @param {import('@tevm/node').TevmNode} client
  * @returns {import('./DebugProcedure.js').DebugGetRawHeaderProcedure}
- * @example
- * ```javascript
- * import { createMemoryClient } from '@tevm/memory-client'
- * import { debugGetRawHeaderJsonRpcProcedure } from '@tevm/actions'
- *
- * const client = createMemoryClient()
- * const procedure = debugGetRawHeaderJsonRpcProcedure(client)
- *
- * const response = await procedure({
- *   jsonrpc: '2.0',
- *   id: 1,
- *   method: 'debug_getRawHeader',
- *   params: ['latest']
- * })
- * console.log(response.result) // '0x...' (hex-encoded RLP)
- * ```
  */
 export const debugGetRawHeaderJsonRpcProcedure = (client) => {
 	/**

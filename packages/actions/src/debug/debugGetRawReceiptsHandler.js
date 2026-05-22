@@ -5,17 +5,6 @@ import { bytesToHex, hexToBigInt, hexToBytes, numberToHex } from '@tevm/utils'
  * Returns the consensus-encoded (RLP) receipts from a block by block number or tag
  * @param {import('@tevm/node').TevmNode} client
  * @returns {import('./DebugHandler.js').DebugGetRawReceiptsHandler}
- * @example
- * ```javascript
- * import { createMemoryClient } from '@tevm/memory-client'
- * import { debugGetRawReceiptsHandler } from '@tevm/actions'
- *
- * const client = createMemoryClient()
- * const handler = debugGetRawReceiptsHandler(client)
- *
- * const rawReceipts = await handler({ blockTag: 'latest' })
- * console.log(rawReceipts) // ['0x...', '0x...'] (array of hex-encoded RLP receipts)
- * ```
  */
 export const debugGetRawReceiptsHandler =
 	(client) =>

@@ -4,30 +4,6 @@
  *
  * @param {import('@tevm/node').TevmNode} client
  * @returns {import('./AnvilProcedure.js').AnvilNodeInfoProcedure}
- * @example
- * ```typescript
- * import { createTevmNode } from '@tevm/node'
- * import { anvilNodeInfoJsonRpcProcedure } from '@tevm/actions'
- *
- * const node = createTevmNode({ fork: { url: 'https://mainnet.optimism.io' } })
- * const procedure = anvilNodeInfoJsonRpcProcedure(node)
- *
- * const result = await procedure({
- *   jsonrpc: '2.0',
- *   method: 'anvil_nodeInfo',
- *   params: [],
- *   id: 1
- * })
- * console.log(result.result)
- * // {
- * //   currentBlockNumber: 12345,
- * //   currentBlockTimestamp: 1234567890,
- * //   forkUrl: 'https://mainnet.optimism.io',
- * //   chainId: 10,
- * //   hardfork: 'cancun',
- * //   miningMode: 'auto'
- * // }
- * ```
  */
 export const anvilNodeInfoJsonRpcProcedure = (client) => {
 	return async (request) => {

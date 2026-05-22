@@ -5,23 +5,6 @@
  *
  * @param {import('@tevm/node').TevmNode} client
  * @returns {import('./AnvilProcedure.js').AnvilEnableTracesProcedure}
- * @example
- * ```typescript
- * import { createTevmNode } from '@tevm/node'
- * import { anvilEnableTracesJsonRpcProcedure } from '@tevm/actions'
- *
- * const node = createTevmNode()
- * const procedure = anvilEnableTracesJsonRpcProcedure(node)
- *
- * // Enable automatic tracing
- * const result = await procedure({
- *   jsonrpc: '2.0',
- *   method: 'anvil_enableTraces',
- *   params: [true],
- *   id: 1
- * })
- * console.log(result.result) // null
- * ```
  */
 export const anvilEnableTracesJsonRpcProcedure = (client) => {
 	return async (request) => {

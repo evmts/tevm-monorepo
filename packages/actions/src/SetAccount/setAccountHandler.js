@@ -17,12 +17,15 @@ import { validateSetAccountParams } from './validateSetAccountParams.js'
  * It's particularly useful for test environments where you need to set up
  * specific contract states or account balances before running tests.
  *
- * @param {import("@tevm/node").TevmNode} client - The TEVM node instance
- * @param {object} [options] - Handler configuration options
- * @param {boolean} [options.throwOnFail] - Whether to throw errors or return them in the result object
- * @returns {import('./SetAccountHandlerType.js').SetAccountHandler} A handler function for setting account state
- * @throws {import('../SetAccount/TevmSetAccountError.js').TevmSetAccountError} When validation fails and throwOnFail is true
- * @throws {InternalError} When there's an error putting the account state and throwOnFail is true
+ * Use `state` to overwrite the account's storage (clears existing slots first) or
+ * `stateDiff` to patch individual slots without clearing.
+ *
+ * @param {import("@tevm/node").TevmNode} client
+ * @param {object} [options]
+ * @param {boolean} [options.throwOnFail]
+ * @returns {import('./SetAccountHandlerType.js').SetAccountHandler}
+ * @throws {import('../SetAccount/TevmSetAccountError.js').TevmSetAccountError} When validation fails and throwOnFail is true.
+ * @throws {InternalError} When putting account state fails and throwOnFail is true.
  *
  * @example
  * ```javascript
@@ -30,39 +33,13 @@ import { validateSetAccountParams } from './validateSetAccountParams.js'
  * import { setAccountHandler } from '@tevm/actions'
  * import { parseEther } from 'viem'
  *
- * const node = createTevmNode()
- * const handler = setAccountHandler(node)
- *
- * // Set an account with balance and nonce
+ * const handler = setAccountHandler(createTevmNode())
  * await handler({
  *   address: '0x1234567890123456789012345678901234567890',
- *   balance: parseEther('1000'), // 1000 ETH
- *   nonce: 5n
- * })
- *
- * // Deploy contract bytecode
- * await handler({
- *   address: '0xabcdef1234567890abcdef1234567890abcdef12',
- *   deployedBytecode: '0x608060405234801561001057600080fd5b50600436106100365760003560e01c8063...',
- *   balance: parseEther('10')
- * })
- *
- * // Set specific storage values
- * await handler({
- *   address: '0xabcdef1234567890abcdef1234567890abcdef12',
- *   state: {
- *     // storage slot => value
- *     '0x0000000000000000000000000000000000000000000000000000000000000000': '0x0000000000000000000000000000000000000000000000000000000000000001',
- *     '0x0000000000000000000000000000000000000000000000000000000000000001': '0x0000000000000000000000000000000000000000000000000000000000000002'
- *   }
- * })
- *
- * // Update individual storage slots without clearing others
- * await handler({
- *   address: '0xabcdef1234567890abcdef1234567890abcdef12',
- *   stateDiff: {
- *     '0x0000000000000000000000000000000000000000000000000000000000000000': '0x0000000000000000000000000000000000000000000000000000000000000005'
- *   }
+ *   balance: parseEther('1000'),
+ *   nonce: 5n,
+ *   deployedBytecode: '0x6080...',
+ *   stateDiff: { '0x00...00': '0x00...05' },
  * })
  * ```
  */

@@ -5,22 +5,6 @@ import { debugGetRawReceiptsHandler } from './debugGetRawReceiptsHandler.js'
  * Request handler for debug_getRawReceipts JSON-RPC requests.
  * @param {import('@tevm/node').TevmNode} client
  * @returns {import('./DebugProcedure.js').DebugGetRawReceiptsProcedure}
- * @example
- * ```javascript
- * import { createMemoryClient } from '@tevm/memory-client'
- * import { debugGetRawReceiptsJsonRpcProcedure } from '@tevm/actions'
- *
- * const client = createMemoryClient()
- * const procedure = debugGetRawReceiptsJsonRpcProcedure(client)
- *
- * const response = await procedure({
- *   jsonrpc: '2.0',
- *   id: 1,
- *   method: 'debug_getRawReceipts',
- *   params: ['latest']
- * })
- * console.log(response.result) // ['0x...', '0x...'] (array of hex-encoded RLP receipts)
- * ```
  */
 export const debugGetRawReceiptsJsonRpcProcedure = (client) => {
 	/**

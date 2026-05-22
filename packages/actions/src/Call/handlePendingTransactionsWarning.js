@@ -4,12 +4,12 @@ import { hexToBytes } from '@tevm/utils'
 /**
  * Handles warning for pending transactions in the transaction pool.
  *
- * @param {import('@tevm/node').TevmNode} client - The TEVM base client instance.
- * @param {import('./CallParams.js').CallParams} params - The call parameters.
- * @param {string | undefined} code - The code to execute.
- * @param {string | undefined} deployedBytecode - The deployed bytecode to use.
- * @returns {Promise<void>} A promise that resolves when the check is complete.
- * @throws {never} This function does not throw errors.
+ * @param {import('@tevm/node').TevmNode} client
+ * @param {import('./CallParams.js').CallParams} params
+ * @param {string | undefined} code
+ * @param {string | undefined} deployedBytecode
+ * @returns {Promise<void>}
+ * @throws {never}
  */
 export const handlePendingTransactionsWarning = async (client, params, code, deployedBytecode) => {
 	if (

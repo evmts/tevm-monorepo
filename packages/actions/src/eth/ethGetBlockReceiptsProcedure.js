@@ -3,28 +3,10 @@ import { ethGetBlockReceiptsHandler } from './ethGetBlockReceiptsHandler.js'
 
 /**
  * Procedure for handling eth_getBlockReceipts JSON-RPC requests.
+ * Accepts either a block hash, hex block number, or block tag.
  *
- * This procedure validates the request parameters and calls the handler to retrieve
- * all transaction receipts for the specified block.
- *
- * @param {import('@tevm/node').TevmNode} client - The Tevm client instance
- * @returns {import('./EthProcedure.js').EthGetBlockReceiptsJsonRpcProcedure} The JSON-RPC procedure
- *
- * @example
- * ```javascript
- * import { createTevmNode } from '@tevm/node'
- * import { ethGetBlockReceiptsProcedure } from '@tevm/actions'
- *
- * const client = await createTevmNode()
- * const procedure = ethGetBlockReceiptsProcedure(client)
- *
- * const response = await procedure({
- *   jsonrpc: '2.0',
- *   method: 'eth_getBlockReceipts',
- *   params: ['0x1234'],
- *   id: 1
- * })
- * ```
+ * @param {import('@tevm/node').TevmNode} client
+ * @returns {import('./EthProcedure.js').EthGetBlockReceiptsJsonRpcProcedure}
  */
 export const ethGetBlockReceiptsJsonRpcProcedure = (client) => async (req) => {
 	const [blockId] = req.params

@@ -4,21 +4,6 @@ import { debugDumpBlockHandler } from './debugDumpBlockHandler.js'
  * Request handler for debug_dumpBlock JSON-RPC requests.
  * @param {import('@tevm/node').TevmNode} client
  * @returns {import('./DebugProcedure.js').DebugDumpBlockProcedure}
- * @example
- * ```typescript
- * import { createTevmNode } from 'tevm/node'
- * import { debugDumpBlockJsonRpcProcedure } from 'tevm/actions'
- *
- * const client = createTevmNode()
- * const procedure = debugDumpBlockJsonRpcProcedure(client)
- *
- * const response = await procedure({
- *   id: 1,
- *   jsonrpc: '2.0',
- *   method: 'debug_dumpBlock',
- *   params: [{ blockTag: 'latest' }]
- * })
- * ```
  */
 export const debugDumpBlockJsonRpcProcedure = (client) => {
 	return /** @type {import('./DebugProcedure.js').DebugDumpBlockProcedure} */ (

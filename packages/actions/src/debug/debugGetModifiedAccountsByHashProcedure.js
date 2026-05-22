@@ -4,24 +4,6 @@ import { debugGetModifiedAccountsByHashHandler } from './debugGetModifiedAccount
  * Request handler for debug_getModifiedAccountsByHash JSON-RPC requests.
  * @param {import('@tevm/node').TevmNode} client
  * @returns {import('./DebugProcedure.js').DebugGetModifiedAccountsByHashProcedure}
- * @example
- * ```typescript
- * import { createTevmNode } from 'tevm/node'
- * import { debugGetModifiedAccountsByHashJsonRpcProcedure } from 'tevm/actions'
- *
- * const client = createTevmNode()
- * const procedure = debugGetModifiedAccountsByHashJsonRpcProcedure(client)
- *
- * const response = await procedure({
- *   id: 1,
- *   jsonrpc: '2.0',
- *   method: 'debug_getModifiedAccountsByHash',
- *   params: [{
- *     startBlockHash: '0xabc...',
- *     endBlockHash: '0xdef...'
- *   }]
- * })
- * ```
  */
 export const debugGetModifiedAccountsByHashJsonRpcProcedure = (client) => {
 	return /** @type {import('./DebugProcedure.js').DebugGetModifiedAccountsByHashProcedure} */ (
