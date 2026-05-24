@@ -1,14 +1,8 @@
 {
 	"$schema": "https://typedoc.org/schema.json",
 	"out": "./docs",
-	"entryPoints": [
-		"./src/moduleFactory.js",
-		"./src/types.ts",
-		"./src/resolveImports.js"
-	],
-	"plugin": [
-		"typedoc-plugin-markdown"
-	],
+	"entryPoints": ["./src/moduleFactory.js", "./src/types.ts", "./src/resolveImports.js"],
+	"plugin": ["typedoc-plugin-markdown"],
 	"gitRevision": "main",
 	"parametersFormat": "table",
 	"propertiesFormat": "table"

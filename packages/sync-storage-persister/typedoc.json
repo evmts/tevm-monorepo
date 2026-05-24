@@ -1,12 +1,8 @@
 {
 	"$schema": "https://typedoc.org/schema.json",
 	"out": "./docs",
-	"entryPoints": [
-		"./src/index.ts"
-	],
-	"plugin": [
-		"typedoc-plugin-markdown"
-	],
+	"entryPoints": ["./src/index.ts"],
+	"plugin": ["typedoc-plugin-markdown"],
 	"gitRevision": "main",
 	"parametersFormat": "table",
 	"propertiesFormat": "table"

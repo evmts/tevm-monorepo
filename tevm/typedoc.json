@@ -37,9 +37,7 @@
 		"./bundler/config/index.ts",
 		"./bundler/compiler/index.ts"
 	],
-	"plugin": [
-		"typedoc-plugin-markdown"
-	],
+	"plugin": ["typedoc-plugin-markdown"],
 	"gitRevision": "main",
 	"disableSources": true,
 	"parametersFormat": "table",

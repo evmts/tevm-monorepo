@@ -8,9 +8,7 @@
 		"./src/solcTypes.js",
 		"./src/types.ts"
 	],
-	"plugin": [
-		"typedoc-plugin-markdown"
-	],
+	"plugin": ["typedoc-plugin-markdown"],
 	"gitRevision": "main",
 	"parametersFormat": "table",
 	"propertiesFormat": "table"

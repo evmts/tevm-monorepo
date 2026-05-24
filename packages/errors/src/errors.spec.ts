@@ -133,6 +133,7 @@ describe('Error Classes', () => {
 				continue
 			}
 
+			// biome-ignore lint/performance/noDynamicNamespaceImportAccess: This test intentionally validates error exports by name.
 			const ErrorConstructor = errors[errorName as keyof typeof errors] as new (message: string, args: any) => Error
 
 			// Create an instance with basic arguments
