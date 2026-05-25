@@ -2757,6 +2757,9 @@ importers:
       '@tevm/client-types':
         specifier: workspace:^
         version: link:../packages/client-types
+      '@tevm/cli':
+        specifier: workspace:^
+        version: link:../cli
       '@tevm/common':
         specifier: workspace:^
         version: link:../packages/common
