@@ -1,3 +1,4 @@
+import { InvalidParamsError } from '@tevm/errors'
 import { createJsonRpcFetcher } from '@tevm/jsonrpc'
 import { hexToBigInt, numberToHex, parseGwei } from '@tevm/utils'
 import { blockNumberHandler } from './blockNumberHandler.js'
@@ -32,6 +33,12 @@ export const ethFeeHistoryHandler = (client) => {
 	const { forkTransport, getVm } = client
 	return async (params) => {
 		const { blockCount, newestBlock = 'latest', rewardPercentiles } = params
+
+		// Per the eth_feeHistory spec blockCount must be >= 1. Reject 0 (or negative) to avoid
+		// returning an oldestBlock that is past the newest block / an empty baseFeePerGas array.
+		if (blockCount < 1n) {
+			throw new InvalidParamsError('eth_feeHistory blockCount must be at least 1')
+		}
 
 		// For forked nodes, forward the request to the fork transport
 		if (forkTransport) {
@@ -134,28 +141,73 @@ export const ethFeeHistoryHandler = (client) => {
 						// Empty block - all zeros for rewards
 						reward.push(rewardPercentiles.map(() => 0n))
 					} else {
-						// Calculate effective priority fees for each transaction
-						const effectivePriorityFees = block.transactions.map((tx) => {
+						// Per the eth_feeHistory spec, reward percentiles are gas-weighted: transactions are
+						// sorted by effective priority fee and the percentile is taken at the point where the
+						// cumulative gasUsed of the block crosses percentile% of the block's total gas. We pull
+						// per-transaction gasUsed from the receipt manager (cumulativeBlockGasUsed deltas); if
+						// receipts are unavailable we fall back to weighting each transaction equally.
+						/** @type {bigint[] | undefined} */
+						let perTxGasUsed
+						try {
+							const receiptsManager = await client.getReceiptsManager()
+							const receipts = await receiptsManager.getReceipts(block.hash())
+							if (receipts && receipts.length === block.transactions.length) {
+								let previousCumulative = 0n
+								perTxGasUsed = receipts.map((receipt) => {
+									const gas = receipt.cumulativeBlockGasUsed - previousCumulative
+									previousCumulative = receipt.cumulativeBlockGasUsed
+									return gas > 0n ? gas : 0n
+								})
+							}
+						} catch {
+							perTxGasUsed = undefined
+						}
+						if (!perTxGasUsed) {
+							// Fall back to equal per-transaction weighting when receipts are unavailable
+							perTxGasUsed = block.transactions.map(() => 1n)
+						}
+
+						// Pair each transaction's effective priority fee with its gas used
+						const feeAndGas = block.transactions.map((tx, txIndex) => {
+							/** @type {bigint} */
+							let effectivePriorityFee
 							if ('maxPriorityFeePerGas' in tx && tx.maxPriorityFeePerGas !== undefined) {
 								// EIP-1559 transaction
 								const maxPriorityFee = tx.maxPriorityFeePerGas
 								const maxFee = /** @type {bigint} */ ('maxFeePerGas' in tx ? tx.maxFeePerGas : 0n)
-								const effectivePriorityFee = maxFee - baseFee > maxPriorityFee ? maxPriorityFee : maxFee - baseFee
-								return effectivePriorityFee > 0n ? effectivePriorityFee : 0n
+								const candidate = maxFee - baseFee > maxPriorityFee ? maxPriorityFee : maxFee - baseFee
+								effectivePriorityFee = candidate > 0n ? candidate : 0n
+							} else {
+								// Legacy transaction - effective priority fee is gasPrice - baseFee
+								const gasPrice = /** @type {bigint} */ ('gasPrice' in tx ? tx.gasPrice : 0n)
+								effectivePriorityFee = gasPrice > baseFee ? gasPrice - baseFee : 0n
 							}
-							// Legacy transaction - effective priority fee is gasPrice - baseFee
-							const gasPrice = /** @type {bigint} */ ('gasPrice' in tx ? tx.gasPrice : 0n)
-							return gasPrice > baseFee ? gasPrice - baseFee : 0n
+							return {
+								reward: effectivePriorityFee,
+								gasUsed: /** @type {bigint} */ (perTxGasUsed[txIndex] ?? 0n),
+							}
 						})
 
-						// Sort by effective priority fee
-						effectivePriorityFees.sort((a, b) => (a < b ? -1 : a > b ? 1 : 0))
+						// Sort ascending by effective priority fee
+						feeAndGas.sort((a, b) => (a.reward < b.reward ? -1 : a.reward > b.reward ? 1 : 0))
 
-						// Calculate percentiles
+						const totalGasUsed = feeAndGas.reduce((sum, entry) => sum + entry.gasUsed, 0n)
+
+						// Walk the gas-weighted cumulative distribution to resolve each percentile
 						const percentileRewards = rewardPercentiles.map((percentile) => {
-							if (effectivePriorityFees.length === 0) return 0n
-							const index = Math.floor((percentile / 100) * effectivePriorityFees.length)
-							return effectivePriorityFees[Math.min(index, effectivePriorityFees.length - 1)] ?? 0n
+							if (totalGasUsed === 0n) {
+								return feeAndGas[feeAndGas.length - 1]?.reward ?? 0n
+							}
+							// Threshold gas at which this percentile is considered reached
+							const thresholdGas = (totalGasUsed * BigInt(Math.floor(percentile))) / 100n
+							let cumulativeGas = 0n
+							for (const entry of feeAndGas) {
+								cumulativeGas += entry.gasUsed
+								if (cumulativeGas >= thresholdGas) {
+									return entry.reward
+								}
+							}
+							return feeAndGas[feeAndGas.length - 1]?.reward ?? 0n
 						})
 						reward.push(percentileRewards)
 					}

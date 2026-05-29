@@ -126,6 +126,68 @@ describe(dumpStorageRange.name, () => {
 		`)
 	})
 
+	it('handles storage slots containing hex letters (>= 0x0a) and orders them correctly', async () => {
+		const state = createBaseState({})
+		const address = createAddress(9876543210)
+		await putAccount(state)(
+			address,
+			createAccount({
+				nonce: 2n,
+				balance: 420n,
+			}),
+		)
+		await putContractCode(state)(address, hexToBytes(SimpleContract.deployedBytecode))
+		// Slots that contain hex letters / span the decimal-vs-hex boundary.
+		// 0x0a (10) contains a letter and crashes hexToBigInt without a 0x prefix.
+		// 0x10 (16) is all-digit and is mis-parsed as decimal 10 without the prefix,
+		// which would order it before 0x0a and break pagination.
+		await putContractStorage(state)(address, numberToBytes(0x10, { size: 32 }), numberToBytes(0x10, { size: 32 }))
+		await putContractStorage(state)(address, numberToBytes(0x0a, { size: 32 }), numberToBytes(0x0a, { size: 32 }))
+		await putContractStorage(state)(address, numberToBytes(0x1f, { size: 32 }), numberToBytes(0x1f, { size: 32 }))
+		await putContractStorage(state)(address, numberToBytes(0x02, { size: 32 }), numberToBytes(0x02, { size: 32 }))
+
+		// Must not throw (it does without the 0x-prefix fix) and keys must be sorted numerically.
+		const result = await dumpStorageRange(state)(address, 0n, 20)
+		const keys = Object.keys(result.storage).map((k) => hexToBigInt(`0x${k}` as Hex))
+		expect(keys).toEqual([0x02n, 0x0an, 0x10n, 0x1fn])
+
+		// startKey filtering must use hex semantics: starting at 0x0a should include 0x0a, 0x10, 0x1f
+		// but exclude 0x02. Without the fix, 0x10 (parsed as decimal 10) would be wrongly excluded.
+		const fromA = await dumpStorageRange(state)(address, 0x0an, 20)
+		const fromAKeys = Object.keys(fromA.storage).map((k) => hexToBigInt(`0x${k}` as Hex))
+		expect(fromAKeys).toEqual([0x0an, 0x10n, 0x1fn])
+	})
+
+	it('paginates correctly across slots with hex letters', async () => {
+		const state = createBaseState({})
+		const address = createAddress(9876543210)
+		await putAccount(state)(
+			address,
+			createAccount({
+				nonce: 2n,
+				balance: 420n,
+			}),
+		)
+		await putContractCode(state)(address, hexToBytes(SimpleContract.deployedBytecode))
+		const slots = [0x01, 0x0a, 0x0f, 0x10, 0x2c]
+		for (const slot of slots) {
+			await putContractStorage(state)(address, numberToBytes(slot, { size: 32 }), numberToBytes(slot, { size: 32 }))
+		}
+
+		const collected: bigint[] = []
+		let startKey: bigint | null = 0n
+		const limit = 2
+		while (startKey !== null) {
+			const next = await dumpStorageRange(state)(address, startKey, limit)
+			for (const k of Object.keys(next.storage)) {
+				collected.push(hexToBigInt(`0x${k}` as Hex))
+			}
+			// nextKey is returned as an unprefixed hex key, so prefix it before parsing.
+			startKey = next.nextKey === null ? null : hexToBigInt(`0x${next.nextKey}` as Hex)
+		}
+		expect(collected).toEqual([0x01n, 0x0an, 0x0fn, 0x10n, 0x2cn])
+	})
+
 	it('should throw error when no storage exists for address', () => {
 		const state = createBaseState({})
 		const nonExistentAddress = createAddress('0x1234567890123456789012345678901234567890')

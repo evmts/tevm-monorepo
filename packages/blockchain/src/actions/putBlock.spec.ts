@@ -4,6 +4,7 @@ import { describe, expect, it } from 'vitest'
 import { createBaseChain } from '../createBaseChain.js'
 import { getMockBlocks } from '../test/getBlocks.js'
 import { putBlock } from './putBlock.js'
+import { setIteratorHead } from './setIteratorHead.js'
 
 describe(putBlock.name, async () => {
 	const blocks = await getMockBlocks()
@@ -60,6 +61,53 @@ describe(putBlock.name, async () => {
 
 		expect(chain.blocksByTag.get('latest')).toBe(blocks[0])
 		expect(chain.blocks.get(bytesToHex(disconnectedBlock.hash()))).toBe(disconnectedBlock)
+	})
+
+	it('should repoint blocksByNumber to the canonical block on a reorg to a sibling at the same height (#9)', async () => {
+		const chain = createBaseChain({ common: optimism.copy() })
+
+		// Build a base head at some height, then two siblings (5a, 5b) at base + 1 that both extend it.
+		const base = blocks[0]
+		const siblingHeight = base.header.number + 1n
+		// Both siblings carry a __tevmJsonRpcBlockHash so putBlock skips header validation (matching how
+		// forked blocks are stored), letting us focus the assertion on the blocksByNumber index.
+		const siblingA = {
+			...blocks[1],
+			__tevmJsonRpcBlockHash: `0x${'aa'.repeat(32)}`,
+			hash: () => hexToBytes(`0x${'aa'.repeat(32)}`),
+			header: {
+				...blocks[1].header,
+				number: siblingHeight,
+				parentHash: base.hash(),
+				toJSON: () => ({ number: siblingHeight }),
+			},
+		}
+		const siblingB = {
+			...blocks[1],
+			__tevmJsonRpcBlockHash: `0x${'bb'.repeat(32)}`,
+			hash: () => hexToBytes(`0x${'bb'.repeat(32)}`),
+			header: {
+				...blocks[1].header,
+				number: siblingHeight,
+				parentHash: base.hash(),
+				toJSON: () => ({ number: siblingHeight }),
+			},
+		}
+
+		await putBlock(chain)(base)
+		await putBlock(chain)(siblingA as any)
+		expect(chain.blocksByTag.get('latest')).toBe(siblingA)
+		expect(chain.blocksByNumber.get(siblingHeight)).toBe(siblingA)
+
+		// Reorg the canonical head back to the shared parent, then extend with the other sibling.
+		await setIteratorHead(chain)('latest', base.hash())
+		await putBlock(chain)(siblingB as any)
+
+		// siblingB now extends the (reset) latest head and becomes canonical. The number->hash index
+		// must be repointed at siblingB; without the fix it would still return the stale sibling siblingA.
+		expect(chain.blocksByTag.get('latest')).toBe(siblingB)
+		expect(chain.blocksByNumber.get(siblingHeight)).toBe(siblingB)
+		expect(chain.blocks.get(bytesToHex(siblingA.hash()))).toBe(siblingA)
 	})
 
 	it('should reject a local block with an invalid header when its parent is known', async () => {

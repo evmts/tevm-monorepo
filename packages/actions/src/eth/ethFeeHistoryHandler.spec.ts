@@ -89,19 +89,58 @@ describe(ethFeeHistoryHandler.name, () => {
 		expect(result.gasUsedRatio).toHaveLength(1)
 	})
 
-	it('should handle zero block count gracefully', async () => {
+	it('should reject zero block count per the eth_feeHistory spec', async () => {
 		const mockVm = createMockVm(100n)
-		const result = await ethFeeHistoryHandler({
-			getVm: () => Promise.resolve(mockVm) as any,
-		} as any)({
-			blockCount: 0n,
-			newestBlock: 'latest',
+		// Per spec blockCount must be >= 1. Previously blockCount=0 yielded oldestBlock = newest + 1
+		// (a block past the requested range) with an empty baseFeePerGas array.
+		await expect(
+			ethFeeHistoryHandler({
+				getVm: () => Promise.resolve(mockVm) as any,
+			} as any)({
+				blockCount: 0n,
+				newestBlock: 'latest',
+			}),
+		).rejects.toThrow(/blockCount must be at least 1/)
+	})
+
+	it('should weight reward percentiles by cumulative gas, not transaction count', async () => {
+		// One large-gas, low-tip tx and many tiny-gas high-tip txs.
+		// Tx 0: tip 1 gwei, gas 9_000_000 (90% of block gas)
+		// Tx 1..9: tip 100 gwei, gas 100_000 each (10% of block gas combined)
+		const baseFee = parseGwei('1')
+		const lowTipTx = { maxPriorityFeePerGas: parseGwei('1'), maxFeePerGas: parseGwei('1000') }
+		const highTipTx = { maxPriorityFeePerGas: parseGwei('100'), maxFeePerGas: parseGwei('1000') }
+		const transactions = [lowTipTx, ...Array.from({ length: 9 }, () => highTipTx)]
+
+		// Build cumulative gas: tx0 consumes 9_000_000, each of the next 9 consumes 100_000
+		const perTxGas = [9_000_000n, ...Array.from({ length: 9 }, () => 100_000n)]
+		let cumulative = 0n
+		const receipts = perTxGas.map((g) => {
+			cumulative += g
+			return { cumulativeBlockGasUsed: cumulative }
 		})
 
-		// 0 blockCount should return empty arrays or minimal data
-		expect(result.oldestBlock).toBeDefined()
-		expect(result.baseFeePerGas).toBeDefined()
-		expect(result.gasUsedRatio).toBeDefined()
+		const block = {
+			header: { number: 10n, baseFeePerGas: baseFee, gasUsed: 9_900_000n, gasLimit: 30_000_000n },
+			transactions,
+			hash: () => new Uint8Array(32),
+		}
+		const blocks = new Map([[10n, block]])
+		const mockVm = createMockVm(10n, blocks)
+
+		const result = await ethFeeHistoryHandler({
+			getVm: () => Promise.resolve(mockVm) as any,
+			getReceiptsManager: () => Promise.resolve({ getReceipts: () => Promise.resolve(receipts) }) as any,
+		} as any)({
+			blockCount: 1n,
+			newestBlock: 10n,
+			rewardPercentiles: [50],
+		})
+
+		// 50th percentile by gas weight falls inside tx0 (which alone is 90% of block gas),
+		// so the reward should be the low tip (1 gwei), NOT the high tip a count-based
+		// percentile (50th of 10 txs) would have selected.
+		expect(result.reward?.[0]?.[0]).toBe(parseGwei('1'))
 	})
 
 	it('should handle large block counts', async () => {

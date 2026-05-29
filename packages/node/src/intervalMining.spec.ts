@@ -1,3 +1,7 @@
+import { TransactionFactory } from '@evmts/zevm/tx'
+import { createAddress } from '@tevm/address'
+import { tevmDefault } from '@tevm/common'
+import { hexToBytes, PREFUNDED_PRIVATE_KEYS, parseEther } from '@tevm/utils'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { createTevmNode } from './createTevmNode.js'
 import type { TevmNode } from './TevmNode.js'
@@ -213,6 +217,83 @@ describe('TevmNode interval mining integration', () => {
 			// This would be tested at a higher level with actual transaction sending
 			// Here we just verify the mining config is set correctly
 			expect(client.miningConfig.type).toBe('interval')
+		})
+	})
+
+	describe('post-mine state root handling (#27)', () => {
+		const buildSignedTx = (nonce: string) => {
+			const tx = TransactionFactory(
+				{
+					nonce,
+					maxFeePerGas: '0x09184e72a000',
+					maxPriorityFeePerGas: '0x09184e72a000',
+					gasLimit: '0x5208',
+					to: createAddress(`0x${'42'.repeat(20)}`),
+					value: parseEther('0.1'),
+					data: '0x',
+					type: 2,
+				},
+				{ common: tevmDefault.ethjsCommon },
+			)
+			return tx.sign(hexToBytes(PREFUNDED_PRIVATE_KEYS[0]))
+		}
+
+		it('mines a queued transaction and persists the resulting state root', async () => {
+			vi.useFakeTimers()
+			client = createTevmNode({
+				miningConfig: { type: 'interval', blockTime: 0.001 },
+			})
+			await client.ready()
+
+			const vm = await client.getVm()
+			const initialBlock = await vm.blockchain.getCanonicalHeadBlock()
+
+			const txPool = await client.getTxPool()
+			await txPool.add(buildSignedTx('0x00'), true)
+
+			await vi.advanceTimersByTimeAsync(10)
+
+			const finalBlock = await vm.blockchain.getCanonicalHeadBlock()
+			expect(finalBlock.header.number).toBe(initialBlock.header.number + 1n)
+			// The canonical state root after mining must be backed by state (saveStateRoot ran).
+			const stateRoot = vm.stateManager._baseState.getCurrentStateRoot()
+			expect(vm.stateManager._baseState.stateRoots.get(stateRoot)).toBeDefined()
+
+			vi.useRealTimers()
+		})
+
+		it('surfaces (does not silently swallow) a missing post-mine state root', async () => {
+			vi.useFakeTimers()
+			client = createTevmNode({
+				miningConfig: { type: 'interval', blockTime: 0.001 },
+			})
+			await client.ready()
+
+			const vm = await client.getVm()
+			// Force the missing-state-root invariant violation: any deep copy made during mining
+			// reports an empty stateRoots map, so the looked-up post-mine state is undefined.
+			const originalDeepCopy = vm.deepCopy.bind(vm)
+			vi.spyOn(vm, 'deepCopy').mockImplementation(async () => {
+				const copy = await originalDeepCopy()
+				vi.spyOn(copy.stateManager._baseState.stateRoots, 'get').mockReturnValue(undefined)
+				return copy
+			})
+
+			const errorSpy = vi.spyOn(client.logger, 'error').mockImplementation(() => {})
+			const headBefore = (await vm.blockchain.getCanonicalHeadBlock()).header.number
+
+			const txPool = await client.getTxPool()
+			await txPool.add(buildSignedTx('0x00'), true)
+
+			await vi.advanceTimersByTimeAsync(10)
+
+			// The mining cycle threw and was caught/logged rather than silently advancing the head
+			// to a canonical state root with no backing state.
+			expect(errorSpy).toHaveBeenCalled()
+			const headAfter = (await vm.blockchain.getCanonicalHeadBlock()).header.number
+			expect(headAfter).toBe(headBefore)
+
+			vi.useRealTimers()
 		})
 	})
 

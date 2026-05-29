@@ -41,6 +41,36 @@ describe('createBaseVm', () => {
 		expect(mockCallback).toHaveBeenCalledWith(expectedData, expect.any(Function))
 	})
 
+	it('should resolve even when a synchronous listener ignores the resolve callback', async () => {
+		// Regression: a normal listener registered via the documented public API
+		// (vm.events.on('afterTx', (event) => {...})) does not call the optional
+		// resolve callback. Previously this caused _emit to never resolve and hung
+		// runTx/runBlock forever.
+		const baseVm = createBaseVm(opts)
+		const received: Array<unknown> = []
+		baseVm.events.on('afterTx', (event) => {
+			received.push(event)
+		})
+		const expectedData = { test: 'data' }
+		// If _emit hangs, this await never resolves and the test times out.
+		await baseVm._emit('afterTx', expectedData)
+		expect(received).toEqual([expectedData])
+	})
+
+	it('should resolve when there are no listeners', async () => {
+		const baseVm = createBaseVm(opts)
+		await baseVm._emit('afterTx', { test: 'data' })
+	})
+
+	it('should propagate errors thrown by a synchronous listener', async () => {
+		const baseVm = createBaseVm(opts)
+		const boom = new Error('listener boom')
+		baseVm.events.on('afterTx', () => {
+			throw boom
+		})
+		await expect(baseVm._emit('afterTx', { test: 'data' })).rejects.toThrow('listener boom')
+	})
+
 	it('should call ready functions on stateManager and blockchain', async () => {
 		const baseVm = createBaseVm(opts)
 		expect(await baseVm.ready()).toBeTrue()

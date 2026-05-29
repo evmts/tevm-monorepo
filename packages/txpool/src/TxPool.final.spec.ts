@@ -87,7 +87,10 @@ describe('TxPool final coverage', () => {
 			expect(txPool.txsInPool).toBe(0)
 			expect((txPool as any).pool.size).toBe(0)
 			expect(txPool.getByHash(txHash)).toBeNull()
-			expect(await txPool.getTransactionStatus(`0x${txHash}`)).toBe('unknown')
+			// The handled entry was only aged to POOLED_STORAGE_TIME_LIMIT (~20 min), which is
+			// still well within HANDLED_CLEANUP_TIME_LIMIT (60 min), so cleanup() must NOT prune it.
+			// getTransactionStatus therefore correctly reports 'mined' even though the tx left the pool.
+			expect(await txPool.getTransactionStatus(`0x${txHash}`)).toBe('mined')
 			expect((txPool as any).txsByHash.has(txHash)).toBe(false)
 			expect((txPool as any).txsByNonce.has(address)).toBe(false)
 			expect((txPool as any).txsInNonceOrder.has(address)).toBe(false)

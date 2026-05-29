@@ -11,17 +11,17 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
     "returnValue": "0x",
     "structLogs": [
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffffff",
-        "gasCost": "0x6",
+        "gasCost": "0x3",
         "op": "PUSH1",
         "pc": 0,
         "stack": [],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xfffffc",
-        "gasCost": "0x6",
+        "gasCost": "0x3",
         "op": "PUSH1",
         "pc": 2,
         "stack": [
@@ -29,9 +29,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xfffff9",
-        "gasCost": "0xf",
+        "gasCost": "0xc",
         "op": "MSTORE",
         "pc": 4,
         "stack": [
@@ -40,17 +40,17 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffffed",
-        "gasCost": "0x4",
+        "gasCost": "0x2",
         "op": "CALLVALUE",
         "pc": 5,
         "stack": [],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffffeb",
-        "gasCost": "0x6",
+        "gasCost": "0x3",
         "op": "DUP1",
         "pc": 6,
         "stack": [
@@ -58,9 +58,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffffe8",
-        "gasCost": "0x6",
+        "gasCost": "0x3",
         "op": "ISZERO",
         "pc": 7,
         "stack": [
@@ -69,9 +69,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffffe5",
-        "gasCost": "0x6",
+        "gasCost": "0x3",
         "op": "PUSH2",
         "pc": 8,
         "stack": [
@@ -80,9 +80,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffffe2",
-        "gasCost": "0x14",
+        "gasCost": "0xa",
         "op": "JUMPI",
         "pc": 11,
         "stack": [
@@ -92,9 +92,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffffd8",
-        "gasCost": "0x2",
+        "gasCost": "0x1",
         "op": "JUMPDEST",
         "pc": 15,
         "stack": [
@@ -102,9 +102,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffffd7",
-        "gasCost": "0x4",
+        "gasCost": "0x2",
         "op": "POP",
         "pc": 16,
         "stack": [
@@ -112,17 +112,17 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffffd5",
-        "gasCost": "0x6",
+        "gasCost": "0x3",
         "op": "PUSH1",
         "pc": 17,
         "stack": [],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffffd2",
-        "gasCost": "0x4",
+        "gasCost": "0x2",
         "op": "CALLDATASIZE",
         "pc": 19,
         "stack": [
@@ -130,9 +130,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffffd0",
-        "gasCost": "0x6",
+        "gasCost": "0x3",
         "op": "LT",
         "pc": 20,
         "stack": [
@@ -141,9 +141,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffffcd",
-        "gasCost": "0x6",
+        "gasCost": "0x3",
         "op": "PUSH2",
         "pc": 21,
         "stack": [
@@ -151,9 +151,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffffca",
-        "gasCost": "0x14",
+        "gasCost": "0xa",
         "op": "JUMPI",
         "pc": 24,
         "stack": [
@@ -162,17 +162,17 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffffc0",
-        "gasCost": "0x4",
+        "gasCost": "0x2",
         "op": "PUSH0",
         "pc": 25,
         "stack": [],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffffbe",
-        "gasCost": "0x6",
+        "gasCost": "0x3",
         "op": "CALLDATALOAD",
         "pc": 26,
         "stack": [
@@ -180,9 +180,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffffbb",
-        "gasCost": "0x6",
+        "gasCost": "0x3",
         "op": "PUSH1",
         "pc": 27,
         "stack": [
@@ -190,9 +190,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffffb8",
-        "gasCost": "0x6",
+        "gasCost": "0x3",
         "op": "SHR",
         "pc": 29,
         "stack": [
@@ -201,9 +201,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffffb5",
-        "gasCost": "0x6",
+        "gasCost": "0x3",
         "op": "DUP1",
         "pc": 30,
         "stack": [
@@ -211,9 +211,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffffb2",
-        "gasCost": "0x6",
+        "gasCost": "0x3",
         "op": "PUSH4",
         "pc": 31,
         "stack": [
@@ -222,9 +222,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffffaf",
-        "gasCost": "0x6",
+        "gasCost": "0x3",
         "op": "EQ",
         "pc": 36,
         "stack": [
@@ -234,9 +234,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffffac",
-        "gasCost": "0x6",
+        "gasCost": "0x3",
         "op": "PUSH2",
         "pc": 37,
         "stack": [
@@ -245,9 +245,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffffa9",
-        "gasCost": "0x14",
+        "gasCost": "0xa",
         "op": "JUMPI",
         "pc": 40,
         "stack": [
@@ -257,9 +257,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffff9f",
-        "gasCost": "0x2",
+        "gasCost": "0x1",
         "op": "JUMPDEST",
         "pc": 56,
         "stack": [
@@ -267,9 +267,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffff9e",
-        "gasCost": "0x6",
+        "gasCost": "0x3",
         "op": "PUSH2",
         "pc": 57,
         "stack": [
@@ -277,9 +277,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffff9b",
-        "gasCost": "0x6",
+        "gasCost": "0x3",
         "op": "PUSH1",
         "pc": 60,
         "stack": [
@@ -288,9 +288,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffff98",
-        "gasCost": "0x6",
+        "gasCost": "0x3",
         "op": "DUP1",
         "pc": 62,
         "stack": [
@@ -300,9 +300,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffff95",
-        "gasCost": "0x4",
+        "gasCost": "0x2",
         "op": "CALLDATASIZE",
         "pc": 63,
         "stack": [
@@ -313,9 +313,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffff93",
-        "gasCost": "0x6",
+        "gasCost": "0x3",
         "op": "SUB",
         "pc": 64,
         "stack": [
@@ -327,9 +327,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffff90",
-        "gasCost": "0x6",
+        "gasCost": "0x3",
         "op": "DUP2",
         "pc": 65,
         "stack": [
@@ -340,9 +340,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffff8d",
-        "gasCost": "0x6",
+        "gasCost": "0x3",
         "op": "ADD",
         "pc": 66,
         "stack": [
@@ -354,9 +354,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffff8a",
-        "gasCost": "0x6",
+        "gasCost": "0x3",
         "op": "SWAP1",
         "pc": 67,
         "stack": [
@@ -367,9 +367,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffff87",
-        "gasCost": "0x6",
+        "gasCost": "0x3",
         "op": "PUSH2",
         "pc": 68,
         "stack": [
@@ -380,9 +380,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffff84",
-        "gasCost": "0x6",
+        "gasCost": "0x3",
         "op": "SWAP2",
         "pc": 71,
         "stack": [
@@ -394,9 +394,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffff81",
-        "gasCost": "0x6",
+        "gasCost": "0x3",
         "op": "SWAP1",
         "pc": 72,
         "stack": [
@@ -408,9 +408,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffff7e",
-        "gasCost": "0x6",
+        "gasCost": "0x3",
         "op": "PUSH2",
         "pc": 73,
         "stack": [
@@ -422,9 +422,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffff7b",
-        "gasCost": "0x10",
+        "gasCost": "0x8",
         "op": "JUMP",
         "pc": 76,
         "stack": [
@@ -437,9 +437,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffff73",
-        "gasCost": "0x2",
+        "gasCost": "0x1",
         "op": "JUMPDEST",
         "pc": 241,
         "stack": [
@@ -451,9 +451,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffff72",
-        "gasCost": "0x4",
+        "gasCost": "0x2",
         "op": "PUSH0",
         "pc": 242,
         "stack": [
@@ -465,9 +465,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffff70",
-        "gasCost": "0x6",
+        "gasCost": "0x3",
         "op": "PUSH1",
         "pc": 243,
         "stack": [
@@ -480,9 +480,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffff6d",
-        "gasCost": "0x6",
+        "gasCost": "0x3",
         "op": "DUP3",
         "pc": 245,
         "stack": [
@@ -496,9 +496,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffff6a",
-        "gasCost": "0x6",
+        "gasCost": "0x3",
         "op": "DUP5",
         "pc": 246,
         "stack": [
@@ -513,9 +513,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffff67",
-        "gasCost": "0x6",
+        "gasCost": "0x3",
         "op": "SUB",
         "pc": 247,
         "stack": [
@@ -531,9 +531,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffff64",
-        "gasCost": "0x6",
+        "gasCost": "0x3",
         "op": "SLT",
         "pc": 248,
         "stack": [
@@ -548,9 +548,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffff61",
-        "gasCost": "0x6",
+        "gasCost": "0x3",
         "op": "ISZERO",
         "pc": 249,
         "stack": [
@@ -564,9 +564,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffff5e",
-        "gasCost": "0x6",
+        "gasCost": "0x3",
         "op": "PUSH2",
         "pc": 250,
         "stack": [
@@ -580,9 +580,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffff5b",
-        "gasCost": "0x14",
+        "gasCost": "0xa",
         "op": "JUMPI",
         "pc": 253,
         "stack": [
@@ -597,9 +597,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffff51",
-        "gasCost": "0x2",
+        "gasCost": "0x1",
         "op": "JUMPDEST",
         "pc": 262,
         "stack": [
@@ -612,9 +612,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffff50",
-        "gasCost": "0x4",
+        "gasCost": "0x2",
         "op": "PUSH0",
         "pc": 263,
         "stack": [
@@ -627,9 +627,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffff4e",
-        "gasCost": "0x6",
+        "gasCost": "0x3",
         "op": "PUSH2",
         "pc": 264,
         "stack": [
@@ -643,9 +643,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffff4b",
-        "gasCost": "0x6",
+        "gasCost": "0x3",
         "op": "DUP5",
         "pc": 267,
         "stack": [
@@ -660,9 +660,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffff48",
-        "gasCost": "0x6",
+        "gasCost": "0x3",
         "op": "DUP3",
         "pc": 268,
         "stack": [
@@ -678,9 +678,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffff45",
-        "gasCost": "0x6",
+        "gasCost": "0x3",
         "op": "DUP6",
         "pc": 269,
         "stack": [
@@ -697,9 +697,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffff42",
-        "gasCost": "0x6",
+        "gasCost": "0x3",
         "op": "ADD",
         "pc": 270,
         "stack": [
@@ -717,9 +717,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffff3f",
-        "gasCost": "0x6",
+        "gasCost": "0x3",
         "op": "PUSH2",
         "pc": 271,
         "stack": [
@@ -736,9 +736,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffff3c",
-        "gasCost": "0x10",
+        "gasCost": "0x8",
         "op": "JUMP",
         "pc": 274,
         "stack": [
@@ -756,9 +756,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffff34",
-        "gasCost": "0x2",
+        "gasCost": "0x1",
         "op": "JUMPDEST",
         "pc": 221,
         "stack": [
@@ -775,9 +775,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffff33",
-        "gasCost": "0x4",
+        "gasCost": "0x2",
         "op": "PUSH0",
         "pc": 222,
         "stack": [
@@ -794,9 +794,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffff31",
-        "gasCost": "0x6",
+        "gasCost": "0x3",
         "op": "DUP2",
         "pc": 223,
         "stack": [
@@ -814,9 +814,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffff2e",
-        "gasCost": "0x6",
+        "gasCost": "0x3",
         "op": "CALLDATALOAD",
         "pc": 224,
         "stack": [
@@ -835,9 +835,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffff2b",
-        "gasCost": "0x6",
+        "gasCost": "0x3",
         "op": "SWAP1",
         "pc": 225,
         "stack": [
@@ -856,9 +856,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffff28",
-        "gasCost": "0x4",
+        "gasCost": "0x2",
         "op": "POP",
         "pc": 226,
         "stack": [
@@ -877,9 +877,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffff26",
-        "gasCost": "0x6",
+        "gasCost": "0x3",
         "op": "PUSH2",
         "pc": 227,
         "stack": [
@@ -897,9 +897,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffff23",
-        "gasCost": "0x6",
+        "gasCost": "0x3",
         "op": "DUP2",
         "pc": 230,
         "stack": [
@@ -918,9 +918,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffff20",
-        "gasCost": "0x6",
+        "gasCost": "0x3",
         "op": "PUSH2",
         "pc": 231,
         "stack": [
@@ -940,9 +940,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffff1d",
-        "gasCost": "0x10",
+        "gasCost": "0x8",
         "op": "JUMP",
         "pc": 234,
         "stack": [
@@ -963,9 +963,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffff15",
-        "gasCost": "0x2",
+        "gasCost": "0x1",
         "op": "JUMPDEST",
         "pc": 199,
         "stack": [
@@ -985,9 +985,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffff14",
-        "gasCost": "0x6",
+        "gasCost": "0x3",
         "op": "PUSH2",
         "pc": 200,
         "stack": [
@@ -1007,9 +1007,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffff11",
-        "gasCost": "0x6",
+        "gasCost": "0x3",
         "op": "DUP2",
         "pc": 203,
         "stack": [
@@ -1030,9 +1030,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffff0e",
-        "gasCost": "0x6",
+        "gasCost": "0x3",
         "op": "PUSH2",
         "pc": 204,
         "stack": [
@@ -1054,9 +1054,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffff0b",
-        "gasCost": "0x10",
+        "gasCost": "0x8",
         "op": "JUMP",
         "pc": 207,
         "stack": [
@@ -1079,9 +1079,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffff03",
-        "gasCost": "0x2",
+        "gasCost": "0x1",
         "op": "JUMPDEST",
         "pc": 190,
         "stack": [
@@ -1103,9 +1103,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffff02",
-        "gasCost": "0x4",
+        "gasCost": "0x2",
         "op": "PUSH0",
         "pc": 191,
         "stack": [
@@ -1127,9 +1127,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffff00",
-        "gasCost": "0x6",
+        "gasCost": "0x3",
         "op": "DUP2",
         "pc": 192,
         "stack": [
@@ -1152,9 +1152,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xfffefd",
-        "gasCost": "0x6",
+        "gasCost": "0x3",
         "op": "SWAP1",
         "pc": 193,
         "stack": [
@@ -1178,9 +1178,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xfffefa",
-        "gasCost": "0x4",
+        "gasCost": "0x2",
         "op": "POP",
         "pc": 194,
         "stack": [
@@ -1204,9 +1204,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xfffef8",
-        "gasCost": "0x6",
+        "gasCost": "0x3",
         "op": "SWAP2",
         "pc": 195,
         "stack": [
@@ -1229,9 +1229,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xfffef5",
-        "gasCost": "0x6",
+        "gasCost": "0x3",
         "op": "SWAP1",
         "pc": 196,
         "stack": [
@@ -1254,9 +1254,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xfffef2",
-        "gasCost": "0x4",
+        "gasCost": "0x2",
         "op": "POP",
         "pc": 197,
         "stack": [
@@ -1279,9 +1279,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xfffef0",
-        "gasCost": "0x10",
+        "gasCost": "0x8",
         "op": "JUMP",
         "pc": 198,
         "stack": [
@@ -1303,9 +1303,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xfffee8",
-        "gasCost": "0x2",
+        "gasCost": "0x1",
         "op": "JUMPDEST",
         "pc": 208,
         "stack": [
@@ -1326,9 +1326,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xfffee7",
-        "gasCost": "0x6",
+        "gasCost": "0x3",
         "op": "DUP2",
         "pc": 209,
         "stack": [
@@ -1349,9 +1349,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xfffee4",
-        "gasCost": "0x6",
+        "gasCost": "0x3",
         "op": "EQ",
         "pc": 210,
         "stack": [
@@ -1373,9 +1373,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xfffee1",
-        "gasCost": "0x6",
+        "gasCost": "0x3",
         "op": "PUSH2",
         "pc": 211,
         "stack": [
@@ -1396,9 +1396,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xfffede",
-        "gasCost": "0x14",
+        "gasCost": "0xa",
         "op": "JUMPI",
         "pc": 214,
         "stack": [
@@ -1420,9 +1420,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xfffed4",
-        "gasCost": "0x2",
+        "gasCost": "0x1",
         "op": "JUMPDEST",
         "pc": 218,
         "stack": [
@@ -1442,9 +1442,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xfffed3",
-        "gasCost": "0x4",
+        "gasCost": "0x2",
         "op": "POP",
         "pc": 219,
         "stack": [
@@ -1464,9 +1464,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xfffed1",
-        "gasCost": "0x10",
+        "gasCost": "0x8",
         "op": "JUMP",
         "pc": 220,
         "stack": [
@@ -1485,9 +1485,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xfffec9",
-        "gasCost": "0x2",
+        "gasCost": "0x1",
         "op": "JUMPDEST",
         "pc": 235,
         "stack": [
@@ -1505,9 +1505,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xfffec8",
-        "gasCost": "0x6",
+        "gasCost": "0x3",
         "op": "SWAP3",
         "pc": 236,
         "stack": [
@@ -1525,9 +1525,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xfffec5",
-        "gasCost": "0x6",
+        "gasCost": "0x3",
         "op": "SWAP2",
         "pc": 237,
         "stack": [
@@ -1545,9 +1545,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xfffec2",
-        "gasCost": "0x4",
+        "gasCost": "0x2",
         "op": "POP",
         "pc": 238,
         "stack": [
@@ -1565,9 +1565,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xfffec0",
-        "gasCost": "0x4",
+        "gasCost": "0x2",
         "op": "POP",
         "pc": 239,
         "stack": [
@@ -1584,9 +1584,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xfffebe",
-        "gasCost": "0x10",
+        "gasCost": "0x8",
         "op": "JUMP",
         "pc": 240,
         "stack": [
@@ -1602,9 +1602,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xfffeb6",
-        "gasCost": "0x2",
+        "gasCost": "0x1",
         "op": "JUMPDEST",
         "pc": 275,
         "stack": [
@@ -1619,9 +1619,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xfffeb5",
-        "gasCost": "0x6",
+        "gasCost": "0x3",
         "op": "SWAP2",
         "pc": 276,
         "stack": [
@@ -1636,9 +1636,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xfffeb2",
-        "gasCost": "0x4",
+        "gasCost": "0x2",
         "op": "POP",
         "pc": 277,
         "stack": [
@@ -1653,9 +1653,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xfffeb0",
-        "gasCost": "0x4",
+        "gasCost": "0x2",
         "op": "POP",
         "pc": 278,
         "stack": [
@@ -1669,9 +1669,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xfffeae",
-        "gasCost": "0x6",
+        "gasCost": "0x3",
         "op": "SWAP3",
         "pc": 279,
         "stack": [
@@ -1684,9 +1684,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xfffeab",
-        "gasCost": "0x6",
+        "gasCost": "0x3",
         "op": "SWAP2",
         "pc": 280,
         "stack": [
@@ -1699,9 +1699,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xfffea8",
-        "gasCost": "0x4",
+        "gasCost": "0x2",
         "op": "POP",
         "pc": 281,
         "stack": [
@@ -1714,9 +1714,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xfffea6",
-        "gasCost": "0x4",
+        "gasCost": "0x2",
         "op": "POP",
         "pc": 282,
         "stack": [
@@ -1728,9 +1728,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xfffea4",
-        "gasCost": "0x10",
+        "gasCost": "0x8",
         "op": "JUMP",
         "pc": 283,
         "stack": [
@@ -1741,9 +1741,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xfffe9c",
-        "gasCost": "0x2",
+        "gasCost": "0x1",
         "op": "JUMPDEST",
         "pc": 77,
         "stack": [
@@ -1753,9 +1753,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xfffe9b",
-        "gasCost": "0x6",
+        "gasCost": "0x3",
         "op": "PUSH2",
         "pc": 78,
         "stack": [
@@ -1765,9 +1765,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xfffe98",
-        "gasCost": "0x10",
+        "gasCost": "0x8",
         "op": "JUMP",
         "pc": 81,
         "stack": [
@@ -1778,9 +1778,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xfffe90",
-        "gasCost": "0x2",
+        "gasCost": "0x1",
         "op": "JUMPDEST",
         "pc": 114,
         "stack": [
@@ -1790,9 +1790,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xfffe8f",
-        "gasCost": "0x6",
+        "gasCost": "0x3",
         "op": "DUP1",
         "pc": 115,
         "stack": [
@@ -1802,9 +1802,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xfffe8c",
-        "gasCost": "0x4",
+        "gasCost": "0x2",
         "op": "PUSH0",
         "pc": 116,
         "stack": [
@@ -1815,9 +1815,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xfffe8a",
-        "gasCost": "0x6",
+        "gasCost": "0x3",
         "op": "DUP2",
         "pc": 117,
         "stack": [
@@ -1829,9 +1829,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xfffe87",
-        "gasCost": "0x6",
+        "gasCost": "0x3",
         "op": "SWAP1",
         "pc": 118,
         "stack": [
@@ -1844,7 +1844,7 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xfffe84",
         "gasCost": "0x1388",
         "op": "SSTORE",
@@ -1859,9 +1859,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffeafc",
-        "gasCost": "0x4",
+        "gasCost": "0x2",
         "op": "POP",
         "pc": 120,
         "stack": [
@@ -1872,9 +1872,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffeafa",
-        "gasCost": "0x6",
+        "gasCost": "0x3",
         "op": "PUSH32",
         "pc": 121,
         "stack": [
@@ -1884,9 +1884,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffeaf7",
-        "gasCost": "0x6",
+        "gasCost": "0x3",
         "op": "DUP2",
         "pc": 154,
         "stack": [
@@ -1897,9 +1897,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffeaf4",
-        "gasCost": "0x6",
+        "gasCost": "0x3",
         "op": "PUSH1",
         "pc": 155,
         "stack": [
@@ -1911,9 +1911,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffeaf1",
-        "gasCost": "0x6",
+        "gasCost": "0x3",
         "op": "MLOAD",
         "pc": 157,
         "stack": [
@@ -1926,9 +1926,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffeaee",
-        "gasCost": "0x6",
+        "gasCost": "0x3",
         "op": "PUSH2",
         "pc": 158,
         "stack": [
@@ -1941,9 +1941,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffeaeb",
-        "gasCost": "0x6",
+        "gasCost": "0x3",
         "op": "SWAP2",
         "pc": 161,
         "stack": [
@@ -1957,9 +1957,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffeae8",
-        "gasCost": "0x6",
+        "gasCost": "0x3",
         "op": "SWAP1",
         "pc": 162,
         "stack": [
@@ -1973,9 +1973,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffeae5",
-        "gasCost": "0x6",
+        "gasCost": "0x3",
         "op": "PUSH2",
         "pc": 163,
         "stack": [
@@ -1989,9 +1989,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffeae2",
-        "gasCost": "0x10",
+        "gasCost": "0x8",
         "op": "JUMP",
         "pc": 166,
         "stack": [
@@ -2006,9 +2006,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffeada",
-        "gasCost": "0x2",
+        "gasCost": "0x1",
         "op": "JUMPDEST",
         "pc": 299,
         "stack": [
@@ -2022,9 +2022,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffead9",
-        "gasCost": "0x4",
+        "gasCost": "0x2",
         "op": "PUSH0",
         "pc": 300,
         "stack": [
@@ -2038,9 +2038,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffead7",
-        "gasCost": "0x6",
+        "gasCost": "0x3",
         "op": "PUSH1",
         "pc": 301,
         "stack": [
@@ -2055,9 +2055,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffead4",
-        "gasCost": "0x6",
+        "gasCost": "0x3",
         "op": "DUP3",
         "pc": 303,
         "stack": [
@@ -2073,9 +2073,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffead1",
-        "gasCost": "0x6",
+        "gasCost": "0x3",
         "op": "ADD",
         "pc": 304,
         "stack": [
@@ -2092,9 +2092,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffeace",
-        "gasCost": "0x6",
+        "gasCost": "0x3",
         "op": "SWAP1",
         "pc": 305,
         "stack": [
@@ -2110,9 +2110,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffeacb",
-        "gasCost": "0x4",
+        "gasCost": "0x2",
         "op": "POP",
         "pc": 306,
         "stack": [
@@ -2128,9 +2128,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffeac9",
-        "gasCost": "0x6",
+        "gasCost": "0x3",
         "op": "PUSH2",
         "pc": 307,
         "stack": [
@@ -2145,9 +2145,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffeac6",
-        "gasCost": "0x4",
+        "gasCost": "0x2",
         "op": "PUSH0",
         "pc": 310,
         "stack": [
@@ -2163,9 +2163,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffeac4",
-        "gasCost": "0x6",
+        "gasCost": "0x3",
         "op": "DUP4",
         "pc": 311,
         "stack": [
@@ -2182,9 +2182,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffeac1",
-        "gasCost": "0x6",
+        "gasCost": "0x3",
         "op": "ADD",
         "pc": 312,
         "stack": [
@@ -2202,9 +2202,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffeabe",
-        "gasCost": "0x6",
+        "gasCost": "0x3",
         "op": "DUP5",
         "pc": 313,
         "stack": [
@@ -2221,9 +2221,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffeabb",
-        "gasCost": "0x6",
+        "gasCost": "0x3",
         "op": "PUSH2",
         "pc": 314,
         "stack": [
@@ -2241,9 +2241,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffeab8",
-        "gasCost": "0x10",
+        "gasCost": "0x8",
         "op": "JUMP",
         "pc": 317,
         "stack": [
@@ -2262,9 +2262,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffeab0",
-        "gasCost": "0x2",
+        "gasCost": "0x1",
         "op": "JUMPDEST",
         "pc": 284,
         "stack": [
@@ -2282,9 +2282,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffeaaf",
-        "gasCost": "0x6",
+        "gasCost": "0x3",
         "op": "PUSH2",
         "pc": 285,
         "stack": [
@@ -2302,9 +2302,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffeaac",
-        "gasCost": "0x6",
+        "gasCost": "0x3",
         "op": "DUP2",
         "pc": 288,
         "stack": [
@@ -2323,9 +2323,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffeaa9",
-        "gasCost": "0x6",
+        "gasCost": "0x3",
         "op": "PUSH2",
         "pc": 289,
         "stack": [
@@ -2345,9 +2345,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffeaa6",
-        "gasCost": "0x10",
+        "gasCost": "0x8",
         "op": "JUMP",
         "pc": 292,
         "stack": [
@@ -2368,9 +2368,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffea9e",
-        "gasCost": "0x2",
+        "gasCost": "0x1",
         "op": "JUMPDEST",
         "pc": 190,
         "stack": [
@@ -2390,9 +2390,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffea9d",
-        "gasCost": "0x4",
+        "gasCost": "0x2",
         "op": "PUSH0",
         "pc": 191,
         "stack": [
@@ -2412,9 +2412,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffea9b",
-        "gasCost": "0x6",
+        "gasCost": "0x3",
         "op": "DUP2",
         "pc": 192,
         "stack": [
@@ -2435,9 +2435,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffea98",
-        "gasCost": "0x6",
+        "gasCost": "0x3",
         "op": "SWAP1",
         "pc": 193,
         "stack": [
@@ -2459,9 +2459,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffea95",
-        "gasCost": "0x4",
+        "gasCost": "0x2",
         "op": "POP",
         "pc": 194,
         "stack": [
@@ -2483,9 +2483,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffea93",
-        "gasCost": "0x6",
+        "gasCost": "0x3",
         "op": "SWAP2",
         "pc": 195,
         "stack": [
@@ -2506,9 +2506,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffea90",
-        "gasCost": "0x6",
+        "gasCost": "0x3",
         "op": "SWAP1",
         "pc": 196,
         "stack": [
@@ -2529,9 +2529,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffea8d",
-        "gasCost": "0x4",
+        "gasCost": "0x2",
         "op": "POP",
         "pc": 197,
         "stack": [
@@ -2552,9 +2552,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffea8b",
-        "gasCost": "0x10",
+        "gasCost": "0x8",
         "op": "JUMP",
         "pc": 198,
         "stack": [
@@ -2574,9 +2574,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffea83",
-        "gasCost": "0x2",
+        "gasCost": "0x1",
         "op": "JUMPDEST",
         "pc": 293,
         "stack": [
@@ -2595,9 +2595,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffea82",
-        "gasCost": "0x6",
+        "gasCost": "0x3",
         "op": "DUP3",
         "pc": 294,
         "stack": [
@@ -2616,9 +2616,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffea7f",
-        "gasCost": "0xc",
+        "gasCost": "0x9",
         "op": "MSTORE",
         "pc": 295,
         "stack": [
@@ -2638,9 +2638,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffea76",
-        "gasCost": "0x4",
+        "gasCost": "0x2",
         "op": "POP",
         "pc": 296,
         "stack": [
@@ -2658,9 +2658,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffea74",
-        "gasCost": "0x4",
+        "gasCost": "0x2",
         "op": "POP",
         "pc": 297,
         "stack": [
@@ -2677,9 +2677,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffea72",
-        "gasCost": "0x10",
+        "gasCost": "0x8",
         "op": "JUMP",
         "pc": 298,
         "stack": [
@@ -2695,9 +2695,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffea6a",
-        "gasCost": "0x2",
+        "gasCost": "0x1",
         "op": "JUMPDEST",
         "pc": 318,
         "stack": [
@@ -2712,9 +2712,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffea69",
-        "gasCost": "0x6",
+        "gasCost": "0x3",
         "op": "SWAP3",
         "pc": 319,
         "stack": [
@@ -2729,9 +2729,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffea66",
-        "gasCost": "0x6",
+        "gasCost": "0x3",
         "op": "SWAP2",
         "pc": 320,
         "stack": [
@@ -2746,9 +2746,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffea63",
-        "gasCost": "0x4",
+        "gasCost": "0x2",
         "op": "POP",
         "pc": 321,
         "stack": [
@@ -2763,9 +2763,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffea61",
-        "gasCost": "0x4",
+        "gasCost": "0x2",
         "op": "POP",
         "pc": 322,
         "stack": [
@@ -2779,9 +2779,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffea5f",
-        "gasCost": "0x10",
+        "gasCost": "0x8",
         "op": "JUMP",
         "pc": 323,
         "stack": [
@@ -2794,9 +2794,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffea57",
-        "gasCost": "0x2",
+        "gasCost": "0x1",
         "op": "JUMPDEST",
         "pc": 167,
         "stack": [
@@ -2808,9 +2808,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffea56",
-        "gasCost": "0x6",
+        "gasCost": "0x3",
         "op": "PUSH1",
         "pc": 168,
         "stack": [
@@ -2822,9 +2822,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffea53",
-        "gasCost": "0x6",
+        "gasCost": "0x3",
         "op": "MLOAD",
         "pc": 170,
         "stack": [
@@ -2837,9 +2837,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffea50",
-        "gasCost": "0x6",
+        "gasCost": "0x3",
         "op": "DUP1",
         "pc": 171,
         "stack": [
@@ -2852,9 +2852,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffea4d",
-        "gasCost": "0x6",
+        "gasCost": "0x3",
         "op": "SWAP2",
         "pc": 172,
         "stack": [
@@ -2868,9 +2868,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffea4a",
-        "gasCost": "0x6",
+        "gasCost": "0x3",
         "op": "SUB",
         "pc": 173,
         "stack": [
@@ -2884,9 +2884,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffea47",
-        "gasCost": "0x6",
+        "gasCost": "0x3",
         "op": "SWAP1",
         "pc": 174,
         "stack": [
@@ -2899,9 +2899,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffea44",
-        "gasCost": "0x565",
+        "gasCost": "0x3ee",
         "op": "LOG1",
         "pc": 175,
         "stack": [
@@ -2914,9 +2914,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffe656",
-        "gasCost": "0x4",
+        "gasCost": "0x2",
         "op": "POP",
         "pc": 176,
         "stack": [
@@ -2926,9 +2926,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffe654",
-        "gasCost": "0x10",
+        "gasCost": "0x8",
         "op": "JUMP",
         "pc": 177,
         "stack": [
@@ -2937,9 +2937,9 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffe64c",
-        "gasCost": "0x2",
+        "gasCost": "0x1",
         "op": "JUMPDEST",
         "pc": 82,
         "stack": [
@@ -2947,7 +2947,7 @@ exports[`debugTraceCallJsonRpcProcedure > should trace a transaction and return 
         ],
       },
       {
-        "depth": 0,
+        "depth": 1,
         "gas": "0xffe64b",
         "gasCost": "0x0",
         "op": "STOP",

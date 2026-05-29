@@ -224,6 +224,34 @@ describe('callHandlerOpts', () => {
 		// cliqueSigner is no longer part of the header interface
 	})
 
+	it('should base non-overridden block override fields on the requested block, not the canonical head', async () => {
+		const client = createTevmNode()
+		// Mine several blocks so the canonical head differs from the requested block
+		await mineHandler(client)({ blockCount: 5 })
+
+		const vm = await client.getVm()
+		const headBlock = await vm.blockchain.getCanonicalHeadBlock()
+		const requestedBlockNumber = 2n
+		const requestedBlock = await vm.blockchain.getBlock(requestedBlockNumber)
+
+		// Only override the timestamp; number/stateRoot must come from the requested block
+		const result = await callHandlerOpts(client, {
+			blockTag: requestedBlockNumber,
+			blockOverrideSet: { time: 1618925403n },
+		})
+
+		expect(result.errors).toBeUndefined()
+		// time is overridden
+		expect(result.data?.block?.header.timestamp).toEqual(1618925403n)
+		// Regression: number used to come from the canonical head; it must reflect the requested block
+		expect(result.data?.block?.header.number).toEqual(requestedBlock.header.number)
+		expect(result.data?.block?.header.number).not.toEqual(headBlock.header.number)
+		// stateRoot must reflect the requested block as well
+		expect(bytesToHex(result.data?.block?.header.stateRoot as Uint8Array)).toEqual(
+			bytesToHex(requestedBlock.header.stateRoot),
+		)
+	})
+
 	it('should throw error for transaction creation on past blocks', async () => {
 		const client = createTevmNode()
 

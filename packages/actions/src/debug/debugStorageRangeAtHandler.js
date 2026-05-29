@@ -84,7 +84,10 @@ export const debugStorageRangeAtHandler = (client) =>
 			const vmClone = await vm.deepCopy()
 			await vmClone.stateManager.setStateRoot(parentBlock.header.stateRoot)
 
-			for (let i = 0; i <= txIndex; i++) {
+			// Replay only the transactions PRECEDING txIndex (exclusive bound), matching
+			// geth's StateAtTransaction semantics: storageRangeAt returns the state as of
+			// right BEFORE the transaction at txIndex executes (i.e. after applying [0, txIndex)).
+			for (let i = 0; i < txIndex; i++) {
 				const tx = block.transactions[i]
 				if (!tx) continue
 

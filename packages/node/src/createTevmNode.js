@@ -606,9 +606,10 @@ export const createTevmNode = (options = {}) => {
 	 */
 	const deepCopy = (baseClient) => async () => {
 		/**
+		 * Impersonated account copied from parent so a deep-copied node keeps impersonating the same address.
 		 * @type {import('@tevm/utils').Address | undefined}
 		 */
-		let impersonatedAccount
+		let impersonatedAccount = baseClient.getImpersonatedAccount()
 		/**
 		 * @param {import('@tevm/utils').Address | undefined} address
 		 * returns {void}
@@ -966,9 +967,15 @@ export const createTevmNode = (options = {}) => {
 		pool.removeNewBlockTxs([block])
 
 		const state = vm.stateManager._baseState.stateRoots.get(bytesToHex(block.header.stateRoot))
-		if (state !== undefined) {
-			originalVm.stateManager.saveStateRoot(block.header.stateRoot, state)
+		if (state === undefined) {
+			// Mirror mineHandler: a missing post-mine state root is an internal invariant violation.
+			// Fail loudly instead of silently skipping saveStateRoot but still calling setStateRoot below,
+			// which would leave originalVm pointing at a canonical state root with no backing state.
+			throw new Error(
+				'Interval mining: State root not found after mining. This indicates a potential inconsistency in state management.',
+			)
 		}
+		originalVm.stateManager.saveStateRoot(block.header.stateRoot, state)
 		originalVm.blockchain = vm.blockchain
 		originalVm.evm.blockchain = vm.evm.blockchain
 		// @ts-expect-error internal receipt manager chain is intentionally updated after mining

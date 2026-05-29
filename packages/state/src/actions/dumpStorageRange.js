@@ -17,13 +17,15 @@ export const dumpStorageRange = (state) => (_address, _startKey, _limit) => {
 	 * @type {import("viem").Hex | null}
 	 */
 	let nextKey = null
+	// StorageCache.dump() returns keys as UNPREFIXED hex (e.g. '00..0a'), so they must be 0x-prefixed
+	// before parsing. Otherwise hexToBigInt throws on hex letters and parses all-digit keys as decimal.
 	const sortedStorage = [...storage.entries()].sort(([a], [b]) => {
-		const aBigInt = hexToBigInt(/** @type {import('@tevm/utils').Hex}*/ (a))
-		const bBigInt = hexToBigInt(/** @type {import('@tevm/utils').Hex}*/ (b))
+		const aBigInt = hexToBigInt(/** @type {import('@tevm/utils').Hex}*/ (`0x${a}`))
+		const bBigInt = hexToBigInt(/** @type {import('@tevm/utils').Hex}*/ (`0x${b}`))
 		return aBigInt < bBigInt ? -1 : aBigInt > bBigInt ? 1 : 0
 	})
 	for (const [storageKey, storageValue] of sortedStorage) {
-		if (hexToBigInt(/** @type {import('@tevm/utils').Hex}*/ (storageKey)) < _startKey) {
+		if (hexToBigInt(/** @type {import('@tevm/utils').Hex}*/ (`0x${storageKey}`)) < _startKey) {
 			continue
 		}
 		if (entries.length === _limit) {

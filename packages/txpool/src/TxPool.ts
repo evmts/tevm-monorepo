@@ -89,24 +89,24 @@ export class TxPool extends ZevmTxPool {
 			txsByNonce: Map<string, Map<bigint, unknown>>
 			txsInNonceOrder: Map<string, unknown[]>
 		}
-		const before = new Set([...pool.pool.values()].flatMap((objects) => objects.map((obj) => obj.hash)))
 
 		super.cleanup()
 
 		const liveTxs = new Set<unknown>()
-		const after = new Set<string>()
 		for (const objects of pool.pool.values()) {
 			for (const obj of objects) {
-				after.add(obj.hash)
 				liveTxs.add(obj.tx)
 			}
 		}
 
-		for (const hash of before) {
-			if (!after.has(hash)) {
-				pool.handled.delete(hash)
-			}
-		}
+		// NOTE: we intentionally do NOT prune `handled` here based on pool eviction.
+		// ZEVM keeps `handled` records for HANDLED_CLEANUP_TIME_LIMIT (60 min) which is
+		// deliberately longer than the pool's POOLED_STORAGE_TIME_LIMIT (20 min), and
+		// `super.cleanup()` already prunes `handled` on its own 60-min schedule. Deleting
+		// handled entries as soon as a tx leaves the pool would collapse that 60-min
+		// retention down to 20 min and break getTransactionStatus() for evicted txs.
+		// Below we only sync the Tevm-only side indexes (txsByHash/txsByNonce/
+		// txsInNonceOrder) which ZEVM's cleanup does not maintain.
 
 		for (const [hash, tx] of pool.txsByHash) {
 			if (!liveTxs.has(tx)) {

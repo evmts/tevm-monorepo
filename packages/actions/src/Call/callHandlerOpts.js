@@ -60,9 +60,10 @@ export const callHandlerOpts = async (client, params) => {
 	// handle block overrides
 	if (params.blockOverrideSet) {
 		client.logger.debug(params.blockOverrideSet, 'callHandlerOpts: Detected a block override set')
-		// TODO this is a known bug we need to implement better support for block tags
-		// We are purposefully ignoring this until the block creation is implemented
-		const { header } = await vm.blockchain.getCanonicalHeadBlock()
+		// Base the overridden header on the resolved block (matching params.blockTag) so that
+		// non-overridden fields (number, difficulty, baseFee, etc.) reflect the requested block
+		// rather than always the canonical head.
+		const { header } = block
 		opts.block = {
 			...opts.block,
 			header: {

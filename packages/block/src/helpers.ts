@@ -16,7 +16,9 @@ export const numberToHex = (input?: string): Hex | undefined => {
 			const msg = `Cannot convert string to hex string. numberToHex only supports 0x-prefixed hex or integer strings but the given string was: ${input}`
 			throw new Error(msg)
 		}
-		return `0x${Number.parseInt(input, 10).toString(16)}`
+		// Use BigInt rather than Number.parseInt to avoid losing precision on large
+		// decimal values (e.g. PoW difficulty far above Number.MAX_SAFE_INTEGER)
+		return `0x${BigInt(input).toString(16)}`
 	}
 	return input
 }
@@ -60,7 +62,7 @@ export function valuesArrayToHeaderData(values: BlockHeaderBytes): HeaderData {
 	] = values
 
 	if (values.length > 21) {
-		throw new Error(`invalid header. More values than expected were received. Max: 20, got: ${values.length}`)
+		throw new Error(`invalid header. More values than expected were received. Max: 21, got: ${values.length}`)
 	}
 	if (values.length < 15) {
 		throw new Error(`invalid header. Less values than expected were received. Min: 15, got: ${values.length}`)

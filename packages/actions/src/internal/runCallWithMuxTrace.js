@@ -342,7 +342,9 @@ export const runCallWithMuxTrace = async (vm, logger, params, tracerConfig) => {
 					pc: step.pc,
 					op: step.opcode.name,
 					gas: step.gasLeft,
-					gasCost: BigInt(step.opcode.fee),
+					// `dynamicFee` already holds the FULL computed gas cost for the opcode (static base + dynamic delta).
+					// Using only `fee` would understate dynamic-gas opcodes (SSTORE, cold SLOAD, CALL, etc.).
+					gasCost: step.opcode.dynamicFee ?? BigInt(step.opcode.fee),
 					depth: step.depth + 1,
 					stack: stackItems,
 				})

@@ -364,6 +364,20 @@ describe('createTevmNode', () => {
 			expect((copy as any).copiedOnly).toBe(true)
 			expect((client as any).copiedOnly).toBeUndefined()
 		})
+
+		it('copies the impersonated account from the parent (#26)', async () => {
+			const address = '0xa0Ee7A142d267C1f36714E4a8F75612F20a79720'
+			const client = createTevmNode()
+			client.setImpersonatedAccount(address)
+			const copy = await client.deepCopy()
+			// Previously deepCopy initialized impersonatedAccount to undefined and never copied it,
+			// so the copy lost the parent's impersonation.
+			expect(copy.getImpersonatedAccount()).toBe(address)
+			// The copy can still independently change its impersonated account.
+			copy.setImpersonatedAccount(undefined)
+			expect(copy.getImpersonatedAccount()).toBeUndefined()
+			expect(client.getImpersonatedAccount()).toBe(address)
+		})
 	})
 
 	describe('p256verify precompile integration', () => {

@@ -33,9 +33,12 @@ export const runCallWithTrace = async (vm, logger, params, lazilyRun = false) =>
 		trace.structLogs.push({
 			pc: step.pc,
 			op: step.opcode.name,
-			gasCost: BigInt(step.opcode.fee) + (step.opcode.dynamicFee ?? 0n),
+			// `dynamicFee` already holds the FULL computed gas cost for the opcode (static base + dynamic delta).
+			// Adding `fee` would double-count the base fee, so prefer `dynamicFee` and fall back to the static fee.
+			gasCost: step.opcode.dynamicFee ?? BigInt(step.opcode.fee),
 			gas: step.gasLeft,
-			depth: step.depth,
+			// geth's structLogs use 1-based depth (top-level call = depth 1); raw step.depth is 0-based.
+			depth: step.depth + 1,
 			stack: step.stack.map((code) => numberToHex(code)),
 		})
 		next?.()

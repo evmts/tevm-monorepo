@@ -84,17 +84,21 @@ export const deployHandler =
 
 		if (result.errors && result.errors.length > 0) {
 			result.errors = result.errors.map((err) => {
-				if (isHex(err.message) && err instanceof RevertError) {
+				// The revert payload lives in result.rawData (not err.message, which is the generic 'revert' string)
+				if (isHex(result.rawData) && err instanceof RevertError) {
 					try {
-						client.logger.debug(err, 'contractHandler: Contract revert error. Decoding the error')
+						client.logger.debug(err, 'deployHandler: Constructor revert error. Decoding the error')
 						const decodedError = decodeErrorResult(
 							/** @type {any} */ ({
 								abi: params.abi,
-								data: err.message,
+								data: result.rawData,
 								functionName: 'constructor',
 							}),
 						)
-						const message = `Revert: ${decodedError.errorName} ${JSON.stringify(decodedError)}`
+						// Use a BigInt-safe replacer because decoded args frequently contain bigints
+						const message = `Revert: ${decodedError.errorName} ${JSON.stringify(decodedError, (_key, value) =>
+							typeof value === 'bigint' ? value.toString() : value,
+						)}`
 						client.logger.debug({ message }, 'Revert message decoded')
 						return new RevertError(message, { cause: /** @type any*/ (err) })
 					} catch (e) {

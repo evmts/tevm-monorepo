@@ -226,6 +226,45 @@ describe('TxPool coverage improvements', () => {
 			// Verify the handled entry was removed
 			expect((txPool as any).handled.has('test')).toBe(false)
 		})
+
+		it('should retain handled entries within the 60-min window after the tx is pool-evicted at 20 min', async () => {
+			// Regression test: the cleanup override must not collapse the 60-min `handled`
+			// retention window down to the 20-min pool window. A tx that ages out of the pool
+			// (POOLED_STORAGE_TIME_LIMIT = 20 min) but is still within HANDLED_CLEANUP_TIME_LIMIT
+			// (60 min) must remain in `handled` so getTransactionStatus() can still report it.
+			const tx = new LegacyTransaction({
+				nonce: 0,
+				gasPrice: 1000000000n,
+				gasLimit: 21000,
+				to: '0x3535353535353535353535353535353535353535',
+				value: 10000,
+				data: '0x',
+			})
+			const signedTx = tx.sign(hexToBytes(PREFUNDED_PRIVATE_KEYS[0]))
+			await txPool.add(signedTx)
+
+			const hash = bytesToHex(signedTx.hash()).slice(2).toLowerCase()
+			const address = signedTx.getSenderAddress().toString().slice(2).toLowerCase()
+			const poolObjects = txPool.pool.get(address)
+			if (!poolObjects) throw new Error('Expected pool objects to exist')
+
+			// Age the pool entry past the 20-min pool limit so it gets evicted by super.cleanup()
+			const poolEvictTime = Date.now() - (txPool.POOLED_STORAGE_TIME_LIMIT * 60 * 1000 + 1000)
+			// @ts-expect-error
+			poolObjects[0].added = poolEvictTime
+
+			// Age the handled entry only ~30 min: past the pool limit but well within the 60-min handled limit
+			const handled = (txPool as any).handled.get(hash)
+			expect(handled).toBeDefined()
+			handled.added = Date.now() - 30 * 60 * 1000
+
+			txPool.cleanup()
+
+			// The tx should be evicted from the pool...
+			expect(txPool.pool.has(address)).toBe(false)
+			// ...but the handled record must still be present (it is only 30 min old, < 60 min limit)
+			expect((txPool as any).handled.has(hash)).toBe(true)
+		})
 	})
 
 	describe('stop and close', () => {

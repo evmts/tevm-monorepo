@@ -99,6 +99,84 @@ describe('executeCall', () => {
 		expect(result.errors[0].name).toBe('EvmRevertError')
 	})
 
+	it('should set trace.failed=true when a traced call reverts', async () => {
+		const client = createTevmNode()
+		const vm = await client.getVm()
+		const caller = `0x${'23'.repeat(20)}` as const
+		expect(
+			(
+				await setAccountHandler(client)({
+					address: ERC20_ADDRESS,
+					deployedBytecode: ERC20_BYTECODE,
+				})
+			).errors,
+		).toBeUndefined()
+		expect(
+			(
+				await setAccountHandler(client)({
+					address: caller,
+					balance: parseEther('100'),
+				})
+			).errors,
+		).toBeUndefined()
+		const notCaller = `0x${'32'.repeat(20)}` as const
+		const evmInput = {
+			// transferFrom with no allowance reverts
+			data: hexToBytes(
+				encodeFunctionData({
+					abi: ERC20_ABI,
+					functionName: 'transferFrom',
+					args: [notCaller, caller, 90n],
+				}),
+			),
+			to: createAddress(ERC20_ADDRESS),
+			origin: createAddress(caller),
+			from: createAddress(caller),
+			gasLimit: 16784800n,
+			block: await vm.blockchain.getCanonicalHeadBlock(),
+		}
+		const result = await executeCall(client, evmInput, { createAccessList: true, createTrace: true })
+		// The reverting call returns both errors and a trace
+		expect('errors' in result).toBe(true)
+		// Regression: trace.failed was hardcoded to false even on revert
+		expect(result.trace).toBeDefined()
+		expect(result.trace?.failed).toBe(true)
+	})
+
+	it('should set trace.failed=false when a traced call succeeds', async () => {
+		const client = createTevmNode()
+		expect(
+			(
+				await setAccountHandler(client)({
+					address: ERC20_ADDRESS,
+					deployedBytecode: ERC20_BYTECODE,
+				})
+			).errors,
+		).toBeUndefined()
+
+		const evmInput = {
+			data: hexToBytes(
+				encodeFunctionData({
+					abi: ERC20_ABI,
+					functionName: 'balanceOf',
+					args: [ERC20_ADDRESS],
+				}),
+			),
+			gasLimit: 16784800n,
+			to: createAddress(ERC20_ADDRESS),
+			origin: createAddress(0),
+			caller: createAddress(0),
+			block: await client.getVm().then((vm) => vm.blockchain.getCanonicalHeadBlock()),
+		}
+
+		const result = await executeCall(client, evmInput, { createAccessList: true, createTrace: true })
+		if ('errors' in result) {
+			throw result.errors
+		}
+		expect(result.trace).toBeDefined()
+		expect(result.trace?.failed).toBe(false)
+	})
+
 	it('should handle gas price too low error', async () => {
 		const client = createTevmNode()
 		const to = `0x${'33'.repeat(20)}` as const

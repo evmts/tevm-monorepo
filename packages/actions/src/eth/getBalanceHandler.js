@@ -1,7 +1,7 @@
 import { createAddress } from '@tevm/address'
 import { NoForkUrlSetError } from '@tevm/errors'
 import { createJsonRpcFetcher } from '@tevm/jsonrpc'
-import { bytesToHex, hexToBigInt, numberToHex } from '@tevm/utils'
+import { bytesToHex, getAddress, hexToBigInt, numberToHex } from '@tevm/utils'
 import { getPendingClient } from '../internal/getPendingClient.js'
 import { asLightSelector, ensureLightReady, getLightProof } from './lightClientRead.js'
 
@@ -43,7 +43,9 @@ export const getBalanceHandler =
 			const hasStateRoot = await vm.stateManager.hasStateRoot(block.header.stateRoot)
 			if (hasStateRoot) {
 				const root = vm.stateManager._baseState.stateRoots.get(bytesToHex(block.header.stateRoot))
-				if (root?.[address]) return root[address].balance
+				// TevmState is keyed by EIP-55 checksummed addresses, so normalize the input before lookup
+				const checksummedAddress = getAddress(address)
+				if (root?.[checksummedAddress]) return root[checksummedAddress].balance
 			}
 		}
 		// at this point the block doesn't exist or doesn't have state so we must be in forked mode

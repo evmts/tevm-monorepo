@@ -5,6 +5,7 @@ import {
 	decodeFunctionData,
 	type ExtractAbiFunction,
 	type ExtractAbiFunctionNames,
+	encodeErrorResult,
 	encodeFunctionResult,
 	hexToBytes,
 } from '@tevm/utils'
@@ -73,9 +74,29 @@ export const defineCall = <TAbi extends Abi>(
 				args: d.args as any,
 			})
 			if (error) {
+				// Preserve revert data so callers (e.g. Solidity try/catch) can decode the reason.
+				// If the handler already returned raw bytes, forward them as-is; otherwise ABI-encode
+				// a standard Error(string) payload (selector 0x08c379a0) from the error message,
+				// mirroring how the success path ABI-encodes the return value.
+				const revertData =
+					returnValue instanceof Uint8Array
+						? returnValue
+						: hexToBytes(
+								encodeErrorResult({
+									abi: [
+										{
+											type: 'error',
+											name: 'Error',
+											inputs: [{ type: 'string', name: 'message' }],
+										},
+									],
+									errorName: 'Error',
+									args: [error.message],
+								}),
+							)
 				const result: ExecResult = {
 					executionGasUsed,
-					returnValue: returnValue instanceof Uint8Array ? returnValue : new Uint8Array(),
+					returnValue: revertData,
 					exceptionError: {
 						...new EvmError('revert' as any),
 						...{ message: error.message },

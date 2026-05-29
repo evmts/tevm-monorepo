@@ -15,7 +15,7 @@ import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
 export async function handleStateOverrides(client, stateOverrideSet) {
 	if (stateOverrideSet) {
 		for (const [address, state] of Object.entries(stateOverrideSet)) {
-			console.log('setting state', address, state)
+			client.logger.debug({ address, state }, 'handleStateOverrides: applying state override')
 			const res = await setAccountHandler(client)({
 				address: /** @type import('@tevm/utils').Address*/ (address),
 				...(state.nonce !== undefined ? { nonce: state.nonce } : {}),

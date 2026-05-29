@@ -7,17 +7,17 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
   "returnValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
   "structLogs": [
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978568n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "PUSH1",
       "pc": 0,
       "stack": [],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978565n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "PUSH1",
       "pc": 2,
       "stack": [
@@ -25,9 +25,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978562n,
-      "gasCost": 15n,
+      "gasCost": 12n,
       "op": "MSTORE",
       "pc": 4,
       "stack": [
@@ -36,17 +36,17 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978550n,
-      "gasCost": 4n,
+      "gasCost": 2n,
       "op": "CALLVALUE",
       "pc": 5,
       "stack": [],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978548n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "DUP1",
       "pc": 6,
       "stack": [
@@ -54,9 +54,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978545n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "ISZERO",
       "pc": 7,
       "stack": [
@@ -65,9 +65,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978542n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "PUSH2",
       "pc": 8,
       "stack": [
@@ -76,9 +76,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978539n,
-      "gasCost": 20n,
+      "gasCost": 10n,
       "op": "JUMPI",
       "pc": 11,
       "stack": [
@@ -88,9 +88,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978529n,
-      "gasCost": 2n,
+      "gasCost": 1n,
       "op": "JUMPDEST",
       "pc": 15,
       "stack": [
@@ -98,9 +98,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978528n,
-      "gasCost": 4n,
+      "gasCost": 2n,
       "op": "POP",
       "pc": 16,
       "stack": [
@@ -108,17 +108,17 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978526n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "PUSH1",
       "pc": 17,
       "stack": [],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978523n,
-      "gasCost": 4n,
+      "gasCost": 2n,
       "op": "CALLDATASIZE",
       "pc": 19,
       "stack": [
@@ -126,9 +126,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978521n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "LT",
       "pc": 20,
       "stack": [
@@ -137,9 +137,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978518n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "PUSH2",
       "pc": 21,
       "stack": [
@@ -147,9 +147,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978515n,
-      "gasCost": 20n,
+      "gasCost": 10n,
       "op": "JUMPI",
       "pc": 24,
       "stack": [
@@ -158,17 +158,17 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978505n,
-      "gasCost": 4n,
+      "gasCost": 2n,
       "op": "PUSH0",
       "pc": 25,
       "stack": [],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978503n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "CALLDATALOAD",
       "pc": 26,
       "stack": [
@@ -176,9 +176,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978500n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "PUSH1",
       "pc": 27,
       "stack": [
@@ -186,9 +186,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978497n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "SHR",
       "pc": 29,
       "stack": [
@@ -197,9 +197,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978494n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "DUP1",
       "pc": 30,
       "stack": [
@@ -207,9 +207,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978491n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "PUSH4",
       "pc": 31,
       "stack": [
@@ -218,9 +218,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978488n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "GT",
       "pc": 36,
       "stack": [
@@ -230,9 +230,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978485n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "PUSH2",
       "pc": 37,
       "stack": [
@@ -241,9 +241,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978482n,
-      "gasCost": 20n,
+      "gasCost": 10n,
       "op": "JUMPI",
       "pc": 40,
       "stack": [
@@ -253,9 +253,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978472n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "DUP1",
       "pc": 41,
       "stack": [
@@ -263,9 +263,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978469n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "PUSH4",
       "pc": 42,
       "stack": [
@@ -274,9 +274,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978466n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "EQ",
       "pc": 47,
       "stack": [
@@ -286,9 +286,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978463n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "PUSH2",
       "pc": 48,
       "stack": [
@@ -297,9 +297,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978460n,
-      "gasCost": 20n,
+      "gasCost": 10n,
       "op": "JUMPI",
       "pc": 51,
       "stack": [
@@ -309,9 +309,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978450n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "DUP1",
       "pc": 52,
       "stack": [
@@ -319,9 +319,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978447n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "PUSH4",
       "pc": 53,
       "stack": [
@@ -330,9 +330,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978444n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "EQ",
       "pc": 58,
       "stack": [
@@ -342,9 +342,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978441n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "PUSH2",
       "pc": 59,
       "stack": [
@@ -353,9 +353,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978438n,
-      "gasCost": 20n,
+      "gasCost": 10n,
       "op": "JUMPI",
       "pc": 62,
       "stack": [
@@ -365,9 +365,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978428n,
-      "gasCost": 2n,
+      "gasCost": 1n,
       "op": "JUMPDEST",
       "pc": 335,
       "stack": [
@@ -375,9 +375,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978427n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "PUSH2",
       "pc": 336,
       "stack": [
@@ -385,9 +385,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978424n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "PUSH1",
       "pc": 339,
       "stack": [
@@ -396,9 +396,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978421n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "DUP1",
       "pc": 341,
       "stack": [
@@ -408,9 +408,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978418n,
-      "gasCost": 4n,
+      "gasCost": 2n,
       "op": "CALLDATASIZE",
       "pc": 342,
       "stack": [
@@ -421,9 +421,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978416n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "SUB",
       "pc": 343,
       "stack": [
@@ -435,9 +435,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978413n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "DUP2",
       "pc": 344,
       "stack": [
@@ -448,9 +448,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978410n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "ADD",
       "pc": 345,
       "stack": [
@@ -462,9 +462,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978407n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "SWAP1",
       "pc": 346,
       "stack": [
@@ -475,9 +475,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978404n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "PUSH2",
       "pc": 347,
       "stack": [
@@ -488,9 +488,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978401n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "SWAP2",
       "pc": 350,
       "stack": [
@@ -502,9 +502,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978398n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "SWAP1",
       "pc": 351,
       "stack": [
@@ -516,9 +516,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978395n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "PUSH2",
       "pc": 352,
       "stack": [
@@ -530,9 +530,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978392n,
-      "gasCost": 16n,
+      "gasCost": 8n,
       "op": "JUMP",
       "pc": 355,
       "stack": [
@@ -545,9 +545,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978384n,
-      "gasCost": 2n,
+      "gasCost": 1n,
       "op": "JUMPDEST",
       "pc": 3138,
       "stack": [
@@ -559,9 +559,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978383n,
-      "gasCost": 4n,
+      "gasCost": 2n,
       "op": "PUSH0",
       "pc": 3139,
       "stack": [
@@ -573,9 +573,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978381n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "PUSH1",
       "pc": 3140,
       "stack": [
@@ -588,9 +588,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978378n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "DUP3",
       "pc": 3142,
       "stack": [
@@ -604,9 +604,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978375n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "DUP5",
       "pc": 3143,
       "stack": [
@@ -621,9 +621,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978372n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "SUB",
       "pc": 3144,
       "stack": [
@@ -639,9 +639,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978369n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "SLT",
       "pc": 3145,
       "stack": [
@@ -656,9 +656,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978366n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "ISZERO",
       "pc": 3146,
       "stack": [
@@ -672,9 +672,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978363n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "PUSH2",
       "pc": 3147,
       "stack": [
@@ -688,9 +688,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978360n,
-      "gasCost": 20n,
+      "gasCost": 10n,
       "op": "JUMPI",
       "pc": 3150,
       "stack": [
@@ -705,9 +705,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978350n,
-      "gasCost": 2n,
+      "gasCost": 1n,
       "op": "JUMPDEST",
       "pc": 3159,
       "stack": [
@@ -720,9 +720,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978349n,
-      "gasCost": 4n,
+      "gasCost": 2n,
       "op": "PUSH0",
       "pc": 3160,
       "stack": [
@@ -735,9 +735,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978347n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "PUSH2",
       "pc": 3161,
       "stack": [
@@ -751,9 +751,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978344n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "DUP5",
       "pc": 3164,
       "stack": [
@@ -768,9 +768,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978341n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "DUP3",
       "pc": 3165,
       "stack": [
@@ -786,9 +786,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978338n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "DUP6",
       "pc": 3166,
       "stack": [
@@ -805,9 +805,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978335n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "ADD",
       "pc": 3167,
       "stack": [
@@ -825,9 +825,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978332n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "PUSH2",
       "pc": 3168,
       "stack": [
@@ -844,9 +844,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978329n,
-      "gasCost": 16n,
+      "gasCost": 8n,
       "op": "JUMP",
       "pc": 3171,
       "stack": [
@@ -864,9 +864,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978321n,
-      "gasCost": 2n,
+      "gasCost": 1n,
       "op": "JUMPDEST",
       "pc": 2782,
       "stack": [
@@ -883,9 +883,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978320n,
-      "gasCost": 4n,
+      "gasCost": 2n,
       "op": "PUSH0",
       "pc": 2783,
       "stack": [
@@ -902,9 +902,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978318n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "DUP2",
       "pc": 2784,
       "stack": [
@@ -922,9 +922,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978315n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "CALLDATALOAD",
       "pc": 2785,
       "stack": [
@@ -943,9 +943,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978312n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "SWAP1",
       "pc": 2786,
       "stack": [
@@ -964,9 +964,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978309n,
-      "gasCost": 4n,
+      "gasCost": 2n,
       "op": "POP",
       "pc": 2787,
       "stack": [
@@ -985,9 +985,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978307n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "PUSH2",
       "pc": 2788,
       "stack": [
@@ -1005,9 +1005,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978304n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "DUP2",
       "pc": 2791,
       "stack": [
@@ -1026,9 +1026,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978301n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "PUSH2",
       "pc": 2792,
       "stack": [
@@ -1048,9 +1048,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978298n,
-      "gasCost": 16n,
+      "gasCost": 8n,
       "op": "JUMP",
       "pc": 2795,
       "stack": [
@@ -1071,9 +1071,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978290n,
-      "gasCost": 2n,
+      "gasCost": 1n,
       "op": "JUMPDEST",
       "pc": 2760,
       "stack": [
@@ -1093,9 +1093,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978289n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "PUSH2",
       "pc": 2761,
       "stack": [
@@ -1115,9 +1115,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978286n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "DUP2",
       "pc": 2764,
       "stack": [
@@ -1138,9 +1138,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978283n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "PUSH2",
       "pc": 2765,
       "stack": [
@@ -1162,9 +1162,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978280n,
-      "gasCost": 16n,
+      "gasCost": 8n,
       "op": "JUMP",
       "pc": 2768,
       "stack": [
@@ -1187,9 +1187,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978272n,
-      "gasCost": 2n,
+      "gasCost": 1n,
       "op": "JUMPDEST",
       "pc": 2743,
       "stack": [
@@ -1211,9 +1211,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978271n,
-      "gasCost": 4n,
+      "gasCost": 2n,
       "op": "PUSH0",
       "pc": 2744,
       "stack": [
@@ -1235,9 +1235,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978269n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "PUSH2",
       "pc": 2745,
       "stack": [
@@ -1260,9 +1260,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978266n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "DUP3",
       "pc": 2748,
       "stack": [
@@ -1286,9 +1286,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978263n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "PUSH2",
       "pc": 2749,
       "stack": [
@@ -1313,9 +1313,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978260n,
-      "gasCost": 16n,
+      "gasCost": 8n,
       "op": "JUMP",
       "pc": 2752,
       "stack": [
@@ -1341,9 +1341,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978252n,
-      "gasCost": 2n,
+      "gasCost": 1n,
       "op": "JUMPDEST",
       "pc": 2712,
       "stack": [
@@ -1368,9 +1368,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978251n,
-      "gasCost": 4n,
+      "gasCost": 2n,
       "op": "PUSH0",
       "pc": 2713,
       "stack": [
@@ -1395,9 +1395,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978249n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "PUSH20",
       "pc": 2714,
       "stack": [
@@ -1423,9 +1423,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978246n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "DUP3",
       "pc": 2735,
       "stack": [
@@ -1452,9 +1452,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978243n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "AND",
       "pc": 2736,
       "stack": [
@@ -1482,9 +1482,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978240n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "SWAP1",
       "pc": 2737,
       "stack": [
@@ -1511,9 +1511,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978237n,
-      "gasCost": 4n,
+      "gasCost": 2n,
       "op": "POP",
       "pc": 2738,
       "stack": [
@@ -1540,9 +1540,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978235n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "SWAP2",
       "pc": 2739,
       "stack": [
@@ -1568,9 +1568,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978232n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "SWAP1",
       "pc": 2740,
       "stack": [
@@ -1596,9 +1596,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978229n,
-      "gasCost": 4n,
+      "gasCost": 2n,
       "op": "POP",
       "pc": 2741,
       "stack": [
@@ -1624,9 +1624,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978227n,
-      "gasCost": 16n,
+      "gasCost": 8n,
       "op": "JUMP",
       "pc": 2742,
       "stack": [
@@ -1651,9 +1651,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978219n,
-      "gasCost": 2n,
+      "gasCost": 1n,
       "op": "JUMPDEST",
       "pc": 2753,
       "stack": [
@@ -1677,9 +1677,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978218n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "SWAP1",
       "pc": 2754,
       "stack": [
@@ -1703,9 +1703,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978215n,
-      "gasCost": 4n,
+      "gasCost": 2n,
       "op": "POP",
       "pc": 2755,
       "stack": [
@@ -1729,9 +1729,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978213n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "SWAP2",
       "pc": 2756,
       "stack": [
@@ -1754,9 +1754,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978210n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "SWAP1",
       "pc": 2757,
       "stack": [
@@ -1779,9 +1779,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978207n,
-      "gasCost": 4n,
+      "gasCost": 2n,
       "op": "POP",
       "pc": 2758,
       "stack": [
@@ -1804,9 +1804,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978205n,
-      "gasCost": 16n,
+      "gasCost": 8n,
       "op": "JUMP",
       "pc": 2759,
       "stack": [
@@ -1828,9 +1828,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978197n,
-      "gasCost": 2n,
+      "gasCost": 1n,
       "op": "JUMPDEST",
       "pc": 2769,
       "stack": [
@@ -1851,9 +1851,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978196n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "DUP2",
       "pc": 2770,
       "stack": [
@@ -1874,9 +1874,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978193n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "EQ",
       "pc": 2771,
       "stack": [
@@ -1898,9 +1898,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978190n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "PUSH2",
       "pc": 2772,
       "stack": [
@@ -1921,9 +1921,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978187n,
-      "gasCost": 20n,
+      "gasCost": 10n,
       "op": "JUMPI",
       "pc": 2775,
       "stack": [
@@ -1945,9 +1945,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978177n,
-      "gasCost": 2n,
+      "gasCost": 1n,
       "op": "JUMPDEST",
       "pc": 2779,
       "stack": [
@@ -1967,9 +1967,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978176n,
-      "gasCost": 4n,
+      "gasCost": 2n,
       "op": "POP",
       "pc": 2780,
       "stack": [
@@ -1989,9 +1989,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978174n,
-      "gasCost": 16n,
+      "gasCost": 8n,
       "op": "JUMP",
       "pc": 2781,
       "stack": [
@@ -2010,9 +2010,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978166n,
-      "gasCost": 2n,
+      "gasCost": 1n,
       "op": "JUMPDEST",
       "pc": 2796,
       "stack": [
@@ -2030,9 +2030,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978165n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "SWAP3",
       "pc": 2797,
       "stack": [
@@ -2050,9 +2050,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978162n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "SWAP2",
       "pc": 2798,
       "stack": [
@@ -2070,9 +2070,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978159n,
-      "gasCost": 4n,
+      "gasCost": 2n,
       "op": "POP",
       "pc": 2799,
       "stack": [
@@ -2090,9 +2090,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978157n,
-      "gasCost": 4n,
+      "gasCost": 2n,
       "op": "POP",
       "pc": 2800,
       "stack": [
@@ -2109,9 +2109,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978155n,
-      "gasCost": 16n,
+      "gasCost": 8n,
       "op": "JUMP",
       "pc": 2801,
       "stack": [
@@ -2127,9 +2127,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978147n,
-      "gasCost": 2n,
+      "gasCost": 1n,
       "op": "JUMPDEST",
       "pc": 3172,
       "stack": [
@@ -2144,9 +2144,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978146n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "SWAP2",
       "pc": 3173,
       "stack": [
@@ -2161,9 +2161,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978143n,
-      "gasCost": 4n,
+      "gasCost": 2n,
       "op": "POP",
       "pc": 3174,
       "stack": [
@@ -2178,9 +2178,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978141n,
-      "gasCost": 4n,
+      "gasCost": 2n,
       "op": "POP",
       "pc": 3175,
       "stack": [
@@ -2194,9 +2194,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978139n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "SWAP3",
       "pc": 3176,
       "stack": [
@@ -2209,9 +2209,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978136n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "SWAP2",
       "pc": 3177,
       "stack": [
@@ -2224,9 +2224,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978133n,
-      "gasCost": 4n,
+      "gasCost": 2n,
       "op": "POP",
       "pc": 3178,
       "stack": [
@@ -2239,9 +2239,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978131n,
-      "gasCost": 4n,
+      "gasCost": 2n,
       "op": "POP",
       "pc": 3179,
       "stack": [
@@ -2253,9 +2253,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978129n,
-      "gasCost": 16n,
+      "gasCost": 8n,
       "op": "JUMP",
       "pc": 3180,
       "stack": [
@@ -2266,9 +2266,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978121n,
-      "gasCost": 2n,
+      "gasCost": 1n,
       "op": "JUMPDEST",
       "pc": 356,
       "stack": [
@@ -2278,9 +2278,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978120n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "PUSH2",
       "pc": 357,
       "stack": [
@@ -2290,9 +2290,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978117n,
-      "gasCost": 16n,
+      "gasCost": 8n,
       "op": "JUMP",
       "pc": 360,
       "stack": [
@@ -2303,9 +2303,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978109n,
-      "gasCost": 2n,
+      "gasCost": 1n,
       "op": "JUMPDEST",
       "pc": 750,
       "stack": [
@@ -2315,9 +2315,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978108n,
-      "gasCost": 4n,
+      "gasCost": 2n,
       "op": "PUSH0",
       "pc": 751,
       "stack": [
@@ -2327,9 +2327,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978106n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "DUP1",
       "pc": 752,
       "stack": [
@@ -2340,9 +2340,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978103n,
-      "gasCost": 4n,
+      "gasCost": 2n,
       "op": "PUSH0",
       "pc": 753,
       "stack": [
@@ -2354,9 +2354,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978101n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "DUP4",
       "pc": 754,
       "stack": [
@@ -2369,9 +2369,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978098n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "PUSH20",
       "pc": 755,
       "stack": [
@@ -2385,9 +2385,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978095n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "AND",
       "pc": 776,
       "stack": [
@@ -2402,9 +2402,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978092n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "PUSH20",
       "pc": 777,
       "stack": [
@@ -2418,9 +2418,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978089n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "AND",
       "pc": 798,
       "stack": [
@@ -2435,9 +2435,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978086n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "DUP2",
       "pc": 799,
       "stack": [
@@ -2451,9 +2451,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978083n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "MSTORE",
       "pc": 800,
       "stack": [
@@ -2468,9 +2468,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978080n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "PUSH1",
       "pc": 801,
       "stack": [
@@ -2483,9 +2483,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978077n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "ADD",
       "pc": 803,
       "stack": [
@@ -2499,9 +2499,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978074n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "SWAP1",
       "pc": 804,
       "stack": [
@@ -2514,9 +2514,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978071n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "DUP2",
       "pc": 805,
       "stack": [
@@ -2529,9 +2529,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978068n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "MSTORE",
       "pc": 806,
       "stack": [
@@ -2545,9 +2545,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978065n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "PUSH1",
       "pc": 807,
       "stack": [
@@ -2559,9 +2559,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978062n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "ADD",
       "pc": 809,
       "stack": [
@@ -2574,9 +2574,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978059n,
-      "gasCost": 4n,
+      "gasCost": 2n,
       "op": "PUSH0",
       "pc": 810,
       "stack": [
@@ -2588,9 +2588,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978057n,
-      "gasCost": 72n,
+      "gasCost": 42n,
       "op": "KECCAK256",
       "pc": 811,
       "stack": [
@@ -2603,7 +2603,7 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29978015n,
       "gasCost": 2100n,
       "op": "SLOAD",
@@ -2617,9 +2617,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29975915n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "SWAP1",
       "pc": 813,
       "stack": [
@@ -2631,9 +2631,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29975912n,
-      "gasCost": 4n,
+      "gasCost": 2n,
       "op": "POP",
       "pc": 814,
       "stack": [
@@ -2645,9 +2645,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29975910n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "SWAP2",
       "pc": 815,
       "stack": [
@@ -2658,9 +2658,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29975907n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "SWAP1",
       "pc": 816,
       "stack": [
@@ -2671,9 +2671,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29975904n,
-      "gasCost": 4n,
+      "gasCost": 2n,
       "op": "POP",
       "pc": 817,
       "stack": [
@@ -2684,9 +2684,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29975902n,
-      "gasCost": 16n,
+      "gasCost": 8n,
       "op": "JUMP",
       "pc": 818,
       "stack": [
@@ -2696,9 +2696,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29975894n,
-      "gasCost": 2n,
+      "gasCost": 1n,
       "op": "JUMPDEST",
       "pc": 361,
       "stack": [
@@ -2707,9 +2707,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29975893n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "PUSH1",
       "pc": 362,
       "stack": [
@@ -2718,9 +2718,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29975890n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "MLOAD",
       "pc": 364,
       "stack": [
@@ -2730,9 +2730,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29975887n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "PUSH2",
       "pc": 365,
       "stack": [
@@ -2742,9 +2742,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29975884n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "SWAP2",
       "pc": 368,
       "stack": [
@@ -2755,9 +2755,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29975881n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "SWAP1",
       "pc": 369,
       "stack": [
@@ -2768,9 +2768,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29975878n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "PUSH2",
       "pc": 370,
       "stack": [
@@ -2781,9 +2781,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29975875n,
-      "gasCost": 16n,
+      "gasCost": 8n,
       "op": "JUMP",
       "pc": 373,
       "stack": [
@@ -2795,9 +2795,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29975867n,
-      "gasCost": 2n,
+      "gasCost": 1n,
       "op": "JUMPDEST",
       "pc": 2981,
       "stack": [
@@ -2808,9 +2808,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29975866n,
-      "gasCost": 4n,
+      "gasCost": 2n,
       "op": "PUSH0",
       "pc": 2982,
       "stack": [
@@ -2821,9 +2821,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29975864n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "PUSH1",
       "pc": 2983,
       "stack": [
@@ -2835,9 +2835,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29975861n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "DUP3",
       "pc": 2985,
       "stack": [
@@ -2850,9 +2850,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29975858n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "ADD",
       "pc": 2986,
       "stack": [
@@ -2866,9 +2866,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29975855n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "SWAP1",
       "pc": 2987,
       "stack": [
@@ -2881,9 +2881,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29975852n,
-      "gasCost": 4n,
+      "gasCost": 2n,
       "op": "POP",
       "pc": 2988,
       "stack": [
@@ -2896,9 +2896,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29975850n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "PUSH2",
       "pc": 2989,
       "stack": [
@@ -2910,9 +2910,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29975847n,
-      "gasCost": 4n,
+      "gasCost": 2n,
       "op": "PUSH0",
       "pc": 2992,
       "stack": [
@@ -2925,9 +2925,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29975845n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "DUP4",
       "pc": 2993,
       "stack": [
@@ -2941,9 +2941,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29975842n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "ADD",
       "pc": 2994,
       "stack": [
@@ -2958,9 +2958,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29975839n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "DUP5",
       "pc": 2995,
       "stack": [
@@ -2974,9 +2974,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29975836n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "PUSH2",
       "pc": 2996,
       "stack": [
@@ -2991,9 +2991,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29975833n,
-      "gasCost": 16n,
+      "gasCost": 8n,
       "op": "JUMP",
       "pc": 2999,
       "stack": [
@@ -3009,9 +3009,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29975825n,
-      "gasCost": 2n,
+      "gasCost": 1n,
       "op": "JUMPDEST",
       "pc": 2966,
       "stack": [
@@ -3026,9 +3026,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29975824n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "PUSH2",
       "pc": 2967,
       "stack": [
@@ -3043,9 +3043,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29975821n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "DUP2",
       "pc": 2970,
       "stack": [
@@ -3061,9 +3061,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29975818n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "PUSH2",
       "pc": 2971,
       "stack": [
@@ -3080,9 +3080,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29975815n,
-      "gasCost": 16n,
+      "gasCost": 8n,
       "op": "JUMP",
       "pc": 2974,
       "stack": [
@@ -3100,9 +3100,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29975807n,
-      "gasCost": 2n,
+      "gasCost": 1n,
       "op": "JUMPDEST",
       "pc": 2802,
       "stack": [
@@ -3119,9 +3119,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29975806n,
-      "gasCost": 4n,
+      "gasCost": 2n,
       "op": "PUSH0",
       "pc": 2803,
       "stack": [
@@ -3138,9 +3138,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29975804n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "DUP2",
       "pc": 2804,
       "stack": [
@@ -3158,9 +3158,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29975801n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "SWAP1",
       "pc": 2805,
       "stack": [
@@ -3179,9 +3179,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29975798n,
-      "gasCost": 4n,
+      "gasCost": 2n,
       "op": "POP",
       "pc": 2806,
       "stack": [
@@ -3200,9 +3200,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29975796n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "SWAP2",
       "pc": 2807,
       "stack": [
@@ -3220,9 +3220,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29975793n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "SWAP1",
       "pc": 2808,
       "stack": [
@@ -3240,9 +3240,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29975790n,
-      "gasCost": 4n,
+      "gasCost": 2n,
       "op": "POP",
       "pc": 2809,
       "stack": [
@@ -3260,9 +3260,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29975788n,
-      "gasCost": 16n,
+      "gasCost": 8n,
       "op": "JUMP",
       "pc": 2810,
       "stack": [
@@ -3279,9 +3279,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29975780n,
-      "gasCost": 2n,
+      "gasCost": 1n,
       "op": "JUMPDEST",
       "pc": 2975,
       "stack": [
@@ -3297,9 +3297,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29975779n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "DUP3",
       "pc": 2976,
       "stack": [
@@ -3315,9 +3315,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29975776n,
-      "gasCost": 12n,
+      "gasCost": 9n,
       "op": "MSTORE",
       "pc": 2977,
       "stack": [
@@ -3334,9 +3334,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29975767n,
-      "gasCost": 4n,
+      "gasCost": 2n,
       "op": "POP",
       "pc": 2978,
       "stack": [
@@ -3351,9 +3351,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29975765n,
-      "gasCost": 4n,
+      "gasCost": 2n,
       "op": "POP",
       "pc": 2979,
       "stack": [
@@ -3367,9 +3367,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29975763n,
-      "gasCost": 16n,
+      "gasCost": 8n,
       "op": "JUMP",
       "pc": 2980,
       "stack": [
@@ -3382,9 +3382,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29975755n,
-      "gasCost": 2n,
+      "gasCost": 1n,
       "op": "JUMPDEST",
       "pc": 3000,
       "stack": [
@@ -3396,9 +3396,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29975754n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "SWAP3",
       "pc": 3001,
       "stack": [
@@ -3410,9 +3410,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29975751n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "SWAP2",
       "pc": 3002,
       "stack": [
@@ -3424,9 +3424,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29975748n,
-      "gasCost": 4n,
+      "gasCost": 2n,
       "op": "POP",
       "pc": 3003,
       "stack": [
@@ -3438,9 +3438,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29975746n,
-      "gasCost": 4n,
+      "gasCost": 2n,
       "op": "POP",
       "pc": 3004,
       "stack": [
@@ -3451,9 +3451,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29975744n,
-      "gasCost": 16n,
+      "gasCost": 8n,
       "op": "JUMP",
       "pc": 3005,
       "stack": [
@@ -3463,9 +3463,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29975736n,
-      "gasCost": 2n,
+      "gasCost": 1n,
       "op": "JUMPDEST",
       "pc": 374,
       "stack": [
@@ -3474,9 +3474,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29975735n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "PUSH1",
       "pc": 375,
       "stack": [
@@ -3485,9 +3485,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29975732n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "MLOAD",
       "pc": 377,
       "stack": [
@@ -3497,9 +3497,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29975729n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "DUP1",
       "pc": 378,
       "stack": [
@@ -3509,9 +3509,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29975726n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "SWAP2",
       "pc": 379,
       "stack": [
@@ -3522,9 +3522,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29975723n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "SUB",
       "pc": 380,
       "stack": [
@@ -3535,9 +3535,9 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29975720n,
-      "gasCost": 6n,
+      "gasCost": 3n,
       "op": "SWAP1",
       "pc": 381,
       "stack": [
@@ -3547,7 +3547,7 @@ exports[`executeCall > should execute a contract call successfully 1`] = `
       ],
     },
     {
-      "depth": 0,
+      "depth": 1,
       "gas": 29975717n,
       "gasCost": 0n,
       "op": "RETURN",

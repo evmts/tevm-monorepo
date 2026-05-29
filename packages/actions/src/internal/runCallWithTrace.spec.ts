@@ -57,6 +57,55 @@ describe('runCallWithTrace', () => {
 		expect(result.trace).toMatchSnapshot()
 	})
 
+	it('should report per-step gasCost as the full opcode cost (not double-counting the base fee) and 1-based depth', async () => {
+		await setAccountHandler(client)({
+			address: ERC20_ADDRESS,
+			deployedBytecode: ERC20_BYTECODE,
+		})
+
+		const vm = await client.getVm().then((vm) => vm.deepCopy())
+		const head = await vm.blockchain.getCanonicalHeadBlock()
+		await vm.stateManager.setStateRoot(head.header.stateRoot)
+
+		const params = {
+			data: hexToBytes(
+				encodeFunctionData({
+					abi: ERC20_ABI,
+					functionName: 'balanceOf',
+					args: [ERC20_ADDRESS],
+				}),
+			),
+			gasLimit: 16784800n,
+			to: createAddress(ERC20_ADDRESS),
+			block: await vm.blockchain.getCanonicalHeadBlock(),
+			origin: createAddress(0),
+			caller: createAddress(0),
+		}
+
+		const result = await runCallWithTrace(vm, client.logger, params)
+
+		// PUSH1 costs exactly 3 gas. The bug double-counted the base fee, reporting 6n.
+		const firstPush = result.trace.structLogs[0]
+		expect(firstPush?.op).toBe('PUSH1')
+		expect(firstPush?.gasCost).toBe(3n)
+
+		// gasCost for each step must equal the gas actually consumed (the drop in remaining gas to the next step).
+		for (let i = 0; i < result.trace.structLogs.length - 1; i++) {
+			const current = result.trace.structLogs[i]
+			const next = result.trace.structLogs[i + 1]
+			// Only compare consecutive steps at the same depth (no call/return frame change in between).
+			if (current && next && current.depth === next.depth) {
+				expect(current.gasCost).toBe(current.gas - next.gas)
+			}
+		}
+
+		// geth uses 1-based depth: the top-level frame must be depth 1, never 0.
+		for (const log of result.trace.structLogs) {
+			expect(log.depth).toBeGreaterThanOrEqual(1)
+		}
+		expect(result.trace.structLogs[0]?.depth).toBe(1)
+	})
+
 	it('should support lazy tracing mode', async () => {
 		await setAccountHandler(client)({
 			address: ERC20_ADDRESS,

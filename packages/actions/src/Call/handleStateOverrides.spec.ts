@@ -72,6 +72,30 @@ describe('handleStateOverrides', () => {
 		})
 	})
 
+	it('should not leak state-override data to console.log and use the client logger instead', async () => {
+		mockSetAccountHandlerFn.mockResolvedValue({})
+		const consoleLogSpy = vi.spyOn(console, 'log').mockImplementation(() => {})
+
+		const stateOverrideSet: StateOverrideSet = {
+			'0x1234567890123456789012345678901234567890': {
+				balance: 1000n,
+				code: '0xabcdef',
+			},
+		}
+
+		await handleStateOverrides(mockClient, stateOverrideSet)
+
+		// Regression: there was a leftover console.log('setting state', address, state)
+		expect(consoleLogSpy).not.toHaveBeenCalled()
+		// It should route through the client logger instead
+		expect(mockClient.logger.debug).toHaveBeenCalledWith(
+			{ address: '0x1234567890123456789012345678901234567890', state: { balance: 1000n, code: '0xabcdef' } },
+			'handleStateOverrides: applying state override',
+		)
+
+		consoleLogSpy.mockRestore()
+	})
+
 	it('should return errors when setAccountHandler fails', async () => {
 		const error = new Error('Test error')
 		mockSetAccountHandlerFn.mockResolvedValue({

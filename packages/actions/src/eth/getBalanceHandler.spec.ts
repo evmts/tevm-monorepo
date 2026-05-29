@@ -44,6 +44,22 @@ describe(getBalanceHandler.name, () => {
 		expect(balanceAtBlock1).toEqual(parseEther('1'))
 	})
 
+	it('should fetch balance for a historical block when given a lowercase (non-checksummed) address', async () => {
+		// Regression for cache lookup using a non-checksummed key. TevmState is keyed by EIP-55
+		// checksummed addresses, but JSON-RPC clients usually send lowercase addresses. Use an
+		// address containing letters so checksumming actually differs from the lowercase form.
+		const mixedCaseAddress = '0xb794F5eA0ba39494cE839613fffBA74279579268' as Address
+		const lowercaseAddress = mixedCaseAddress.toLowerCase() as Address
+		expect(lowercaseAddress).not.toEqual(mixedCaseAddress)
+
+		await setAccountHandler(baseClient)({ address: mixedCaseAddress, balance: parseEther('5') })
+		await mineHandler(baseClient)()
+
+		// Historical numeric block tag + lowercase address previously missed the cache and threw.
+		const balanceAtBlock0 = await handler({ address: lowercaseAddress, blockTag: 0n })
+		expect(balanceAtBlock0).toEqual(parseEther('5'))
+	})
+
 	it('should fetch balance for a specific block hash', async () => {
 		await setAccountHandler(baseClient)({ address, balance: parseEther('1') })
 		await mineHandler(baseClient)()

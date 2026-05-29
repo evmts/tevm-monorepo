@@ -77,7 +77,8 @@ export const executeCall = async (client, evmInput, params, events) => {
 
 		if (trace) {
 			trace.gas = /** @type {any} */ (runTxResult).execResult.executionGasUsed
-			trace.failed = false
+			// The lazy runCallWithTrace path never derives `failed`, so compute it from the execution result here
+			trace.failed = /** @type {any} */ (runTxResult).execResult.exceptionError !== undefined
 			trace.returnValue = bytesToHex(/** @type {any} */ (runTxResult).execResult.returnValue)
 		}
 

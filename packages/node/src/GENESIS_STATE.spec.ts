@@ -1,7 +1,28 @@
+import { parseEther } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
 import { GENESIS_STATE, prefundedAccounts } from './GENESIS_STATE.js'
 
+const MULTICALL3_ADDRESS = '0xcA11bde05977b3631167028862bE2a173976CA11'
+
 describe('GENESIS_STATE', () => {
+	it('should prefund accounts with 10000 ETH to match anvil/hardhat parity', () => {
+		// Regression for #42: previously prefunded accounts only had 1000 ETH despite the
+		// module comment promising anvil/hardhat parity of 10000 ETH.
+		for (const account of prefundedAccounts) {
+			expect((GENESIS_STATE[account] as any).balance).toBe(parseEther('10000'))
+		}
+	})
+
+	it('should predeploy multicall3 at its canonical address', () => {
+		// Regression for #12: multicall3 was passed as an ignored third tuple element to
+		// Object.fromEntries and silently dropped, breaking viem multicall on fresh nodes.
+		const multicall3 = GENESIS_STATE[MULTICALL3_ADDRESS] as any
+		expect(multicall3).toBeDefined()
+		expect(multicall3.deployedBytecode).toMatch(/^0x6080604052/)
+		expect(multicall3.codeHash).not.toBe('0x')
+		expect(multicall3.storageRoot).not.toBe('0x')
+	})
+
 	it('should have a valid structure', () => {
 		expect(GENESIS_STATE).toBeDefined()
 		// Check that the GENESIS_STATE contains all the expected prefunded accounts

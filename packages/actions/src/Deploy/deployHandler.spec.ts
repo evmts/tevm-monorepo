@@ -1,5 +1,5 @@
 import { createAddress } from '@tevm/address'
-import { InvalidRequestError } from '@tevm/errors'
+import { InvalidRequestError, RevertError } from '@tevm/errors'
 import { createTevmNode } from '@tevm/node'
 import { bytesToHex, type Hex, parseAbi } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
@@ -60,6 +60,31 @@ describe('deployHandler', () => {
 				})
 			).data,
 		).toBe(initialValue)
+	})
+
+	it('should decode a constructor revert with a custom error from rawData', async () => {
+		// Contract whose constructor reverts with `error ConstructorReverted(uint256 code)` (revert ...(42))
+		// compiled with solc 0.8 (optimized)
+		const revertConstructorBytecode =
+			'0x6080604052348015600e575f5ffd5b50604051637636469160e11b8152602a600482015260240160405180910390fdfe' as const
+		const revertConstructorAbi = parseAbi(['constructor()', 'error ConstructorReverted(uint256 code)'])
+
+		const client = createTevmNode({ loggingLevel: 'warn' })
+		const result = await deployHandler(client)({
+			abi: revertConstructorAbi,
+			bytecode: revertConstructorBytecode,
+			args: [],
+			throwOnFail: false,
+		})
+
+		expect(result.errors).toBeDefined()
+		const err = result.errors?.[0]
+		expect(err).toBeInstanceOf(RevertError)
+		// Regression: previously the guard used err.message (always 'revert') so the custom
+		// error was never decoded. It must now be decoded from result.rawData.
+		expect(err?.message).toContain('Revert:')
+		expect(err?.message).toContain('ConstructorReverted')
+		expect(err?.message).toContain('42')
 	})
 
 	it('should throw an InvalidRequestError when constructor args are incorrect', async () => {
