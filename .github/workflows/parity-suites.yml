@@ -21,7 +21,7 @@ jobs:
         run: PARITY_ARTIFACT_DIR=artifacts/parity pnpm test:parity:rpc
       - name: Upload parity RPC artifacts
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: parity-rpc-fast-artifacts
           path: artifacts/parity/rpc
@@ -39,7 +39,7 @@ jobs:
         run: PARITY_ARTIFACT_DIR=artifacts/parity pnpm test:conformance:all
       - name: Upload parity state-test artifacts
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: parity-state-tests-all-artifacts
           path: |
@@ -59,7 +59,7 @@ jobs:
         run: PARITY_ARTIFACT_DIR=artifacts/parity pnpm test:hive:smoke
       - name: Upload parity Hive artifacts
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: parity-hive-smoke-artifacts
           path: |
