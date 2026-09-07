@@ -1,0 +1,37 @@
+{
+	"$schema": "https://context7.com/schema/context7.json",
+	"projectTitle": "Tevm",
+	"description": "A JavaScript-native Ethereum runtime for TypeScript apps, tests, and tools — fork chains and run the EVM locally with viem-compatible APIs and type-safe Solidity imports.",
+	"folders": ["docs/node/pages"],
+	"excludeFolders": [
+		"node_modules",
+		"dist",
+		"docs/node/dist",
+		"lib",
+		"releases",
+		".changeset",
+		"coverage",
+		"memory-bank",
+		"prompts",
+		"docs/triage",
+		"docs/triage-reports"
+	],
+	"excludeFiles": [
+		"CLAUDE.md",
+		"CONTRIBUTING.md",
+		"COVERAGE.md",
+		"Debugger.md",
+		"JSR.md",
+		"TODO.md",
+		"fix-report.md",
+		"review.md",
+		"verification_report.md"
+	],
+	"rules": [
+		"Tevm is a JavaScript-native Ethereum runtime that runs in browsers, Node.js, Bun, Deno, serverless functions, and edge runtimes",
+		"Use createMemoryClient() as the batteries-included entrypoint for viem public, wallet, and test actions plus Tevm-specific actions",
+		"Import chain configurations from 'tevm/common'; the removed 'tevm/chains' alias is not supported",
+		"Use Tevm bundler plugins to import Solidity directly in TypeScript; .sol imports contain ABI data while .s.sol imports also contain deployable bytecode"
+	],
+	"previousVersions": []
+}
